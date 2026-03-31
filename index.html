@@ -610,6 +610,8 @@ footer {
   <a href="#results">Results</a>
   <a href="#papers">Papers</a>
   <a href="pipeline.html">Pipeline</a>
+  <a href="news.html">News</a>
+  <a href="faqs.html">137 FAQs</a>
   <a href="#contact">Contact</a>
 </nav>
 
@@ -966,7 +968,21 @@ footer {
 
 <div class="foot-bar">
   Pentagon Physics &middot; Eric McLean &middot; Cyprus &middot; 80 papers &middot; Open access &middot; CC BY 4.0
+  &ensp;&middot;&ensp; <span style="color:var(--border-hi);">visitors</span> <span id="visitor-count" style="color:var(--text-dim);">—</span>
 </div>
 
+<script>
+// Visitor counter using countapi.xyz (free, no signup)
+(async () => {
+  try {
+    const r = await fetch('https://api.countapi.xyz/hit/pentagonphysics.com/visits');
+    const d = await r.json();
+    if (d && d.value) {
+      const el = document.getElementById('visitor-count');
+      if (el) el.textContent = d.value.toLocaleString();
+    }
+  } catch(e) {}
+})();
+</script>
 </body>
 </html>

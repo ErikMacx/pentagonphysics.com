@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Physics News — latest research from arXiv in high energy physics, mathematical physics, and quantum field theory. Curated for Pentagon Physics readers.">
+<meta name="author" content="Eric McLean">
+<title>Physics News — Pentagon Physics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#F2C94C; --gold-dim:#9A7820; --gold-pale:#FBE89A;
+  --bg:#090909; --bg2:#111113; --bg3:#19191E;
+  --border:rgba(255,255,255,0.1); --border-hi:rgba(255,255,255,0.2);
+  --text:#F0EDE6; --text-mid:#C0BCB4; --text-dim:#807C76;
+  --accent:#5DA8D0; --red:#E05A5A;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --pad:8vw;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.75;overflow-x:hidden;}
+
+header{
+  background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);
+  padding:0 var(--pad);display:flex;gap:2.5rem;align-items:center;height:52px;
+  position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);
+}
+header a{color:var(--text-dim);text-decoration:none;font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header a.active{color:var(--gold);border-bottom:1px solid var(--gold);}
+header .logo{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;}
+
+/* HERO */
+.hero{
+  padding:5rem var(--pad) 3rem;
+  border-bottom:1px solid var(--border-hi);
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:end;
+  gap:2rem;
+}
+.hero-left .hero-tag{font-size:0.72rem;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.hero-left h1{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4rem);font-weight:700;color:var(--text);line-height:1.05;margin-bottom:0.8rem;}
+.hero-left p{font-size:0.95rem;color:var(--text-mid);max-width:55ch;line-height:1.7;}
+
+.live-badge{
+  display:flex;align-items:center;gap:0.5rem;
+  font-size:0.7rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--text-dim);
+}
+.live-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--text-dim);
+  animation:pulse 2s infinite;
+}
+.live-dot.active{background:#4CAF50;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+/* FEED FILTERS */
+.feed-bar{
+  padding:1rem var(--pad);
+  background:var(--bg2);
+  border-bottom:1px solid var(--border-hi);
+  display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;
+}
+.feed-label{font-size:0.68rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-right:0.5rem;}
+.feed-btn{
+  font-size:0.7rem;font-weight:500;letter-spacing:0.08em;
+  padding:0.3em 0.9em;cursor:pointer;
+  border:1px solid var(--border-hi);
+  background:transparent;color:var(--text-dim);
+  transition:all 0.2s;
+}
+.feed-btn:hover{color:var(--text);border-color:var(--border-hi);}
+.feed-btn.active{background:var(--gold);color:#090909;border-color:var(--gold);font-weight:600;}
+
+/* MAIN LAYOUT */
+.main{
+  display:grid;
+  grid-template-columns:1fr 320px;
+  min-height:70vh;
+}
+
+/* ARTICLES */
+.articles{
+  padding:2.5rem var(--pad) 4rem;
+  border-right:1px solid var(--border);
+}
+
+.feed-section{margin-bottom:3rem;}
+
+.feed-section-header{
+  display:flex;align-items:center;gap:1rem;
+  margin-bottom:1.2rem;
+  padding-bottom:0.7rem;
+  border-bottom:1px solid var(--border-hi);
+}
+.feed-section-title{
+  font-family:var(--serif);
+  font-size:1.1rem;font-weight:700;color:var(--text);
+}
+.feed-source-badge{
+  font-size:0.62rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
+  padding:0.2em 0.7em;
+  border:1px solid;
+}
+.badge-arxiv{color:#B31B1B;border-color:rgba(179,27,27,0.4);background:rgba(179,27,27,0.08);}
+.badge-zenodo{color:#5DA8D0;border-color:rgba(93,168,208,0.4);background:rgba(93,168,208,0.08);}
+.badge-prl{color:#9C6ADE;border-color:rgba(156,106,222,0.4);background:rgba(156,106,222,0.08);}
+
+.feed-count{font-size:0.72rem;color:var(--text-dim);margin-left:auto;}
+
+/* ARTICLE CARDS */
+.article-card{
+  padding:1.2rem 0;
+  border-bottom:1px solid var(--border);
+  transition:padding-left 0.15s;
+  cursor:pointer;
+}
+.article-card:hover{padding-left:0.6rem;}
+.article-card:last-child{border-bottom:none;}
+
+.article-meta{
+  display:flex;gap:0.8rem;align-items:center;
+  margin-bottom:0.4rem;flex-wrap:wrap;
+}
+.article-cat{
+  font-size:0.62rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--gold);
+}
+.article-date{font-size:0.72rem;color:var(--text-dim);}
+.article-authors{font-size:0.72rem;color:var(--text-dim);}
+
+.article-title{
+  font-size:1rem;font-weight:500;color:var(--text);
+  line-height:1.35;margin-bottom:0.4rem;
+  text-decoration:none;display:block;
+  transition:color 0.2s;
+}
+.article-title:hover{color:var(--gold);}
+
+.article-summary{
+  font-size:0.85rem;color:var(--text-dim);
+  line-height:1.6;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+/* LOADING / ERROR */
+.loading{
+  padding:3rem 0;text-align:center;
+  color:var(--text-dim);font-size:0.9rem;
+}
+.loading-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin:0 3px;animation:bounce 1.2s infinite;}
+.loading-dot:nth-child(2){animation-delay:0.2s;}
+.loading-dot:nth-child(3){animation-delay:0.4s;}
+@keyframes bounce{0%,80%,100%{transform:translateY(0);}40%{transform:translateY(-6px);}}
+
+.error-msg{padding:2rem 0;color:var(--text-dim);font-size:0.88rem;}
+
+/* SIDEBAR */
+.sidebar{padding:2.5rem 2rem 4rem;}
+
+.sidebar-section{margin-bottom:2.5rem;}
+.sidebar-title{
+  font-size:0.68rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem;padding-bottom:0.5rem;
+  border-bottom:1px solid var(--border-hi);
+}
+
+/* KEYWORD PILLS */
+.keywords{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.kw{
+  font-size:0.7rem;font-weight:400;
+  padding:0.2em 0.7em;
+  border:1px solid var(--border);
+  color:var(--text-dim);cursor:pointer;
+  transition:all 0.2s;
+}
+.kw:hover,.kw.active{color:var(--gold);border-color:var(--gold-dim);background:rgba(242,201,76,0.06);}
+
+/* SOURCES LIST */
+.source-item{
+  display:flex;align-items:center;gap:0.8rem;
+  padding:0.6rem 0;border-bottom:1px solid var(--border);
+  font-size:0.85rem;
+}
+.source-item:last-child{border-bottom:none;}
+.source-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.source-name{color:var(--text-mid);flex:1;}
+.source-status{font-size:0.68rem;color:var(--text-dim);}
+
+/* RELATED */
+.related-item{
+  padding:0.7rem 0;
+  border-bottom:1px solid var(--border);
+}
+.related-item:last-child{border-bottom:none;}
+.related-item a{
+  font-size:0.88rem;color:var(--text-mid);text-decoration:none;
+  line-height:1.4;display:block;transition:color 0.2s;
+}
+.related-item a:hover{color:var(--gold);}
+.related-item .ri-tag{font-size:0.65rem;color:var(--text-dim);margin-top:0.2rem;}
+
+footer{
+  background:var(--bg2);border-top:1px solid var(--border-hi);
+  padding:2rem var(--pad);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+footer p{font-size:0.82rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;font-size:0.82rem;}
+footer a:hover{color:var(--gold);}
+
+@media(max-width:900px){
+  .main{grid-template-columns:1fr;}
+  .sidebar{border-top:1px solid var(--border);padding:2rem var(--pad);}
+  .hero{grid-template-columns:1fr;}
+  .live-badge{display:none;}
+}
+@media(max-width:600px){
+  :root{--pad:6vw;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">Pentagon Physics</a>
+  <a href="index.html#programme">Programme</a>
+  <a href="index.html#results">Results</a>
+  <a href="index.html#papers">Papers</a>
+  <a href="pipeline.html">Pipeline</a>
+  <a href="news.html" class="active">News</a>
+  <a href="index.html#contact">Contact</a>
+</header>
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Live feed</div>
+    <h1>Physics News</h1>
+    <p>Latest research from arXiv in high energy physics, mathematical physics, and quantum field theory — refreshed on every visit.</p>
+  </div>
+  <div class="live-badge">
+    <div class="live-dot active" id="live-dot"></div>
+    <span id="live-status">Loading…</span>
+  </div>
+</div>
+
+<div class="feed-bar">
+  <span class="feed-label">Filter</span>
+  <button class="feed-btn active" onclick="setFilter('all')">All</button>
+  <button class="feed-btn" onclick="setFilter('hep-ph')">hep-ph</button>
+  <button class="feed-btn" onclick="setFilter('hep-th')">hep-th</button>
+  <button class="feed-btn" onclick="setFilter('math-ph')">math-ph</button>
+  <button class="feed-btn" onclick="setFilter('gr-qc')">gr-qc</button>
+  <button class="feed-btn" onclick="setFilter('zenodo')">Zenodo</button>
+</div>
+
+<div class="main">
+  <div class="articles" id="articles-col">
+    <div class="loading" id="main-loading">
+      <div class="loading-dot"></div>
+      <div class="loading-dot"></div>
+      <div class="loading-dot"></div>
+      <p style="margin-top:1rem;">Fetching latest papers…</p>
+    </div>
+  </div>
+
+  <div class="sidebar">
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Keywords</div>
+      <div class="keywords" id="kw-list">
+        <span class="kw active" onclick="toggleKW(this,'')">All</span>
+        <span class="kw" onclick="toggleKW(this,'fine structure constant')">fine structure constant</span>
+        <span class="kw" onclick="toggleKW(this,'standard model')">Standard Model</span>
+        <span class="kw" onclick="toggleKW(this,'neutrino mass')">neutrino mass</span>
+        <span class="kw" onclick="toggleKW(this,'higgs')">Higgs</span>
+        <span class="kw" onclick="toggleKW(this,'gravitational constant')">gravitational</span>
+        <span class="kw" onclick="toggleKW(this,'cosmological constant')">cosmological constant</span>
+        <span class="kw" onclick="toggleKW(this,'golden ratio')">golden ratio</span>
+        <span class="kw" onclick="toggleKW(this,'self-referential')">self-referential</span>
+        <span class="kw" onclick="toggleKW(this,'600-cell')">600-cell</span>
+        <span class="kw" onclick="toggleKW(this,'proton mass')">proton mass</span>
+        <span class="kw" onclick="toggleKW(this,'dark energy')">dark energy</span>
+        <span class="kw" onclick="toggleKW(this,'alpha')">alpha</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Sources</div>
+      <div id="sources-list">
+        <div class="source-item">
+          <div class="source-dot" style="background:#B31B1B;"></div>
+          <span class="source-name">arXiv hep-ph</span>
+          <span class="source-status" id="status-hep-ph">loading…</span>
+        </div>
+        <div class="source-item">
+          <div class="source-dot" style="background:#B31B1B;"></div>
+          <span class="source-name">arXiv hep-th</span>
+          <span class="source-status" id="status-hep-th">loading…</span>
+        </div>
+        <div class="source-item">
+          <div class="source-dot" style="background:#B31B1B;"></div>
+          <span class="source-name">arXiv math-ph</span>
+          <span class="source-status" id="status-math-ph">loading…</span>
+        </div>
+        <div class="source-item">
+          <div class="source-dot" style="background:#B31B1B;"></div>
+          <span class="source-name">arXiv gr-qc</span>
+          <span class="source-status" id="status-gr-qc">loading…</span>
+        </div>
+        <div class="source-item">
+          <div class="source-dot" style="background:#5DA8D0;"></div>
+          <span class="source-name">Zenodo · Eric McLean</span>
+          <span class="source-status" id="status-zenodo">loading…</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Pentagon Physics Papers</div>
+      <div class="related-item"><a href="papers/solving-alpha-the-prime-spectrum-of-self-reference.html">Solving Alpha — The Prime Spectrum of Self-Reference</a><div class="ri-tag">doi:18648550 · QED</div></div>
+      <div class="related-item"><a href="papers/gravity-from-confinement.html">Gravity from Confinement</a><div class="ri-tag">doi:19100930 · Gravity</div></div>
+      <div class="related-item"><a href="papers/the-constants-are-theorems-geometric-unification-of-and.html">The Constants Are Theorems</a><div class="ri-tag">doi:18669206 · Cosmology</div></div>
+      <div class="related-item"><a href="papers/majorana-neutrino-masses-derived.html">Majorana Neutrino Masses Derived</a><div class="ri-tag">doi:19135102 · Neutrino Physics</div></div>
+      <div class="related-item"><a href="papers/the-standard-model-lives-in-a-single-character-table.html">The Standard Model Lives in a Single Character Table</a><div class="ri-tag">doi:19003856 · Geometry</div></div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>Pentagon Physics · Eric McLean · Cyprus · Live feeds from arXiv and Zenodo</p>
+  <a href="index.html">← Back to main site</a>
+</footer>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────
+const API = 'https://api.rss2json.com/v1/api.json?rss_url=';
+
+const FEEDS = {
+  'hep-ph': {
+    url: 'https://rss.arxiv.org/rss/hep-ph',
+    label: 'hep-ph · High Energy Physics — Phenomenology',
+    badge: 'badge-arxiv',
+    badgeText: 'arXiv',
+    color: '#B31B1B'
+  },
+  'hep-th': {
+    url: 'https://rss.arxiv.org/rss/hep-th',
+    label: 'hep-th · High Energy Physics — Theory',
+    badge: 'badge-arxiv',
+    badgeText: 'arXiv',
+    color: '#B31B1B'
+  },
+  'math-ph': {
+    url: 'https://rss.arxiv.org/rss/math-ph',
+    label: 'math-ph · Mathematical Physics',
+    badge: 'badge-arxiv',
+    badgeText: 'arXiv',
+    color: '#B31B1B'
+  },
+  'gr-qc': {
+    url: 'https://rss.arxiv.org/rss/gr-qc',
+    label: 'gr-qc · General Relativity & Quantum Cosmology',
+    badge: 'badge-arxiv',
+    badgeText: 'arXiv',
+    color: '#B31B1B'
+  },
+  'zenodo': {
+    url: 'https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22McLean%2C+Eric%22&format=rss',
+    label: 'Zenodo · Eric McLean — Latest Papers',
+    badge: 'badge-zenodo',
+    badgeText: 'Zenodo',
+    color: '#5DA8D0'
+  }
+};
+
+const ITEMS_PER_FEED = 12;
+let allArticles = {};
+let activeFilter = 'all';
+let activeKW = '';
+
+// ── FETCH ────────────────────────────────────────────────────
+async function fetchFeed(key) {
+  const feed = FEEDS[key];
+  try {
+    const res = await fetch(`${API}${encodeURIComponent(feed.url)}&count=${ITEMS_PER_FEED}`);
+    const data = await res.json();
+    if (data.status === 'ok' && data.items) {
+      allArticles[key] = data.items.map(item => ({
+        ...item,
+        feedKey: key,
+        feed: feed
+      }));
+      document.getElementById(`status-${key}`).textContent = `${data.items.length} articles`;
+      return data.items.length;
+    }
+  } catch(e) {
+    document.getElementById(`status-${key}`).textContent = 'unavailable';
+  }
+  return 0;
+}
+
+// ── RENDER ───────────────────────────────────────────────────
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  try {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+  } catch { return ''; }
+}
+
+function getAuthors(item) {
+  if (item.author) return item.author;
+  if (item.creator) return item.creator;
+  return '';
+}
+
+function matchesKW(item, kw) {
+  if (!kw) return true;
+  const text = ((item.title||'') + ' ' + (item.description||'') + ' ' + (item.content||'')).toLowerCase();
+  return text.includes(kw.toLowerCase());
+}
+
+function renderArticle(item) {
+  const date = formatDate(item.pubDate);
+  const authors = getAuthors(item);
+  const summary = (item.description || item.content || '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 220);
+
+  return `<div class="article-card">
+    <div class="article-meta">
+      <span class="article-cat">${item.feedKey}</span>
+      ${date ? `<span class="article-date">${date}</span>` : ''}
+      ${authors ? `<span class="article-authors">${authors.split(',').slice(0,3).join(', ')}${authors.split(',').length > 3 ? ' et al.' : ''}</span>` : ''}
+    </div>
+    <a class="article-title" href="${item.link}" target="_blank" rel="noopener">${item.title || 'Untitled'}</a>
+    ${summary ? `<div class="article-summary">${summary}…</div>` : ''}
+  </div>`;
+}
+
+function renderFeeds() {
+  const col = document.getElementById('articles-col');
+  const keys = activeFilter === 'all' ? Object.keys(FEEDS) : [activeFilter];
+  let html = '';
+  let total = 0;
+
+  for (const key of keys) {
+    const items = (allArticles[key] || []).filter(item => matchesKW(item, activeKW));
+    if (!items.length) continue;
+    const feed = FEEDS[key];
+    html += `<div class="feed-section" id="section-${key}">
+      <div class="feed-section-header">
+        <div class="feed-section-title">${feed.label}</div>
+        <span class="feed-source-badge ${feed.badge}">${feed.badgeText}</span>
+        <span class="feed-count">${items.length} articles</span>
+      </div>
+      ${items.map(renderArticle).join('')}
+    </div>`;
+    total += items.length;
+  }
+
+  if (!html) {
+    html = `<div class="error-msg">No articles found${activeKW ? ` matching "${activeKW}"` : ''}. Try a different filter or keyword.</div>`;
+  }
+
+  // Remove loading spinner
+  document.getElementById('main-loading')?.remove();
+  col.innerHTML = html;
+}
+
+// ── CONTROLS ─────────────────────────────────────────────────
+function setFilter(key) {
+  activeFilter = key;
+  document.querySelectorAll('.feed-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderFeeds();
+}
+
+function toggleKW(el, kw) {
+  document.querySelectorAll('.kw').forEach(k => k.classList.remove('active'));
+  el.classList.add('active');
+  activeKW = kw;
+  renderFeeds();
+}
+
+// ── INIT ─────────────────────────────────────────────────────
+async function init() {
+  const dot = document.getElementById('live-dot');
+  const status = document.getElementById('live-status');
+
+  const results = await Promise.all(Object.keys(FEEDS).map(fetchFeed));
+  const total = results.reduce((a,b) => a+b, 0);
+
+  if (total > 0) {
+    dot.classList.add('active');
+    status.textContent = `${total} articles loaded`;
+  } else {
+    dot.classList.remove('active');
+    status.textContent = 'Feed unavailable';
+  }
+
+  renderFeeds();
+}
+
+init();
+</script>
+</body>
+</html>

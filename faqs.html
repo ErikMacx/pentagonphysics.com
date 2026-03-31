@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The 137 FAQs of Physics — 137 Questions, One Equation. Pentagon Physics answers the deepest questions in physics from the single axiom σ = 1/(1+σ).">
+<meta name="keywords" content="Pentagon Physics, fine structure constant, 137 FAQs, physics questions, Standard Model, Eric McLean, why 1/137, cosmological constant, quantum mechanics, gravity">
+<meta name="author" content="Eric McLean">
+<title>The 137 FAQs of Physics — Pentagon Physics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#F2C94C; --gold-dim:#9A7820; --gold-pale:#FBE89A;
+  --bg:#090909; --bg2:#111113; --bg3:#19191E;
+  --border:rgba(255,255,255,0.1); --border-hi:rgba(255,255,255,0.2);
+  --text:#F0EDE6; --text-mid:#C0BCB4; --text-dim:#807C76;
+  --accent:#5DA8D0; --green:#4CAF50; --amber:#E8A840; --red:#E06060;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --pad:8vw;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.75;overflow-x:hidden;}
+
+header{
+  background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);
+  padding:0 var(--pad);display:flex;gap:2.5rem;align-items:center;height:52px;
+  position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);
+}
+header a{color:var(--text-dim);text-decoration:none;font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header a.active{color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px;}
+header .logo{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;}
+
+.hero{
+  padding:5rem var(--pad) 3rem;
+  border-bottom:1px solid var(--border-hi);
+}
+.hero-tag{font-size:0.72rem;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.hero h1{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;color:var(--text);line-height:1.05;margin-bottom:0.5rem;}
+.hero h1 span{color:var(--accent);}
+.hero-sub{font-size:1rem;color:var(--text-mid);margin-bottom:2rem;max-width:60ch;line-height:1.7;}
+
+.stat-row{
+  display:flex;gap:2.5rem;flex-wrap:wrap;
+  padding:1rem 0;
+  border-top:1px solid var(--border-hi);
+}
+.stat-item{display:flex;align-items:baseline;gap:0.5rem;}
+.stat-n{font-family:var(--serif);font-size:1.8rem;font-weight:700;color:var(--gold);line-height:1;}
+.stat-l{font-size:0.68rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);}
+.stat-item.derived .stat-n{color:var(--green);}
+.stat-item.consistent .stat-n{color:var(--amber);}
+.stat-item.open-q .stat-n{color:var(--text-dim);}
+
+.status-key{
+  display:flex;gap:2rem;flex-wrap:wrap;
+  padding:1rem var(--pad);
+  background:var(--bg2);border-bottom:1px solid var(--border-hi);
+  font-size:0.78rem;
+}
+.sk{display:flex;align-items:center;gap:0.5rem;color:var(--text-dim);}
+
+/* SEARCH + NAV */
+.controls{
+  padding:1.5rem var(--pad);
+  background:var(--bg2);border-bottom:1px solid var(--border-hi);
+  display:flex;flex-direction:column;gap:1rem;
+}
+
+.search-wrap{position:relative;max-width:500px;}
+.search-input{
+  width:100%;
+  background:var(--bg3);border:1px solid var(--border-hi);
+  color:var(--text);font-family:var(--sans);font-size:0.9rem;
+  padding:0.65rem 1rem 0.65rem 2.5rem;
+  outline:none;transition:border-color 0.2s;
+}
+.search-input:focus{border-color:var(--gold);}
+.search-input::placeholder{color:var(--text-dim);}
+.search-icon{position:absolute;left:0.8rem;top:50%;transform:translateY(-50%);color:var(--text-dim);font-size:0.85rem;pointer-events:none;}
+
+.nav-pills{display:flex;gap:0.4rem;flex-wrap:wrap;}
+.nav-pill{
+  font-size:0.68rem;font-weight:500;letter-spacing:0.05em;
+  padding:0.25em 0.8em;
+  border:1px solid var(--border);
+  color:var(--text-dim);text-decoration:none;
+  transition:all 0.2s;
+  display:inline-flex;align-items:center;gap:0.4rem;
+}
+.nav-pill:hover{color:var(--gold);border-color:var(--gold-dim);}
+.nav-pill span{font-size:0.62rem;color:var(--text-dim);}
+
+/* FAQ BODY */
+.faq-body{padding:3rem var(--pad) 5rem;}
+
+.faq-section{margin-bottom:3rem;}
+
+.sec-heading{
+  font-family:var(--serif);
+  font-size:1.2rem;font-weight:700;
+  color:var(--text);
+  padding:1rem 0 0.7rem;
+  margin-bottom:0;
+  border-bottom:2px solid var(--gold-dim);
+  display:flex;justify-content:space-between;align-items:baseline;
+}
+
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-item.hidden{display:none;}
+
+.faq-q{
+  display:grid;
+  grid-template-columns:44px 1fr auto auto;
+  align-items:center;
+  gap:1rem;
+  padding:1rem 0;
+  cursor:pointer;
+  transition:background 0.15s;
+  user-select:none;
+}
+.faq-q:hover{background:rgba(255,255,255,0.02);padding-left:0.5rem;margin-left:-0.5rem;}
+
+.faq-num{
+  font-family:var(--serif);
+  font-size:1rem;font-weight:700;
+  color:var(--gold-dim);line-height:1;
+  text-align:right;
+}
+
+.faq-question{
+  font-size:0.98rem;font-weight:400;
+  color:var(--text);line-height:1.4;
+}
+
+.status{
+  font-size:1rem;font-weight:700;
+  flex-shrink:0;
+}
+.status.derived{color:var(--green);}
+.status.consistent{color:var(--amber);}
+.status.open{color:var(--text-dim);}
+
+.faq-chevron{
+  color:var(--text-dim);font-size:1.2rem;
+  transition:transform 0.25s;flex-shrink:0;
+}
+.faq-q.open .faq-chevron{transform:rotate(90deg);}
+
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.3s ease, padding 0.2s;
+  padding:0 0 0 56px;
+}
+.faq-a.open{max-height:400px;padding:0 0 1.2rem 56px;}
+.faq-a p{
+  font-size:0.97rem;color:var(--text-mid);
+  line-height:1.85;margin-bottom:0.6rem;
+}
+.faq-doi{
+  font-size:0.7rem;font-weight:500;
+  letter-spacing:0.04em;
+  color:var(--accent);text-decoration:none;
+  padding:0.2em 0.7em;
+  border:1px solid rgba(93,168,208,0.25);
+  transition:all 0.2s;
+}
+.faq-doi:hover{color:var(--gold);border-color:rgba(242,201,76,0.4);}
+
+.no-results{
+  padding:3rem 0;text-align:center;
+  color:var(--text-dim);font-size:0.95rem;
+  display:none;
+}
+
+footer{
+  background:var(--bg2);border-top:1px solid var(--border-hi);
+  padding:2rem var(--pad);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+footer p{font-size:0.82rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;font-size:0.82rem;}
+footer a:hover{color:var(--gold);}
+
+@media(max-width:600px){
+  :root{--pad:6vw;}
+  .faq-q{grid-template-columns:36px 1fr auto auto;gap:0.6rem;}
+  .faq-a{padding-left:44px;}
+  .faq-a.open{padding-left:44px;}
+  .stat-row{gap:1.5rem;}
+  header{gap:1.5rem;overflow-x:auto;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">Pentagon Physics</a>
+  <a href="index.html#programme">Programme</a>
+  <a href="index.html#results">Results</a>
+  <a href="index.html#papers">Papers</a>
+  <a href="pipeline.html">Pipeline</a>
+  <a href="news.html">News</a>
+  <a href="faqs.html" class="active">FAQs</a>
+  <a href="index.html#contact">Contact</a>
+</header>
+
+<div class="hero">
+  <div class="hero-tag">137 Questions · One Equation</div>
+  <h1>The 137 FAQs<br>of <span>Physics</span></h1>
+  <p class="hero-sub">Physics has accumulated questions it cannot answer. This page works through them. Every answer cites the paper that proves it. The framework generating all answers is the single axiom σ = 1/(1+σ).</p>
+  <div class="stat-row">
+    <div class="stat-item"><div class="stat-n">137</div><div class="stat-l">Questions</div></div>
+    <div class="stat-item derived"><div class="stat-n">126</div><div class="stat-l">Derived ✓</div></div>
+    <div class="stat-item consistent"><div class="stat-n">10</div><div class="stat-l">In progress ≈</div></div>
+    <div class="stat-item open-q"><div class="stat-n">1</div><div class="stat-l">Open ○</div></div>
+    <div class="stat-item"><div class="stat-n">0</div><div class="stat-l">Free parameters</div></div>
+  </div>
+</div>
+
+<div class="status-key">
+  <div class="sk"><span style="color:var(--green);font-weight:700;">✓ Derived</span> — zero free parameters, result published</div>
+  <div class="sk"><span style="color:var(--amber);font-weight:700;">≈ Consistent</span> — derivation in progress</div>
+  <div class="sk"><span style="color:var(--text-dim);font-weight:700;">○ Open</span> — stated as the next mathematical step</div>
+</div>
+
+<div class="controls">
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input class="search-input" type="text" id="search" placeholder="Search questions and answers…" oninput="filterFAQs(this.value)">
+  </div>
+  <div class="nav-pills">
+      <a class="nav-pill" href="#sec-thefoundations">The Foundations <span>10</span></a>
+      <a class="nav-pill" href="#sec-thefundamentalconstants">The Fundamental Constants <span>13</span></a>
+      <a class="nav-pill" href="#sec-thehierarchyproblems">The Hierarchy Problems <span>5</span></a>
+      <a class="nav-pill" href="#sec-particlephysicsthestandardmodel">Particle Physics &amp; the Standard Model <span>21</span></a>
+      <a class="nav-pill" href="#sec-nuclearhadronicphysics">Nuclear &amp; Hadronic Physics <span>6</span></a>
+      <a class="nav-pill" href="#sec-cosmology">Cosmology <span>15</span></a>
+      <a class="nav-pill" href="#sec-quantummechanics">Quantum Mechanics <span>13</span></a>
+      <a class="nav-pill" href="#sec-gravityspacetime">Gravity &amp; Spacetime <span>7</span></a>
+      <a class="nav-pill" href="#sec-timethermodynamics">Time &amp; Thermodynamics <span>7</span></a>
+      <a class="nav-pill" href="#sec-mathematicalstructure">Mathematical Structure <span>8</span></a>
+      <a class="nav-pill" href="#sec-structure,lifeemergence">Structure, Life &amp; Emergence <span>5</span></a>
+      <a class="nav-pill" href="#sec-themeta-questions">The Meta-Questions <span>7</span></a>
+      <a class="nav-pill" href="#sec-twentymore">Twenty More <span>20</span></a>
+  </div>
+</div>
+
+<div class="faq-body" id="faq-body">
+  <div class="faq-section" id="sec-thefoundations">
+    <div class="sec-heading">The Foundations</div>
+    <div class="faq-item" id="q1">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">001</span>
+        <span class="faq-question">Why is there something rather than nothing?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The axiom σ = 1/(1+σ) is the minimal condition under which a definition can contain itself. A self-referential system must exist: it generates its own existence as a logical necessity. Nothing cannot satisfy a self-referential equation. Something must.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18755516" target="_blank">18755516</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q2">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">002</span>
+        <span class="faq-question">Why is mathematics unreasonably effective in describing nature?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because nature is mathematics. The universe is not described by the axiom : it is the axiom, iterating. There is no gap between the map and the territory.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18680907" target="_blank">18680907</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q3">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">003</span>
+        <span class="faq-question">Why does physics have equations at all?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because self-reference is variational. The equilibrium condition of σ = 1/(1+σ) produces a system that persists by extremising an action. Physics has equations because self-referential systems have attractors.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18632291" target="_blank">18632291</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q4">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">004</span>
+        <span class="faq-question">Why does nature obey the principle of least action?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because self-reference requires balance along trajectories. The action principle δS = 0 is the variational statement of σ = 1/(1+σ). Nature is Lagrangian because self-reference is variational.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18632291" target="_blank">18632291</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q5">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">005</span>
+        <span class="faq-question">Why does the Lagrangian have the form T − V?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>T is the outward leg; V is the return. Self-reference requires both directions. The difference T − V measures the imbalance between them. Minimising S sets the imbalance to its equilibrium value.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18632291" target="_blank">18632291</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q6">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">006</span>
+        <span class="faq-question">Why are the laws of physics the same everywhere?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because they are the axiom. The axiom has no position coordinate. It applies identically at every point because it is not a local rule : it is a logical identity.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18680907" target="_blank">18680907</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q7">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">007</span>
+        <span class="faq-question">Why are the laws of physics the same at all times?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The axiom has no time parameter. The exchange rate φ does not run. The laws are time-invariant because they are logical truths, not contingent facts.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18680907" target="_blank">18680907</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q8">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">008</span>
+        <span class="faq-question">Why does symmetry govern physics?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because the axiom σ = 1/(1+σ) is symmetric under the Galois automorphism √5 → −√5. Every symmetry group in physics is a remnant of this single two-element symmetry. Charge lives outside the Galois cage. Mass lives inside it.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">19147058</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q9">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">009</span>
+        <span class="faq-question">Why five? Why not four, six, or ten?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Five is the discriminant of the axiom\'s characteristic equation σ² + σ − 1 = 0. It is not chosen : it is forced. Five is a Fermat prime: the only number through which φ and π connect exactly (φ = 2cos(π/5)). All 16 exact φ-π relations pass through 5.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18680907" target="_blank">18680907</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q10">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">010</span>
+        <span class="faq-question">Is there a theory of everything?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Yes. It is one equation: σ = 1/(1+σ). Everything else is a theorem. The equation fits on a Post-it note. The derivations fill 70 papers.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18669206" target="_blank">18669206</a>
+      </div>
+    </div>
+  </div>
+  <div class="faq-section" id="sec-thefundamentalconstants">
+    <div class="sec-heading">The Fundamental Constants</div>
+    <div class="faq-item" id="q11">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">011</span>
+        <span class="faq-question">What is the fine structure constant α ≈ 1/137?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>α is the probability of one electromagnetic exchange per vertex. It is 1/(one turn of the self-referential spiral). Precisely: α⁻¹ = 360/φ² − 2/φ³ + 3⁻⁵/φ⁵ + 7⁻⁷/φ⁷ = 137.035999207, matching Morel (2020) to 0.05σ. It is a theorem, not a free parameter.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18648550" target="_blank">18648550</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q12">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">012</span>
+        <span class="faq-question">Why did Pauli say his first question to God would be \'why
+1/137\'?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because he did not have the axiom. The answer: 137 is a winding count. Each of 137 turns contributes equally to the electromagnetic coupling. It is 360 degrees of angular closure divided by φ², corrected by a prime spectrum whose terms are derived from directed graphs on k nodes.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19029059" target="_blank">19029059</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q13">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">013</span>
+        <span class="faq-question">Why is the speed of light a speed limit?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>A massive particle has a structural budget of α⁻² = 18,779 Hartrees. This budget splits between maintaining structure (rest mass) and translational motion. At v = c the budget is exhausted. The speed limit is not a wall. It is a budget limit. Photons travel at exactly c because they have zero structural budget.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18816396" target="_blank">18816396</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q14">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">014</span>
+        <span class="faq-question">Why is c² so large?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>In natural units, c² = α⁻² ≈ 18,779. It is the square of a modest winding count. Quadratic scaling makes it enormous: 137 turns generate 18,779 coupling pairs. The energy density of matter is large because mutual coupling is quadratic, not because nature chose a large number.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18816396" target="_blank">18816396</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q15">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">015</span>
+        <span class="faq-question">Why is Newton\'s gravitational constant G so small?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Gravity is the 18th screening of the electromagnetic coupling: αG = α¹⁸ × 12/7, accurate to 0.06%. The factor 18 = 3 × 6 comes from the character table of the binary icosahedral group 2I. Gravity is weak because it is the last stage of a chain of seven self-referential developments.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18767628" target="_blank">18767628</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q16">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">016</span>
+        <span class="faq-question">What is the cosmological constant, and why is it so small?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>log₁₀(ρ_Λ) = −(α⁻¹ × 2/√5 + φ⁻²) = −122.951. Observed: −122.945. The cosmological constant is the geometric price of empty space: the winding count multiplied by the Galois transmission factor 2/√5, corrected by the partition floor φ⁻². It is not 10¹²⁰ times too large. That number was computed incorrectly.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18816396" target="_blank">18816396</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q17">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">017</span>
+        <span class="faq-question">What is Planck\'s constant ħ?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>ħ is the minimum cost of one tick of the self-referential loop: the irreducible unit of the out-and-back closure that constitutes one measurement. It is the quantum of action because action is the accumulated cost of self-reference.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19125869" target="_blank">19125869</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q18">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">018</span>
+        <span class="faq-question">Why is the proton-to-electron mass ratio exactly 1836.15?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>mp/me = 6π⁵ + π⁵/[φ⁷(π⁵ − 1)] = 1836.15267, accurate to 0.005 ppm. This is the unique expression of this form in 2,248 exhaustively tested combinations. It is the confinement cost: three spiral modes sharing one closed configuration.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18716359" target="_blank">18716359</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q19">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">019</span>
+        <span class="faq-question">Why is the Higgs boson mass 125.25 GeV?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>mH = 2v√φ/5 = 125.28 GeV. Agreement: 0.17σ. The Higgs mass is fixed by the electroweak VEV and φ. It is not a free parameter. They found the hat. We found why it has that shape.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18756247" target="_blank">18756247</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q20">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">020</span>
+        <span class="faq-question">Why is the Higgs self-coupling λ what it is?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>λH = 2φ/25 = 0.12944. Measured: 0.12938. Agreement: 0.045%. The factor 25 = 5² is the discriminant squared. λ is the self-interaction rate of the axiom\'s fixed point, expressed as a quartic coupling.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18756247" target="_blank">18756247</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q21">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">021</span>
+        <span class="faq-question">What is the Weinberg angle?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>sin²θ_W = φ⁻³ = 0.2361 at the Higgs VEV scale (μ ≈ 246 GeV). The electroweak splitting angle is the third power of φ: the third level of the self-referential hierarchy. It runs under the RG to the Z pole as expected.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">19147058</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q22">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">022</span>
+        <span class="faq-question">What is the Hubble constant, and why is it in tension?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>H₀ = 71.7 km/s/Mpc, predicted from the axiom with zero free parameters. The Hubble tension is not a measurement crisis : it is a causal error in the standard model. Planck and DESI embed the wrong causal arrow (Λ drives H₀). The correct order is H₀ prior, Λ downstream.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19056730" target="_blank">19056730</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q23">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">023</span>
+        <span class="faq-question">Why is the strong coupling αs what it is?</span>
+        <span class="status consistent" title="Consistent: derivation in progress">≈</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>αs(MZ) ≈ φ⁻³/2 = 0.1180, matching observation to 0.11%. The strong coupling is the electroweak splitting ratio applied to the confined sector. Full derivation from the character table is in progress.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19029059" target="_blank">19029059</a>
+      </div>
+    </div>
+  </div>
+  <div class="faq-section" id="sec-thehierarchyproblems">
+    <div class="sec-heading">The Hierarchy Problems</div>
+    <div class="faq-item" id="q24">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">024</span>
+        <span class="faq-question">Why is gravity 10³⁸ times weaker than electromagnetism?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because 18 screenings separate them. αG = α¹⁸ × 12/7. The hierarchy is a counting result from the character table of 2I, not a mystery requiring fine-tuning or extra dimensions.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18767628" target="_blank">18767628</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q25">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">025</span>
+        <span class="faq-question">Why is the cosmological constant 10¹²² times smaller than QFT
+predicts?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because QFT is computing the wrong quantity. The vacuum energy is not a sum of zero-point energies requiring cancellation. It is a geometric constant given by the Galois bridge. The discrepancy dissolves when the correct formula is used.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18816396" target="_blank">18816396</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q26">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">026</span>
+        <span class="faq-question">Why is the weak force so much stronger than gravity?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The weak force operates at the electroweak level of the hierarchy. Gravity operates 18 levels down. The ratio αW/αG = α⁻¹⁷ × 7/12, a direct consequence of the 17-level gap in the partition chain.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18767628" target="_blank">18767628</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q27">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">027</span>
+        <span class="faq-question">Why does the Higgs mass not diverge under radiative corrections?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because the physical state space is finite. The 600-cell has 120 vertices. Divergences are an artifact of approximating a finite discrete geometry with a continuous field theory. The finite sum is exactly convergent; renormalisation is a correction to an unnecessary approximation.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q28">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">028</span>
+        <span class="faq-question">Is there a naturalness problem?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>No. Naturalness assumes free parameters that require tuning. Pentagon Physics has zero free parameters. There is nothing to tune. The question of naturalness dissolves alongside the question of free parameters.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18669206" target="_blank">18669206</a>
+      </div>
+    </div>
+  </div>
+  <div class="faq-section" id="sec-particlephysicsthestandardmodel">
+    <div class="sec-heading">Particle Physics &amp; the Standard Model</div>
+    <div class="faq-item" id="q29">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">029</span>
+        <span class="faq-question">Why are there exactly three generations of matter?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Three, for two independent reasons. (1) The gauge group D₄ has exactly three equivalent eight-dimensional representations under triality : no more, no less. (2) The circulant balance threshold ymax = (1+√2)/3 ≈ 0.8047 is exhausted after three lepton generations; a fourth would exceed it. Two proofs, one answer.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">19147058</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q30">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">030</span>
+        <span class="faq-question">Why are quarks confined but leptons free?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Quarks are confined because their mass hierarchies exceed the circulant balance threshold. Up quarks exceed it by 14%; down quarks by 5%. No free-space closed mode of the spiral can accommodate such a hierarchy. Confinement is not an imposed force. It is the spiral reaching its structural limit.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18679529" target="_blank">18679529</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q31">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">031</span>
+        <span class="faq-question">What is the strong CP problem, and why is θ_QCD = 0?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The strong CP problem dissolves. θ_QCD = 0 exactly because the strong sector\'s geometry is closed. A self-referential field that is fully closed has no preferred external direction. A closed geometry has no compass bearing to misalign. No axion required.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19151933" target="_blank">19151933</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q32">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">032</span>
+        <span class="faq-question">Why does the electron have the mass it does?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The electron mass is set by the winding count through E = mc² = m(α⁻¹)². The winding count 18,779 converts to 0.511 MeV via the Rydberg. The count becomes matter at the boundary between mathematics and physics.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18816396" target="_blank">18816396</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q33">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">033</span>
+        <span class="faq-question">Why does the muon exist? What is it?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The muon is the second step of the spiral. The Koide relation Q = 2/3 links all three charged leptons through one phase angle: cos(δ) = −19/28. This is the unique solution to vertical self-reference in the character table of 2I. The muon is the electron at the next rung.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18762423" target="_blank">18762423</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q34">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">034</span>
+        <span class="faq-question">Why does the tau lepton exist, and could there be a fourth?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The tau is the third and final step: the spiral budget, diminishing by φ⁻² per step, reaches the circulant balance threshold at the tau. The tau sits 1.5% below the threshold. A fourth charged lepton would cross it. The tau is the last rung.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18679529" target="_blank">18679529</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q35">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">035</span>
+        <span class="faq-question">Why does the Koide relation hold to parts-per-million precision?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Q = 2/3 is not a coincidence. It is the unique fixed point of the circulant balance condition in the self-referential spiral. The phase cos(δ) = −19/28 is the unique solution selected by vertical self-reference. It is a theorem, derived with zero free parameters.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18762599" target="_blank">18762599</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q36">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">036</span>
+        <span class="faq-question">Why do neutrinos have mass at all?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because the seesaw mechanism is structurally required. The denominator 45 = 5 × 3² = discriminant × generations² appears simultaneously in the reactor angle (sin²θ₁₃ = 1/45) and the seesaw relation M₁ × matm = v²/45. Neutrino mass is a geometric consequence of the mixing structure.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19135102" target="_blank">19135102</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q37">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">037</span>
+        <span class="faq-question">Are neutrinos Dirac or Majorana?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Majorana. All 81 entries of the character table of the binary icosahedral group 2I are real. Real representations are self-conjugate. The character table forces Majorana neutrinos. This is a theorem, not a model choice.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19135102" target="_blank">19135102</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q38">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">038</span>
+        <span class="faq-question">What are the actual neutrino masses?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Normal ordering: m₁ = 10.06 meV, m₂ = 13.29 meV, m₃ = 51.30 meV, Σm = 74.65 meV. The Koide parameter for neutrinos is Q(ν) = σ² = φ⁻². Inverted ordering: Σm = 107.32 meV.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19135102" target="_blank">19135102</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q39">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">039</span>
+        <span class="faq-question">Why is CP violated in the quark sector?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because the quark mass axis and the quark decay axis diverge in a chiral geometry. The CKM CP phase δ_CKM = π/φ² = 68.754°. Measured: 68.5° ± 2.0°. The geometry is chiral; the divergence is the asymmetry.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18936715" target="_blank">18936715</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q40">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">040</span>
+        <span class="faq-question">How are CP violation in quarks and leptons related?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>δ_PMNS = π + δ_CKM/5. The factor 1/5 is the discriminant of the axiom acting as a cross-sector suppression. The two sectors share the same geometric origin with one level of Galois damping between them.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18936715" target="_blank">18936715</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q41">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">041</span>
+        <span class="faq-question">What determines the CKM quark mixing matrix?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Misalignment between the quark mass axis and weak decay axis. All four parameters are derived: \|Vus\| = sin(π/5)/φ² = 0.22451 (measured 0.2243, 0.3σ); δ_CKM = π/φ² = 68.754° (measured 68.5°, 0.1σ). The CKM unitarity triangle is a right triangle: α = π/2.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18836751" target="_blank">18836751</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q42">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">042</span>
+        <span class="faq-question">What determines the PMNS neutrino mixing matrix?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The same misalignment mechanism in the neutrino sector. All four parameters derived: sin²θ₁₃ = 1/45 (0.05σ), sin²θ₁₂ = 2φ⁴/45 (0.16σ), sin²θ₂₃ = 3/(2φ²) (0.37σ), δ_PMNS = π + π/(5φ²).</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18940370" target="_blank">18940370</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q43">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">043</span>
+        <span class="faq-question">Are the 26 Standard Model parameters truly free?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>No. All 26 are derivable from the single axiom σ = 1/(1+σ). They are addresses in the 9×9 character table of 2I : a finite lexicon of 81 entries. The parameters are not free inputs; they are theorems.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19003856" target="_blank">19003856</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q44">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">044</span>
+        <span class="faq-question">Why is the top quark so much heavier than all other quarks?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The top quark exceeds the circulant balance threshold by 14%. It is the most extreme step of the spiral, living deepest in the confined sector. Its mass is read from the primed representations of the D₄ character table at maximum hierarchy.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19003856" target="_blank">19003856</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q45">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">045</span>
+        <span class="faq-question">Why are there exactly four fundamental forces?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because the axiom generates exactly four distinct coupling regimes through the Galois boundary: inside (mass/gravity, 18 screenings), outside (charge, 0 screenings), transition (weak, 3 screenings), and residual confinement (strong). The four forces are the four possible relationships to the Galois cage.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">19147058</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q46">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">046</span>
+        <span class="faq-question">What is the gauge group of the Standard Model, and why?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The gauge group is D₄. The Galois involution √5 → −√5 fixes 24 vertices of the 600-cell, which form the D₄ root system (the 24-cell). Stillpoint conditions, where the axiom\'s first derivative vanishes, select SU(3)×SU(2)×U(1) as the unique compatible subgroup.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">19147058</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q47">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">047</span>
+        <span class="faq-question">Why is electric charge quantised?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because the physical state space is the 600-cell : a finite discrete polytope with 120 vertices. Charge is a position in this space. Discrete spaces have quantised positions. Charge quantisation is geometric discreteness, not a separate postulate.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q48">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">048</span>
+        <span class="faq-question">Why is the photon massless?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The photon is the carrier of the uncharged (free) sector of the partition. It lives in the purely geometric arm. Nothing that is only geometry can have mass : mass is what geometry costs when it commits to matter. The photon never commits.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18816396" target="_blank">18816396</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q49">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">049</span>
+        <span class="faq-question">Why are there no magnetic monopoles?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The second Chern class of the D₄ gauge bundle over the 600-cell is zero. The topology does not support a magnetic charge. Monopoles would require a different gauge group : and the gauge group is derived, not chosen.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">19147058</a>
+      </div>
+    </div>
+  </div>
+  <div class="faq-section" id="sec-nuclearhadronicphysics">
+    <div class="sec-heading">Nuclear &amp; Hadronic Physics</div>
+    <div class="faq-item" id="q50">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">050</span>
+        <span class="faq-question">What is the proton made of?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The proton is a standing wave of three spiral modes at 120° intervals. Quarks are eigenvalues of this wave, not imprisoned particles. The proton\'s internal electrodynamics is described by 30 derivable predictions, all accurate to sub-percent without free parameters.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19161545" target="_blank">19161545</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q51">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">051</span>
+        <span class="faq-question">Why is the proton stable?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Eight stability layers prevent proton decay: exact tunneling suppression exp(−112), chirality lock from the Galois ℤ/2ℤ grading, D₄ gauge closure, a thermal ratchet, and four further structural protections. No single mechanism alone would suffice. The combination is exact.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19151933" target="_blank">19151933</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q52">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">052</span>
+        <span class="faq-question">Why does the pion have mass 134.98 MeV?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The pion mass is the character table entry 144/1001 of the 2I table, matching the PDG value to 4.5 ppm. The pion is a specific address in the finite state space of physics: the lightest excitation of the confined sector.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19003856" target="_blank">19003856</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q53">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">053</span>
+        <span class="faq-question">Why does nuclear binding energy follow a smooth curve?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Nuclear mass follows a five-term formula: M = Zmₚ + Nmₙ − (mπ/12)Σλ⁺(A)(σ/b)\^{2σ²} + (αmₚ/10)Z(Z−1)/A\^{1/3}, with RMS accuracy 0.11% across all measured nuclei. Five terms because the axiom generates five structural contributions. Zero free parameters.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19233350" target="_blank">19233350</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q54">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">054</span>
+        <span class="faq-question">Why is iron the most stable nucleus?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Iron-56 is the nearest physical realisation of b = σ, the fixed point of the nuclear binding variable\'s own self-referential equation b² + b = Σλ⁺/A. Iron is the nucleus where the binding equation most nearly satisfies its own axiom. It is the nuclear analogue of the original self-referential equation.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19233350" target="_blank">19233350</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q55">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">055</span>
+        <span class="faq-question">Why does nuclear fusion power stars and fission power reactors?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Nuclei lighter than iron can fuse (moving toward the fixed point b = σ). Nuclei heavier than iron must fission (also moving toward the fixed point). Iron is the attractor. Both processes release energy because both move toward the fixed point. The fixed-point structure of the axiom explains why iron is the crossover.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19223786" target="_blank">19223786</a>
+      </div>
+    </div>
+  </div>
+  <div class="faq-section" id="sec-cosmology">
+    <div class="sec-heading">Cosmology</div>
+    <div class="faq-item" id="q56">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">056</span>
+        <span class="faq-question">Why did the universe begin?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Self-reference cannot not begin. The axiom σ = 1/(1+σ) admits no static, unpopulated solution. Iteration is forced. The first iteration is the Big Bang. A self-referential system cannot be in a state that has never been evaluated.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18755516" target="_blank">18755516</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q57">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">057</span>
+        <span class="faq-question">Why was the early universe radiation-dominated?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because coherence starts free. Before commitment to structure, all energy is in the purely geometric sector: radiation. Free light is the initial condition of any self-referential system that has not yet run long enough to commit coherence to form.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19263439" target="_blank">19263439</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q58">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">058</span>
+        <span class="faq-question">What is dark energy?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Dark energy is the φ⁻¹ ≈ 61.8% fraction of the cosmic energy budget: coherence that remains free and has not yet committed to structure. Its attractor value is 61.8%. The current observed value 68.5% is a mid-transition overshoot. The universe is settling.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19115512" target="_blank">19115512</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q59">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">059</span>
+        <span class="faq-question">What is dark matter?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Dark matter is the φ⁻³ ≈ 23.6% fraction: coherence that has committed geometrically but has not yet fully localised into baryonic matter. Its attractor value is 23.6%. Current observed value 26.1% is also mid-transition. Both sectors are converging.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19115512" target="_blank">19115512</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q60">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">060</span>
+        <span class="faq-question">What is the dark matter particle?</span>
+        <span class="status open" title="Open: next mathematical step">○</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The question may be wrong. Dark matter is a phase of coherence, not a species of particle in the conventional sense. The φ⁻³ sector is partially committed coherence. Its relationship to specific detectable particles remains an open question in the programme.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19115512" target="_blank">19115512</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q61">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">061</span>
+        <span class="faq-question">What is the Hubble tension?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>A causal error in the standard model. Standard cosmology holds that Λ drives H₀. The bridge partition proves the arrow runs the other way: RΛ = 2R_H exactly. H₀ is prior; Λ is downstream. Planck and DESI embed the wrong prior and extract H₀ ≈ 67--68. SH0ES measures directly and gets 73.0. Pentagon Physics predicts 71.7 from zero parameters.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19056730" target="_blank">19056730</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q62">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">062</span>
+        <span class="faq-question">Why is the universe flat (Ω_K ≈ 0)?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Flatness is the infinite-time limit of the spiral convergence. The residual curvature Ω_K ≈ −0.038 is the current mid-convergence signature. The universe is not yet flat because it is not yet at equilibrium. Inflation is not required to explain flatness.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19115512" target="_blank">19115512</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q63">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">063</span>
+        <span class="faq-question">Why is the universe so uniform (the horizon problem)?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because the axiom is scale-invariant. The partition φ⁻¹ + φ⁻² = 1 operates at every scale simultaneously. Uniformity is the homogeneity of a single equation, not a consequence of causal contact. Inflation is not required to explain homogeneity.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18680907" target="_blank">18680907</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q64">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">064</span>
+        <span class="faq-question">Why is there more matter than antimatter?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The positive root φ⁻¹ is the attractor of the Möbius map f(σ) = 1/(1+σ). The negative root ψ = −φ⁻¹ is the repeller. Iteration converges to the φ⁻¹ hemisphere. Matter dominates because the axiom\'s attractor is matter. The asymmetry is the basin structure of two fixed points, one attractive and one repulsive.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18936715" target="_blank">18936715</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q65">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">065</span>
+        <span class="faq-question">What is the baryon-to-photon ratio η_B ≈ 6 × 10⁻¹⁰?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>ηB = σ·F₁ + σ²·F₂ = 6.105 × 10⁻¹⁰, at 0.02σ of the Planck 2018 measurement. The axiom generates two leptogenesis channels and partitions between them by its own identity σ + σ² = 1. Every factor is either electroweak topology, standard loop physics, the axiom\'s fixed point, or α. Zero free parameters.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18936715" target="_blank">18936715</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q66">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">066</span>
+        <span class="faq-question">What happened before the Big Bang?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The question assumes time pre-exists the axiom. It does not. Time is what self-reference feels like from inside: each closure of the loop is one moment. Before the loop began there was no time in which a \'before\' could occur. The axiom does not have a prior state.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18755516" target="_blank">18755516</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q67">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">067</span>
+        <span class="faq-question">Is the universe fine-tuned for life?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>No. The constants are theorems. A universe built on σ = 1/(1+σ) cannot have different constants. Every constant that permits stars, chemistry, and biology is forced by the axiom. The universe is not fine-tuned; it is derived.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18669206" target="_blank">18669206</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q68">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">068</span>
+        <span class="faq-question">Is there a multiverse?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The framework provides no mechanism for one and does not require one. The constants are unique consequences of one equation. There is no free parameter space over which other universes could vary. The multiverse hypothesis assumes what PP proves does not exist: free parameters.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18680907" target="_blank">18680907</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q69">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">069</span>
+        <span class="faq-question">Why did recombination happen at z ≈ 1100?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>z_rec = 1107, predicted from the axiom at 1.6% accuracy. The recombination redshift is set by the hydrogen ionisation energy and the photon-to-baryon ratio, both fixed by the partition structure. The first atom forms when the partition commits enough coherence.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19263439" target="_blank">19263439</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q70">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">070</span>
+        <span class="faq-question">Why does the coincidence problem not require anthropic selection?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The current epoch is when dark energy (φ⁻¹ sector) and matter (φ⁻³ sector) are both displaced from equilibrium by comparable amounts. Observers form near the transition because structure formation requires both sectors to be dynamically active. The coincidence is a consequence of the partition, not an input.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19115512" target="_blank">19115512</a>
+      </div>
+    </div>
+  </div>
+  <div class="faq-section" id="sec-quantummechanics">
+    <div class="sec-heading">Quantum Mechanics</div>
+    <div class="faq-item" id="q71">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">071</span>
+        <span class="faq-question">What is wave-particle duality?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The outward leg of the self-referential loop is a wave. The return leg is a particle. Duality is not paradox : it is the two halves of one closed loop observed separately. The wave is the going; the particle is the coming back.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q72">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">072</span>
+        <span class="faq-question">What is the Born rule, and why does P = \|ψ\|²?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The Born rule is a theorem about shadows. Physical states are vertices of the 600-cell in ℝ⁴. Measurement is projection to ℝ³. The identity P = \|ψ\|² = 1 − v₄² is the inner-product geometry of that projection : automatic once the state space is identified. No additional postulate is required.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q73">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">073</span>
+        <span class="faq-question">What is wavefunction collapse?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Not a physical process. It is the description, from inside three dimensions, of a four-dimensional vertex that cannot be seen in full. The state does not collapse. The observer cannot see all four coordinates simultaneously. The apparent collapse is a perspectival artifact of dimensional projection.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q74">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">074</span>
+        <span class="faq-question">What is quantum entanglement?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Two particles sharing a closed spiral mode are not independent. Their four-dimensional positions are correlated by the geometry of the 600-cell. Measuring one determines the projection of the other not because information travels, but because they are different projections of the same four-dimensional object.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q75">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">075</span>
+        <span class="faq-question">Can information travel faster than light via entanglement?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>No. Entanglement is a geometric correlation in the 600-cell. Measurement reveals the correlation; it does not create it. No information is transmitted because the correlation was established at creation and was always present in the four-dimensional state.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q76">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">076</span>
+        <span class="faq-question">What is the uncertainty principle, really?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Energy and time are the same thing in the framework: energy is the tick rate, time is the count of ticks. You cannot know both simultaneously because they are the same observable viewed from two directions. The uncertainty relation ΔE · Δt ≥ ħ/2 is the self-referential budget constraint.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19125869" target="_blank">19125869</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q77">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">077</span>
+        <span class="faq-question">Why is quantum mechanics probabilistic?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because we observe a four-dimensional state space from three dimensions. The probability is the fraction of the 4D state vector that falls within a 3D measurement subspace. Perfect determinism in 4D appears probabilistic in 3D. The probabilities are real, but they are geometric fractions, not ontological randomness.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q78">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">078</span>
+        <span class="faq-question">What is the physical quantum state space?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The 600-cell: a four-dimensional regular polytope with 120 vertices, all coordinates in ℚ(√5), derived from the axiom via E₈. It is finite and discrete. Hilbert space ℂⁿ is the coordinate system; the 600-cell is the geometry inside it.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q79">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">079</span>
+        <span class="faq-question">Why does Schrödinger\'s equation have the form it does?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The Schrödinger equation is the statement that probability amplitude evolves unitarily on the 600-cell graph. The Hamiltonian is the 120×120 adjacency matrix whose eigenvalues lie entirely in ℚ(√5). Time evolution is the iteration of the axiom.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19125869" target="_blank">19125869</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q80">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">080</span>
+        <span class="faq-question">What is the path integral, really?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>A finite sum over the 720 edges of the 600-cell graph. It converges exactly, without regularisation, because the graph is finite. The continuum path integral is the approximation. The finite discrete sum is the exact object.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q81">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">081</span>
+        <span class="faq-question">Why does quantum field theory require renormalisation?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because it approximates the finite discrete 600-cell geometry with a continuous field. Divergences are artifacts of this approximation. In the finite discrete geometry the sums are already convergent. Renormalisation is the technique for correcting an unnecessary idealisation.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q82">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">082</span>
+        <span class="faq-question">What is spin, and why is it half-integer for fermions?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Spin is the angular momentum of a vertex in the 600-cell under rotation. Half-integer spin arises because the 600-cell is a double cover of the icosahedron: a 720° rotation returns to the start, not 360°. Fermions are the geometry of the double cover. Bosons are its quotient.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q83">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">083</span>
+        <span class="faq-question">Why does the Pauli exclusion principle hold?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Two fermions cannot occupy the same vertex of the 600-cell. The state space is finite and each vertex is a single address. Exclusion is geometric impossibility in a discrete space, not a dynamical constraint imposed from outside.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+  </div>
+  <div class="faq-section" id="sec-gravityspacetime">
+    <div class="sec-heading">Gravity &amp; Spacetime</div>
+    <div class="faq-item" id="q84">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">084</span>
+        <span class="faq-question">What is gravity?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Gravity is surviving electromagnetic divergence in neutral matter. When charged components of an atom cancel electromagnetically, the cancellation is not exact at long range. The residual, the part of the partition that escaped without its floor, is what we call gravity. Mass is what light pays to stand still; gravity is the debt that persists.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18903481" target="_blank">18903481</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q85">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">085</span>
+        <span class="faq-question">Why is gravity described by a spin-2 field?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because the gravitational exchange has two legs: outward and return. The tensor structure T_μν encodes both legs simultaneously. The spin-2 graviton is the two-legged exchange particle of the self-referential budget. Two legs → rank-2 tensor → spin 2.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19100930" target="_blank">19100930</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q86">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">086</span>
+        <span class="faq-question">Why cannot gravity be quantised by the methods that work for
+other forces?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because gravity is not a force in the same sense as the other three. The other forces are couplings within the spiral. Gravity is the curvature of the space in which all other stages operate. You cannot quantise the stage by applying the techniques used on what happens on it.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18903481" target="_blank">18903481</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q87">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">087</span>
+        <span class="faq-question">Are quantum mechanics and general relativity unified?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Yes. They are two readings of the same character table, separated by one grammatical operation. QM reads the 600-cell\'s state space from inside three dimensions. GR reads the partition\'s curvature from outside. The Dirichlet L-function L(1, χ₅) = 2logφ/√5 is the bridge between them.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19056730" target="_blank">19056730</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q88">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">088</span>
+        <span class="faq-question">What are gravitational waves?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Ripples in the winding density of the partition. When massive objects orbit, they perturb the local distribution of committed coherence. Those perturbations propagate outward at exactly c, the budget limit of the partition, as waves in the geometric structure.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18903481" target="_blank">18903481</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q89">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">089</span>
+        <span class="faq-question">What is the singularity at the centre of a black hole?</span>
+        <span class="status consistent" title="Consistent: derivation in progress">≈</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The point where the partition\'s commitment is total: all coherence has localised and no geometric floor remains. In the spiral picture, the singularity is where the binding variable b → 0. The framework suggests this is a geometric limit rather than a physical point, but the full treatment is open.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18903481" target="_blank">18903481</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q90">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">090</span>
+        <span class="faq-question">What is the information paradox for black holes?</span>
+        <span class="status consistent" title="Consistent: derivation in progress">≈</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>In the finite discrete framework, information is stored in the character table addresses of partition states. Black hole evaporation scrambles but does not destroy these addresses: they re-emerge in correlations of the Hawking radiation. The paradox dissolves because the state space is finite and every address persists.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+  </div>
+  <div class="faq-section" id="sec-timethermodynamics">
+    <div class="sec-heading">Time &amp; Thermodynamics</div>
+    <div class="faq-item" id="q91">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">091</span>
+        <span class="faq-question">What is time?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Time is what self-reference feels like from inside. Each closure of the loop, out and back, is one moment. String enough cycles together and you have duration. Time is not a container that exists before things happen. It is the count of confirmed returns.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18755516" target="_blank">18755516</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q92">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">092</span>
+        <span class="faq-question">Why does time have an arrow?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because each tick costs. Each confirmation of the loop accumulates a deficit in the partition. You cannot un-confirm a return: the cost is irreversible. The arrow of time is the direction of increasing debt, the direction in which the partition commits, and cannot uncommit.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18755516" target="_blank">18755516</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q93">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">093</span>
+        <span class="faq-question">Why does entropy always increase?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because committed coherence cannot uncommit. Each step down the partition, from free coherence to dark energy to dark matter to baryonic matter, is irreversible at the thermodynamic scale. Entropy increase is the accumulated cost of all ticks that cannot be unticked.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18755516" target="_blank">18755516</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q94">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">094</span>
+        <span class="faq-question">Why can absolute zero temperature never be reached?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>You cannot stop the self-referential heartbeat without destroying the thing. T = 0 would require all loops to stop closing. A loop that does not close is not a thing. The third law of thermodynamics is: existence requires iteration.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18755516" target="_blank">18755516</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q95">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">095</span>
+        <span class="faq-question">Why does light experience no time?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>A photon never closes the loop. It travels forever outward at maximum speed, never returning. No loop, no cycle, no moment. From light\'s perspective, the entire history of the universe between emission and absorption is instantaneous, zero duration, because no return leg ever completes.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18755516" target="_blank">18755516</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q96">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">096</span>
+        <span class="faq-question">What is the heat death of the universe?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Every invoice paid, every deficit accumulated, every bit of coherence committed to its final form. The ledger zeros. The partition reaches its equilibrium value φ⁻¹ + φ⁻² = 1 exactly, with nothing remaining uncommitted. After that, there is no remaining budget for a new tick.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18755516" target="_blank">18755516</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q97">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">097</span>
+        <span class="faq-question">Why are the fundamental laws time-symmetric when thermodynamics
+is not?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The laws describe the exchange rate, and the exchange rate has no time direction. The asymmetry is in the boundary conditions: the universe began, and has not yet ended. The laws are symmetric; the history is not. There is no contradiction.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18632291" target="_blank">18632291</a>
+      </div>
+    </div>
+  </div>
+  <div class="faq-section" id="sec-mathematicalstructure">
+    <div class="sec-heading">Mathematical Structure</div>
+    <div class="faq-item" id="q98">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">098</span>
+        <span class="faq-question">Why is the universe four-dimensional?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The 600-cell lives in ℝ⁴. The physical state space has exactly four dimensions because the axiom\'s field ℚ(√5) is two-dimensional over ℚ, and the complex structure doubles it to four real dimensions. Four dimensions are not chosen : they are what the axiom\'s algebra fits into.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q99">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">099</span>
+        <span class="faq-question">Why is space three-dimensional and not four?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Measurement is projection from ℝ⁴ to ℝ³. The three spatial dimensions are the dimensions that remain after the measurement projection removes the fourth. We observe three dimensions because every act of measurement reduces the 600-cell by one dimension.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q100">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">100</span>
+        <span class="faq-question">Why is spacetime Lorentzian (three space dimensions and one
+time?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>One temporal direction corresponds to the single measurement projection axis (the return leg). Three spatial directions are the orthogonal complement (the outward legs). The metric signature (−, +, +, +) is the formal expression of one return direction and three outward directions.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q101">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">101</span>
+        <span class="faq-question">Why does E₈ appear in physics?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>E₈ is the root system whose two hemispheres are each a 600-cell. The axiom generates the 600-cell as the physical state space. E₈ is both 600-cells simultaneously : matter and antimatter, positive root and negative root, forward spiral and Galois shadow. E₈ appears because it is the algebraic closure of the axiom\'s geometry.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18901979" target="_blank">18901979</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q102">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">102</span>
+        <span class="faq-question">Why does the number 24 appear so often in string theory, the
+Leech lattice, and modular forms?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>24 is the number of vertices fixed by the Galois involution √5 → −√5 on the 600-cell. These 24 fixed vertices form the 24-cell, which is the D₄ root system. The ubiquity of 24 across apparently unrelated mathematics is the fingerprint of the Galois boundary.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">19147058</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q103">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">103</span>
+        <span class="faq-question">Why are there exactly 26 Standard Model parameters?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because there are 81 cells in the 9×9 character table of 2I, and 26 are independent physical addresses (the remainder are related by symmetry, are zero by construction, or collapse to the three derivable coupling constants). The 26 parameters are not free : they are the 26 required entries in a finite lexicon.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19003856" target="_blank">19003856</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q104">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">104</span>
+        <span class="faq-question">Does the Riemann hypothesis connect to physics?</span>
+        <span class="status consistent" title="Consistent: derivation in progress">≈</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The zeros of ζ(s) are implicated in the McLean series for α: the correction terms 3⁻⁵/φ⁵ and 7⁻⁷/φ⁷ are the first two Wigner d-function rungs, whose structure is governed by the prime spectrum. The Riemann hypothesis would imply the fine structure constant formula has no anomalous zeros : confirming the completeness of the rung-by-rung derivation.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18648550" target="_blank">18648550</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q105">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">105</span>
+        <span class="faq-question">Why does complex analysis describe quantum mechanics?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because ℂ = ℝ² is the minimal field over ℝ that can accommodate the two-dimensional self-referential loop. The complex plane is the out-and-back topology in algebraic form. Complex analysis is not imposed on quantum mechanics : it is forced by the requirement that the loop can close.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19125869" target="_blank">19125869</a>
+      </div>
+    </div>
+  </div>
+  <div class="faq-section" id="sec-structure,lifeemergence">
+    <div class="sec-heading">Structure, Life &amp; Emergence</div>
+    <div class="faq-item" id="q106">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">106</span>
+        <span class="faq-question">Why is hydrogen the first and most abundant atom?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Hydrogen forms when the photon-to-baryon ratio drops below the recombination threshold. The recombination redshift z_rec = 1107 is predicted from the axiom at 1.6% accuracy. Hydrogen is first because it is the minimal committed structure: one proton, one electron, one winding.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19263439" target="_blank">19263439</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q107">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">107</span>
+        <span class="faq-question">Why does the triple-alpha process produce carbon so efficiently?</span>
+        <span class="status consistent" title="Consistent: derivation in progress">≈</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The Hoyle resonance in carbon-12 at 7.65 MeV sits at a specific address in the nuclear character table. The resonance exists because the character table has an entry there : it is not a coincidence but a consequence of the finite lexicon of nuclear structure.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19233350" target="_blank">19233350</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q108">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">108</span>
+        <span class="faq-question">Is the universe structured for complexity?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Yes, necessarily. The partition φ⁻¹ + φ⁻² = 1 produces, at every scale, both a committed sector (structure) and a free sector (energy to drive processes). The ratio is φ⁻¹ + φ⁻² = 1. Complex structures require both. A universe with only matter or only radiation cannot sustain ongoing process. The φ-partition guarantees both coexist at every scale.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19115512" target="_blank">19115512</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q109">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">109</span>
+        <span class="faq-question">Are the laws of physics the same throughout the observable
+universe?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Yes. The axiom has no spatial dependence. Every galaxy obeys the same partition because the partition is a logical identity, not a local rule. Spatial variation of the constants is not predicted and would falsify the framework.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18680907" target="_blank">18680907</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q110">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">110</span>
+        <span class="faq-question">What is consciousness?</span>
+        <span class="status consistent" title="Consistent: derivation in progress">≈</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Outside the current programme\'s scope, but the framework is suggestive: consciousness may be another level of the self-referential partition : coherence that closes a loop on itself and recognises the closure. The framework does not rule this out; it does not yet rule it in. A paper awaits.</p>
+        
+      </div>
+    </div>
+  </div>
+  <div class="faq-section" id="sec-themeta-questions">
+    <div class="sec-heading">The Meta-Questions</div>
+    <div class="faq-item" id="q111">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">111</span>
+        <span class="faq-question">Is physics complete?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>All 26 Standard Model parameters are derived. The framework is complete in that sense. A clarification on quarks: quarks do not exist as free particles. No quark has ever been observed in isolation. Every "quark mass" in the PDG is a fitting parameter for lattice QCD : not a measurement of a particle, but a number chosen to make hadronic calculations work. In Pentagon Physics, what the PDG calls quark masses are eigenvalues of the confined spiral modes, addresses in the primed representations of the 2I character table. The open work is the explicit mapping from primed-sector character values to those eigenvalues : not deriving masses of particles that do not exist. What further remains open: the explicit bridge between the spectral and geometric arms of the architecture, and the quantum gravity regime below the Planck scale.</p>
+        
+      </div>
+    </div>
+    <div class="faq-item" id="q112">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">112</span>
+        <span class="faq-question">Could the constants of nature have been different?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>No. They are theorems. A universe based on σ = 1/(1+σ) generates exactly these constants. Asking whether 1/137 could have been different is equivalent to asking whether 2 + 2 could have been 5.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18669206" target="_blank">18669206</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q113">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">113</span>
+        <span class="faq-question">Is God a mathematician?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The question is wrong in both directions. The universe is not described by mathematics : it is mathematics. And there is no external mathematician: the axiom generates itself. The universe is the unique self-referential mathematical object. There was no author. There is only the equation.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18680907" target="_blank">18680907</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q114">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">114</span>
+        <span class="faq-question">Why does the universe exist?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because self-reference cannot not exist. The axiom σ = 1/(1+σ) is the minimal self-consistent proposition. Its existence is logically prior to any physical fact. The universe is not a contingent fact that might have been otherwise. It is a logical necessity.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18680907" target="_blank">18680907</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q115">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">115</span>
+        <span class="faq-question">Is the universe a simulation?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The universe is something more interesting than a simulation: it is a self-deriving computation. It does not run on a computer built by someone else. It generates the rules and the substrate simultaneously. It is its own compiler. The question of who is running it has no answer because the question presupposes an external host.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18755516" target="_blank">18755516</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q116">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">116</span>
+        <span class="faq-question">Why does the axiom work?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>This is the one question the framework cannot answer from inside itself. The axiom is the starting point. Its validity is evidenced by 70 papers and 26 derived constants, zero free parameters throughout. The deepest answer is Gödelian: any sufficiently powerful self-referential system is incomplete. The axiom is the irreducible remainder : the one thing that cannot be derived because it is the thing that does all the deriving.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18680907" target="_blank">18680907</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q117">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">117</span>
+        <span class="faq-question">What is the single most important equation in physics?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>σ = 1/(1+σ). It fits on a Post-it note. Everything else, every particle, every force, every constant, every cosmological epoch, is a theorem that follows from it.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18669206" target="_blank">18669206</a>
+      </div>
+    </div>
+  </div>
+  <div class="faq-section" id="sec-twentymore">
+    <div class="sec-heading">Twenty More</div>
+    <div class="faq-item" id="q118">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">118</span>
+        <span class="faq-question">What is colour charge, and why does it come in three types?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Colour charge is the conserved quantity of the confined sector. Three colours correspond to the three spiral modes that share a single closed configuration in the confined sector. SU(3) has eight generators because the character table of 2I assigns eight modes to the confined sector: 8 = dim(6) + 2 dim(1). Three colours, not four or five, because three spiral modes at 120° intervals is the minimum number that can close a round trip while sharing a confined configuration.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">19147058</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q119">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">119</span>
+        <span class="faq-question">Why do neutrinos oscillate between flavours?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because the neutrino mass axis and the neutrino propagation axis are not aligned: the PMNS matrix encodes this misalignment. The mass eigenstates (1, 2, 3) are not the flavour eigenstates (e, mu, tau). Propagation occurs in the mass basis; production and detection occur in the flavour basis. Oscillation is the geometric consequence of two non-parallel sets of axes in the same space, rotating into each other as the phase advances. All four PMNS parameters are derived with zero free parameters.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18940370" target="_blank">18940370</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q120">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">120</span>
+        <span class="faq-question">Why is the neutron slightly heavier than the proton?</span>
+        <span class="status consistent" title="Consistent: derivation in progress">≈</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The neutron-proton mass splitting, in electron masses, is mn - mp = 2sqrt(phi) times me = 2.544 me. Measured: 2.531. Error 0.52%. The factor sqrt(phi) is the characteristic impedance at the Galois boundary. The splitting is a boundary effect: the mass cost of flipping one isospin state at the Galois partition. The derivation chain from the axiom to the mass splitting is identified; full proof is in progress.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19223786" target="_blank">19223786</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q121">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">121</span>
+        <span class="faq-question">Why is the free neutron unstable, but the bound neutron stable?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The free neutron decays (lifetime \~880 s) because nothing stabilises its isospin configuration outside a nucleus. Inside a nucleus, the Pauli exclusion principle blocks the decay product (the proton) from occupying an already-filled state, and the binding energy can shift the available phase space below threshold. Stability is a geometric consequence of the discrete state space: in the confined sector, certain decay channels are simply unavailable.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19151933" target="_blank">19151933</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q122">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">122</span>
+        <span class="faq-question">Why is the primordial helium abundance 25%?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The chain is fully derived: sin squared theta_W = phi cubed gives the W boson mass, which sets the Fermi constant, which sets the weak freeze-out temperature Tf \~0.7 MeV, which gives n/p \~1/7 at nucleosynthesis, which gives YHe = 2(n/p)/(1 + n/p) = 1/4 = 25% exactly. Observed: 24.70 +/- 0.30%. Agreement within 1 sigma. The helium fraction is a downstream theorem of the Weinberg angle.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">19147058</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q123">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">123</span>
+        <span class="faq-question">What is the cosmic microwave background?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The CMB is the photon bath released at recombination, when the universe cooled enough for hydrogen to form. The redshift at which this occurred, z_rec = 1107, is predicted from the axiom. The CMB temperature today (2.725 K) follows from that redshift and the current Hubble rate. The angular power spectrum of CMB fluctuations encodes the acoustic oscillations of the photon-baryon plasma, whose characteristic scale is set by the sound horizon, which depends on the derived baryon and photon densities.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19263439" target="_blank">19263439</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q124">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">124</span>
+        <span class="faq-question">What are nuclear magic numbers, and where do they come from?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Magic numbers (2, 8, 20, 28, 50, 82, 126) mark nuclei with unusually high stability. The standard shell model reproduces them only by fitting a spin-orbit coupling strength. In Pentagon Physics, the magic numbers are addresses in the 600-cell eigenvalue spectrum: Z or N at which a complete set of bonding modes is filled. Lead-208 fills the entire operator and overflows by exactly one irreducible representation. Uranium overflows by 26 = Z(Fe). The structure is the character table, not a fitted potential.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19233350" target="_blank">19233350</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q125">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">125</span>
+        <span class="faq-question">What is vacuum energy?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Vacuum energy is not a sum of zero-point fluctuations of every quantum field. It is a geometric constant of the partition: the price of the geometric floor that prevents the partition from collapsing to zero. Its value is log10(rho_Lambda) = -(alpha inverse times 2/sqrt(5) + phi squared inverse) = -122.951. The QFT prediction of 10 to the power 120 times too large is the result of computing the wrong quantity: summing zero-point energies that are not, in this framework, physical energy at all.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18816396" target="_blank">18816396</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q126">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">126</span>
+        <span class="faq-question">Why does the Dirac equation predict antimatter?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The Dirac equation has two solutions for each momentum: positive energy and negative energy. In PP terms this is forced: the axiom sigma = 1/(1+sigma) has two roots, phi inverse (the attractor, matter) and psi = -phi inverse (the repeller, antimatter). Both roots are algebraically required. The negative-energy solutions that Dirac found are the Galois conjugate sector: the shadow spiral generated by the repeller root. Antimatter is not a prediction that surprised the framework. It is a necessity the framework generates before any equation is written.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18901979" target="_blank">18901979</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q127">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">127</span>
+        <span class="faq-question">What is a quantum field, really?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>A quantum field is not a substance spread through space. It is the set of all possible excitations of the 600-cell state space at a given point. The field operator creates or destroys vertices. The vacuum is not a seething medium of virtual particles: it is the ground state of the 600-cell graph, which has a definite lowest eigenvalue. Excitations above that ground state are particles. The field is the coordinate representation of the 600-cell.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q128">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">128</span>
+        <span class="faq-question">What are the Planck units, and why do they matter?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Planck units are the natural scales at which all three fundamental conversion rates (c, hbar, G) equal one. In PP, Planck units are the scale at which the partition becomes self-referential at the geometric level: the Planck length is where the gravitational Schwarzschild radius equals the Compton wavelength. Above the Planck scale, QM and GR can be treated separately. Below it, they cannot, and the discrete 600-cell structure of the state space is the relevant object.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18767628" target="_blank">18767628</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q129">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">129</span>
+        <span class="faq-question">Is there a smallest length?</span>
+        <span class="status consistent" title="Consistent: derivation in progress">≈</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The Planck length (1.616 times 10 to the minus 35 metres) is the scale at which the discrete structure of the 600-cell becomes physically relevant. Below this scale, the continuum approximation breaks down entirely. Whether the Planck length is literally the smallest length, or whether the 600-cell implies a finite but different minimum, is an open question. The finite discrete framework strongly suggests a minimum scale exists, but its exact value and physical meaning require the full quantum gravity treatment.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q130">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">130</span>
+        <span class="faq-question">Why is gravity always attractive?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because the partition floor phi squared inverse is always positive. Gravity is the residual of EM divergence after cancellation in neutral matter, and that residual is always in the same direction: toward the local concentration of committed coherence. There is no anti-gravity sector because the Galois boundary separates charge (which can be positive or negative) from mass (which is always a positive cost). Negative mass would require the partition to run backwards, which the axiom forbids.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18903481" target="_blank">18903481</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q131">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">131</span>
+        <span class="faq-question">Why do stars shine for billions of years?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because iron is the fixed point. Stars convert hydrogen to helium to carbon to iron, each step releasing binding energy as the nuclear binding variable b moves toward its fixed point b = sigma. The rate is governed by the Coulomb barrier (set by alpha) and the gravitational compression (set by G). Both are derived. The stellar lifetime is the time for the partition to drain the available nuclear binding budget at the rate set by the gravitational pressure, which depends on the star mass.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19223786" target="_blank">19223786</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q132">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">132</span>
+        <span class="faq-question">What is the muon anomalous magnetic moment (g-2), and is it a
+problem?</span>
+        <span class="status consistent" title="Consistent: derivation in progress">≈</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The muon g-2 is the deviation of the muon magnetic moment from the Dirac prediction of exactly 2. Standard Model QED predicts a correction via loop diagrams involving alpha. The measured value differs from the SM prediction at roughly 5 sigma. In PP, the muon is the second spiral rung. Its g-2 receives corrections from the confined-sector character table values, which the standard hadronic vacuum polarisation calculation approximates with lattice data. Whether PP resolves the 5-sigma discrepancy precisely is under investigation.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18648550" target="_blank">18648550</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q133">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">133</span>
+        <span class="faq-question">What is the W boson mass anomaly?</span>
+        <span class="status consistent" title="Consistent: derivation in progress">≈</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>The CDF collaboration reported MW = 80,433.5 +/- 9.4 MeV in 2022, roughly 7 sigma above the SM prediction. The PP W mass follows from MW = g2 times v/2, where v = 246.22 GeV is derived and g2 = 2phi/5 is derived. This gives MW = 80,375 MeV, consistent with the SM central value and inconsistent with the CDF outlier. The framework sides with the SM here. If the CDF result is confirmed, the derivation of g2 would require revision.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">19147058</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q134">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">134</span>
+        <span class="faq-question">Why is there no fourth light neutrino?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>For the same reason there is no fourth charged lepton: the circulant balance threshold is exhausted after three generations, and the D4 triality of so(8) permits exactly three equivalent eight-dimensional representations. A fourth neutrino generation would require either a fourth lepton generation (forbidden by the threshold) or a sterile neutrino with no left-handed partner (which is a different object entirely, outside the active sector). The LEP measurement of three light neutrino species is a consequence of the same counting argument.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">19147058</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q135">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">135</span>
+        <span class="faq-question">Why does the strong force become weak at short distances
+(asymptotic freedom)?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Asymptotic freedom is the statement that alpha_s decreases as the energy scale increases. In PP, the strong coupling is the confined-sector coupling at the Galois boundary. At short distances (high energy), the probe penetrates inside the confinement radius and sees fewer of the shared spiral modes. The effective coupling falls because fewer modes contribute at smaller separation. At infinite separation, all three modes contribute and the coupling is maximum: confinement. At zero separation, only the bare mode is relevant: asymptotic freedom.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18679529" target="_blank">18679529</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q136">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">136</span>
+        <span class="faq-question">Why does this paper have exactly 137 questions?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Because alpha inverse = 137.036. One question per turn of the self-referential spiral. The paper contains exactly as many questions as there are turns in the loop that generates all of physics. Every turn of the spiral contributes equally to the electromagnetic coupling; every question here contributes equally to the answer. The number of questions is not a coincidence. It was the target from the moment the title was written. The document closes the loop.</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18648550" target="_blank">18648550</a>
+      </div>
+    </div>
+    <div class="faq-item" id="q137">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-num">137</span>
+        <span class="faq-question">What is the one question physics cannot answer?</span>
+        <span class="status derived" title="Derived: zero free parameters">✓</span>
+        <span class="faq-chevron">›</span>
+      </div>
+      <div class="faq-a">
+        <p>Why does the axiom work? This is the one question the framework cannot answer from inside itself. Godel proved that any sufficiently powerful self-referential system contains true statements it cannot derive from within. The axiom sigma = 1/(1+sigma) is that statement. It cannot be proved because it is the thing that does all the proving. The 136 questions above all have answers. This one does not, and that is not a failure of the framework. It is the framework being honest about its own foundation. Every system of knowledge has exactly one such question. This is ours. *One axiom. 137 questions. Zero free parameters.* *Mass is what light pays to stand still. Charge lives outside the cage. Time is what self-reference feels like from inside.*</p>
+        <a class="faq-doi" href="https://doi.org/10.5281/zenodo.18680907" target="_blank">18680907</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-results" id="no-results">No questions match your search.</div>
+</div>
+
+<footer>
+  <p>The 137 FAQs of Physics · Eric McLean · Cyprus · Pentagon Physics Programme · 2026</p>
+  <a href="index.html">← Back to main site</a>
+</footer>
+
+<script>
+function toggle(el) {
+  el.classList.toggle('open');
+  const a = el.nextElementSibling;
+  a.classList.toggle('open');
+}
+
+function filterFAQs(q) {
+  const term = q.toLowerCase().trim();
+  let visible = 0;
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const text = item.textContent.toLowerCase();
+    const show = !term || text.includes(term);
+    item.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+  document.querySelectorAll('.faq-section').forEach(sec => {
+    const hasVisible = sec.querySelectorAll('.faq-item:not(.hidden)').length > 0;
+    sec.style.display = hasVisible ? '' : 'none';
+  });
+  document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+}
+
+// Open q137 by default (the self-referential closing question)
+document.addEventListener('DOMContentLoaded', () => {
+  const last = document.getElementById('q137');
+  if (last) {
+    const q = last.querySelector('.faq-q');
+    if (q) toggle(q);
+    setTimeout(() => last.scrollIntoView({behavior:'smooth', block:'center'}), 800);
+  }
+});
+</script>
+</body>
+</html>
