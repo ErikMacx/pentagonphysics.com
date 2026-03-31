@@ -156,17 +156,16 @@ footer a:hover{color:var(--gold);}
 <div class="hero">
   <div class="hero-tag">Live feed</div>
   <h1>Physics News</h1>
-  <p>Latest discoveries and research from Quanta Magazine, Phys.org, CERN, and the physics community — refreshed on every visit.</p>
+  <p>Latest physics discussion and research from the Reddit physics community — r/Physics, r/quantum, r/HEP and r/astrophysics — refreshed on every visit.</p>
 </div>
 
 <div class="feed-bar">
   <span class="feed-label">Show</span>
   <button class="feed-btn active" onclick="setFilter('all',this)">All</button>
-  <button class="feed-btn" onclick="setFilter('quanta',this)">Quanta</button>
-  <button class="feed-btn" onclick="setFilter('phys',this)">Phys.org</button>
-  <button class="feed-btn" onclick="setFilter('cern',this)">CERN</button>
-  <button class="feed-btn" onclick="setFilter('reddit',this)">r/Physics</button>
-  <button class="feed-btn" onclick="setFilter('aps',this)">APS Physics</button>
+  <button class="feed-btn" onclick="setFilter('reddit_physics',this)">r/Physics</button>
+  <button class="feed-btn" onclick="setFilter('reddit_quantum',this)">r/Quantum</button>
+  <button class="feed-btn" onclick="setFilter('reddit_hep',this)">r/HEP</button>
+  <button class="feed-btn" onclick="setFilter('reddit_astro',this)">r/Astrophysics</button>
 </div>
 
 <div class="main">
@@ -180,11 +179,10 @@ footer a:hover{color:var(--gold);}
   <div class="sidebar">
     <div class="sb-section">
       <div class="sb-title">Sources</div>
-      <div class="src-item"><div class="src-dot" id="dot-quanta"></div><span class="src-name">Quanta Magazine</span><span class="src-status" id="st-quanta">loading…</span></div>
-      <div class="src-item"><div class="src-dot" id="dot-phys"></div><span class="src-name">Phys.org</span><span class="src-status" id="st-phys">loading…</span></div>
-      <div class="src-item"><div class="src-dot" id="dot-cern"></div><span class="src-name">CERN News</span><span class="src-status" id="st-cern">loading…</span></div>
-      <div class="src-item"><div class="src-dot" id="dot-reddit"></div><span class="src-name">Reddit r/Physics</span><span class="src-status" id="st-reddit">loading…</span></div>
-      <div class="src-item"><div class="src-dot" id="dot-aps"></div><span class="src-name">APS Physics</span><span class="src-status" id="st-aps">loading…</span></div>
+      <div class="src-item"><div class="src-dot" id="dot-reddit_physics"></div><span class="src-name">Reddit r/Physics</span><span class="src-status" id="st-reddit_physics">loading…</span></div>
+      <div class="src-item"><div class="src-dot" id="dot-reddit_quantum"></div><span class="src-name">Reddit r/quantum</span><span class="src-status" id="st-reddit_quantum">loading…</span></div>
+      <div class="src-item"><div class="src-dot" id="dot-reddit_hep"></div><span class="src-name">Reddit r/HEP+Cosmology</span><span class="src-status" id="st-reddit_hep">loading…</span></div>
+      <div class="src-item"><div class="src-dot" id="dot-reddit_astro"></div><span class="src-name">Reddit r/astrophysics</span><span class="src-status" id="st-reddit_astro">loading…</span></div>
     </div>
 
     <div class="sb-section">
@@ -199,81 +197,71 @@ footer a:hover{color:var(--gold);}
 </div>
 
 <footer>
-  <p>Pentagon Physics · Physics News · Sources: Quanta Magazine, Phys.org, CERN, Reddit, APS Physics</p>
+  <p>Pentagon Physics · Physics News · Sources: Reddit r/Physics, r/quantum, r/HEP, r/astrophysics</p>
   <a href="index.html">← Back to main site</a>
 </footer>
 
 <script>
 // ── CONFIG ──────────────────────────────────────────────────
-// Using only APIs with confirmed open CORS headers
+// Only APIs with confirmed browser-accessible CORS
 const SOURCES = {
-  quanta: {
-    // Quanta Magazine WordPress REST API — open CORS
-    url: 'https://www.quantamagazine.org/wp-json/wp/v2/posts?per_page=10&_fields=id,title,link,date,excerpt&categories=&tags=&_embed=false',
-    label: 'Quanta Magazine',
-    badge: 'badge-quanta',
-    parse: (data) => data.map(p => ({
-      title: decodeHtml(p.title?.rendered || ''),
-      link: p.link,
-      pubDate: p.date,
-      author: 'Quanta Magazine',
-      description: decodeHtml((p.excerpt?.rendered||'').replace(/<[^>]+>/g,'').trim())
-    }))
-  },
-  phys: {
-    // Phys.org uses public RSS — try via allorigins (free, open CORS proxy)
-    url: 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://phys.org/rss-feed/physics-news/') + '&count=12',
-    label: 'Phys.org',
-    badge: 'badge-phys',
-    parse: (data) => (data.items||[]).map(i => ({
-      title: i.title||'',
-      link: i.link||'',
-      pubDate: i.pubDate||'',
-      author: 'Phys.org',
-      description: (i.description||'').replace(/<[^>]+>/g,'').trim().slice(0,200)
-    }))
-  },
-  cern: {
-    // CERN news RSS via allorigins
-    url: 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://home.cern/api/news/news/feed') + '&count=10',
-    label: 'CERN News',
-    badge: 'badge-cern',
-    parse: (data) => (data.items||[]).map(i => ({
-      title: i.title||'',
-      link: i.link||'',
-      pubDate: i.pubDate||'',
-      author: 'CERN',
-      description: (i.description||'').replace(/<[^>]+>/g,'').trim().slice(0,200)
-    }))
-  },
-  reddit: {
-    // Reddit JSON API — genuinely open CORS, no auth needed
+  reddit_physics: {
     url: 'https://www.reddit.com/r/Physics/hot.json?limit=15',
-    label: 'Reddit r/Physics',
+    label: 'Reddit · r/Physics',
     badge: 'badge-reddit',
-    parse: (data) => (data.data?.children||[]).filter(p=>!p.data.stickied).map(p => ({
-      title: p.data.title,
-      link: p.data.url.startsWith('http') ? p.data.url : 'https://reddit.com'+p.data.permalink,
-      pubDate: new Date(p.data.created_utc*1000).toISOString(),
-      author: 'u/' + p.data.author,
-      description: p.data.selftext?.slice(0,200) || ''
-    }))
+    parse: (data) => (data.data?.children||[])
+      .filter(p=>!p.data.stickied && p.data.title)
+      .map(p => ({
+        title: p.data.title,
+        link: p.data.url.startsWith('http') ? p.data.url : 'https://reddit.com'+p.data.permalink,
+        pubDate: new Date(p.data.created_utc*1000).toISOString(),
+        author: 'u/'+p.data.author,
+        description: p.data.selftext?.slice(0,200) || ''
+      }))
   },
-  aps: {
-    // APS Physics via allorigins
-    url: 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://physics.aps.org/rss/recent.xml') + '&count=10',
-    label: 'APS Physics',
-    badge: 'badge-aps',
-    parse: (data) => (data.items||[]).map(i => ({
-      title: i.title||'',
-      link: i.link||'',
-      pubDate: i.pubDate||'',
-      author: 'APS Physics',
-      description: (i.description||'').replace(/<[^>]+>/g,'').trim().slice(0,200)
-    }))
+  reddit_quantum: {
+    url: 'https://www.reddit.com/r/quantum/hot.json?limit=12',
+    label: 'Reddit · r/quantum',
+    badge: 'badge-reddit',
+    parse: (data) => (data.data?.children||[])
+      .filter(p=>!p.data.stickied && p.data.title)
+      .map(p => ({
+        title: p.data.title,
+        link: p.data.url.startsWith('http') ? p.data.url : 'https://reddit.com'+p.data.permalink,
+        pubDate: new Date(p.data.created_utc*1000).toISOString(),
+        author: 'u/'+p.data.author,
+        description: p.data.selftext?.slice(0,200) || ''
+      }))
+  },
+  reddit_hep: {
+    url: 'https://www.reddit.com/r/HEP+GravityResearch+cosmology/hot.json?limit=12',
+    label: 'Reddit · r/HEP + Cosmology',
+    badge: 'badge-reddit',
+    parse: (data) => (data.data?.children||[])
+      .filter(p=>!p.data.stickied && p.data.title)
+      .map(p => ({
+        title: p.data.title,
+        link: p.data.url.startsWith('http') ? p.data.url : 'https://reddit.com'+p.data.permalink,
+        pubDate: new Date(p.data.created_utc*1000).toISOString(),
+        author: 'u/'+p.data.author,
+        description: p.data.selftext?.slice(0,200) || ''
+      }))
+  },
+  reddit_astro: {
+    url: 'https://www.reddit.com/r/astrophysics/hot.json?limit=10',
+    label: 'Reddit · r/astrophysics',
+    badge: 'badge-reddit',
+    parse: (data) => (data.data?.children||[])
+      .filter(p=>!p.data.stickied && p.data.title)
+      .map(p => ({
+        title: p.data.title,
+        link: p.data.url.startsWith('http') ? p.data.url : 'https://reddit.com'+p.data.permalink,
+        pubDate: new Date(p.data.created_utc*1000).toISOString(),
+        author: 'u/'+p.data.author,
+        description: p.data.selftext?.slice(0,200) || ''
+      }))
   }
-};
-
+}
 let allArticles = {};
 let activeFilter = 'all';
 

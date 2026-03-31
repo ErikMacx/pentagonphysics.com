@@ -1974,15 +1974,7 @@ function filterFAQs(q) {
   document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
 }
 
-// Open q137 by default (the self-referential closing question)
-document.addEventListener('DOMContentLoaded', () => {
-  const last = document.getElementById('q137');
-  if (last) {
-    const q = last.querySelector('.faq-q');
-    if (q) toggle(q);
-    setTimeout(() => last.scrollIntoView({behavior:'smooth', block:'center'}), 800);
-  }
-});
+// No auto-scroll — user navigates freely
 </script>
 </body>
 </html>
