@@ -98,35 +98,73 @@ mjx-container { color: var(--text) !important; }
   opacity: 0; animation: up 0.9s 0.4s both;
 }
 
-.axiom-label {
-  font-size: 0.68rem; font-weight: 500;
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 0.6rem;
-}
-
-.axiom-eq-line {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1.2rem 1.6rem;
-  background: var(--bg3);
+.axiom-main {
+  display: grid;
+  grid-template-columns: 220px 1fr;
   border: 1px solid var(--border-hi);
-  border-left: 3px solid var(--gold);
-  margin-bottom: 0.8rem;
+  overflow: hidden;
 }
 
-.axiom-eq-line mjx-container { color: var(--gold-pale) !important; font-size: 1.15em !important; }
-
-/* FIX 4: chain as a clean flowing single row, smaller text, no boxes on key items just colour */
-.axiom-chain-text {
-  font-size: 0.9rem; font-weight: 300;
-  color: var(--text-mid); line-height: 1.7;
-  padding: 0.8rem 1.6rem;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--border-hi);
+/* Left panel — big equation on gold */
+.axiom-lhs {
+  background: var(--gold);
+  padding: 2rem 1.5rem;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  gap: 0.8rem;
 }
-.axiom-chain-text strong { color: var(--text); font-weight: 500; }
+
+.axiom-lhs-label {
+  font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(0,0,0,0.5);
+}
+
+.axiom-lhs mjx-container { color: #0a0a0a !important; }
+.axiom-lhs-eq { font-size: 1.1em; }
+
+.axiom-lhs-note {
+  font-size: 0.72rem; font-weight: 400;
+  color: rgba(0,0,0,0.55); line-height: 1.5;
+}
+
+/* Right panel — derivation table */
+.axiom-rhs {
+  background: var(--bg3);
+  display: flex; flex-direction: column;
+  justify-content: center;
+  border-left: 1px solid var(--border-hi);
+}
+
+.axiom-rhs-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  align-items: baseline;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  gap: 1rem;
+}
+.axiom-rhs-row:last-child { border-bottom: none; }
+.axiom-rhs-row.gold { background: rgba(242,201,76,0.06); }
+.axiom-rhs-row.gold .ar-val { color: var(--gold-pale); font-weight: 500; }
+
+.ar-label {
+  font-size: 0.64rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); flex-shrink: 0;
+}
+
+.ar-val {
+  font-size: 0.92rem; font-weight: 300;
+  color: var(--text-mid); line-height: 1.5;
+}
+.ar-val mjx-container { color: var(--text) !important; }
+
+@media (max-width: 600px) {
+  .axiom-main { grid-template-columns: 1fr; }
+  .axiom-rhs { border-left: none; border-top: 1px solid var(--border-hi); }
+}
 
 .hero-meta {
   font-size: 0.8rem; font-weight: 400;
@@ -163,6 +201,28 @@ mjx-container { color: var(--text) !important; }
   color: var(--text-dim);
 }
 
+.headline-claim {
+  display: flex; align-items: baseline;
+  flex-wrap: wrap; gap: 0;
+}
+.hc-eq {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: -0.01em;
+}
+.hc-sep {
+  color: var(--border-hi);
+  font-size: 1.2rem;
+}
+.hc-text {
+  font-size: clamp(1rem, 1.8vw, 1.4rem);
+  font-weight: 300;
+  color: var(--text-mid);
+  letter-spacing: 0.02em;
+}
+
 /* ═══ NAV ═══ */
 nav {
   position: sticky; top: 0; z-index: 100;
@@ -185,7 +245,6 @@ nav a:hover { color: var(--gold); border-color: var(--gold); }
   position: relative; z-index: 1;
   padding: 5.5rem var(--pad);
   border-bottom: 1px solid var(--border);
-  max-width: 1300px; margin: 0 auto;
 }
 
 .sec-tag {
@@ -206,25 +265,132 @@ h2 {
   margin-bottom: 1.4rem; max-width: 70ch; line-height: 1.85;
 }
 
-/* ═══ DERIVATION CHAIN — FIX 4 ═══ */
+/* ═══ DERIVATION CHAIN — vertical steps ═══ */
 .chain {
-  display: flex; flex-wrap: wrap; align-items: center;
-  margin: 2rem 0; gap: 0;
-  padding: 1.2rem 1.6rem;
-  background: var(--bg2); border: 1px solid var(--border-hi);
+  margin: 2rem 0;
+  border: 1px solid var(--border-hi);
+  background: var(--bg2);
+  overflow: hidden;
 }
 .cn {
-  font-size: 0.78rem; font-weight: 400;
-  color: var(--text-mid);
-  padding: 0.35rem 0.75rem;
-  background: var(--bg3); border: 1px solid var(--border);
-  white-space: nowrap; transition: all 0.2s;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
 }
-.cn:hover { color: var(--text); }
-.cn.k { color: var(--gold); border-color: var(--gold-dim); font-weight: 500; }
-.ca { color: var(--gold); padding: 0 0.35rem; opacity: 0.7; font-size: 0.8rem; }
+.cn:last-child { border-bottom: none; }
+.cn:hover { background: var(--bg3); }
+.cn .step-num {
+  font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold-dim);
+  padding: 0.9rem 1.2rem;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.cn .step-content {
+  font-size: 0.88rem; font-weight: 300;
+  color: var(--text-mid);
+  padding: 0.9rem 1.5rem;
+  line-height: 1.5;
+}
+.cn .step-content mjx-container { color: var(--text) !important; }
+.cn.k .step-num { color: var(--gold); }
+.cn.k .step-content { color: var(--text); font-weight: 400; }
+.cn.k { background: rgba(242,201,76,0.04); }
+.ca { display: none; }
 
-/* ═══ RESULTS GRID ═══ */
+/* ═══ RESULTS LIST ═══ */
+.results-list {
+  margin-top: 2.5rem;
+  border: 1px solid var(--border-hi);
+  overflow: hidden;
+}
+
+.rl-item {
+  border-bottom: 1px solid var(--border-hi);
+}
+.rl-item:last-child { border-bottom: none; }
+
+.rl-header {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  gap: 1.5rem;
+  cursor: pointer;
+}
+
+.rl-num {
+  font-family: var(--serif);
+  font-size: 1.4rem; font-weight: 700;
+  color: var(--gold-dim); line-height: 1;
+}
+
+.rl-title {
+  font-family: var(--serif);
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--text); line-height: 1.2;
+}
+
+.rl-match {
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.rl-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  background: var(--bg);
+}
+
+.rl-text {
+  padding: 2rem 2rem 2rem 2rem;
+  border-right: 1px solid var(--border);
+}
+
+.rl-text p {
+  font-size: 0.98rem;
+  color: var(--text-mid);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+.rl-text p:last-child { margin-bottom: 0; }
+
+.rl-eq {
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg2);
+  overflow: hidden;
+}
+
+.rl-eq mjx-container {
+  color: var(--gold-pale) !important;
+  overflow-x: auto;
+  scrollbar-width: none;
+  max-width: 100%;
+}
+.rl-eq mjx-container::-webkit-scrollbar { display: none; }
+
+.rl-verdict {
+  grid-column: 1 / -1;
+  padding: 0.9rem 2rem;
+  background: var(--bg3);
+  border-top: 1px solid var(--border);
+  font-size: 0.82rem; font-weight: 400;
+  font-style: italic;
+  color: var(--text-dim);
+}
+
+/* Keep rg for contact cards */
 .rg {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -232,43 +398,21 @@ h2 {
   border: 1px solid var(--border-hi);
   background: var(--border-hi);
 }
-
-.rc {
-  background: var(--bg2); padding: 1.8rem;
-  transition: background 0.2s;
-}
+.rc { background: var(--bg2); padding: 1.8rem; transition: background 0.2s; }
 .rc:hover { background: var(--bg3); }
-
 .rc-tag {
   font-size: 0.66rem; font-weight: 500;
   letter-spacing: 0.25em; text-transform: uppercase;
   color: var(--gold); margin-bottom: 0.9rem;
 }
+.rc-desc { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.6rem; }
 
-/* FIX 5: equation boxes with min-height and no clipping */
-.eq-box {
-  min-height: 90px;
-  padding: 1rem 0.8rem;
-  background: var(--bg3);
-  border-left: 2px solid var(--gold-dim);
-  margin-bottom: 1rem;
-  display: flex; align-items: center;
-  overflow: hidden;
-}
-.eq-box mjx-container {
-  max-width: 100%;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.eq-box mjx-container::-webkit-scrollbar { display: none; }
-
-.rc-desc {
-  font-size: 0.88rem; color: var(--text-mid);
-  line-height: 1.65; margin-bottom: 0.6rem;
-}
-.rc-prec {
-  font-size: 0.7rem; font-weight: 500;
-  letter-spacing: 0.05em; color: var(--accent);
+@media (max-width: 800px) {
+  .rl-body { grid-template-columns: 1fr; }
+  .rl-text { border-right: none; border-bottom: 1px solid var(--border); }
+  .rl-header { grid-template-columns: 40px 1fr; }
+  .rl-match { display: none; }
+  .rl-verdict { grid-column: 1; }
 }
 
 /* ═══ PAPERS ═══ */
@@ -366,16 +510,22 @@ footer {
 <div class="hero" id="top">
   <div class="hero-label">One axiom &nbsp;&middot;&nbsp; All of physics</div>
 
-  <h1 class="hero-title">Pentagon <span class="gold">Physics</span></h1>
+  <h1 class="hero-title">Pentagon <span style="color:var(--accent)">Physics</span></h1>
 
   <div class="axiom-block">
-    <div class="axiom-label">The axiom</div>
-    <div class="axiom-eq-line">
-      \( \displaystyle \sigma = \frac{1}{1+\sigma} \)
-      <span style="color:var(--text-dim); font-size:0.85rem; margin-left:0.5rem;">— the only self-referential equation with no free parameters</span>
-    </div>
-    <div class="axiom-chain-text">
-      \(\sigma = 1/(1+\sigma)\) &rarr; \(\varphi = (1+\sqrt{5})/2\) &rarr; \(\mathbb{Q}(\sqrt{5})\) &rarr; 600-cell spectrum &rarr; discriminant filter &rarr; <strong>two forces &middot; seven frozen constants</strong> &rarr; \(\alpha^{-1} = 137.036\) &rarr; \(c\) &rarr; <strong>\(E = mc^2\)</strong>
+    <div class="axiom-main">
+      <div class="axiom-lhs">
+        <div class="axiom-lhs-label">The axiom</div>
+        <div class="axiom-lhs-eq">\( \displaystyle \sigma = \frac{1}{1+\sigma} \)</div>
+        <div class="axiom-lhs-note">The only self-referential equation<br>with no free parameters</div>
+      </div>
+      <div class="axiom-rhs">
+        <div class="axiom-rhs-row"><span class="ar-label">Solution</span><span class="ar-val">\(\varphi = (1+\sqrt{5})/2\) &nbsp;&mdash;&nbsp; the golden ratio</span></div>
+        <div class="axiom-rhs-row"><span class="ar-label">Field</span><span class="ar-val">\(\mathbb{Q}(\sqrt{5})\) with automorphism \(\sqrt{5}\to-\sqrt{5}\)</span></div>
+        <div class="axiom-rhs-row"><span class="ar-label">Geometry</span><span class="ar-val">600-cell &nbsp;&mdash;&nbsp; 120 vertices, symmetry group 2I</span></div>
+        <div class="axiom-rhs-row"><span class="ar-label">Filter</span><span class="ar-val">\(\Delta = \varphi^2 - \lambda/3\) &nbsp;&rarr;&nbsp; 2 forces, 7 frozen constants</span></div>
+        <div class="axiom-rhs-row gold"><span class="ar-label">Output</span><span class="ar-val">\(\alpha^{-1} = 137.036\) &nbsp;&middot;&nbsp; \(G\) &nbsp;&middot;&nbsp; \(\Lambda\) &nbsp;&middot;&nbsp; \(E = mc^2\)</span></div>
+      </div>
     </div>
   </div>
 
@@ -388,10 +538,11 @@ footer {
 </div>
 
 <div class="stats-strip">
-  <div class="stat"><div class="n">80</div><div class="l">Papers published</div></div>
-  <div class="stat"><div class="n">26</div><div class="l">SM parameters derived</div></div>
-  <div class="stat"><div class="n">0</div><div class="l">Free parameters</div></div>
-  <div class="stat"><div class="n">1</div><div class="l">Axiom</div></div>
+  <div class="headline-claim">
+    <span class="hc-eq">&alpha;&sup1; = 137.035999207</span>
+    <span class="hc-sep">&ensp;&middot;&ensp;</span>
+    <span class="hc-text">Derived. Not measured. Not fitted.</span>
+  </div>
 </div>
 
 <nav>
@@ -409,14 +560,26 @@ footer {
   <p class="body">Any other coefficient introduces a free parameter and breaks uniqueness. The equation specifies itself. Everything else follows by algebraic necessity.</p>
 
   <div class="chain">
-    <div class="cn k">\(\sigma = 1/(1+\sigma)\)</div><div class="ca">&rarr;</div>
-    <div class="cn">discriminant 5</div><div class="ca">&rarr;</div>
-    <div class="cn">\(\mathbb{Q}(\sqrt{5})\)</div><div class="ca">&rarr;</div>
-    <div class="cn">automorphism \(\sqrt{5}\to-\sqrt{5}\)</div><div class="ca">&rarr;</div>
-    <div class="cn">600-cell</div><div class="ca">&rarr;</div>
-    <div class="cn">\(\Delta = \varphi^2 - \lambda/3\)</div><div class="ca">&rarr;</div>
-    <div class="cn k">2 forces &middot; 7 constants</div><div class="ca">&rarr;</div>
-    <div class="cn k">\(\alpha^{-1} = 137.036\) &middot; \(E=mc^2\)</div>
+    <div class="cn k">
+      <div class="step-num">Axiom</div>
+      <div class="step-content">\(\sigma = 1/(1+\sigma)\) &ensp;&mdash;&ensp; one positive solution: \(\varphi = (1+\sqrt{5})/2\)</div>
+    </div>
+    <div class="cn">
+      <div class="step-num">Algebra</div>
+      <div class="step-content">Discriminant 5 forces the field \(\mathbb{Q}(\sqrt{5})\) with unique automorphism \(\sqrt{5}\to -\sqrt{5}\)</div>
+    </div>
+    <div class="cn">
+      <div class="step-num">Geometry</div>
+      <div class="step-content">600-cell &mdash; the regular 4D polytope with 120 vertices and symmetry group 2I &mdash; is the unique geometric realisation</div>
+    </div>
+    <div class="cn">
+      <div class="step-num">Filter</div>
+      <div class="step-content">Discriminant condition \(\Delta = \varphi^2 - \lambda/3\) on the nine eigenvalues: two propagate, seven freeze</div>
+    </div>
+    <div class="cn k">
+      <div class="step-num">Output</div>
+      <div class="step-content">\(\alpha^{-1} = 137.036\) &ensp;&middot;&ensp; \(G = \alpha^{18}\times 12/7\) &ensp;&middot;&ensp; \(\Lambda\) &ensp;&middot;&ensp; \(E = mc^2\) &ensp;&mdash;&ensp; zero free parameters</div>
+    </div>
   </div>
 
   <p class="body">The geometric object forced by the axiom is the 600-cell — 120 vertices, symmetry group 2I (binary icosahedral). Its adjacency matrix has nine eigenvalues in \(\mathbb{Q}(\sqrt{5})\). A discriminant condition selects two propagating modes and freezes seven as Standard Model parameters.</p>
@@ -425,64 +588,171 @@ footer {
 <!-- RESULTS -->
 <div class="sec" id="results">
   <div class="sec-tag">Key Results</div>
-  <h2>What has been proved</h2>
-  <p class="body">Zero free parameters throughout. Every coefficient forced by spectral geometry. None fitted to observation.</p>
+  <h2>Ten derivations. Zero free parameters.</h2>
+  <p class="body">Every result below was previously either a measured input to physics or an unexplained fact. Each is now a theorem — forced by the single axiom \(\sigma = 1/(1+\sigma)\) with no fitting, no tuning, and no free choices after the first.</p>
 
-  <div class="rg">
-    <div class="rc">
-      <div class="rc-tag">Fine Structure Constant</div>
-      <div class="eq-box">\[ \alpha^{-1} = \frac{360}{\varphi^2} - \frac{2}{\varphi^3} + \frac{3^{-5}}{\varphi^5} + \frac{7^{-7}}{\varphi^7} \]</div>
-      <div class="rc-desc">\(\varphi\)-exponents are the first four primes. All coefficients composed of primes only.</div>
-      <div class="rc-prec">137.035999207 &middot; Morel 2020 &middot; 0.05&thinsp;&sigma;</div>
+  <div class="results-list">
+
+    <div class="rl-item">
+      <div class="rl-header">
+        <div class="rl-num">01</div>
+        <div class="rl-title">The Fine Structure Constant</div>
+        <div class="rl-match">0.05&thinsp;&sigma; &middot; Morel 2020</div>
+      </div>
+      <div class="rl-body">
+        <div class="rl-text">
+          <p>For a century, the number 1/137 sat at the foundation of atomic physics with no explanation. Feynman called it "one of the greatest mysteries of physics." Every atom, every photon, every electromagnetic interaction depends on it — and nobody could derive it.</p>
+          <p>Pentagon Physics derives it from the spectral geometry of the 600-cell. The exponents in the formula are the first four prime numbers. Every coefficient is composed of primes. There are no choices after the axiom.</p>
+        </div>
+        <div class="rl-eq">\[ \alpha^{-1} = \frac{360}{\varphi^2} - \frac{2}{\varphi^3} + \frac{3^{-5}}{\varphi^5} + \frac{7^{-7}}{\varphi^7} = 137.035999207 \]</div>
+        <div class="rl-verdict">Previously: measured and inserted by hand for 100 years. Now: a theorem.</div>
+      </div>
     </div>
-    <div class="rc">
-      <div class="rc-tag">Gravitational Constant</div>
-      <div class="eq-box">\[ \alpha_G = \alpha^{18} \times \frac{12}{7} \]</div>
-      <div class="rc-desc">Confinement leakage through 102 unused 600-cell vertices across 18 eigenmode layers. Zero gravitational input.</div>
-      <div class="rc-prec">0.05% agreement</div>
+
+    <div class="rl-item">
+      <div class="rl-header">
+        <div class="rl-num">02</div>
+        <div class="rl-title">The Cosmological Constant</div>
+        <div class="rl-match">Predicted &minus;122.951 &middot; observed &minus;122.945</div>
+      </div>
+      <div class="rl-body">
+        <div class="rl-text">
+          <p>The cosmological constant \(\Lambda\) represents the energy density of empty space. Quantum field theory predicts a value \(10^{123}\) times larger than observed — described as "the worst prediction in the history of physics." No theory has explained the discrepancy.</p>
+          <p>Pentagon Physics derives the observed value from the same geometry as \(\alpha\). The 123-order-of-magnitude hierarchy is not a mystery to be explained away. It is a theorem.</p>
+        </div>
+        <div class="rl-eq">\[ \log_{10}(\rho_\Lambda) = -\left( \frac{2\,\alpha^{-1}}{\sqrt{5}} + \varphi^{-2} \right) = -122.951 \]</div>
+        <div class="rl-verdict">Previously: the worst prediction in physics. Now: a theorem of the same geometry as &alpha;.</div>
+      </div>
     </div>
-    <div class="rc">
-      <div class="rc-tag">Cosmological Constant</div>
-      <div class="eq-box">\[ \log_{10}(\rho_\Lambda) = -\!\left(\frac{2\,\alpha^{-1}}{\sqrt{5}} + \varphi^{-2}\right) \]</div>
-      <div class="rc-desc">The \(10^{123}\) hierarchy is a theorem of the same geometry as \(\alpha\).</div>
-      <div class="rc-prec">Predicted &minus;122.951 &middot; observed &minus;122.945</div>
+
+    <div class="rl-item">
+      <div class="rl-header">
+        <div class="rl-num">03</div>
+        <div class="rl-title">Why Exactly Two Long-Range Forces</div>
+        <div class="rl-match">Gravity &middot; Electromagnetism &middot; forced</div>
+      </div>
+      <div class="rl-body">
+        <div class="rl-text">
+          <p>Physics has four fundamental forces. Two — gravity and electromagnetism — propagate to unlimited distance. Two — the strong and weak nuclear forces — do not. The Standard Model accepts this as a structural fact. It has never been explained.</p>
+          <p>The 600-cell adjacency matrix has nine eigenvalues. A discriminant condition \(\Delta = \varphi^2 - \lambda/3\) divides them: two exceed the threshold \(\lambda^* = 3\varphi^2\) and propagate as waves. Seven fall below and freeze as parameters. The number two is not chosen. It is counted.</p>
+        </div>
+        <div class="rl-eq">\[ \Delta = \varphi^2 - \frac{\lambda}{3} \quad \Rightarrow \quad \begin{cases} \lambda > 3\varphi^2 & \text{propagates (force)} \\ \lambda < 3\varphi^2 & \text{freezes (parameter)} \end{cases} \]</div>
+        <div class="rl-verdict">Previously: an unexplained asymmetry in nature. Now: a count of eigenvalues above a threshold.</div>
+      </div>
     </div>
-    <div class="rc">
-      <div class="rc-tag">Proton&ndash;Electron Mass Ratio</div>
-      <div class="eq-box">\[ \frac{m_p}{m_e} = 6\pi^5 + \frac{\pi^5}{\varphi^7(\pi^5-1)} \]</div>
-      <div class="rc-desc">\(\varphi = 2\cos(\pi/5)\) — pentagon geometry connects \(\varphi\) to \(\pi\). Forced, not chosen.</div>
-      <div class="rc-prec">0.005 ppm</div>
+
+    <div class="rl-item">
+      <div class="rl-header">
+        <div class="rl-num">04</div>
+        <div class="rl-title">The Proton&ndash;Electron Mass Ratio</div>
+        <div class="rl-match">0.005 ppm</div>
+      </div>
+      <div class="rl-body">
+        <div class="rl-text">
+          <p>The proton is 1836.15 times heavier than the electron. This ratio determines the size of atoms, the stability of matter, and the chemistry of the universe. It has been measured to extraordinary precision. It has never been derived.</p>
+          <p>The derivation uses the identity \(\varphi = 2\cos(\pi/5)\), which connects the golden ratio to \(\pi\) through the geometry of the pentagon. Both constants trace back to the same discriminant-5 axiom. The ratio follows from pentagon geometry alone.</p>
+        </div>
+        <div class="rl-eq">\[ \frac{m_p}{m_e} = 6\pi^5 + \frac{\pi^5}{\varphi^7(\pi^5 - 1)} = 1836.1526 \]</div>
+        <div class="rl-verdict">Previously: measured to 11 decimal places, never explained. Now: pentagon geometry.</div>
+      </div>
     </div>
-    <div class="rc">
-      <div class="rc-tag">Two Long-Range Forces</div>
-      <div class="eq-box">\[ \Delta = \varphi^2 - \frac{\lambda}{3}, \qquad \lambda^* = 3\varphi^2 \]</div>
-      <div class="rc-desc">Exactly two propagating modes. EM discriminant \(=-\varphi^{-1}=-\sigma\), the axiom&rsquo;s own fixed point.</div>
-      <div class="rc-prec">Gravity + electromagnetism &middot; forced</div>
+
+    <div class="rl-item">
+      <div class="rl-header">
+        <div class="rl-num">05</div>
+        <div class="rl-title">Nuclear Masses and the Iron Peak</div>
+        <div class="rl-match">RMS 0.11% &middot; zero free parameters</div>
+      </div>
+      <div class="rl-body">
+        <div class="rl-text">
+          <p>In 1935, Bethe and Weizs&auml;cker wrote down a formula for nuclear binding energies with five fitted coefficients. It works, but it cannot explain why the curve peaks at iron, or why both fusion and fission release energy toward the same element.</p>
+          <p>The Pentagon Physics formula has one equation and zero free parameters. Iron-56 is special because it is the element nearest to the fixed point of the axiom \(b^* = \sigma = 1/\varphi\). The shape of the binding energy curve is a consequence of the axiom's fixed-point structure.</p>
+        </div>
+        <div class="rl-eq">\[ b^2 + b = \frac{\Sigma\lambda^+(A)}{A}, \qquad b^* = \sigma = \frac{1}{\varphi} \quad (\text{iron-56}) \]</div>
+        <div class="rl-verdict">Previously: five fitted parameters, no explanation for iron. Now: one fixed-point equation.</div>
+      </div>
     </div>
-    <div class="rc">
-      <div class="rc-tag">Nuclear Binding &middot; Iron Peak</div>
-      <div class="eq-box">\[ b^2 + b = \frac{\Sigma\lambda^+(A)}{A}, \quad b^* = \sigma \]</div>
-      <div class="rc-desc">Iron-56 is where \(b\approx\sigma\). Five fitted Bethe-Weizs&auml;cker coefficients replaced by one equation.</div>
-      <div class="rc-prec">RMS 0.11% &middot; zero free parameters</div>
+
+    <div class="rl-item">
+      <div class="rl-header">
+        <div class="rl-num">06</div>
+        <div class="rl-title">The Gravitational Constant</div>
+        <div class="rl-match">0.05% &middot; zero gravitational input</div>
+      </div>
+      <div class="rl-body">
+        <div class="rl-text">
+          <p>Newton's gravitational constant \(G\) has been measured since Cavendish's 1798 torsion balance experiment. It sits as a primitive input in every theory of gravity ever written — general relativity, string theory, loop quantum gravity. Nobody has derived it from anything more fundamental.</p>
+          <p>In Pentagon Physics, gravity is the electromagnetic force after charge cancellation in neutral matter — the residual field that escapes because confinement is never perfect. The proton confines its energy through 18 eigenmode layers. The fraction that leaks through the 102 unused vertices of the 600-cell is \(G\). No gravitational input is used in the derivation.</p>
+        </div>
+        <div class="rl-eq">\[ \alpha_G = \alpha^{18} \times \frac{12}{7} \]</div>
+        <div class="rl-verdict">Previously: a primitive constant inserted by hand since 1798. Now: confinement leakage.</div>
+      </div>
     </div>
-    <div class="rc">
-      <div class="rc-tag">Lepton Masses (Koide)</div>
-      <div class="eq-box">\[ Q = \tfrac{2}{3}, \qquad \cos\delta = -\frac{19}{28} \]</div>
-      <div class="rc-desc">Three generations uniquely selected. Koide phase forced — not a free parameter.</div>
-      <div class="rc-prec">0.021% &middot; zero free parameters</div>
+
+    <div class="rl-item">
+      <div class="rl-header">
+        <div class="rl-num">07</div>
+        <div class="rl-title">Stellar Fusion Efficiency</div>
+        <div class="rl-match">Matches observed pp-chain efficiency</div>
+      </div>
+      <div class="rl-body">
+        <div class="rl-text">
+          <p>When the sun fuses hydrogen into helium, 0.937% of the mass is converted to energy. This number determines the lifetime of every star. It is not derived in standard astrophysics — it follows from nuclear masses that are themselves measured inputs.</p>
+          <p>In Pentagon Physics, both the proton mass and the helium-4 binding energy are derived from the same axiom. Their ratio is therefore also a theorem. The sun burns at 0.937% efficiency because the axiom's fixed point is at iron, and the energy released per step toward that fixed point is set by \(\varphi\).</p>
+        </div>
+        <div class="rl-eq">\[ \eta = \frac{\varphi - 1}{\varphi^3} = 0.937\% \]</div>
+        <div class="rl-verdict">Previously: derived from measured nuclear masses. Now: a theorem of the axiom's fixed-point structure.</div>
+      </div>
     </div>
-    <div class="rc">
-      <div class="rc-tag">Neutrino Sector</div>
-      <div class="eq-box">\[ Q_\nu = \sigma^2 = \varphi^{-2}, \quad \Sigma m_\nu = 74.65\,\text{meV} \]</div>
-      <div class="rc-desc">All seven neutrino parameters derived. Majorana character proved from character table of 2I.</div>
-      <div class="rc-prec">\(\sin^2\theta_{13} = 1/45\) &middot; \(\sin^2\theta_{12} = 2\varphi^4/45\)</div>
+
+    <div class="rl-item">
+      <div class="rl-header">
+        <div class="rl-num">08</div>
+        <div class="rl-title">The Higgs Mass</div>
+        <div class="rl-match">0.17&thinsp;&sigma; from measurement</div>
+      </div>
+      <div class="rl-body">
+        <div class="rl-text">
+          <p>The Higgs boson was discovered at CERN in 2012 with a mass of approximately 125 GeV. Its mass and the shape of its potential are free parameters in the Standard Model — chosen to fit the data. The quartic coupling \(\lambda\) and vacuum expectation value \(v\) are inserted by hand.</p>
+          <p>In Pentagon Physics, the Higgs quartic coupling is determined by the geometry of the 600-cell. The Higgs potential's second derivative at the fixed point equals \(\sqrt{5}\) — a direct consequence of the discriminant. The mass follows without free parameters.</p>
+        </div>
+        <div class="rl-eq">\[ \lambda = \frac{2\varphi}{25}, \qquad m_H = \frac{2v\sqrt{\varphi}}{5} = 125.28\,\text{GeV} \]</div>
+        <div class="rl-verdict">Previously: a free parameter fitted to CERN data. Now: a consequence of discriminant-5 geometry.</div>
+      </div>
     </div>
-    <div class="rc">
-      <div class="rc-tag">Stellar Fusion Efficiency</div>
-      <div class="eq-box">\[ \eta = \frac{\varphi - 1}{\varphi^3} = 0.937\% \]</div>
-      <div class="rc-desc">The efficiency of stellar fusion is a theorem. Stars die at iron because the axiom&rsquo;s fixed point is there.</div>
-      <div class="rc-prec">Matches observed pp-chain efficiency</div>
+
+    <div class="rl-item">
+      <div class="rl-header">
+        <div class="rl-num">09</div>
+        <div class="rl-title">Neutrino Masses and Mixing</div>
+        <div class="rl-match">All 7 parameters &middot; Majorana character proved</div>
+      </div>
+      <div class="rl-body">
+        <div class="rl-text">
+          <p>Neutrinos are the most elusive particles in the Standard Model. Their masses are unknown individually — only squared differences have been measured. Their mixing angles (the PMNS matrix) are large and poorly understood. Whether neutrinos are their own antiparticle (Majorana) or not (Dirac) is an open experimental question.</p>
+          <p>Pentagon Physics derives all seven neutrino sector parameters: three masses in normal ordering with sum \(\Sigma m = 74.65\) meV, and all four PMNS angles including the CP-violating phase. Majorana character is proved from the character table of 2I — all 81 characters are real, so no complex representations exist.</p>
+        </div>
+        <div class="rl-eq">\[ \sin^2\theta_{13} = \frac{1}{45}, \quad \sin^2\theta_{12} = \frac{2\varphi^4}{45}, \quad \Sigma m_\nu = 74.65\,\text{meV} \]</div>
+        <div class="rl-verdict">Previously: 7 measured or unknown parameters. Now: derived from the character table of 2I.</div>
+      </div>
     </div>
+
+    <div class="rl-item">
+      <div class="rl-header">
+        <div class="rl-num">10</div>
+        <div class="rl-title">Three Generations of Matter</div>
+        <div class="rl-match">Exact &middot; N = 3 uniquely selected</div>
+      </div>
+      <div class="rl-body">
+        <div class="rl-text">
+          <p>The Standard Model has three families of quarks and leptons: electron/muon/tau, and their corresponding neutrinos. Why three? The question has no answer in the Standard Model. The number of generations is simply observed and accepted.</p>
+          <p>The Koide Stability Lemma proves that three is the only value of \(N\) for which the self-referential balance condition is stable. The circulant matrix with \(N\) entries has a stable fixed point if and only if \(N = 3\) and the Koide ratio \(Q = 2/3\). One is unstable. Two is degenerate. Four or more are inconsistent with the axiom. Three is forced.</p>
+        </div>
+        <div class="rl-eq">\[ Q = \frac{(\sqrt{m_e} + \sqrt{m_\mu} + \sqrt{m_\tau})^2}{3(m_e + m_\mu + m_\tau)} = \frac{2}{3} \quad \Rightarrow \quad N = 3 \text{ uniquely} \]</div>
+        <div class="rl-verdict">Previously: observed and unexplained. Now: the only stable solution to the self-referential balance condition.</div>
+      </div>
+    </div>
+
   </div>
 </div>
 
