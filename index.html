@@ -4,191 +4,193 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Pentagon Physics — deriving all Standard Model parameters and fundamental constants from the single axiom σ = 1/(1+σ). 80 papers by Eric McLean, Independent Researcher, Cyprus.">
-<meta name="keywords" content="Pentagon Physics, Eric McLean, fine structure constant, 600-cell, Standard Model, Zenodo, alpha derivation, gravitational constant, proton mass, self-reference, physics axiom">
+<meta name="keywords" content="Pentagon Physics, Eric McLean, fine structure constant, 600-cell, Standard Model, Zenodo, alpha derivation, gravitational constant, proton mass, self-reference, physics constants">
 <meta name="author" content="Eric McLean">
-<meta property="og:title" content="Pentagon Physics — Eric McLean">
-<meta property="og:description" content="One axiom. 80 papers. Zero free parameters.">
-<meta property="og:type" content="website">
 <title>Pentagon Physics — Eric McLean</title>
+
+<!-- MathJax for professional equation rendering -->
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']],
+    packages: {'[+]': ['ams']}
+  },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre']
+  },
+  startup: {
+    ready() {
+      MathJax.startup.defaultReady();
+    }
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
 :root {
-  --gold: #D4A843;
-  --gold-bright: #F0C860;
-  --gold-dim: #8A6E2A;
-  --bg: #0A0A0B;
-  --bg2: #111113;
-  --bg3: #181820;
-  --border: #2A2A35;
-  --border-bright: #3A3A48;
-  --text: #E8E4DC;
-  --text-mid: #B8B4AC;
-  --text-dim: #787470;
-  --accent: #5B9BC4;
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --sans: 'Outfit', system-ui, sans-serif;
+  --gold:       #F2C94C;
+  --gold-dim:   #A8862A;
+  --gold-pale:  #FBE89A;
+  --bg:         #080809;
+  --bg2:        #0F0F12;
+  --bg3:        #17171C;
+  --border:     #ffffff18;
+  --border-hi:  #ffffff30;
+  --text:       #F5F2EC;
+  --text-mid:   #C8C4BC;
+  --text-dim:   #888480;
+  --accent:     #60A8D4;
+  --serif:      'Playfair Display', Georgia, serif;
+  --sans:       'DM Sans', system-ui, sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 18px; }
+html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--serif);
-  line-height: 1.75;
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.7;
   overflow-x: hidden;
 }
 
-/* ── PENTAGON BG ── */
-.pent-bg {
+/* MathJax display overrides — white equations on dark background */
+mjx-container { color: var(--text) !important; }
+mjx-container[display="true"] {
+  margin: 1.2rem 0 !important;
+  overflow-x: auto;
+}
+
+.rc mjx-container { color: var(--gold-pale) !important; }
+.ax-right mjx-container { color: var(--text-mid) !important; }
+
+/* ── PENTAGON WATERMARK ── */
+.pent-wrap {
   position: fixed; top: 0; right: 0;
-  width: 55vw; height: 100vh;
-  opacity: 0.04; pointer-events: none; z-index: 0;
+  width: 60vw; height: 100vh;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.pent-wrap svg {
+  position: absolute; top: 50%; right: -5vw;
+  transform: translateY(-50%);
+  width: 100%; height: auto; opacity: 0.055;
 }
 
 /* ── HERO ── */
 .hero {
   position: relative; z-index: 1;
   min-height: 100vh;
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 5rem 10vw 5rem;
-  border-bottom: 1px solid var(--border);
+  display: grid; grid-template-rows: 1fr auto;
+  border-bottom: 1px solid var(--border-hi);
 }
 
-.hero::after {
-  content: '';
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 15% 55%, rgba(212,168,67,0.07) 0%, transparent 65%),
-    radial-gradient(ellipse 40% 60% at 85% 30%, rgba(91,155,196,0.04) 0%, transparent 60%);
-  pointer-events: none;
+.hero-inner {
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 6rem 8vw 4rem;
 }
 
-.hero-tag {
-  font-family: var(--sans);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 2.5rem;
-  opacity: 0;
-  animation: rise 0.9s 0.1s cubic-bezier(.22,1,.36,1) forwards;
+.tag {
+  font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 2.5rem;
+  opacity: 0; animation: up 1s 0.1s both;
 }
 
-.hero-title {
-  font-size: clamp(4.5rem, 10vw, 9rem);
-  font-weight: 600;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  color: var(--text);
-  margin-bottom: 2rem;
-  opacity: 0;
-  animation: rise 0.9s 0.25s cubic-bezier(.22,1,.36,1) forwards;
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(5rem, 12vw, 10.5rem);
+  font-weight: 900; line-height: 0.9;
+  letter-spacing: -0.03em; color: var(--text);
+  margin-bottom: 3rem;
+  opacity: 0; animation: up 1s 0.25s both;
+}
+h1 .gold { color: var(--gold); }
+
+.axiom-strip {
+  display: flex; align-items: stretch;
+  max-width: 760px; margin-bottom: 3.5rem;
+  border: 1px solid var(--border-hi);
+  opacity: 0; animation: up 1s 0.45s both;
 }
 
-.hero-title .accent { color: var(--gold); }
-
-.hero-desc {
-  font-family: var(--sans);
-  font-size: 1rem;
-  font-weight: 300;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-mid);
-  margin-bottom: 3.5rem;
-  opacity: 0;
-  animation: rise 0.9s 0.4s cubic-bezier(.22,1,.36,1) forwards;
-}
-
-.axiom-block {
-  display: flex;
-  align-items: stretch;
-  gap: 0;
-  max-width: 680px;
-  margin-bottom: 4rem;
-  border: 1px solid var(--border-bright);
-  opacity: 0;
-  animation: rise 0.9s 0.55s cubic-bezier(.22,1,.36,1) forwards;
-}
-
-.axiom-left {
-  background: var(--bg3);
-  border-right: 3px solid var(--gold);
-  padding: 1.6rem 2rem;
+.ax-left {
+  background: var(--gold);
+  padding: 1.4rem 2rem;
   display: flex; align-items: center; justify-content: center;
-  min-width: 160px;
+  min-width: 210px; flex-shrink: 0;
 }
 
-.axiom-eq {
-  font-size: 1.8rem;
-  font-style: italic;
-  color: var(--gold-bright);
-  white-space: nowrap;
-}
+.ax-left mjx-container { color: #080809 !important; }
 
-.axiom-right {
-  background: var(--bg2);
-  padding: 1.4rem 1.8rem;
+.ax-right {
+  background: var(--bg3);
+  padding: 1.4rem 2rem;
   display: flex; align-items: center;
 }
 
-.axiom-chain {
-  font-family: var(--sans);
-  font-size: 0.82rem;
-  font-weight: 300;
-  line-height: 2;
-  color: var(--text-mid);
+.ax-chain {
+  font-size: 0.88rem; font-weight: 300;
+  line-height: 2; color: var(--text-mid);
 }
-
-.axiom-chain strong {
-  color: var(--text);
-  font-weight: 500;
-}
+.ax-chain strong { color: var(--text); font-weight: 500; }
 
 .hero-meta {
-  font-family: var(--sans);
-  font-size: 0.8rem;
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  opacity: 0;
-  animation: rise 0.9s 0.7s cubic-bezier(.22,1,.36,1) forwards;
-  display: flex; gap: 2rem; flex-wrap: wrap; align-items: center;
+  font-size: 0.82rem; font-weight: 400;
+  letter-spacing: 0.06em; color: var(--text-dim);
+  opacity: 0; animation: up 1s 0.6s both;
+  display: flex; gap: 0; flex-wrap: wrap; align-items: center;
 }
-
+.hero-meta span { margin-right: 0.8rem; }
+.hero-meta .dot { color: var(--gold); margin-right: 0.8rem; }
 .hero-meta a {
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(91,155,196,0.3);
-  padding-bottom: 1px;
-  transition: border-color 0.2s, color 0.2s;
+  color: var(--accent); text-decoration: none;
+  border-bottom: 1px solid rgba(96,168,212,0.3);
+  transition: color 0.2s, border-color 0.2s;
+  margin-right: 0.8rem;
+}
+.hero-meta a:hover { color: var(--gold); border-color: var(--gold); }
+
+.hero-bottom {
+  border-top: 1px solid var(--border);
+  padding: 1.2rem 8vw;
+  display: flex; gap: 3rem; flex-wrap: wrap;
 }
 
-.hero-meta a:hover { color: var(--gold); border-color: var(--gold); }
-.hero-meta .sep { color: var(--border-bright); }
+.stat { display: flex; align-items: baseline; gap: 0.6rem; }
+.stat .n {
+  font-family: var(--serif);
+  font-size: 2.2rem; font-weight: 700;
+  color: var(--gold); line-height: 1;
+}
+.stat .l {
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--text-dim);
+}
 
 /* ── NAV ── */
 nav {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(10,10,11,0.94);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  padding: 0 10vw;
-  display: flex; gap: 3rem; align-items: center;
-  height: 56px;
+  background: rgba(8,8,9,0.96);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-hi);
+  padding: 0 8vw;
+  display: flex; gap: 2.5rem; align-items: center;
+  height: 54px;
 }
-
 nav a {
-  font-family: var(--sans);
   font-size: 0.72rem; font-weight: 500;
   letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--text-dim); text-decoration: none;
-  transition: color 0.2s;
-  padding: 0.3em 0;
+  transition: color 0.2s; padding-bottom: 2px;
   border-bottom: 1px solid transparent;
 }
 nav a:hover { color: var(--gold); border-color: var(--gold); }
@@ -196,249 +198,224 @@ nav a:hover { color: var(--gold); border-color: var(--gold); }
 /* ── SECTIONS ── */
 .section {
   position: relative; z-index: 1;
-  padding: 6rem 10vw;
+  padding: 6rem 8vw;
   border-bottom: 1px solid var(--border);
-  max-width: 1280px;
-  margin: 0 auto;
+  max-width: 1300px; margin: 0 auto;
 }
 
-.section-tag {
-  font-family: var(--sans);
-  font-size: 0.68rem; font-weight: 500;
+.sec-tag {
+  font-size: 0.72rem; font-weight: 500;
   letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 1.2rem;
+  color: var(--gold); margin-bottom: 1rem;
 }
 
-.section-title {
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
-  font-weight: 500; color: var(--text);
-  margin-bottom: 1.8rem; line-height: 1.15;
+h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  font-weight: 700; color: var(--text);
+  margin-bottom: 2rem; line-height: 1.1;
 }
 
-.body-text {
-  font-size: 1.15rem;
-  color: var(--text-mid);
-  margin-bottom: 1.4rem;
-  max-width: 70ch;
-  line-height: 1.8;
+.body {
+  font-size: 1.05rem; color: var(--text-mid);
+  margin-bottom: 1.5rem;
+  max-width: 68ch; line-height: 1.85;
 }
 
 /* ── CHAIN ── */
 .chain {
-  display: flex; flex-wrap: wrap;
-  align-items: center; gap: 0;
-  margin: 2.5rem 0;
-  padding: 1.6rem 2rem;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  overflow-x: auto;
+  display: flex; flex-wrap: wrap; align-items: center;
+  margin: 2.5rem 0; padding: 1.5rem 2rem;
+  background: var(--bg2); border: 1px solid var(--border-hi);
+  overflow-x: auto; gap: 0;
 }
-
-.c-node {
-  font-family: var(--sans);
-  font-size: 0.78rem; font-weight: 400;
-  letter-spacing: 0.04em;
-  color: var(--text-mid);
-  padding: 0.55rem 1rem;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  white-space: nowrap;
-  transition: all 0.2s;
+.cn {
+  font-size: 0.8rem; font-weight: 400; letter-spacing: 0.03em;
+  color: var(--text-mid); padding: 0.5rem 0.9rem;
+  background: var(--bg3); border: 1px solid var(--border);
+  white-space: nowrap; transition: all 0.2s;
 }
-.c-node:hover { color: var(--text); border-color: var(--border-bright); }
-.c-node.key { color: var(--gold-bright); border-color: var(--gold-dim); font-weight: 500; }
-.c-arrow { color: var(--gold); padding: 0 0.4rem; font-size: 0.9rem; opacity: 0.7; }
-
-/* ── STATS ── */
-.stats {
-  display: flex; gap: 3.5rem; flex-wrap: wrap;
-  margin: 3rem 0 2rem;
-}
-.stat .n {
-  font-size: 3.5rem; font-weight: 300;
-  color: var(--gold); line-height: 1;
-  font-family: var(--serif);
-}
-.stat .l {
-  font-family: var(--sans);
-  font-size: 0.68rem; font-weight: 500;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--text-dim); margin-top: 0.4rem;
-}
+.cn:hover { color: var(--text); border-color: var(--border-hi); }
+.cn.k { color: var(--gold); border-color: var(--gold-dim); font-weight: 500; }
+.ca { color: var(--gold); padding: 0 0.4rem; opacity: 0.8; font-size: 0.85rem; }
 
 /* ── RESULTS GRID ── */
-.results-grid {
+.rg {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem; margin-top: 2.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1px; margin-top: 2.5rem;
+  border: 1px solid var(--border-hi);
+  background: var(--border-hi);
 }
 
-.r-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-top: 2px solid var(--gold-dim);
-  padding: 1.8rem;
-  transition: transform 0.2s, border-top-color 0.2s;
+.rc {
+  background: var(--bg2); padding: 2rem;
+  transition: background 0.2s;
 }
-.r-card:hover {
-  transform: translateY(-3px);
-  border-top-color: var(--gold);
+.rc:hover { background: var(--bg3); }
+
+.rc-tag {
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1rem;
 }
-.r-card h3 {
-  font-family: var(--sans);
-  font-size: 0.68rem; font-weight: 600;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 0.7rem;
+
+.rc-eq {
+  margin: 0.8rem 0 1rem;
+  padding: 0.8rem 1rem;
+  background: var(--bg3);
+  border-left: 2px solid var(--gold-dim);
+  overflow: hidden;
 }
-.r-card .formula {
-  font-size: 1.2rem; font-style: italic;
-  color: var(--gold-bright); margin-bottom: 0.7rem;
-  line-height: 1.4;
+.rc-eq mjx-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  max-width: 100%;
 }
-.r-card .desc {
-  font-size: 0.95rem;
-  color: var(--text-mid); line-height: 1.6;
-  margin-bottom: 0.6rem;
+.rc-eq mjx-container::-webkit-scrollbar { display: none; }
+
+.rc-desc {
+  font-size: 0.9rem; color: var(--text-mid);
+  line-height: 1.65; margin-bottom: 0.7rem;
 }
-.r-card .prec {
-  font-family: var(--sans);
-  font-size: 0.68rem; letter-spacing: 0.08em;
-  color: var(--accent);
+.rc-prec {
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.06em; color: var(--accent);
 }
 
 /* ── PAPERS ── */
-.paper-group { margin-bottom: 3.5rem; }
-
+.paper-group { margin-bottom: 3rem; }
 .paper-group-title {
-  font-family: var(--sans);
-  font-size: 0.68rem; font-weight: 600;
+  font-size: 0.72rem; font-weight: 500;
   letter-spacing: 0.28em; text-transform: uppercase;
-  color: var(--gold);
-  padding-bottom: 0.8rem; margin-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
+  color: var(--gold); padding-bottom: 0.8rem; margin-bottom: 0;
+  border-bottom: 1px solid var(--border-hi);
+  display: flex; justify-content: space-between; align-items: baseline;
 }
-
+.count {
+  color: var(--text-dim); font-weight: 400;
+  letter-spacing: 0.05em; text-transform: none; font-size: 0.75rem;
+}
 .paper-entry {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1.5rem; align-items: baseline;
-  padding: 1rem 0;
-  border-bottom: 1px solid rgba(42,42,53,0.7);
-  transition: all 0.15s;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 2rem; align-items: center;
+  padding: 1.1rem 0; border-bottom: 1px solid var(--border);
+  transition: padding-left 0.15s;
 }
-.paper-entry:hover {
-  padding-left: 0.6rem;
-  background: rgba(212,168,67,0.03);
-}
+.paper-entry:hover { padding-left: 0.8rem; }
 .paper-title {
-  font-size: 1.1rem;
-  color: var(--text);
-  font-weight: 400; line-height: 1.4;
+  font-size: 1.05rem; font-weight: 400;
+  color: var(--text); line-height: 1.4;
 }
 .paper-doi {
-  font-family: var(--sans);
-  font-size: 0.68rem; font-weight: 400;
-  letter-spacing: 0.04em;
-  color: var(--accent); text-decoration: none;
-  white-space: nowrap;
-  padding: 0.25em 0.7em;
-  border: 1px solid rgba(91,155,196,0.25);
-  transition: all 0.2s;
+  font-size: 0.72rem; font-weight: 400;
+  letter-spacing: 0.03em; color: var(--accent);
+  text-decoration: none; white-space: nowrap;
+  padding: 0.3em 0.8em;
+  border: 1px solid rgba(96,168,212,0.2);
+  transition: all 0.2s; flex-shrink: 0;
 }
 .paper-doi:hover {
-  color: var(--gold-bright);
-  border-color: rgba(212,168,67,0.5);
+  color: var(--gold); border-color: rgba(242,201,76,0.4);
+  background: rgba(242,201,76,0.05);
 }
 
 /* ── FOOTER ── */
 footer {
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
-  padding: 4rem 10vw;
-  display: flex; gap: 4rem; flex-wrap: wrap;
-  justify-content: space-between;
+  background: var(--bg2); border-top: 1px solid var(--border-hi);
+  padding: 4rem 8vw;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
 }
 .fc h4 {
-  font-family: var(--sans);
-  font-size: 0.68rem; font-weight: 600;
+  font-size: 0.72rem; font-weight: 500;
   letter-spacing: 0.25em; text-transform: uppercase;
   color: var(--gold); margin-bottom: 1.2rem;
 }
 .fc p, .fc a {
   font-size: 0.95rem; color: var(--text-dim);
   display: block; text-decoration: none;
-  margin-bottom: 0.5rem; line-height: 1.6;
-  transition: color 0.2s;
+  margin-bottom: 0.5rem; line-height: 1.7; transition: color 0.2s;
 }
 .fc a:hover { color: var(--text); }
-
-.foot-bottom {
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
-  padding: 1.2rem 10vw;
-  font-family: var(--sans);
-  font-size: 0.68rem; letter-spacing: 0.1em;
+.foot-bar {
+  background: var(--bg2); border-top: 1px solid var(--border);
+  padding: 1rem 8vw; font-size: 0.72rem; letter-spacing: 0.1em;
   color: var(--text-dim); text-align: center;
 }
 
-@keyframes rise {
-  from { opacity: 0; transform: translateY(20px); }
+@keyframes up {
+  from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 700px) {
-  .hero { padding: 4rem 6vw; }
+@media (max-width: 768px) {
+  h1 { font-size: clamp(3.5rem, 14vw, 5rem); }
+  .hero-inner { padding: 5rem 6vw 3rem; }
   .section { padding: 4rem 6vw; }
-  .axiom-block { flex-direction: column; }
-  .axiom-left { min-width: unset; border-right: none; border-bottom: 3px solid var(--gold); }
+  .axiom-strip { flex-direction: column; }
+  .ax-left { min-width: unset; }
   .paper-entry { grid-template-columns: 1fr; gap: 0.5rem; }
   nav { gap: 2rem; overflow-x: auto; padding: 0 6vw; }
-  .hero-meta { gap: 1rem; }
-  footer { flex-direction: column; gap: 2.5rem; padding: 3rem 6vw; }
-  .stats { gap: 2rem; }
+  footer { grid-template-columns: 1fr 1fr; gap: 2rem; padding: 3rem 6vw; }
+  .hero-bottom { padding: 1.2rem 6vw; gap: 2rem; }
+}
+@media (max-width: 480px) {
+  footer { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
-<svg class="pent-bg" viewBox="0 0 700 800" xmlns="http://www.w3.org/2000/svg">
-  <polygon points="350,40 660,250 545,630 155,630 40,250" fill="none" stroke="white" stroke-width="1.2"/>
-  <polygon points="350,110 590,280 490,570 210,570 110,280" fill="none" stroke="white" stroke-width="0.6"/>
-  <polygon points="350,180 520,315 440,510 260,510 180,315" fill="none" stroke="white" stroke-width="0.3"/>
-  <line x1="350" y1="40" x2="545" y2="630" stroke="white" stroke-width="0.4" opacity="0.6"/>
-  <line x1="350" y1="40" x2="155" y2="630" stroke="white" stroke-width="0.4" opacity="0.6"/>
-  <line x1="660" y1="250" x2="155" y2="630" stroke="white" stroke-width="0.4" opacity="0.6"/>
-  <line x1="40" y1="250" x2="545" y2="630" stroke="white" stroke-width="0.4" opacity="0.6"/>
-  <line x1="660" y1="250" x2="40" y2="250" stroke="white" stroke-width="0.4" opacity="0.6"/>
-</svg>
+<div class="pent-wrap">
+  <svg viewBox="0 0 600 680" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="300,30 560,210 465,560 135,560 40,210" fill="none" stroke="white" stroke-width="1.5"/>
+    <polygon points="300,95 500,245 420,510 180,510 100,245" fill="none" stroke="white" stroke-width="0.8"/>
+    <polygon points="300,160 440,280 380,460 220,460 160,280" fill="none" stroke="white" stroke-width="0.4"/>
+    <line x1="300" y1="30" x2="465" y2="560" stroke="white" stroke-width="0.5"/>
+    <line x1="300" y1="30" x2="135" y2="560" stroke="white" stroke-width="0.5"/>
+    <line x1="560" y1="210" x2="135" y2="560" stroke="white" stroke-width="0.5"/>
+    <line x1="40" y1="210" x2="465" y2="560" stroke="white" stroke-width="0.5"/>
+    <line x1="560" y1="210" x2="40" y2="210" stroke="white" stroke-width="0.5"/>
+  </svg>
+</div>
 
 <!-- HERO -->
 <div class="hero" id="top">
-  <div class="hero-tag">One axiom &nbsp;&middot;&nbsp; All of physics</div>
-  <h1 class="hero-title">Pentagon<br><span class="accent">Physics</span></h1>
-  <div class="hero-desc">A unified programme in theoretical physics</div>
+  <div class="hero-inner">
+    <div class="tag">One axiom &nbsp;&middot;&nbsp; All of physics</div>
+    <h1>Pentagon<br><span class="gold">Physics</span></h1>
 
-  <div class="axiom-block">
-    <div class="axiom-left">
-      <div class="axiom-eq">σ&nbsp;=&nbsp;1/(1+σ)</div>
-    </div>
-    <div class="axiom-right">
-      <div class="axiom-chain">
-        <strong>σ = 1/(1+σ)</strong> → φ = (1+√5)/2 → ℚ(√5) → 600-cell<br>
-        → discriminant filter → two forces → seven parameters<br>
-        → α⁻¹ = 137.036 → c → <strong>E = mc²</strong>
+    <div class="axiom-strip">
+      <div class="ax-left">
+        \( \sigma = \dfrac{1}{1+\sigma} \)
       </div>
+      <div class="ax-right">
+        <div class="ax-chain">
+          <strong>\(\sigma = 1/(1+\sigma)\)</strong> &rarr; \(\varphi = (1+\sqrt{5})/2\) &rarr; \(\mathbb{Q}(\sqrt{5})\) &rarr; 600-cell<br>
+          &rarr; discriminant filter &rarr; two forces &middot; seven constants<br>
+          &rarr; \(\alpha^{-1} = 137.036\) &rarr; \(c\) &rarr; <strong>\(E = mc^2\)</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-meta">
+      <span>Eric McLean</span>
+      <span class="dot">&middot;</span>
+      <span>Independent Researcher, Cyprus</span>
+      <span class="dot">&middot;</span>
+      <a href="https://orcid.org/0009-0009-6175-4408">ORCID 0009-0009-6175-4408</a>
+      <span class="dot">&middot;</span>
+      <a href="https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22McLean%2C+Eric%22">80 papers on Zenodo</a>
     </div>
   </div>
 
-  <div class="hero-meta">
-    <span>Eric McLean</span>
-    <span class="sep">·</span>
-    <span>Independent Researcher, Cyprus</span>
-    <span class="sep">·</span>
-    <a href="https://orcid.org/0009-0009-6175-4408">ORCID 0009-0009-6175-4408</a>
-    <span class="sep">·</span>
-    <a href="https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22McLean%2C+Eric%22">80 papers on Zenodo</a>
+  <div class="hero-bottom">
+    <div class="stat"><div class="n">80</div><div class="l">Papers published</div></div>
+    <div class="stat"><div class="n">26</div><div class="l">SM parameters derived</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Free parameters</div></div>
+    <div class="stat"><div class="n">1</div><div class="l">Axiom</div></div>
   </div>
 </div>
 
@@ -451,105 +428,97 @@ footer {
 
 <!-- PROGRAMME -->
 <div class="section" id="programme">
-  <div class="section-tag">The Axiom</div>
-  <h2 class="section-title">One equation. No free parameters.</h2>
+  <div class="sec-tag">The Axiom</div>
+  <h2>One equation.<br>No free parameters.</h2>
 
-  <div class="stats">
-    <div class="stat"><div class="n">80</div><div class="l">Papers published</div></div>
-    <div class="stat"><div class="n">26</div><div class="l">SM parameters derived</div></div>
-    <div class="stat"><div class="n">0</div><div class="l">Free parameters</div></div>
-    <div class="stat"><div class="n">1</div><div class="l">Axiom</div></div>
-  </div>
-
-  <p class="body-text">Pentagon Physics is a theoretical physics programme with a single founding claim: all Standard Model parameters and fundamental constants are theorems of the self-referential equation σ = 1/(1+σ), which has one positive solution — φ = (1+√5)/2.</p>
-  <p class="body-text">The equation is the only self-referential equation with no free parameters. Any other coefficient introduces a free parameter and breaks uniqueness. The equation specifies itself. Everything else follows by algebraic necessity.</p>
+  <p class="body">Pentagon Physics is a theoretical physics programme with a single founding claim: all Standard Model parameters and fundamental constants are theorems of the self-referential equation \(\sigma = 1/(1+\sigma)\), which has one positive solution \(\varphi = (1+\sqrt{5})/2\).</p>
+  <p class="body">The equation is the only self-referential equation with no free parameters. Any other coefficient introduces a free parameter and breaks uniqueness. The equation specifies itself. Everything else follows by algebraic necessity.</p>
 
   <div class="chain">
-    <div class="c-node key">σ = 1/(1+σ)</div><div class="c-arrow">→</div>
-    <div class="c-node">discriminant 5</div><div class="c-arrow">→</div>
-    <div class="c-node">ℚ(√5)</div><div class="c-arrow">→</div>
-    <div class="c-node">automorphism √5→−√5</div><div class="c-arrow">→</div>
-    <div class="c-node">600-cell spectrum</div><div class="c-arrow">→</div>
-    <div class="c-node">Δ = φ²−λ/3</div><div class="c-arrow">→</div>
-    <div class="c-node key">2 forces · 7 constants</div><div class="c-arrow">→</div>
-    <div class="c-node key">α⁻¹ = 137.036 · E = mc²</div>
+    <div class="cn k">\(\sigma = 1/(1+\sigma)\)</div><div class="ca">&rarr;</div>
+    <div class="cn">discriminant 5</div><div class="ca">&rarr;</div>
+    <div class="cn">\(\mathbb{Q}(\sqrt{5})\)</div><div class="ca">&rarr;</div>
+    <div class="cn">automorphism \(\sqrt{5} \to -\sqrt{5}\)</div><div class="ca">&rarr;</div>
+    <div class="cn">600-cell spectrum</div><div class="ca">&rarr;</div>
+    <div class="cn">\(\Delta = \varphi^2 - \lambda/3\)</div><div class="ca">&rarr;</div>
+    <div class="cn k">2 forces &middot; 7 constants</div><div class="ca">&rarr;</div>
+    <div class="cn k">\(\alpha^{-1} = 137.036\) &middot; \(E = mc^2\)</div>
   </div>
 
-  <p class="body-text">The geometric object forced by the axiom is the 600-cell — a regular polytope in four dimensions with 120 vertices and the binary icosahedral group 2I as its symmetry group. Its adjacency matrix has nine distinct eigenvalues, all in ℚ(√5). A discriminant condition selects exactly two propagating modes (gravity and electromagnetism) and freezes seven as Standard Model parameters.</p>
+  <p class="body">The geometric object forced by the axiom is the 600-cell — a regular polytope in four dimensions with 120 vertices whose symmetry group is the binary icosahedral group 2I. Its adjacency matrix has nine eigenvalues, all in \(\mathbb{Q}(\sqrt{5})\). A discriminant condition selects exactly two propagating modes and freezes seven as Standard Model parameters.</p>
 </div>
 
 <!-- RESULTS -->
 <div class="section" id="results">
-  <div class="section-tag">Derived Constants</div>
-  <h2 class="section-title">What has been proved</h2>
-  <p class="body-text">Each result below has zero free parameters. Every coefficient is forced by the spectral geometry of the 600-cell or the algebraic structure of ℚ(√5). None are fitted to observation.</p>
+  <div class="sec-tag">Key Results</div>
+  <h2>What has been proved</h2>
+  <p class="body">Zero free parameters throughout. Every coefficient is forced by the spectral geometry of the 600-cell or the algebraic structure of \(\mathbb{Q}(\sqrt{5})\). None are fitted to observation.</p>
 
-  <div class="results-grid">
-    <div class="r-card">
-      <h3>Fine Structure Constant</h3>
-      <div class="formula">α⁻¹ = 360/φ² − 2/φ³ + 3⁻⁵/φ⁵ + 7⁻⁷/φ⁷</div>
-      <div class="desc">φ-exponents are the first four primes. All coefficients composed of primes. No free choices after the axiom.</div>
-      <div class="prec">137.035999207 · matches Morel 2020 to 0.05σ</div>
+  <div class="rg">
+    <div class="rc">
+      <div class="rc-tag">Fine Structure Constant</div>
+      <div class="rc-eq">\[ \alpha^{-1} = \frac{360}{\varphi^2} - \frac{2}{\varphi^3} + \frac{3^{-5}}{\varphi^5} + \frac{7^{-7}}{\varphi^7} \]</div>
+      <div class="rc-desc">\(\varphi\)-exponents are the first four primes. All coefficients composed of primes. No free choices after the axiom.</div>
+      <div class="rc-prec">137.035999207 &middot; Morel 2020 &middot; 0.05&sigma; match</div>
     </div>
-    <div class="r-card">
-      <h3>Gravitational Constant</h3>
-      <div class="formula">α_G = α¹⁸ × 12/7</div>
-      <div class="desc">Gravity as confinement leakage through 102 unused 600-cell vertices across 18 eigenmode layers. Zero gravitational input.</div>
-      <div class="prec">Agrees to 0.05%</div>
+    <div class="rc">
+      <div class="rc-tag">Gravitational Constant</div>
+      <div class="rc-eq">\[ \alpha_G = \alpha^{18} \times \frac{12}{7} \]</div>
+      <div class="rc-desc">Gravity as confinement leakage through 102 unused 600-cell vertices across 18 eigenmode layers. Zero gravitational input required.</div>
+      <div class="rc-prec">0.05% agreement</div>
     </div>
-    <div class="r-card">
-      <h3>Cosmological Constant</h3>
-      <div class="formula">log₁₀(ρ_Λ) = −(α⁻¹ × 2/√5 + φ⁻²)</div>
-      <div class="desc">The 10¹²³ hierarchy is a theorem of the same geometry as α. One line. No tuning.</div>
-      <div class="prec">−122.951 · observed −122.945</div>
+    <div class="rc">
+      <div class="rc-tag">Cosmological Constant</div>
+      <div class="rc-eq">\[ \log_{10}(\rho_\Lambda) = -\left(\frac{2\alpha^{-1}}{\sqrt{5}} + \varphi^{-2}\right) \]</div>
+      <div class="rc-desc">The \(10^{123}\) hierarchy is a theorem of the same geometry as \(\alpha\). One line. No tuning.</div>
+      <div class="rc-prec">Predicted &minus;122.951 &middot; observed &minus;122.945</div>
     </div>
-    <div class="r-card">
-      <h3>Proton–Electron Mass Ratio</h3>
-      <div class="formula">m_p/m_e = 6π⁵ + π⁵/[φ⁷(π⁵−1)]</div>
-      <div class="desc">φ = 2cos(π/5) connects φ to π through pentagon geometry — forced, not chosen.</div>
-      <div class="prec">Agreement to 0.005 ppm</div>
+    <div class="rc">
+      <div class="rc-tag">Proton&ndash;Electron Mass Ratio</div>
+      <div class="rc-eq">\[ \frac{m_p}{m_e} = 6\pi^5 + \frac{\pi^5}{\varphi^7(\pi^5 - 1)} \]</div>
+      <div class="rc-desc">\(\varphi = 2\cos(\pi/5)\) connects \(\varphi\) to \(\pi\) through pentagon geometry — forced, not chosen.</div>
+      <div class="rc-prec">0.005 ppm agreement</div>
     </div>
-    <div class="r-card">
-      <h3>Two Long-Range Forces</h3>
-      <div class="formula">Δ = φ² − λ/3 · threshold λ* = 3φ²</div>
-      <div class="desc">Exactly two propagating modes from the 600-cell spectrum. EM discriminant = −φ⁻¹ = −σ, the axiom's own fixed point.</div>
-      <div class="prec">Gravity + electromagnetism · forced, not chosen</div>
+    <div class="rc">
+      <div class="rc-tag">Two Long-Range Forces</div>
+      <div class="rc-eq">\[ \Delta = \varphi^2 - \frac{\lambda}{3}, \quad \lambda^* = 3\varphi^2 \]</div>
+      <div class="rc-desc">Exactly two propagating modes from the 600-cell spectrum. EM discriminant \(= -\varphi^{-1} = -\sigma\), the axiom's own fixed point.</div>
+      <div class="rc-prec">Gravity + electromagnetism &middot; forced, not chosen</div>
     </div>
-    <div class="r-card">
-      <h3>Nuclear Binding Peak at Iron</h3>
-      <div class="formula">b² + b = Σλ⁺(A)/A · fixed point b = σ</div>
-      <div class="desc">Iron-56 is where b ≈ σ. Bethe-Weizsäcker's five fitted terms approximate this single function.</div>
-      <div class="prec">RMS agreement 0.11% · zero free parameters</div>
+    <div class="rc">
+      <div class="rc-tag">Nuclear Binding &middot; Iron Peak</div>
+      <div class="rc-eq">\[ b^2 + b = \frac{\Sigma\lambda^+(A)}{A}, \quad b^* = \sigma \]</div>
+      <div class="rc-desc">Iron-56 is where \(b \approx \sigma\). Bethe-Weizs&auml;cker&rsquo;s five fitted coefficients replaced by one parameter-free equation.</div>
+      <div class="rc-prec">RMS 0.11% across all nuclei</div>
     </div>
-    <div class="r-card">
-      <h3>Lepton Masses (Koide)</h3>
-      <div class="formula">Q = 2/3 · cos(δ) = −19/28</div>
-      <div class="desc">Three generations uniquely selected. Koide phase forced by the self-referential structure of the axiom.</div>
-      <div class="prec">Masses to 0.021% · 0 free parameters</div>
+    <div class="rc">
+      <div class="rc-tag">Lepton Masses (Koide)</div>
+      <div class="rc-eq">\[ Q = \tfrac{2}{3}, \quad \cos\delta = -\frac{19}{28} \]</div>
+      <div class="rc-desc">Three generations uniquely selected. Koide phase forced — not a free parameter.</div>
+      <div class="rc-prec">0.021% &middot; zero free parameters</div>
     </div>
-    <div class="r-card">
-      <h3>Neutrino Sector</h3>
-      <div class="formula">Q(ν) = σ² = 1/φ² · Σm = 74.65 meV</div>
-      <div class="desc">All seven neutrino parameters derived. Majorana character proved from character table of 2I.</div>
-      <div class="prec">sin²θ₁₃ = 1/45 · sin²θ₁₂ = 2φ⁴/45</div>
+    <div class="rc">
+      <div class="rc-tag">Neutrino Sector</div>
+      <div class="rc-eq">\[ Q_\nu = \sigma^2 = \varphi^{-2}, \quad \Sigma m_\nu = 74.65\,\text{meV} \]</div>
+      <div class="rc-desc">All seven neutrino parameters derived. Majorana character proved from the character table of 2I.</div>
+      <div class="rc-prec">\(\sin^2\theta_{13} = 1/45\) &middot; \(\sin^2\theta_{12} = 2\varphi^4/45\)</div>
     </div>
-    <div class="r-card">
-      <h3>Stellar Fusion Efficiency</h3>
-      <div class="formula">η = (φ−1)/φ³ = 0.937%</div>
-      <div class="desc">The efficiency of stellar fusion is a theorem. Stars die at iron because the axiom's fixed point is there.</div>
-      <div class="prec">Agrees with observed pp-chain efficiency</div>
+    <div class="rc">
+      <div class="rc-tag">Stellar Fusion Efficiency</div>
+      <div class="rc-eq">\[ \eta = \frac{\varphi - 1}{\varphi^3} = 0.937\% \]</div>
+      <div class="rc-desc">The efficiency of stellar fusion is a theorem. Stars die at iron because the axiom&rsquo;s fixed point is there.</div>
+      <div class="rc-prec">Matches observed pp-chain efficiency</div>
     </div>
   </div>
 </div>
 
 <!-- PAPERS -->
 <div class="section" id="papers">
-  <div class="section-tag">Publications</div>
-  <h2 class="section-title">Complete paper catalogue &nbsp;&middot;&nbsp; 80 papers</h2>
-  <p class="body-text">All papers are open-access preprints on Zenodo, each carrying explicit kill conditions and zero free parameters. Click any DOI to read.</p>
-
+  <div class="sec-tag">Publications</div>
+  <h2>Complete paper catalogue</h2>
+  <p class="body">All 80 papers are open-access preprints on Zenodo. Each carries explicit kill conditions and zero free parameters. Click any number to read.</p>
   <div class="paper-group">
-    <div class="paper-group-title">March 2026 &nbsp;&middot;&nbsp; 46 papers</div>
+    <div class="paper-group-title">March 2026 <span class="count">46 papers</span></div>
       <div class="paper-entry">
         <div class="paper-title">The Origin of the Long-Range Forces</div>
         <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19330871" target="_blank">19330871</a>
@@ -736,7 +705,7 @@ footer {
       </div>
   </div>
   <div class="paper-group">
-    <div class="paper-group-title">February 2026 &nbsp;&middot;&nbsp; 24 papers</div>
+    <div class="paper-group-title">February 2026 <span class="count">24 papers</span></div>
       <div class="paper-entry">
         <div class="paper-title">The Fundamental Constants Are Not Free</div>
         <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18804690" target="_blank">18804690</a>
@@ -835,7 +804,7 @@ footer {
       </div>
   </div>
   <div class="paper-group">
-    <div class="paper-group-title">January 2026 &nbsp;&middot;&nbsp; 10 papers</div>
+    <div class="paper-group-title">January 2026 — Foundations <span class="count">10 papers</span></div>
       <div class="paper-entry">
         <div class="paper-title">Quantum Mechanics Relocated</div>
         <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18430024" target="_blank">18430024</a>
@@ -882,24 +851,24 @@ footer {
 
 <!-- CONTACT -->
 <div class="section" id="contact">
-  <div class="section-tag">Contact</div>
-  <h2 class="section-title">Eric McLean</h2>
-  <p class="body-text">Independent Researcher, Cyprus. Enquiries regarding Pentagon Physics, collaboration, or the technical papers are welcome.</p>
-  <div class="results-grid" style="max-width:780px; margin-top:2rem;">
-    <div class="r-card">
-      <h3>Email</h3>
-      <div class="formula" style="font-size:1.1rem;">eric@tcel.com</div>
-      <div class="desc">Technical enquiries and correspondence.</div>
+  <div class="sec-tag">Contact</div>
+  <h2>Eric McLean</h2>
+  <p class="body">Independent Researcher, Cyprus. Enquiries regarding Pentagon Physics, collaboration, or the technical papers are welcome.</p>
+  <div class="rg" style="max-width:780px; margin-top:2rem; grid-template-columns: repeat(3,1fr);">
+    <div class="rc">
+      <div class="rc-tag">Email</div>
+      <div style="font-size:1.1rem; color:var(--gold-pale); margin:0.8rem 0;">eric@tcel.com</div>
+      <div class="rc-desc">Technical enquiries and correspondence.</div>
     </div>
-    <div class="r-card">
-      <h3>ORCID</h3>
-      <div class="formula" style="font-size:1rem; word-break:break-all;">0009-0009-6175-4408</div>
-      <div class="desc"><a href="https://orcid.org/0009-0009-6175-4408" style="color:var(--accent);text-decoration:none;">orcid.org/0009-0009-6175-4408 →</a></div>
+    <div class="rc">
+      <div class="rc-tag">ORCID</div>
+      <div style="font-size:0.9rem; color:var(--gold-pale); margin:0.8rem 0; word-break:break-all;">0009-0009-6175-4408</div>
+      <div class="rc-desc"><a href="https://orcid.org/0009-0009-6175-4408" style="color:var(--accent);text-decoration:none;">orcid.org &rarr;</a></div>
     </div>
-    <div class="r-card">
-      <h3>All 80 Papers</h3>
-      <div class="formula" style="font-size:1rem;">Zenodo open access</div>
-      <div class="desc"><a href="https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22McLean%2C+Eric%22" style="color:var(--accent);text-decoration:none;">Full catalogue on Zenodo →</a></div>
+    <div class="rc">
+      <div class="rc-tag">80 Papers</div>
+      <div style="font-size:1rem; color:var(--gold-pale); margin:0.8rem 0;">Zenodo &middot; open access</div>
+      <div class="rc-desc"><a href="https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22McLean%2C+Eric%22" style="color:var(--accent);text-decoration:none;">Full catalogue &rarr;</a></div>
     </div>
   </div>
 </div>
@@ -907,8 +876,8 @@ footer {
 <footer>
   <div class="fc">
     <h4>Pentagon Physics</h4>
-    <p>Deriving the Standard Model from a single axiom: σ = 1/(1+σ).</p>
-    <p style="margin-top:0.8rem; font-size:0.82rem; color:var(--text-dim);">Eric McLean · Independent Researcher, Cyprus</p>
+    <p>Deriving the Standard Model from a single axiom: \(\sigma = 1/(1+\sigma)\). 80 papers. Zero free parameters.</p>
+    <p style="margin-top:1rem; color:var(--text-dim); font-size:0.85rem;">Eric McLean &middot; Independent Researcher, Cyprus &middot; 2026</p>
   </div>
   <div class="fc">
     <h4>Papers</h4>
@@ -918,18 +887,20 @@ footer {
   </div>
   <div class="fc">
     <h4>Key Results</h4>
-    <a href="#results">α⁻¹ = 137.036</a>
-    <a href="#results">G = α¹⁸ × 12/7</a>
+    <a href="#results">\(\alpha^{-1} = 137.036\)</a>
+    <a href="#results">\(G = \alpha^{18} \times 12/7\)</a>
     <a href="#results">Two long-range forces</a>
     <a href="#results">Nuclear masses derived</a>
   </div>
   <div class="fc">
     <h4>Contact</h4>
     <a href="mailto:eric@tcel.com">eric@tcel.com</a>
+    <a href="https://orcid.org/0009-0009-6175-4408" target="_blank">ORCID</a>
   </div>
 </footer>
-<div class="foot-bottom">
-  Pentagon Physics · Eric McLean · Cyprus · 80 papers · All open access · CC BY 4.0
+
+<div class="foot-bar">
+  Pentagon Physics &middot; Eric McLean &middot; Cyprus &middot; 80 papers &middot; All open access on Zenodo &middot; CC BY 4.0
 </div>
 
 </body>
