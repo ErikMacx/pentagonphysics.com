@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pentagon Physics — a theoretical physics programme deriving all Standard Model parameters and fundamental constants from the single self-referential axiom σ = 1/(1+σ). By Eric McLean, Independent Researcher, Cyprus. 80 papers on Zenodo.">
+<meta name="keywords" content="Pentagon Physics, Eric McLean, fine structure constant, 600-cell, golden ratio, self-reference, Standard Model, physics constants, Zenodo, preprint, α, gravitational constant, cosmological constant, proton mass">
+<meta name="author" content="Eric McLean">
+<meta property="og:title" content="Pentagon Physics — Eric McLean">
+<meta property="og:description" content="Deriving the constants of physics from a single axiom: σ = 1/(1+σ). 80 papers, zero free parameters.">
+<meta property="og:type" content="website">
+<title>Pentagon Physics — Eric McLean</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C8A84B; --gold-pale: #E8D49A; --dark: #0D0D0E; --dark2: #141416;
+    --dark3: #1C1C1F; --mid: #2A2A2F; --text: #D8D4CC; --text-dim: #8A867C;
+    --accent: #4A7FA5; --serif: 'EB Garamond', Georgia, serif;
+    --sans: 'Josefin Sans', 'Helvetica Neue', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--dark); color: var(--text); font-family: var(--serif);
+    font-size: 18px; line-height: 1.7; overflow-x: hidden; }
+
+  .pentagon-bg { position: fixed; top: 0; right: -10vw; width: 70vw; height: 100vh;
+    opacity: 0.03; pointer-events: none; z-index: 0; }
+
+  .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; padding: 6rem 8vw 4rem; border-bottom: 1px solid #2A2A2F; z-index: 1; }
+  .hero::before { content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 20% 50%, rgba(200,168,75,0.05) 0%, transparent 70%);
+    pointer-events: none; }
+
+  .axiom-label { font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
+  .hero h1 { font-size: clamp(3rem, 8vw, 7rem); font-weight: 500; line-height: 1.0;
+    letter-spacing: -0.02em; color: #F0EBE0; margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub { font-family: var(--sans); font-size: clamp(0.8rem,1.5vw,1rem); font-weight: 300;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 3rem;
+    opacity: 0; animation: fadeUp 0.8s 0.6s forwards; }
+
+  .axiom-box { display: inline-flex; align-items: center; gap: 2rem;
+    background: var(--dark3); border: 1px solid var(--mid); border-left: 3px solid var(--gold);
+    padding: 1.2rem 2rem; margin-bottom: 3rem; opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
+    max-width: 700px; }
+  .axiom-eq { font-size: 1.4rem; font-style: italic; color: var(--gold-pale); white-space: nowrap; }
+  .axiom-chain { font-family: var(--sans); font-size: 0.72rem; font-weight: 300;
+    letter-spacing: 0.06em; color: var(--text-dim); line-height: 1.9; }
+  .axiom-chain strong { color: var(--text); font-weight: 400; }
+
+  .hero-byline { font-family: var(--sans); font-size: 0.78rem; font-weight: 300;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim);
+    opacity: 0; animation: fadeUp 0.8s 1.0s forwards; }
+  .hero-byline a { color: var(--accent); text-decoration: none;
+    border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+  .hero-byline a:hover { border-color: var(--accent); }
+
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(13,13,14,0.92);
+    backdrop-filter: blur(12px); border-bottom: 1px solid var(--mid);
+    padding: 0 8vw; display: flex; gap: 2.5rem; align-items: center; height: 52px; }
+  nav a { font-family: var(--sans); font-size: 0.7rem; font-weight: 400; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--text-dim); text-decoration: none;
+    transition: color 0.2s; padding: 0.2em 0; border-bottom: 1px solid transparent; }
+  nav a:hover { color: var(--gold); border-color: var(--gold); }
+
+  section { position: relative; z-index: 1; padding: 5rem 8vw;
+    border-bottom: 1px solid var(--mid); max-width: 1200px; margin: 0 auto; }
+  .section-label { font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  h2 { font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 400; color: #F0EBE0;
+    margin-bottom: 1.5rem; line-height: 1.2; }
+  p { color: var(--text); margin-bottom: 1.2rem; max-width: 72ch; }
+
+  .chain { display: flex; flex-wrap: wrap; gap: 0; align-items: center;
+    margin: 2.5rem 0; padding: 1.5rem 2rem; background: var(--dark2);
+    border: 1px solid var(--mid); overflow-x: auto; }
+  .chain-node { font-family: var(--sans); font-size: 0.72rem; font-weight: 400;
+    letter-spacing: 0.06em; color: var(--text-dim); padding: 0.5rem 0.8rem;
+    background: var(--dark3); border: 1px solid var(--mid); white-space: nowrap; }
+  .chain-node.key { color: var(--gold-pale); border-color: rgba(200,168,75,0.4); }
+  .chain-arrow { font-size: 0.8rem; color: var(--gold); padding: 0 0.3rem; opacity: 0.6; }
+
+  .results-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+    gap: 1.5rem; margin-top: 2rem; }
+  .result-card { background: var(--dark2); border: 1px solid var(--mid);
+    border-top: 2px solid var(--gold); padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s; }
+  .result-card:hover { border-top-color: var(--gold-pale); transform: translateY(-2px); }
+  .result-card h3 { font-family: var(--sans); font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+  .result-card .formula { font-size: 1.05rem; font-style: italic; color: var(--gold-pale); margin-bottom: 0.5rem; }
+  .result-card p { font-size: 0.88rem; color: var(--text-dim); margin-bottom: 0; line-height: 1.5; }
+  .result-card .precision { font-family: var(--sans); font-size: 0.65rem;
+    letter-spacing: 0.1em; color: var(--accent); margin-top: 0.5rem; }
+
+  .paper-group { margin-bottom: 3rem; }
+  .paper-group-title { font-family: var(--sans); font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--mid); }
+  .paper-entry { display: grid; grid-template-columns: 1fr auto; gap: 1rem;
+    align-items: baseline; padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(42,42,47,0.6); transition: all 0.15s; }
+  .paper-entry:hover { background: rgba(200,168,75,0.03); padding-left: 0.5rem; margin-left: -0.5rem; }
+  .paper-title { font-size: 1rem; color: var(--text); font-weight: 400; line-height: 1.3; }
+  .paper-doi { font-family: var(--sans); font-size: 0.65rem; font-weight: 300;
+    letter-spacing: 0.05em; color: var(--accent); text-decoration: none; white-space: nowrap;
+    padding: 0.2em 0.6em; border: 1px solid rgba(74,127,165,0.3); transition: all 0.2s; }
+  .paper-doi:hover { color: var(--gold-pale); border-color: rgba(200,168,75,0.5); }
+
+  .stat-bar { display: flex; gap: 3rem; flex-wrap: wrap; margin: 2rem 0; }
+  .stat { font-family: var(--sans); }
+  .stat .num { font-size: 3rem; font-weight: 300; color: var(--gold); line-height: 1; }
+  .stat .label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-dim); margin-top: 0.3rem; }
+
+  footer { background: var(--dark2); border-top: 1px solid var(--mid);
+    padding: 3rem 8vw; display: flex; gap: 3rem; flex-wrap: wrap;
+    align-items: flex-start; justify-content: space-between; }
+  .footer-col h4 { font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .footer-col p, .footer-col a { font-size: 0.88rem; color: var(--text-dim);
+    display: block; text-decoration: none; margin-bottom: 0.4rem; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--text); }
+  .footer-bottom { background: var(--dark2); border-top: 1px solid var(--mid);
+    padding: 1rem 8vw; font-family: var(--sans); font-size: 0.65rem;
+    letter-spacing: 0.1em; color: var(--text-dim); text-align: center; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 680px) {
+    .hero { padding: 5rem 6vw 3rem; }
+    section { padding: 3.5rem 6vw; }
+    .axiom-box { flex-direction: column; gap: 1rem; padding: 1rem 1.2rem; }
+    .paper-entry { grid-template-columns: 1fr; }
+    nav { gap: 1.5rem; overflow-x: auto; }
+    footer { flex-direction: column; gap: 2rem; }
+    .stat-bar { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<svg class="pentagon-bg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="400,50 750,275 620,700 180,700 50,275" fill="none" stroke="white" stroke-width="1"/>
+  <polygon points="400,120 680,295 575,630 225,630 120,295" fill="none" stroke="white" stroke-width="0.5"/>
+  <polygon points="400,190 615,320 530,565 270,565 185,320" fill="none" stroke="white" stroke-width="0.3"/>
+  <line x1="400" y1="50" x2="620" y2="700" stroke="white" stroke-width="0.3" opacity="0.5"/>
+  <line x1="400" y1="50" x2="180" y2="700" stroke="white" stroke-width="0.3" opacity="0.5"/>
+  <line x1="750" y1="275" x2="180" y2="700" stroke="white" stroke-width="0.3" opacity="0.5"/>
+  <line x1="50" y1="275" x2="620" y2="700" stroke="white" stroke-width="0.3" opacity="0.5"/>
+  <line x1="750" y1="275" x2="50" y2="275" stroke="white" stroke-width="0.3" opacity="0.5"/>
+</svg>
+
+<section class="hero" id="top">
+  <div class="axiom-label">One axiom. All of physics.</div>
+  <h1>Pentagon<br><span>Physics</span></h1>
+  <div class="hero-sub">A unified programme in theoretical physics</div>
+  <div class="axiom-box">
+    <div class="axiom-eq">σ = 1/(1+σ)</div>
+    <div class="axiom-chain">
+      <strong>σ = 1/(1+σ)</strong> → φ = (1+√5)/2 → ℚ(√5) → 600-cell<br>
+      → discriminant filter → two forces → seven parameters<br>
+      → α⁻¹ = 137.036 → c → <strong>E = mc²</strong>
+    </div>
+  </div>
+  <div class="hero-byline">
+    Eric McLean &nbsp;·&nbsp; Independent Researcher, Cyprus &nbsp;·&nbsp;
+    <a href="https://orcid.org/0009-0009-6175-4408">ORCID 0009-0009-6175-4408</a> &nbsp;·&nbsp;
+    <a href="https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22McLean%2C+Eric%22">80 papers on Zenodo</a>
+  </div>
+</section>
+
+<nav>
+  <a href="#programme">Programme</a>
+  <a href="#results">Results</a>
+  <a href="#papers">Papers</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section id="programme">
+  <div class="section-label">The Axiom</div>
+  <h2>One equation. No free parameters.</h2>
+  <div class="stat-bar">
+    <div class="stat"><div class="num">80</div><div class="label">Papers published</div></div>
+    <div class="stat"><div class="num">26</div><div class="label">SM parameters derived</div></div>
+    <div class="stat"><div class="num">0</div><div class="label">Free parameters</div></div>
+    <div class="stat"><div class="num">1</div><div class="label">Axiom</div></div>
+  </div>
+  <p>Pentagon Physics is a theoretical physics programme with a single founding claim: all Standard Model parameters and fundamental constants are theorems of the self-referential equation σ = 1/(1+σ), which has one positive solution — φ = (1+√5)/2.</p>
+  <p>The equation is the only self-referential equation with no free parameters. Any other coefficient introduces a free parameter and breaks uniqueness. The equation specifies itself. Everything else follows by algebraic necessity.</p>
+  <div class="chain">
+    <div class="chain-node key">σ = 1/(1+σ)</div><div class="chain-arrow">→</div>
+    <div class="chain-node">discriminant 5</div><div class="chain-arrow">→</div>
+    <div class="chain-node">ℚ(√5)</div><div class="chain-arrow">→</div>
+    <div class="chain-node">automorphism √5→−√5</div><div class="chain-arrow">→</div>
+    <div class="chain-node">600-cell spectrum</div><div class="chain-arrow">→</div>
+    <div class="chain-node">Δ = φ²−λ/3</div><div class="chain-arrow">→</div>
+    <div class="chain-node key">2 forces · 7 constants</div><div class="chain-arrow">→</div>
+    <div class="chain-node key">α⁻¹ = 137.036 · E = mc²</div>
+  </div>
+  <p>The geometric object forced by the axiom is the 600-cell — a regular polytope in four dimensions with 120 vertices and the binary icosahedral group 2I as its symmetry group. Its adjacency matrix has nine distinct eigenvalues, all in ℚ(√5). A discriminant condition selects exactly two propagating modes (gravity and electromagnetism) and freezes seven as Standard Model parameters.</p>
+</section>
+
+<section id="results">
+  <div class="section-label">Derived Constants</div>
+  <h2>What has been proved</h2>
+  <p>Each result below has zero free parameters. Every coefficient is forced by the spectral geometry of the 600-cell or the algebraic structure of ℚ(√5).</p>
+  <div class="results-grid">
+    <div class="result-card">
+      <h3>Fine Structure Constant</h3>
+      <div class="formula">α⁻¹ = 360/φ² − 2/φ³ + 3⁻⁵/φ⁵ + 7⁻⁷/φ⁷</div>
+      <p>φ-exponents are the first four primes. All coefficients composed of primes.</p>
+      <div class="precision">137.035999207 · matches Morel 2020 to 0.05σ</div>
+    </div>
+    <div class="result-card">
+      <h3>Gravitational Constant</h3>
+      <div class="formula">α_G = α¹⁸ × 12/7</div>
+      <p>Gravity as confinement leakage through 102 unused 600-cell vertices across 18 eigenmode layers.</p>
+      <div class="precision">Agrees to 0.05% · zero gravitational input</div>
+    </div>
+    <div class="result-card">
+      <h3>Cosmological Constant</h3>
+      <div class="formula">log₁₀(ρ_Λ) = −(α⁻¹ × 2/√5 + φ⁻²)</div>
+      <p>The 10¹²³ hierarchy is a theorem of the same geometry as α.</p>
+      <div class="precision">−122.951 · observed −122.945</div>
+    </div>
+    <div class="result-card">
+      <h3>Proton–Electron Mass Ratio</h3>
+      <div class="formula">m_p/m_e = 6π⁵ + π⁵/[φ⁷(π⁵−1)]</div>
+      <p>All constants pass through 5. φ = 2cos(π/5) connects φ to π through pentagon geometry.</p>
+      <div class="precision">Agreement to 0.005 ppm</div>
+    </div>
+    <div class="result-card">
+      <h3>Two Long-Range Forces</h3>
+      <div class="formula">Δ = φ² − λ/3 · threshold λ* = 3φ²</div>
+      <p>Exactly two propagating modes from the 600-cell spectrum. EM discriminant = −φ⁻¹ = −σ.</p>
+      <div class="precision">Gravity + electromagnetism · forced, not chosen</div>
+    </div>
+    <div class="result-card">
+      <h3>Nuclear Binding Peak at Iron</h3>
+      <div class="formula">b² + b = Σλ⁺(A)/A · fixed point b = σ</div>
+      <p>Iron-56 is where b ≈ σ. Bethe-Weizsäcker's five fitted terms approximate one function.</p>
+      <div class="precision">RMS agreement 0.11% · zero free parameters</div>
+    </div>
+    <div class="result-card">
+      <h3>Lepton Masses (Koide)</h3>
+      <div class="formula">Q = 2/3 · cos(δ) = −19/28</div>
+      <p>Three generations uniquely selected. Koide phase forced by axiom structure.</p>
+      <div class="precision">Masses to 0.021% · 0 free parameters</div>
+    </div>
+    <div class="result-card">
+      <h3>Neutrino Sector</h3>
+      <div class="formula">Q(ν) = σ² = 1/φ² · Σm = 74.65 meV</div>
+      <p>All seven neutrino parameters derived. Majorana character proved from character table.</p>
+      <div class="precision">sin²θ₁₃ = 1/45 · sin²θ₁₂ = 2φ⁴/45</div>
+    </div>
+    <div class="result-card">
+      <h3>Stellar Fusion Efficiency</h3>
+      <div class="formula">η = (φ−1)/φ³ = 0.937%</div>
+      <p>The efficiency of stellar fusion is a theorem. Stars die at iron because the fixed point of the axiom is there.</p>
+      <div class="precision">Agrees with observed pp-chain efficiency</div>
+    </div>
+  </div>
+</section>
+
+<section id="papers">
+  <div class="section-label">Publications</div>
+  <h2>Complete paper catalogue &nbsp;·&nbsp; 80 papers</h2>
+  <p>All papers are open-access preprints on Zenodo, with explicit kill conditions and zero free parameters.</p>
+
+    <div class="paper-group">
+      <div class="paper-group-title">March 2026 — Recent &nbsp;·&nbsp; 46 papers</div>
+        <div class="paper-entry">
+          <div class="paper-title">The Origin of the Long-Range Forces</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19330871" target="_blank">19330871</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Free Parameters of Dynamics</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19327153" target="_blank">19327153</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Atom Without Particles</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19320018" target="_blank">19320018</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Stellar Fixed Point</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19277828" target="_blank">19277828</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Deriving the Emergence of Hydrogen in the Universe</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19263439" target="_blank">19263439</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Plato's Universe - The Complex Shadows from a Simple Geometry</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19250797" target="_blank">19250797</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Nuclear Mass Is Derived V2</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19233350" target="_blank">19233350</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Pentagon Physics Dynamics</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19223786" target="_blank">19223786</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">BluePrint of the Proton Presentation</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19161724" target="_blank">19161724</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Internal Electrodynamics of the Proton</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19161545" target="_blank">19161545</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Why Matter Persists</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19151933" target="_blank">19151933</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Gauge Group Is D₄  :  How one equation produces the three forces of nature</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">19147058</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Majorana Neutrino Masses Derived</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19135102" target="_blank">19135102</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Schrödinger equation as self-referential flow on the 600-cell</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19125869" target="_blank">19125869</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Friedmann dynamics from the action that derives α, G, and Λ</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19115512" target="_blank">19115512</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Why Gravity Couples to Mass - Presentation Companion</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19109667" target="_blank">19109667</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Why Gravity Couples to Mass</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19109094" target="_blank">19109094</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Gravity from Confinement</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19100930" target="_blank">19100930</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Quarks Are Eigenvalues</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19099370" target="_blank">19099370</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">General Relativity and Quantum Mechanics Unified - Presentation Companion</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19087224" target="_blank">19087224</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Why General Relativity and Quantum Mechanics Are Unified</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19072188" target="_blank">19072188</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Amplitude from Trace</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19035362" target="_blank">19035362</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Three Levels of Self-Reference</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19033377" target="_blank">19033377</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Why 137</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19029059" target="_blank">19029059</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Why the Constants Have the Values They Have</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19022248" target="_blank">19022248</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">THE GENESIS ALGEBRA</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19019737" target="_blank">19019737</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Eigenvalues of Reality</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19016122" target="_blank">19016122</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Standard Model Lives in a Single Character Table</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.19003856" target="_blank">19003856</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">E₈ Is Both Roots</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18988843" target="_blank">18988843</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Spectral Geometry of the 600-Cell</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18985777" target="_blank">18985777</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Nyx - Our n = 5 Universe</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18977128" target="_blank">18977128</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Origin of the Universe and the Emergence of Life</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18976782" target="_blank">18976782</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Atmospheric Neutrino Mass from Self-Reference</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18940370" target="_blank">18940370</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Baryon Asymmetry from Self-Reference</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18936715" target="_blank">18936715</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Why the Standard Cosmological Causal Chain Is Backwards</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18923820" target="_blank">18923820</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Bridges of Pentagon Physics</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18923674" target="_blank">18923674</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Pentagon Physics Table Taxonomy</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18921813" target="_blank">18921813</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Quantum Mechanics Is a Shadow</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18912877" target="_blank">18912877</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Quantum Mechanics from the 600-Cell</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Constants Table</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18904887" target="_blank">18904887</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Gravity Is Not a Fundamental Force</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18903481" target="_blank">18903481</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">E₈ Is Necessary</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18901979" target="_blank">18901979</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Why φ?</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18898322" target="_blank">18898322</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Architecture of Pentagon Physics</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18848339" target="_blank">18848339</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Koide Phase from 600-Cell Closure</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18838751" target="_blank">18838751</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Where Dimensions Come From</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18825541" target="_blank">18825541</a>
+        </div>
+    </div>
+
+    <div class="paper-group">
+      <div class="paper-group-title">February 2026 &nbsp;·&nbsp; 24 papers</div>
+        <div class="paper-entry">
+          <div class="paper-title">The Fundamental Constants Are Not Free</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18804690" target="_blank">18804690</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Determining the Gravitational Coupling from a Self-Referential Geometric Template</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18767628" target="_blank">18767628</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Selecting the Koide Phase</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18762599" target="_blank">18762599</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Koide Stability Lemma</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18762423" target="_blank">18762423</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Master Framework Handbook: 30 Constants from One Axiom</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18760997" target="_blank">18760997</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Higgs Quartic Is Not Free</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18756247" target="_blank">18756247</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">THE MACHINE THAT BUILDS ITSELF</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18755516" target="_blank">18755516</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Predicting ΩK from φ-Damped Cosmology: Agreement with CPT-Symmetric Quantization</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18732889" target="_blank">18732889</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Rung Theorem</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18727029" target="_blank">18727029</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">A Cascade Model for the Proton Spin Decomposition</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18717070" target="_blank">18717070</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Proton–Electron Mass Ratio</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18716359" target="_blank">18716359</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Electron Mass Is Derived</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18716271" target="_blank">18716271</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Why Five?</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18680907" target="_blank">18680907</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">THE SPIRAL ENGINE OF ELECTROMECHANICAL TO ELECTROMAGNETIC ENERGY</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18679529" target="_blank">18679529</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Constants Are Theorems:  Geometric Unification of α and Λ</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18669206" target="_blank">18669206</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Light Has No Speed</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18651622" target="_blank">18651622</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Solving Alpha - The Prime Spectrum of Self-Reference</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18648550" target="_blank">18648550</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">360 is not arbitrary</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18647375" target="_blank">18647375</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Why Is Nature Lagrangian?</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18632291" target="_blank">18632291</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Edge of Everything - Where Structure Becomes Matter</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18625127" target="_blank">18625127</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Spiral Convergence Theory</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18624807" target="_blank">18624807</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Deriving the Fine Structure Constant</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18624752" target="_blank">18624752</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Universe Has No External - Why ζ = φ⁻¹</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18624607" target="_blank">18624607</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">When the Universe Stops Dancing</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18504626" target="_blank">18504626</a>
+        </div>
+    </div>
+
+    <div class="paper-group">
+      <div class="paper-group-title">January 2026 — Foundations &nbsp;·&nbsp; 10 papers</div>
+        <div class="paper-entry">
+          <div class="paper-title">Quantum Mechanics Relocated</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18430024" target="_blank">18430024</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Primary Coherence Theory: Why Reality Runs on Golden Geometry</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18427928" target="_blank">18427928</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">φ Is the Eigenvalue of Self-Reference</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18421638" target="_blank">18421638</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The φ-Eigengeometry of Prime Pairs</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18421418" target="_blank">18421418</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Mother of Time</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18402430" target="_blank">18402430</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Self Reference Has a Signature - The golden ratio appears wherever a system looks at itself</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18380533" target="_blank">18380533</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Coherence as Primary: An Integrated Framework for Physics, Consciousness, and System Design</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18370223" target="_blank">18370223</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">A Golden Ratio Scaling Ansatz for the Hubble Tension</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18354655" target="_blank">18354655</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">Coherence is Light</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18348623" target="_blank">18348623</a>
+        </div>
+        <div class="paper-entry">
+          <div class="paper-title">The Cost of Showing Up</div>
+          <a class="paper-doi" href="https://doi.org/10.5281/zenodo.18315847" target="_blank">18315847</a>
+        </div>
+    </div>
+
+</section>
+
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <h2>Eric McLean</h2>
+  <p>Independent Researcher, Cyprus. Enquiries regarding Pentagon Physics, collaboration, or the technical papers are welcome.</p>
+  <div class="results-grid" style="max-width:700px; margin-top:1.5rem;">
+    <div class="result-card">
+      <h3>Email</h3>
+      <div class="formula" style="font-size:0.95rem;">eric@tcel.com</div>
+      <p>Technical enquiries and correspondence.</p>
+    </div>
+    <div class="result-card">
+      <h3>ORCID</h3>
+      <div class="formula" style="font-size:0.9rem;">0009-0009-6175-4408</div>
+      <p><a href="https://orcid.org/0009-0009-6175-4408" style="color:var(--accent);text-decoration:none;">orcid.org/0009-0009-6175-4408</a></p>
+    </div>
+    <div class="result-card">
+      <h3>All Papers</h3>
+      <div class="formula" style="font-size:0.9rem;">Zenodo · 80 preprints</div>
+      <p><a href="https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22McLean%2C+Eric%22" style="color:var(--accent);text-decoration:none;">Full catalogue on Zenodo →</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-col">
+    <h4>Pentagon Physics</h4>
+    <p>A unified theoretical physics programme deriving the Standard Model from the single axiom σ = 1/(1+σ).</p>
+    <p style="margin-top:0.8rem;font-size:0.75rem;">Eric McLean · Independent Researcher, Cyprus · 80 papers</p>
+  </div>
+  <div class="footer-col">
+    <h4>Papers</h4>
+    <a href="#papers">All publications</a>
+    <a href="https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22McLean%2C+Eric%22" target="_blank">Zenodo catalogue</a>
+    <a href="https://orcid.org/0009-0009-6175-4408" target="_blank">ORCID profile</a>
+  </div>
+  <div class="footer-col">
+    <h4>Key Results</h4>
+    <a href="#results">α⁻¹ = 137.036</a>
+    <a href="#results">G = α¹⁸ × 12/7</a>
+    <a href="#results">Two long-range forces</a>
+    <a href="#results">Nuclear masses</a>
+  </div>
+  <div class="footer-col">
+    <h4>Contact</h4>
+    <a href="mailto:eric@tcel.com">eric@tcel.com</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  Pentagon Physics · Eric McLean · Cyprus · 80 papers · All open access on Zenodo · CC BY 4.0
+</div>
+</body>
+</html>
