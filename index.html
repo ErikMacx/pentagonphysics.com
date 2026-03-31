@@ -442,15 +442,24 @@ h2 {
   transition: padding-left 0.15s;
 }
 .pe:hover { padding-left: 0.7rem; }
-.pt { font-size: 1rem; font-weight: 400; color: var(--text); line-height: 1.4; }
-.pd {
-  font-size: 0.7rem; font-weight: 400;
-  color: var(--accent); text-decoration: none;
-  white-space: nowrap; padding: 0.25em 0.7em;
-  border: 1px solid rgba(93,168,208,0.2);
-  transition: all 0.2s; flex-shrink: 0;
+.pt {
+  font-size: 1rem; font-weight: 400;
+  color: var(--text); line-height: 1.4;
+  text-decoration: none;
+  transition: color 0.2s;
 }
-.pd:hover { color: var(--gold); border-color: rgba(242,201,76,0.4); background: rgba(242,201,76,0.04); }
+.pt:hover { color: var(--gold); }
+.pd {
+  font-size: 0.7rem; font-weight: 500;
+  color: var(--bg); text-decoration: none;
+  white-space: nowrap; padding: 0.3em 0.9em;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  transition: all 0.2s; flex-shrink: 0;
+  letter-spacing: 0.03em;
+}
+.pd::after { content: ' →'; }
+.pd:hover { background: var(--gold); border-color: var(--gold); color: var(--bg); }
 
 /* ═══ FOOTER ═══ */
 footer {
@@ -770,91 +779,91 @@ footer {
   <p class="body">All 80 papers are open-access preprints on Zenodo with explicit kill conditions and zero free parameters.</p>
   <div class="pg">
     <div class="pgt">March 2026 <span class="cnt">46 papers</span></div>
-      <div class="pe"><div class="pt">The Origin of the Long-Range Forces</div><a class="pd" href="https://doi.org/10.5281/zenodo.19330871" target="_blank">19330871</a></div>
-      <div class="pe"><div class="pt">The Free Parameters of Dynamics</div><a class="pd" href="https://doi.org/10.5281/zenodo.19327153" target="_blank">19327153</a></div>
-      <div class="pe"><div class="pt">The Atom Without Particles</div><a class="pd" href="https://doi.org/10.5281/zenodo.19320018" target="_blank">19320018</a></div>
-      <div class="pe"><div class="pt">The Stellar Fixed Point</div><a class="pd" href="https://doi.org/10.5281/zenodo.19277828" target="_blank">19277828</a></div>
-      <div class="pe"><div class="pt">Deriving the Emergence of Hydrogen in the Universe</div><a class="pd" href="https://doi.org/10.5281/zenodo.19263439" target="_blank">19263439</a></div>
-      <div class="pe"><div class="pt">Plato's Universe - The Complex Shadows from a Simple Geometry</div><a class="pd" href="https://doi.org/10.5281/zenodo.19250797" target="_blank">19250797</a></div>
-      <div class="pe"><div class="pt">Nuclear Mass Is Derived V2</div><a class="pd" href="https://doi.org/10.5281/zenodo.19233350" target="_blank">19233350</a></div>
-      <div class="pe"><div class="pt">Pentagon Physics Dynamics</div><a class="pd" href="https://doi.org/10.5281/zenodo.19223786" target="_blank">19223786</a></div>
-      <div class="pe"><div class="pt">BluePrint of the Proton Presentation</div><a class="pd" href="https://doi.org/10.5281/zenodo.19161724" target="_blank">19161724</a></div>
-      <div class="pe"><div class="pt">The Internal Electrodynamics of the Proton</div><a class="pd" href="https://doi.org/10.5281/zenodo.19161545" target="_blank">19161545</a></div>
-      <div class="pe"><div class="pt">Why Matter Persists</div><a class="pd" href="https://doi.org/10.5281/zenodo.19151933" target="_blank">19151933</a></div>
-      <div class="pe"><div class="pt">The Gauge Group Is D₄  :  How one equation produces the three forces of nature</div><a class="pd" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">19147058</a></div>
-      <div class="pe"><div class="pt">Majorana Neutrino Masses Derived</div><a class="pd" href="https://doi.org/10.5281/zenodo.19135102" target="_blank">19135102</a></div>
-      <div class="pe"><div class="pt">The Schrödinger equation as self-referential flow on the 600-cell</div><a class="pd" href="https://doi.org/10.5281/zenodo.19125869" target="_blank">19125869</a></div>
-      <div class="pe"><div class="pt">Friedmann dynamics from the action that derives α, G, and Λ</div><a class="pd" href="https://doi.org/10.5281/zenodo.19115512" target="_blank">19115512</a></div>
-      <div class="pe"><div class="pt">Why Gravity Couples to Mass - Presentation Companion</div><a class="pd" href="https://doi.org/10.5281/zenodo.19109667" target="_blank">19109667</a></div>
-      <div class="pe"><div class="pt">Why Gravity Couples to Mass</div><a class="pd" href="https://doi.org/10.5281/zenodo.19109094" target="_blank">19109094</a></div>
-      <div class="pe"><div class="pt">Gravity from Confinement</div><a class="pd" href="https://doi.org/10.5281/zenodo.19100930" target="_blank">19100930</a></div>
-      <div class="pe"><div class="pt">Quarks Are Eigenvalues</div><a class="pd" href="https://doi.org/10.5281/zenodo.19099370" target="_blank">19099370</a></div>
-      <div class="pe"><div class="pt">General Relativity and Quantum Mechanics Unified - Presentation Companion</div><a class="pd" href="https://doi.org/10.5281/zenodo.19087224" target="_blank">19087224</a></div>
-      <div class="pe"><div class="pt">Why General Relativity and Quantum Mechanics Are Unified</div><a class="pd" href="https://doi.org/10.5281/zenodo.19072188" target="_blank">19072188</a></div>
-      <div class="pe"><div class="pt">Amplitude from Trace</div><a class="pd" href="https://doi.org/10.5281/zenodo.19035362" target="_blank">19035362</a></div>
-      <div class="pe"><div class="pt">Three Levels of Self-Reference</div><a class="pd" href="https://doi.org/10.5281/zenodo.19033377" target="_blank">19033377</a></div>
-      <div class="pe"><div class="pt">Why 137</div><a class="pd" href="https://doi.org/10.5281/zenodo.19029059" target="_blank">19029059</a></div>
-      <div class="pe"><div class="pt">Why the Constants Have the Values They Have</div><a class="pd" href="https://doi.org/10.5281/zenodo.19022248" target="_blank">19022248</a></div>
-      <div class="pe"><div class="pt">THE GENESIS ALGEBRA</div><a class="pd" href="https://doi.org/10.5281/zenodo.19019737" target="_blank">19019737</a></div>
-      <div class="pe"><div class="pt">The Eigenvalues of Reality</div><a class="pd" href="https://doi.org/10.5281/zenodo.19016122" target="_blank">19016122</a></div>
-      <div class="pe"><div class="pt">The Standard Model Lives in a Single Character Table</div><a class="pd" href="https://doi.org/10.5281/zenodo.19003856" target="_blank">19003856</a></div>
-      <div class="pe"><div class="pt">E₈ Is Both Roots</div><a class="pd" href="https://doi.org/10.5281/zenodo.18988843" target="_blank">18988843</a></div>
-      <div class="pe"><div class="pt">The Spectral Geometry of the 600-Cell</div><a class="pd" href="https://doi.org/10.5281/zenodo.18985777" target="_blank">18985777</a></div>
-      <div class="pe"><div class="pt">Nyx - Our n = 5 Universe</div><a class="pd" href="https://doi.org/10.5281/zenodo.18977128" target="_blank">18977128</a></div>
-      <div class="pe"><div class="pt">The Origin of the Universe and the Emergence of Life</div><a class="pd" href="https://doi.org/10.5281/zenodo.18976782" target="_blank">18976782</a></div>
-      <div class="pe"><div class="pt">The Atmospheric Neutrino Mass from Self-Reference</div><a class="pd" href="https://doi.org/10.5281/zenodo.18940370" target="_blank">18940370</a></div>
-      <div class="pe"><div class="pt">The Baryon Asymmetry from Self-Reference</div><a class="pd" href="https://doi.org/10.5281/zenodo.18936715" target="_blank">18936715</a></div>
-      <div class="pe"><div class="pt">Why the Standard Cosmological Causal Chain Is Backwards</div><a class="pd" href="https://doi.org/10.5281/zenodo.18923820" target="_blank">18923820</a></div>
-      <div class="pe"><div class="pt">The Bridges of Pentagon Physics</div><a class="pd" href="https://doi.org/10.5281/zenodo.18923674" target="_blank">18923674</a></div>
-      <div class="pe"><div class="pt">Pentagon Physics Table Taxonomy</div><a class="pd" href="https://doi.org/10.5281/zenodo.18921813" target="_blank">18921813</a></div>
-      <div class="pe"><div class="pt">Quantum Mechanics Is a Shadow</div><a class="pd" href="https://doi.org/10.5281/zenodo.18912877" target="_blank">18912877</a></div>
-      <div class="pe"><div class="pt">Quantum Mechanics from the 600-Cell</div><a class="pd" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a></div>
-      <div class="pe"><div class="pt">The Constants Table</div><a class="pd" href="https://doi.org/10.5281/zenodo.18904887" target="_blank">18904887</a></div>
-      <div class="pe"><div class="pt">Gravity Is Not a Fundamental Force</div><a class="pd" href="https://doi.org/10.5281/zenodo.18903481" target="_blank">18903481</a></div>
-      <div class="pe"><div class="pt">E₈ Is Necessary</div><a class="pd" href="https://doi.org/10.5281/zenodo.18901979" target="_blank">18901979</a></div>
-      <div class="pe"><div class="pt">Why φ?</div><a class="pd" href="https://doi.org/10.5281/zenodo.18898322" target="_blank">18898322</a></div>
-      <div class="pe"><div class="pt">The Architecture of Pentagon Physics</div><a class="pd" href="https://doi.org/10.5281/zenodo.18848339" target="_blank">18848339</a></div>
-      <div class="pe"><div class="pt">The Koide Phase from 600-Cell Closure</div><a class="pd" href="https://doi.org/10.5281/zenodo.18838751" target="_blank">18838751</a></div>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19327153" target="_blank">The Origin of the Long-Range Forces</a><a class="pd" href="https://doi.org/10.5281/zenodo.19330871" target="_blank">19330871</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19320018" target="_blank">The Free Parameters of Dynamics</a><a class="pd" href="https://doi.org/10.5281/zenodo.19327153" target="_blank">19327153</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19277828" target="_blank">The Atom Without Particles</a><a class="pd" href="https://doi.org/10.5281/zenodo.19320018" target="_blank">19320018</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19263439" target="_blank">The Stellar Fixed Point</a><a class="pd" href="https://doi.org/10.5281/zenodo.19277828" target="_blank">19277828</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19250797" target="_blank">Deriving the Emergence of Hydrogen in the Universe</a><a class="pd" href="https://doi.org/10.5281/zenodo.19263439" target="_blank">19263439</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19233350" target="_blank">Plato's Universe - The Complex Shadows from a Simple Geometry</a><a class="pd" href="https://doi.org/10.5281/zenodo.19250797" target="_blank">19250797</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19223786" target="_blank">Nuclear Mass Is Derived V2</a><a class="pd" href="https://doi.org/10.5281/zenodo.19233350" target="_blank">19233350</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19161724" target="_blank">Pentagon Physics Dynamics</a><a class="pd" href="https://doi.org/10.5281/zenodo.19223786" target="_blank">19223786</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19161545" target="_blank">BluePrint of the Proton Presentation</a><a class="pd" href="https://doi.org/10.5281/zenodo.19161724" target="_blank">19161724</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19151933" target="_blank">The Internal Electrodynamics of the Proton</a><a class="pd" href="https://doi.org/10.5281/zenodo.19161545" target="_blank">19161545</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">Why Matter Persists</a><a class="pd" href="https://doi.org/10.5281/zenodo.19151933" target="_blank">19151933</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19135102" target="_blank">The Gauge Group Is D₄  :  How one equation produces the three forces of nature</a><a class="pd" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">19147058</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19125869" target="_blank">Majorana Neutrino Masses Derived</a><a class="pd" href="https://doi.org/10.5281/zenodo.19135102" target="_blank">19135102</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19115512" target="_blank">The Schrödinger equation as self-referential flow on the 600-cell</a><a class="pd" href="https://doi.org/10.5281/zenodo.19125869" target="_blank">19125869</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19109667" target="_blank">Friedmann dynamics from the action that derives α, G, and Λ</a><a class="pd" href="https://doi.org/10.5281/zenodo.19115512" target="_blank">19115512</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19109094" target="_blank">Why Gravity Couples to Mass - Presentation Companion</a><a class="pd" href="https://doi.org/10.5281/zenodo.19109667" target="_blank">19109667</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19100930" target="_blank">Why Gravity Couples to Mass</a><a class="pd" href="https://doi.org/10.5281/zenodo.19109094" target="_blank">19109094</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19099370" target="_blank">Gravity from Confinement</a><a class="pd" href="https://doi.org/10.5281/zenodo.19100930" target="_blank">19100930</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19087224" target="_blank">Quarks Are Eigenvalues</a><a class="pd" href="https://doi.org/10.5281/zenodo.19099370" target="_blank">19099370</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19072188" target="_blank">General Relativity and Quantum Mechanics Unified - Presentation Companion</a><a class="pd" href="https://doi.org/10.5281/zenodo.19087224" target="_blank">19087224</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19035362" target="_blank">Why General Relativity and Quantum Mechanics Are Unified</a><a class="pd" href="https://doi.org/10.5281/zenodo.19072188" target="_blank">19072188</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19033377" target="_blank">Amplitude from Trace</a><a class="pd" href="https://doi.org/10.5281/zenodo.19035362" target="_blank">19035362</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19029059" target="_blank">Three Levels of Self-Reference</a><a class="pd" href="https://doi.org/10.5281/zenodo.19033377" target="_blank">19033377</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19022248" target="_blank">Why 137</a><a class="pd" href="https://doi.org/10.5281/zenodo.19029059" target="_blank">19029059</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19019737" target="_blank">Why the Constants Have the Values They Have</a><a class="pd" href="https://doi.org/10.5281/zenodo.19022248" target="_blank">19022248</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19016122" target="_blank">THE GENESIS ALGEBRA</a><a class="pd" href="https://doi.org/10.5281/zenodo.19019737" target="_blank">19019737</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.19003856" target="_blank">The Eigenvalues of Reality</a><a class="pd" href="https://doi.org/10.5281/zenodo.19016122" target="_blank">19016122</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18988843" target="_blank">The Standard Model Lives in a Single Character Table</a><a class="pd" href="https://doi.org/10.5281/zenodo.19003856" target="_blank">19003856</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18985777" target="_blank">E₈ Is Both Roots</a><a class="pd" href="https://doi.org/10.5281/zenodo.18988843" target="_blank">18988843</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18977128" target="_blank">The Spectral Geometry of the 600-Cell</a><a class="pd" href="https://doi.org/10.5281/zenodo.18985777" target="_blank">18985777</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18976782" target="_blank">Nyx - Our n = 5 Universe</a><a class="pd" href="https://doi.org/10.5281/zenodo.18977128" target="_blank">18977128</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18940370" target="_blank">The Origin of the Universe and the Emergence of Life</a><a class="pd" href="https://doi.org/10.5281/zenodo.18976782" target="_blank">18976782</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18936715" target="_blank">The Atmospheric Neutrino Mass from Self-Reference</a><a class="pd" href="https://doi.org/10.5281/zenodo.18940370" target="_blank">18940370</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18923820" target="_blank">The Baryon Asymmetry from Self-Reference</a><a class="pd" href="https://doi.org/10.5281/zenodo.18936715" target="_blank">18936715</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18923674" target="_blank">Why the Standard Cosmological Causal Chain Is Backwards</a><a class="pd" href="https://doi.org/10.5281/zenodo.18923820" target="_blank">18923820</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18921813" target="_blank">The Bridges of Pentagon Physics</a><a class="pd" href="https://doi.org/10.5281/zenodo.18923674" target="_blank">18923674</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18912877" target="_blank">Pentagon Physics Table Taxonomy</a><a class="pd" href="https://doi.org/10.5281/zenodo.18921813" target="_blank">18921813</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">Quantum Mechanics Is a Shadow</a><a class="pd" href="https://doi.org/10.5281/zenodo.18912877" target="_blank">18912877</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18904887" target="_blank">Quantum Mechanics from the 600-Cell</a><a class="pd" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">18912388</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18903481" target="_blank">The Constants Table</a><a class="pd" href="https://doi.org/10.5281/zenodo.18904887" target="_blank">18904887</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18901979" target="_blank">Gravity Is Not a Fundamental Force</a><a class="pd" href="https://doi.org/10.5281/zenodo.18903481" target="_blank">18903481</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18898322" target="_blank">E₈ Is Necessary</a><a class="pd" href="https://doi.org/10.5281/zenodo.18901979" target="_blank">18901979</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18848339" target="_blank">Why φ?</a><a class="pd" href="https://doi.org/10.5281/zenodo.18898322" target="_blank">18898322</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18838751" target="_blank">The Architecture of Pentagon Physics</a><a class="pd" href="https://doi.org/10.5281/zenodo.18848339" target="_blank">18848339</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18825541" target="_blank">The Koide Phase from 600-Cell Closure</a><a class="pd" href="https://doi.org/10.5281/zenodo.18838751" target="_blank">18838751</a></a>
       <div class="pe"><div class="pt">Where Dimensions Come From</div><a class="pd" href="https://doi.org/10.5281/zenodo.18825541" target="_blank">18825541</a></div>
   </div>
   <div class="pg">
     <div class="pgt">February 2026 <span class="cnt">24 papers</span></div>
-      <div class="pe"><div class="pt">The Fundamental Constants Are Not Free</div><a class="pd" href="https://doi.org/10.5281/zenodo.18804690" target="_blank">18804690</a></div>
-      <div class="pe"><div class="pt">Determining the Gravitational Coupling from a Self-Referential Geometric Template</div><a class="pd" href="https://doi.org/10.5281/zenodo.18767628" target="_blank">18767628</a></div>
-      <div class="pe"><div class="pt">Selecting the Koide Phase</div><a class="pd" href="https://doi.org/10.5281/zenodo.18762599" target="_blank">18762599</a></div>
-      <div class="pe"><div class="pt">The Koide Stability Lemma</div><a class="pd" href="https://doi.org/10.5281/zenodo.18762423" target="_blank">18762423</a></div>
-      <div class="pe"><div class="pt">Master Framework Handbook: 30 Constants from One Axiom</div><a class="pd" href="https://doi.org/10.5281/zenodo.18760997" target="_blank">18760997</a></div>
-      <div class="pe"><div class="pt">The Higgs Quartic Is Not Free</div><a class="pd" href="https://doi.org/10.5281/zenodo.18756247" target="_blank">18756247</a></div>
-      <div class="pe"><div class="pt">THE MACHINE THAT BUILDS ITSELF</div><a class="pd" href="https://doi.org/10.5281/zenodo.18755516" target="_blank">18755516</a></div>
-      <div class="pe"><div class="pt">Predicting ΩK from φ-Damped Cosmology: Agreement with CPT-Symmetric Quantization</div><a class="pd" href="https://doi.org/10.5281/zenodo.18732889" target="_blank">18732889</a></div>
-      <div class="pe"><div class="pt">The Rung Theorem</div><a class="pd" href="https://doi.org/10.5281/zenodo.18727029" target="_blank">18727029</a></div>
-      <div class="pe"><div class="pt">A Cascade Model for the Proton Spin Decomposition</div><a class="pd" href="https://doi.org/10.5281/zenodo.18717070" target="_blank">18717070</a></div>
-      <div class="pe"><div class="pt">The Proton–Electron Mass Ratio</div><a class="pd" href="https://doi.org/10.5281/zenodo.18716359" target="_blank">18716359</a></div>
-      <div class="pe"><div class="pt">The Electron Mass Is Derived</div><a class="pd" href="https://doi.org/10.5281/zenodo.18716271" target="_blank">18716271</a></div>
-      <div class="pe"><div class="pt">Why Five?</div><a class="pd" href="https://doi.org/10.5281/zenodo.18680907" target="_blank">18680907</a></div>
-      <div class="pe"><div class="pt">THE SPIRAL ENGINE OF ELECTROMECHANICAL TO ELECTROMAGNETIC ENERGY</div><a class="pd" href="https://doi.org/10.5281/zenodo.18679529" target="_blank">18679529</a></div>
-      <div class="pe"><div class="pt">The Constants Are Theorems:  Geometric Unification of α and Λ</div><a class="pd" href="https://doi.org/10.5281/zenodo.18669206" target="_blank">18669206</a></div>
-      <div class="pe"><div class="pt">Light Has No Speed</div><a class="pd" href="https://doi.org/10.5281/zenodo.18651622" target="_blank">18651622</a></div>
-      <div class="pe"><div class="pt">Solving Alpha - The Prime Spectrum of Self-Reference</div><a class="pd" href="https://doi.org/10.5281/zenodo.18648550" target="_blank">18648550</a></div>
-      <div class="pe"><div class="pt">360 is not arbitrary</div><a class="pd" href="https://doi.org/10.5281/zenodo.18647375" target="_blank">18647375</a></div>
-      <div class="pe"><div class="pt">Why Is Nature Lagrangian?</div><a class="pd" href="https://doi.org/10.5281/zenodo.18632291" target="_blank">18632291</a></div>
-      <div class="pe"><div class="pt">The Edge of Everything - Where Structure Becomes Matter</div><a class="pd" href="https://doi.org/10.5281/zenodo.18625127" target="_blank">18625127</a></div>
-      <div class="pe"><div class="pt">Spiral Convergence Theory</div><a class="pd" href="https://doi.org/10.5281/zenodo.18624807" target="_blank">18624807</a></div>
-      <div class="pe"><div class="pt">Deriving the Fine Structure Constant</div><a class="pd" href="https://doi.org/10.5281/zenodo.18624752" target="_blank">18624752</a></div>
-      <div class="pe"><div class="pt">The Universe Has No External - Why ζ = φ⁻¹</div><a class="pd" href="https://doi.org/10.5281/zenodo.18624607" target="_blank">18624607</a></div>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18767628" target="_blank">The Fundamental Constants Are Not Free</a><a class="pd" href="https://doi.org/10.5281/zenodo.18804690" target="_blank">18804690</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18762599" target="_blank">Determining the Gravitational Coupling from a Self-Referential Geometric Template</a><a class="pd" href="https://doi.org/10.5281/zenodo.18767628" target="_blank">18767628</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18762423" target="_blank">Selecting the Koide Phase</a><a class="pd" href="https://doi.org/10.5281/zenodo.18762599" target="_blank">18762599</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18760997" target="_blank">The Koide Stability Lemma</a><a class="pd" href="https://doi.org/10.5281/zenodo.18762423" target="_blank">18762423</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18756247" target="_blank">Master Framework Handbook: 30 Constants from One Axiom</a><a class="pd" href="https://doi.org/10.5281/zenodo.18760997" target="_blank">18760997</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18755516" target="_blank">The Higgs Quartic Is Not Free</a><a class="pd" href="https://doi.org/10.5281/zenodo.18756247" target="_blank">18756247</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18732889" target="_blank">THE MACHINE THAT BUILDS ITSELF</a><a class="pd" href="https://doi.org/10.5281/zenodo.18755516" target="_blank">18755516</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18727029" target="_blank">Predicting ΩK from φ-Damped Cosmology: Agreement with CPT-Symmetric Quantization</a><a class="pd" href="https://doi.org/10.5281/zenodo.18732889" target="_blank">18732889</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18717070" target="_blank">The Rung Theorem</a><a class="pd" href="https://doi.org/10.5281/zenodo.18727029" target="_blank">18727029</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18716359" target="_blank">A Cascade Model for the Proton Spin Decomposition</a><a class="pd" href="https://doi.org/10.5281/zenodo.18717070" target="_blank">18717070</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18716271" target="_blank">The Proton–Electron Mass Ratio</a><a class="pd" href="https://doi.org/10.5281/zenodo.18716359" target="_blank">18716359</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18680907" target="_blank">The Electron Mass Is Derived</a><a class="pd" href="https://doi.org/10.5281/zenodo.18716271" target="_blank">18716271</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18679529" target="_blank">Why Five?</a><a class="pd" href="https://doi.org/10.5281/zenodo.18680907" target="_blank">18680907</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18669206" target="_blank">THE SPIRAL ENGINE OF ELECTROMECHANICAL TO ELECTROMAGNETIC ENERGY</a><a class="pd" href="https://doi.org/10.5281/zenodo.18679529" target="_blank">18679529</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18651622" target="_blank">The Constants Are Theorems:  Geometric Unification of α and Λ</a><a class="pd" href="https://doi.org/10.5281/zenodo.18669206" target="_blank">18669206</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18648550" target="_blank">Light Has No Speed</a><a class="pd" href="https://doi.org/10.5281/zenodo.18651622" target="_blank">18651622</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18647375" target="_blank">Solving Alpha - The Prime Spectrum of Self-Reference</a><a class="pd" href="https://doi.org/10.5281/zenodo.18648550" target="_blank">18648550</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18632291" target="_blank">360 is not arbitrary</a><a class="pd" href="https://doi.org/10.5281/zenodo.18647375" target="_blank">18647375</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18625127" target="_blank">Why Is Nature Lagrangian?</a><a class="pd" href="https://doi.org/10.5281/zenodo.18632291" target="_blank">18632291</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18624807" target="_blank">The Edge of Everything - Where Structure Becomes Matter</a><a class="pd" href="https://doi.org/10.5281/zenodo.18625127" target="_blank">18625127</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18624752" target="_blank">Spiral Convergence Theory</a><a class="pd" href="https://doi.org/10.5281/zenodo.18624807" target="_blank">18624807</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18624607" target="_blank">Deriving the Fine Structure Constant</a><a class="pd" href="https://doi.org/10.5281/zenodo.18624752" target="_blank">18624752</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18504626" target="_blank">The Universe Has No External - Why ζ = φ⁻¹</a><a class="pd" href="https://doi.org/10.5281/zenodo.18624607" target="_blank">18624607</a></a>
       <div class="pe"><div class="pt">When the Universe Stops Dancing</div><a class="pd" href="https://doi.org/10.5281/zenodo.18504626" target="_blank">18504626</a></div>
   </div>
   <div class="pg">
     <div class="pgt">January 2026 — Foundations <span class="cnt">10 papers</span></div>
-      <div class="pe"><div class="pt">Quantum Mechanics Relocated</div><a class="pd" href="https://doi.org/10.5281/zenodo.18430024" target="_blank">18430024</a></div>
-      <div class="pe"><div class="pt">Primary Coherence Theory: Why Reality Runs on Golden Geometry</div><a class="pd" href="https://doi.org/10.5281/zenodo.18427928" target="_blank">18427928</a></div>
-      <div class="pe"><div class="pt">φ Is the Eigenvalue of Self-Reference</div><a class="pd" href="https://doi.org/10.5281/zenodo.18421638" target="_blank">18421638</a></div>
-      <div class="pe"><div class="pt">The φ-Eigengeometry of Prime Pairs</div><a class="pd" href="https://doi.org/10.5281/zenodo.18421418" target="_blank">18421418</a></div>
-      <div class="pe"><div class="pt">The Mother of Time</div><a class="pd" href="https://doi.org/10.5281/zenodo.18402430" target="_blank">18402430</a></div>
-      <div class="pe"><div class="pt">Self Reference Has a Signature - The golden ratio appears wherever a system looks at itself</div><a class="pd" href="https://doi.org/10.5281/zenodo.18380533" target="_blank">18380533</a></div>
-      <div class="pe"><div class="pt">Coherence as Primary: An Integrated Framework for Physics, Consciousness, and System Design</div><a class="pd" href="https://doi.org/10.5281/zenodo.18370223" target="_blank">18370223</a></div>
-      <div class="pe"><div class="pt">A Golden Ratio Scaling Ansatz for the Hubble Tension</div><a class="pd" href="https://doi.org/10.5281/zenodo.18354655" target="_blank">18354655</a></div>
-      <div class="pe"><div class="pt">Coherence is Light</div><a class="pd" href="https://doi.org/10.5281/zenodo.18348623" target="_blank">18348623</a></div>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18427928" target="_blank">Quantum Mechanics Relocated</a><a class="pd" href="https://doi.org/10.5281/zenodo.18430024" target="_blank">18430024</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18421638" target="_blank">Primary Coherence Theory: Why Reality Runs on Golden Geometry</a><a class="pd" href="https://doi.org/10.5281/zenodo.18427928" target="_blank">18427928</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18421418" target="_blank">φ Is the Eigenvalue of Self-Reference</a><a class="pd" href="https://doi.org/10.5281/zenodo.18421638" target="_blank">18421638</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18402430" target="_blank">The φ-Eigengeometry of Prime Pairs</a><a class="pd" href="https://doi.org/10.5281/zenodo.18421418" target="_blank">18421418</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18380533" target="_blank">The Mother of Time</a><a class="pd" href="https://doi.org/10.5281/zenodo.18402430" target="_blank">18402430</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18370223" target="_blank">Self Reference Has a Signature - The golden ratio appears wherever a system looks at itself</a><a class="pd" href="https://doi.org/10.5281/zenodo.18380533" target="_blank">18380533</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18354655" target="_blank">Coherence as Primary: An Integrated Framework for Physics, Consciousness, and System Design</a><a class="pd" href="https://doi.org/10.5281/zenodo.18370223" target="_blank">18370223</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18348623" target="_blank">A Golden Ratio Scaling Ansatz for the Hubble Tension</a><a class="pd" href="https://doi.org/10.5281/zenodo.18354655" target="_blank">18354655</a></a>
+      <div class="pe"><a class="pt" href="https://doi.org/10.5281/zenodo.18315847" target="_blank">Coherence is Light</a><a class="pd" href="https://doi.org/10.5281/zenodo.18348623" target="_blank">18348623</a></a>
       <div class="pe"><div class="pt">The Cost of Showing Up</div><a class="pd" href="https://doi.org/10.5281/zenodo.18315847" target="_blank">18315847</a></div>
   </div>
 
