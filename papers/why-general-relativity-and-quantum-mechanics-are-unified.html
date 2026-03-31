@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="General relativity and quantum mechanics are not two incompatible theories awaiting unification. They are the same theory expressed in two regimes. Below the self-referential threshold φ⁻¹, coherence ">
+<meta name="author" content="Eric McLean">
+<meta name="keywords" content="Pentagon Physics, Eric McLean, Quantum Mechanics, Why General Relativity and Quantum Mechanics Are Unified">
+<title>Why General Relativity and Quantum Mechanics Are Unified — Pentagon Physics</title>
+<script>
+MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#F2C94C; --gold-dim:#9A7820; --gold-pale:#FBE89A;
+  --bg:#090909; --bg2:#111113; --bg3:#19191E;
+  --border:rgba(255,255,255,0.1); --border-hi:rgba(255,255,255,0.2);
+  --text:#F0EDE6; --text-mid:#C0BCB4; --text-dim:#807C76;
+  --accent:#5DA8D0;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.75;}
+mjx-container{color:var(--text)!important;}
+.eq-display mjx-container{color:var(--gold-pale)!important;font-size:1.1em!important;}
+
+header{
+  background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);
+  padding:0 8vw;display:flex;gap:2rem;align-items:center;height:52px;
+  position:sticky;top:0;z-index:100;
+}
+header a{color:var(--text-dim);text-decoration:none;font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header .logo{color:var(--text);font-weight:500;margin-right:auto;}
+
+.page{max-width:960px;margin:0 auto;padding:5rem 8vw;}
+
+.domain-tag{
+  font-size:0.68rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem;
+}
+
+h1{
+  font-family:var(--serif);
+  font-size:clamp(1.8rem,4vw,3rem);font-weight:700;
+  color:var(--text);line-height:1.15;margin-bottom:2rem;
+}
+
+.doi-strip{
+  display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;
+  padding:1rem 1.5rem;background:var(--bg2);border:1px solid var(--border-hi);
+  border-left:3px solid var(--gold);margin-bottom:3rem;
+}
+.doi-label{font-size:0.7rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);}
+.doi-val{font-size:0.85rem;color:var(--accent);font-family:monospace;}
+.zenodo-btn{
+  margin-left:auto;
+  background:var(--gold);color:#090909;text-decoration:none;
+  font-size:0.75rem;font-weight:600;letter-spacing:0.1em;
+  padding:0.5em 1.2em;transition:all 0.2s;white-space:nowrap;
+}
+.zenodo-btn:hover{background:var(--gold-pale);}
+
+.summary{
+  font-size:1.05rem;color:var(--text-mid);line-height:1.85;
+  margin-bottom:2.5rem;max-width:72ch;
+}
+.summary p{margin-bottom:1.2rem;}
+
+.eq-display{
+  padding:1.5rem 2rem;
+  background:var(--bg3);
+  border:1px solid var(--border-hi);
+  border-left:3px solid var(--gold-dim);
+  margin:2rem 0;overflow-x:auto;
+}
+
+.result-box{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  border:1px solid var(--border-hi);background:var(--border-hi);
+  margin:2rem 0;
+}
+.rb{background:var(--bg2);padding:1.5rem;}
+.rb-label{font-size:0.65rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+.rb-val{font-size:0.95rem;color:var(--text-mid);line-height:1.5;}
+.rb-val mjx-container{color:var(--text)!important;}
+
+.page-nav{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);
+}
+.nav-btn{
+  font-size:0.78rem;font-weight:500;letter-spacing:0.1em;
+  color:var(--accent);text-decoration:none;padding:0.5em 1em;
+  border:1px solid rgba(93,168,208,0.3);transition:all 0.2s;
+}
+.nav-btn:hover{color:var(--gold);border-color:rgba(242,201,76,0.4);}
+.back-link{font-size:0.78rem;color:var(--text-dim);text-decoration:none;letter-spacing:0.05em;transition:color 0.2s;}
+.back-link:hover{color:var(--text);}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">Pentagon Physics</a>
+  <a href="../index.html#papers">All papers</a>
+  <a href="../index.html#results">Results</a>
+  <a href="https://orcid.org/0009-0009-6175-4408" target="_blank">ORCID</a>
+</header>
+
+<div class="page">
+  <div class="domain-tag">Quantum Mechanics</div>
+  <h1>Why General Relativity and Quantum Mechanics Are Unified</h1>
+
+  <div class="doi-strip">
+    <div>
+      <div class="doi-label">DOI</div>
+      <div class="doi-val">10.5281/zenodo.19072188</div>
+    </div>
+    <a class="zenodo-btn" href="https://doi.org/10.5281/zenodo.19072188" target="_blank">Read full paper on Zenodo →</a>
+  </div>
+
+  <div class="summary">
+    <p>General relativity and quantum mechanics are not two incompatible theories awaiting unification. They are the same theory expressed in two regimes. Below the self-referential threshold φ⁻¹, coherence propagates as a quantum wave — described by the Schrödinger equation. Above the threshold, coherence has frozen into a standing wave with definite mass and position — described by the geodesic equation of general relativity. The threshold is not a boundary between theories. It is the moment self-reference fires and a definite eigenvalue becomes the only stable state. GR and QM are unified by the 600-cell's spectral geometry, not by adding new dimensions or new particles.</p>
+  </div>
+
+      <div class="eq-display">
+      \[ \text{QM}: \varphi < \varphi^{-1} \quad\Longleftrightarrow\quad \text{GR}: \varphi > \varphi^{-1} \]
+    </div>
+
+  <div class="result-box">
+    <div class="rb">
+      <div class="rb-label">Key Result</div>
+      <div class="rb-val">GR and QM unified as spectral and geometric aspects of one field</div>
+    </div>
+    <div class="rb">
+      <div class="rb-label">Precision</div>
+      <div class="rb-val">Threshold at φ⁻¹ — exact</div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a class="nav-btn" href="general-relativity-and-quantum-mechanics-unified-presentatio.html">← Previous</a>
+    <a class="back-link" href="../index.html#papers">← Back to catalogue</a>
+    <a class="nav-btn" href="amplitude-from-trace.html">Next →</a>
+  </div>
+</div>
+
+</body>
+</html>

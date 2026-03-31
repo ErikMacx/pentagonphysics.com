@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pentagon Physics Papers Pipeline — forthcoming publications including The Geometry of Becoming and The Emperor's New Constants.">
+<meta name="author" content="Eric McLean">
+<title>Papers Pipeline — Pentagon Physics</title>
+<script>
+MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#F2C94C; --gold-dim:#9A7820; --gold-pale:#FBE89A;
+  --bg:#090909; --bg2:#111113; --bg3:#19191E;
+  --border:rgba(255,255,255,0.1); --border-hi:rgba(255,255,255,0.2);
+  --text:#F0EDE6; --text-mid:#C0BCB4; --text-dim:#807C76;
+  --accent:#5DA8D0;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --pad:8vw;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.75;overflow-x:hidden;}
+mjx-container{color:var(--text)!important;}
+
+header{
+  background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);
+  padding:0 var(--pad);display:flex;gap:2.5rem;align-items:center;height:52px;
+  position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);
+}
+header a{color:var(--text-dim);text-decoration:none;font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header .logo{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;}
+
+/* HERO */
+.hero{
+  padding:6rem var(--pad) 4rem;
+  border-bottom:1px solid var(--border-hi);
+  position:relative;
+}
+.hero-tag{font-size:0.72rem;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;}
+h1{font-family:var(--serif);font-size:clamp(2.8rem,6vw,5rem);font-weight:700;color:var(--text);line-height:1.05;margin-bottom:1.5rem;}
+.hero-sub{font-size:1.05rem;color:var(--text-mid);max-width:60ch;line-height:1.8;}
+
+/* PIPELINE ITEMS */
+.pipeline{padding:0 var(--pad) 5rem;max-width:1100px;}
+
+.pipe-item{
+  border:1px solid var(--border-hi);
+  margin-top:4rem;
+  overflow:hidden;
+}
+
+.pipe-header{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:2rem;
+  padding:1.8rem 2rem;
+  background:var(--bg2);
+  border-bottom:1px solid var(--border-hi);
+}
+
+.pipe-num{
+  font-family:var(--serif);
+  font-size:2.5rem;font-weight:700;
+  color:var(--gold-dim);line-height:1;
+}
+
+.pipe-titles h2{
+  font-family:var(--serif);
+  font-size:clamp(1.4rem,2.5vw,2rem);font-weight:700;
+  color:var(--text);line-height:1.1;margin-bottom:0.3rem;
+}
+
+.pipe-titles .subtitle{
+  font-size:0.88rem;font-weight:300;
+  color:var(--text-dim);font-style:italic;
+}
+
+.pipe-status{
+  font-size:0.68rem;font-weight:600;
+  letter-spacing:0.2em;text-transform:uppercase;
+  padding:0.4em 1em;
+  white-space:nowrap;
+}
+.status-ready{color:#4CAF50;border:1px solid rgba(76,175,80,0.4);background:rgba(76,175,80,0.08);}
+.status-progress{color:var(--gold);border:1px solid rgba(242,201,76,0.4);background:rgba(242,201,76,0.06);}
+.status-forthcoming{color:var(--text-dim);border:1px solid var(--border);background:var(--bg3);}
+
+.pipe-body{
+  display:grid;
+  grid-template-columns:1fr 340px;
+}
+
+.pipe-text{
+  padding:2rem;
+  border-right:1px solid var(--border);
+}
+
+.pipe-text p{
+  font-size:1rem;color:var(--text-mid);line-height:1.85;margin-bottom:1.2rem;
+}
+.pipe-text p:last-child{margin-bottom:0;}
+
+.pipe-text strong{color:var(--text);font-weight:500;}
+
+.pipe-meta{
+  padding:2rem;
+  background:var(--bg3);
+  display:flex;flex-direction:column;gap:1.4rem;
+}
+
+.meta-row{}
+.meta-label{
+  font-size:0.65rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:0.3rem;
+}
+.meta-val{
+  font-size:0.9rem;color:var(--text-mid);line-height:1.5;
+}
+.meta-val mjx-container{color:var(--text)!important;}
+
+.pipe-verdict{
+  grid-column:1/-1;
+  padding:0.9rem 2rem;
+  background:rgba(242,201,76,0.05);
+  border-top:1px solid var(--border-hi);
+  font-size:0.85rem;font-style:italic;color:var(--text-dim);
+  display:flex;align-items:center;gap:0.8rem;
+}
+.pipe-verdict::before{content:'→';color:var(--gold);}
+
+/* CORPUS SECTION */
+.corpus-section{
+  padding:0 var(--pad) 5rem;
+  max-width:1100px;
+}
+
+.section-head{
+  padding:3rem 0 1.5rem;
+  border-bottom:2px solid var(--gold-dim);
+  margin-bottom:0;
+}
+.section-tag{font-size:0.72rem;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;}
+.section-head h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--text);}
+
+.corpus-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1px;
+  background:var(--border-hi);
+  border:1px solid var(--border-hi);
+  margin-top:2rem;
+}
+
+.corpus-card{
+  background:var(--bg2);padding:1.6rem;
+  transition:background 0.2s;
+}
+.corpus-card:hover{background:var(--bg3);}
+.cc-tag{font-size:0.65rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;}
+.cc-title{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:0.6rem;line-height:1.3;}
+.cc-desc{font-size:0.85rem;color:var(--text-dim);line-height:1.55;}
+.cc-count{font-size:0.72rem;font-weight:500;color:var(--accent);margin-top:0.7rem;}
+
+footer{
+  background:var(--bg2);border-top:1px solid var(--border-hi);
+  padding:3rem var(--pad);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;
+}
+footer p{font-size:0.85rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;font-size:0.85rem;}
+footer a:hover{color:var(--gold);}
+
+@media(max-width:768px){
+  .pipe-body{grid-template-columns:1fr;}
+  .pipe-text{border-right:none;border-bottom:1px solid var(--border);}
+  .pipe-header{grid-template-columns:auto 1fr;}
+  .pipe-status{display:none;}
+  .corpus-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">Pentagon Physics</a>
+  <a href="index.html#programme">Programme</a>
+  <a href="index.html#results">Results</a>
+  <a href="index.html#papers">Papers</a>
+  <a href="index.html#contact">Contact</a>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Forthcoming</div>
+  <h1>Papers Pipeline</h1>
+  <p class="hero-sub">The Pentagon Physics publication queue — papers currently in build, review, or ready for submission. All Zenodo preprints are open access on publication.</p>
+</div>
+
+<!-- PIPELINE -->
+<div class="pipeline">
+
+  <!-- THE GEOMETRY OF BECOMING -->
+  <div class="pipe-item">
+    <div class="pipe-header">
+      <div class="pipe-num">01</div>
+      <div class="pipe-titles">
+        <h2>The Geometry of Becoming</h2>
+        <div class="subtitle">Literary and philosophical companion to the Pentagon Physics corpus</div>
+      </div>
+      <div class="pipe-status status-progress">In final build</div>
+    </div>
+    <div class="pipe-body">
+      <div class="pipe-text">
+        <p>Physics papers prove things. This book <strong>shows</strong> what those proofs mean. <em>The Geometry of Becoming</em> is the literary companion to the Pentagon Physics programme — written for readers who want to understand not just the equations but the conceptual revolution they represent.</p>
+        <p>The book follows the same derivation chain as the technical papers — from the single axiom σ = 1/(1+σ) through the emergence of geometry, matter, forces, and life — but in prose rather than formulae. Each chapter corresponds to a layer of the programme: the axiom, the field, the polytope, the filter, the forces, and finally the moment when self-reference becomes self-awareness.</p>
+        <p>The central argument: the universe is not made of stuff. It is made of <strong>self-reference expressing itself at every scale</strong> — from the fine structure constant to the structure of a cell to the act of reading these words. The geometry of becoming is the shape of that expression.</p>
+        <p>Approximately 550 paragraphs. Written to stand alone — no prior knowledge of physics required.</p>
+      </div>
+      <div class="pipe-meta">
+        <div class="meta-row">
+          <div class="meta-label">Format</div>
+          <div class="meta-val">Long-form essay / philosophical companion</div>
+        </div>
+        <div class="meta-row">
+          <div class="meta-label">Length</div>
+          <div class="meta-val">~550 paragraphs · v7 complete</div>
+        </div>
+        <div class="meta-row">
+          <div class="meta-label">Audience</div>
+          <div class="meta-val">General readers, physicists, philosophers of science</div>
+        </div>
+        <div class="meta-row">
+          <div class="meta-label">Status</div>
+          <div class="meta-val">v7 built · final editorial pass pending</div>
+        </div>
+        <div class="meta-row">
+          <div class="meta-label">Publication</div>
+          <div class="meta-val">Alongside or just after Pentagon Physics v4</div>
+        </div>
+      </div>
+      <div class="pipe-verdict">The companion every physicist needs before they can hear what the equations are saying.</div>
+    </div>
+  </div>
+
+  <!-- THE EMPEROR'S NEW CONSTANTS -->
+  <div class="pipe-item">
+    <div class="pipe-header">
+      <div class="pipe-num">02</div>
+      <div class="pipe-titles">
+        <h2>The Emperor's New Constants</h2>
+        <div class="subtitle">Why E = mc² and 1/137 are models — and what lies beneath them</div>
+      </div>
+      <div class="pipe-status status-ready">Ready to submit</div>
+    </div>
+    <div class="pipe-body">
+      <div class="pipe-text">
+        <p>\(E = mc^2\) and \(\alpha^{-1} \approx 1/137\) are the two most celebrated results in physics. Every physicist knows them. Almost no physicist has asked where they come from. This paper asks.</p>
+        <p>The answer: both are <strong>models</strong>, not facts. They are built on thick layers of human measurement choices — the metre, the kilogram, the second, the Coulomb. Strip those choices away and you have not two constants but one self-referential structure: the axiom \(\sigma = 1/(1+\sigma)\).</p>
+        <p>Pentagon Physics derives both \(E = mc^2\) and \(\alpha^{-1} = 137.035999207\) as theorems of this axiom. The derivation chain exposes what the Standard Model's correspondence layer conceals: that the constants we treat as fundamental inputs are actually outputs of a deeper geometry — the spectral structure of the 600-cell.</p>
+        <p>The paper is the gateway essay for Pentagon Physics — designed for physicists who have not encountered the programme and want a single document that makes the central argument clearly. Four critic rounds completed. 165 paragraphs.</p>
+      </div>
+      <div class="pipe-meta">
+        <div class="meta-row">
+          <div class="meta-label">Format</div>
+          <div class="meta-val">Gateway essay for physicists</div>
+        </div>
+        <div class="meta-row">
+          <div class="meta-label">Length</div>
+          <div class="meta-val">165 paragraphs · v4 complete</div>
+        </div>
+        <div class="meta-row">
+          <div class="meta-label">Key equation</div>
+          <div class="meta-val">\(\alpha^{-1} = \dfrac{360}{\varphi^2} - \dfrac{2}{\varphi^3} + \dfrac{3^{-5}}{\varphi^5} + \dfrac{7^{-7}}{\varphi^7}\)</div>
+        </div>
+        <div class="meta-row">
+          <div class="meta-label">Critic rounds</div>
+          <div class="meta-val">4 rounds · all fixes applied</div>
+        </div>
+        <div class="meta-row">
+          <div class="meta-label">Status</div>
+          <div class="meta-val">Ready to submit to Zenodo</div>
+        </div>
+      </div>
+      <div class="pipe-verdict">The single paper to send to a physicist who has never heard of Pentagon Physics.</div>
+    </div>
+  </div>
+
+  <!-- PENTAGON PHYSICS V4 -->
+  <div class="pipe-item">
+    <div class="pipe-header">
+      <div class="pipe-num">03</div>
+      <div class="pipe-titles">
+        <h2>Pentagon Physics v4</h2>
+        <div class="subtitle">The Geometric Universe — capstone synthesis of the complete programme</div>
+      </div>
+      <div class="pipe-status status-forthcoming">Last — all DOIs live first</div>
+    </div>
+    <div class="pipe-body">
+      <div class="pipe-text">
+        <p>Pentagon Physics v4 is the capstone paper — the single document that presents the complete programme from axiom to Standard Model in one coherent derivation. It is the last paper to be published, because it cites every other paper in the corpus and cannot be finalised until all DOIs are live.</p>
+        <p>The paper has 14 sections following the derivation chain: the axiom, the discriminant, the field ℚ(√5), the 600-cell, the character table of 2I, the Galois selection rule, the gauge group D₄, the force hierarchy, the particle masses, the cosmological sector, the nuclear sector, and the programme's implications for the foundations of physics.</p>
+        <p>The working title <em>The Geometric Universe</em> signals the central claim: the universe has a geometry, and that geometry is the 600-cell. All of physics — every particle, every force, every constant — is a feature of that geometry. The geometry does not describe the universe. <strong>The geometry is the universe.</strong></p>
+        <p>The Nine Cells framework (the programme's nine conceptual layers from axiom to observation) will be folded into v4 as a structural scaffold.</p>
+      </div>
+      <div class="pipe-meta">
+        <div class="meta-row">
+          <div class="meta-label">Format</div>
+          <div class="meta-val">Capstone synthesis paper</div>
+        </div>
+        <div class="meta-row">
+          <div class="meta-label">Sections</div>
+          <div class="meta-val">14 sections · full derivation chain</div>
+        </div>
+        <div class="meta-row">
+          <div class="meta-label">Prerequisite</div>
+          <div class="meta-val">All preceding DOIs must be live</div>
+        </div>
+        <div class="meta-row">
+          <div class="meta-label">Status</div>
+          <div class="meta-val">Outline complete · build pending</div>
+        </div>
+        <div class="meta-row">
+          <div class="meta-label">Sequence</div>
+          <div class="meta-val">Published last — the final paper</div>
+        </div>
+      </div>
+      <div class="pipe-verdict">The universe has a geometry. This paper proves it.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CORPUS SECTION -->
+<div class="corpus-section">
+  <div class="section-head">
+    <div class="section-tag">Published</div>
+    <h2>Pentagon Physics Corpus</h2>
+  </div>
+
+  <div class="corpus-grid">
+    <div class="corpus-card">
+      <div class="cc-tag">Foundation</div>
+      <div class="cc-title">The Axiom</div>
+      <div class="cc-desc">σ = 1/(1+σ) — the single self-referential equation with no free parameters from which the entire Standard Model follows.</div>
+      <div class="cc-count">Covered in 80 papers</div>
+    </div>
+    <div class="corpus-card">
+      <div class="cc-tag">QED</div>
+      <div class="cc-title">Fine Structure Constant</div>
+      <div class="cc-desc">α⁻¹ = 360/φ² − 2/φ³ + 3⁻⁵/φ⁵ + 7⁻⁷/φ⁷ = 137.035999207 — derived to 0.05σ. A century unsolved. Now a theorem.</div>
+      <div class="cc-count"><a href="papers/solving-alpha-the-prime-spectrum-of-self-reference.html" style="color:var(--accent);text-decoration:none;">doi:18648550 →</a></div>
+    </div>
+    <div class="corpus-card">
+      <div class="cc-tag">Gravity</div>
+      <div class="cc-title">Gravitational Constant</div>
+      <div class="cc-desc">α_G = α¹⁸ × 12/7 — G derived as electromagnetic confinement leakage. Zero gravitational input. 0.05% agreement.</div>
+      <div class="cc-count"><a href="papers/gravity-from-confinement.html" style="color:var(--accent);text-decoration:none;">doi:18767628 →</a></div>
+    </div>
+    <div class="corpus-card">
+      <div class="cc-tag">Cosmology</div>
+      <div class="cc-title">Cosmological Constant</div>
+      <div class="cc-desc">log₁₀(ρ_Λ) = −(2α⁻¹/√5 + φ⁻²) = −122.951. The 10¹²³ hierarchy is a theorem of the same geometry as α.</div>
+      <div class="cc-count"><a href="papers/the-constants-are-theorems-geometric-unification-of-and.html" style="color:var(--accent);text-decoration:none;">doi:18669206 →</a></div>
+    </div>
+    <div class="corpus-card">
+      <div class="cc-tag">Particle Physics</div>
+      <div class="cc-title">Proton Mass</div>
+      <div class="cc-desc">m_p/m_e = 6π⁵ + π⁵/[φ⁷(π⁵−1)] to 0.005 ppm. Pentagon geometry connects φ to π. Both trace to discriminant 5.</div>
+      <div class="cc-count"><a href="papers/the-protonelectron-mass-ratio.html" style="color:var(--accent);text-decoration:none;">doi:18716359 →</a></div>
+    </div>
+    <div class="corpus-card">
+      <div class="cc-tag">Nuclear Physics</div>
+      <div class="cc-title">Nuclear Masses</div>
+      <div class="cc-desc">Five-term mass formula. Zero free parameters. RMS 0.11%. Iron peak as fixed-point theorem b* = σ = 1/φ.</div>
+      <div class="cc-count"><a href="papers/nuclear-mass-is-derived-v2.html" style="color:var(--accent);text-decoration:none;">doi:19233350 →</a></div>
+    </div>
+  </div>
+
+  <p style="margin-top:2rem;font-size:0.9rem;color:var(--text-dim);">
+    Full catalogue: <a href="index.html#papers" style="color:var(--accent);text-decoration:none;">80 papers on the main page</a> or 
+    <a href="https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22McLean%2C+Eric%22" target="_blank" style="color:var(--accent);text-decoration:none;">directly on Zenodo →</a>
+  </p>
+</div>
+
+<footer>
+  <p>Pentagon Physics · Eric McLean · Independent Researcher, Cyprus · 2026</p>
+  <a href="index.html">← Back to main site</a>
+</footer>
+
+</body>
+</html>
