@@ -108,25 +108,25 @@ mjx-container { color: var(--text) !important; }
 /* Left panel — big equation on gold */
 .axiom-lhs {
   background: var(--gold);
-  padding: 2rem 1.5rem;
+  padding: 2.5rem 1.8rem;
   display: flex; flex-direction: column;
   justify-content: center; align-items: center;
   text-align: center;
-  gap: 0.8rem;
+  gap: 1rem;
 }
 
 .axiom-lhs-label {
-  font-size: 0.62rem; font-weight: 600;
+  font-size: 0.65rem; font-weight: 700;
   letter-spacing: 0.3em; text-transform: uppercase;
-  color: rgba(0,0,0,0.5);
+  color: rgba(0,0,0,0.6);
 }
 
-.axiom-lhs mjx-container { color: #0a0a0a !important; }
-.axiom-lhs-eq { font-size: 1.1em; }
+.axiom-lhs mjx-container { color: #000000 !important; font-size: 1.4em !important; }
+.axiom-lhs-eq { font-size: 1.4em; }
 
 .axiom-lhs-note {
-  font-size: 0.72rem; font-weight: 400;
-  color: rgba(0,0,0,0.55); line-height: 1.5;
+  font-size: 0.78rem; font-weight: 500;
+  color: rgba(0,0,0,0.7); line-height: 1.5;
 }
 
 /* Right panel — derivation table */
@@ -159,7 +159,8 @@ mjx-container { color: var(--text) !important; }
   font-size: 0.92rem; font-weight: 300;
   color: var(--text-mid); line-height: 1.5;
 }
-.ar-val mjx-container { color: var(--text) !important; }
+.ar-val mjx-container { color: var(--text-mid) !important; font-size: 0.95em !important; }
+.axiom-rhs-row.gold .ar-val mjx-container { color: var(--text) !important; }
 
 @media (max-width: 600px) {
   .axiom-main { grid-template-columns: 1fr; }
@@ -282,23 +283,29 @@ h2 {
 .cn:last-child { border-bottom: none; }
 .cn:hover { background: var(--bg3); }
 .cn .step-num {
-  font-size: 0.62rem; font-weight: 600;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--gold-dim);
-  padding: 0.9rem 1.2rem;
-  border-right: 1px solid var(--border);
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text);
+  padding: 1rem 1.5rem;
+  border-right: 1px solid var(--border-hi);
   text-align: center;
+  background: var(--bg3);
+  min-width: 110px;
 }
 .cn .step-content {
-  font-size: 0.88rem; font-weight: 300;
+  font-size: 0.92rem; font-weight: 300;
   color: var(--text-mid);
-  padding: 0.9rem 1.5rem;
-  line-height: 1.5;
+  padding: 1rem 1.8rem;
+  line-height: 1.6;
 }
 .cn .step-content mjx-container { color: var(--text) !important; }
-.cn.k .step-num { color: var(--gold); }
+.cn.k .step-num {
+  color: var(--gold);
+  background: rgba(242,201,76,0.1);
+  border-right-color: var(--gold-dim);
+}
 .cn.k .step-content { color: var(--text); font-weight: 400; }
-.cn.k { background: rgba(242,201,76,0.04); }
+.cn.k { background: rgba(242,201,76,0.03); }
 .ca { display: none; }
 
 /* ═══ RESULTS LIST ═══ */
