@@ -209,7 +209,7 @@ footer a:hover{color:var(--gold);}
 const SOURCES = {
   quanta: {
     // Quanta Magazine WordPress REST API — open CORS
-    url: 'https://www.quantamagazine.org/wp-json/wp/v2/posts?per_page=10&_fields=id,title,link,date,excerpt,_links',
+    url: 'https://www.quantamagazine.org/wp-json/wp/v2/posts?per_page=10&_fields=id,title,link,date,excerpt&categories=&tags=&_embed=false',
     label: 'Quanta Magazine',
     badge: 'badge-quanta',
     parse: (data) => data.map(p => ({
@@ -222,35 +222,29 @@ const SOURCES = {
   },
   phys: {
     // Phys.org uses public RSS — try via allorigins (free, open CORS proxy)
-    url: 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://phys.org/rss-feed/physics-news/'),
+    url: 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://phys.org/rss-feed/physics-news/') + '&count=12',
     label: 'Phys.org',
     badge: 'badge-phys',
-    parse: (data) => {
-      const xml = new DOMParser().parseFromString(data.contents, 'text/xml');
-      return Array.from(xml.querySelectorAll('item')).slice(0,12).map(i => ({
-        title: i.querySelector('title')?.textContent || '',
-        link: i.querySelector('link')?.textContent || '',
-        pubDate: i.querySelector('pubDate')?.textContent || '',
-        author: 'Phys.org',
-        description: (i.querySelector('description')?.textContent||'').replace(/<[^>]+>/g,'').trim().slice(0,200)
-      }));
-    }
+    parse: (data) => (data.items||[]).map(i => ({
+      title: i.title||'',
+      link: i.link||'',
+      pubDate: i.pubDate||'',
+      author: 'Phys.org',
+      description: (i.description||'').replace(/<[^>]+>/g,'').trim().slice(0,200)
+    }))
   },
   cern: {
     // CERN news RSS via allorigins
-    url: 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://home.cern/api/news/news/feed'),
+    url: 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://home.cern/api/news/news/feed') + '&count=10',
     label: 'CERN News',
     badge: 'badge-cern',
-    parse: (data) => {
-      const xml = new DOMParser().parseFromString(data.contents, 'text/xml');
-      return Array.from(xml.querySelectorAll('item')).slice(0,10).map(i => ({
-        title: i.querySelector('title')?.textContent || '',
-        link: i.querySelector('link')?.textContent || '',
-        pubDate: i.querySelector('pubDate')?.textContent || '',
-        author: 'CERN',
-        description: (i.querySelector('description')?.textContent||'').replace(/<[^>]+>/g,'').trim().slice(0,200)
-      }));
-    }
+    parse: (data) => (data.items||[]).map(i => ({
+      title: i.title||'',
+      link: i.link||'',
+      pubDate: i.pubDate||'',
+      author: 'CERN',
+      description: (i.description||'').replace(/<[^>]+>/g,'').trim().slice(0,200)
+    }))
   },
   reddit: {
     // Reddit JSON API — genuinely open CORS, no auth needed
@@ -267,19 +261,16 @@ const SOURCES = {
   },
   aps: {
     // APS Physics via allorigins
-    url: 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://physics.aps.org/rss/recent.xml'),
+    url: 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://physics.aps.org/rss/recent.xml') + '&count=10',
     label: 'APS Physics',
     badge: 'badge-aps',
-    parse: (data) => {
-      const xml = new DOMParser().parseFromString(data.contents, 'text/xml');
-      return Array.from(xml.querySelectorAll('item')).slice(0,10).map(i => ({
-        title: i.querySelector('title')?.textContent || '',
-        link: i.querySelector('link')?.textContent || '',
-        pubDate: i.querySelector('pubDate')?.textContent || '',
-        author: 'APS Physics',
-        description: (i.querySelector('description')?.textContent||'').replace(/<[^>]+>/g,'').trim().slice(0,200)
-      }));
-    }
+    parse: (data) => (data.items||[]).map(i => ({
+      title: i.title||'',
+      link: i.link||'',
+      pubDate: i.pubDate||'',
+      author: 'APS Physics',
+      description: (i.description||'').replace(/<[^>]+>/g,'').trim().slice(0,200)
+    }))
   }
 };
 
