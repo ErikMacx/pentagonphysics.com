@@ -342,44 +342,34 @@ footer a:hover{color:var(--gold);}
 </footer>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────────────
-const API = 'https://api.rss2json.com/v1/api.json?rss_url=';
+// Use arXiv Atom API via corsproxy.io — works from static GitHub Pages
+const PROXY = 'https://corsproxy.io/?url=';
 
 const FEEDS = {
   'hep-ph': {
-    url: 'https://rss.arxiv.org/rss/hep-ph',
+    apiUrl: 'https://export.arxiv.org/api/query?search_query=cat:hep-ph&sortBy=submittedDate&sortOrder=descending&max_results=12',
     label: 'hep-ph · High Energy Physics — Phenomenology',
-    badge: 'badge-arxiv',
-    badgeText: 'arXiv',
-    color: '#B31B1B'
+    badge: 'badge-arxiv', badgeText: 'arXiv'
   },
   'hep-th': {
-    url: 'https://rss.arxiv.org/rss/hep-th',
+    apiUrl: 'https://export.arxiv.org/api/query?search_query=cat:hep-th&sortBy=submittedDate&sortOrder=descending&max_results=12',
     label: 'hep-th · High Energy Physics — Theory',
-    badge: 'badge-arxiv',
-    badgeText: 'arXiv',
-    color: '#B31B1B'
+    badge: 'badge-arxiv', badgeText: 'arXiv'
   },
   'math-ph': {
-    url: 'https://rss.arxiv.org/rss/math-ph',
+    apiUrl: 'https://export.arxiv.org/api/query?search_query=cat:math-ph&sortBy=submittedDate&sortOrder=descending&max_results=12',
     label: 'math-ph · Mathematical Physics',
-    badge: 'badge-arxiv',
-    badgeText: 'arXiv',
-    color: '#B31B1B'
+    badge: 'badge-arxiv', badgeText: 'arXiv'
   },
   'gr-qc': {
-    url: 'https://rss.arxiv.org/rss/gr-qc',
+    apiUrl: 'https://export.arxiv.org/api/query?search_query=cat:gr-qc&sortBy=submittedDate&sortOrder=descending&max_results=12',
     label: 'gr-qc · General Relativity & Quantum Cosmology',
-    badge: 'badge-arxiv',
-    badgeText: 'arXiv',
-    color: '#B31B1B'
+    badge: 'badge-arxiv', badgeText: 'arXiv'
   },
   'zenodo': {
-    url: 'https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22McLean%2C+Eric%22&format=rss',
+    apiUrl: 'https://zenodo.org/api/records?q=creators.person_or_org.name%3A%22McLean%2C+Eric%22&sort=mostrecent&size=12&type=publication',
     label: 'Zenodo · Eric McLean — Latest Papers',
-    badge: 'badge-zenodo',
-    badgeText: 'Zenodo',
-    color: '#5DA8D0'
+    badge: 'badge-zenodo', badgeText: 'Zenodo'
   }
 };
 
@@ -391,21 +381,49 @@ let activeKW = '';
 // ── FETCH ────────────────────────────────────────────────────
 async function fetchFeed(key) {
   const feed = FEEDS[key];
+  const statusEl = document.getElementById(`status-${key}`);
   try {
-    const res = await fetch(`${API}${encodeURIComponent(feed.url)}&count=${ITEMS_PER_FEED}`);
-    const data = await res.json();
-    if (data.status === 'ok' && data.items) {
-      allArticles[key] = data.items.map(item => ({
-        ...item,
-        feedKey: key,
-        feed: feed
-      }));
-      document.getElementById(`status-${key}`).textContent = `${data.items.length} articles`;
-      return data.items.length;
+    let items = [];
+    if (key === 'zenodo') {
+      // Zenodo JSON API — no CORS proxy needed
+      const res = await fetch(feed.apiUrl);
+      const data = await res.json();
+      if (data.hits && data.hits.hits) {
+        items = data.hits.hits.map(h => ({
+          title: h.metadata?.title || 'Untitled',
+          link: h.links?.html || `https://zenodo.org/record/${h.id}`,
+          pubDate: h.metadata?.publication_date || '',
+          author: (h.metadata?.creators || []).map(c => c.name).slice(0,3).join(', '),
+          description: h.metadata?.description || '',
+          feedKey: key,
+          feed: feed
+        }));
+      }
+    } else {
+      // arXiv Atom API via CORS proxy
+      const res = await fetch(PROXY + encodeURIComponent(feed.apiUrl));
+      const text = await res.text();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(text, 'text/xml');
+      const entries = xml.querySelectorAll('entry');
+      entries.forEach(entry => {
+        const title = entry.querySelector('title')?.textContent?.replace(/\s+/g,' ').trim() || '';
+        const link = entry.querySelector('id')?.textContent?.trim() || '';
+        const published = entry.querySelector('published')?.textContent?.trim() || '';
+        const summary = entry.querySelector('summary')?.textContent?.replace(/\s+/g,' ').trim() || '';
+        const authors = Array.from(entry.querySelectorAll('author name')).map(a=>a.textContent).slice(0,3).join(', ');
+        items.push({ title, link, pubDate: published, author: authors, description: summary, feedKey: key, feed: feed });
+      });
+    }
+    if (items.length > 0) {
+      allArticles[key] = items;
+      statusEl.textContent = `${items.length} articles`;
+      return items.length;
     }
   } catch(e) {
-    document.getElementById(`status-${key}`).textContent = 'unavailable';
+    statusEl.textContent = 'unavailable';
   }
+  statusEl.textContent = 'unavailable';
   return 0;
 }
 
