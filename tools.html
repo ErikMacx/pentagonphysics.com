@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pentagon Physics interactive tools — explore the bridge line, nuclear mass derivations, and spectral geometry.">
+<meta name="author" content="Eric McLean">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Tools — Pentagon Physics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#F2C94C; --gold-dim:#9A7820; --gold-pale:#FBE89A;
+  --bg:#090909; --bg2:#111113; --bg3:#19191E;
+  --border:rgba(255,255,255,0.1); --border-hi:rgba(255,255,255,0.2);
+  --text:#F0EDE6; --text-mid:#C0BCB4; --text-dim:#807C76;
+  --accent:#5DA8D0;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --pad:8vw;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.75;overflow-x:hidden;}
+
+header{
+  background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);
+  padding:0 var(--pad);display:flex;gap:2.5rem;align-items:center;height:52px;
+  position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);
+}
+header a{color:var(--text-dim);text-decoration:none;font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header a.active{color:var(--gold);}
+header .logo{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;display:flex;align-items:center;gap:8px;}
+
+.hero{
+  padding:6rem var(--pad) 4rem;
+  border-bottom:1px solid var(--border-hi);
+  position:relative;overflow:hidden;
+}
+.pent-bg{position:absolute;top:0;right:0;width:50%;height:100%;pointer-events:none;overflow:hidden;opacity:0.04;}
+.pent-bg svg{position:absolute;top:50%;right:-5%;transform:translateY(-50%);width:100%;}
+.hero-tag{font-size:0.72rem;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;}
+h1{font-family:var(--serif);font-size:clamp(2.8rem,6vw,5rem);font-weight:700;color:var(--text);line-height:1.05;margin-bottom:1rem;}
+.hero-sub{font-size:1.1rem;color:var(--text-mid);max-width:60ch;line-height:1.8;}
+
+.tools-grid{
+  padding:5rem var(--pad);
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));
+  gap:1px;background:var(--border-hi);
+  border-top:1px solid var(--border-hi);
+  border-bottom:1px solid var(--border-hi);
+}
+.tool-card{
+  background:var(--bg2);
+  padding:3rem;
+  display:flex;flex-direction:column;
+  gap:1.5rem;
+  transition:background 0.2s;
+}
+.tool-card:hover{background:var(--bg3);}
+.tc-tag{font-size:0.65rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);}
+.tc-title{font-family:var(--serif);font-size:2rem;font-weight:700;color:var(--text);line-height:1.1;}
+.tc-desc{font-size:0.98rem;color:var(--text-mid);line-height:1.8;max-width:52ch;}
+.tc-stats{display:flex;flex-wrap:wrap;gap:1.5rem;}
+.tc-stat{display:flex;flex-direction:column;gap:0.1rem;}
+.tc-stat .n{font-family:var(--serif);font-size:1.6rem;font-weight:700;color:var(--gold);line-height:1;}
+.tc-stat .l{font-size:0.65rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);}
+.tc-launch{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  font-size:0.72rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--bg);background:var(--gold);
+  text-decoration:none;padding:0.75em 1.8em;
+  border:1px solid var(--gold);
+  transition:all 0.2s;align-self:flex-start;
+  margin-top:auto;
+}
+.tc-launch:hover{background:var(--accent);border-color:var(--accent);}
+.tc-launch::after{content:'→';}
+
+.tc-preview{
+  width:100%;height:140px;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  overflow:hidden;position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+canvas.preview-canvas{display:block;width:100%;height:100%;}
+
+footer{
+  background:var(--bg2);border-top:1px solid var(--border-hi);
+  padding:3rem var(--pad);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;
+}
+footer p{font-size:0.85rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;font-size:0.85rem;}
+footer a:hover{color:var(--gold);}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="28" height="28" style="flex-shrink:0;">
+      <defs><mask id="mn"><path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/><path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/><path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/><path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/><path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/><path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/><path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/><path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/><path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/><path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/><circle cx="0" cy="0" r="71.19" fill="black"/><polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/></mask></defs>
+      <rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mn)"/>
+    </svg>
+    Pentagon Physics
+  </a>
+  <a href="index.html#programme">Programme</a>
+  <a href="index.html#results">Results</a>
+  <a href="index.html#papers">Papers</a>
+  <a href="tools.html" class="active">Tools</a>
+  <a href="pipeline.html">Pipeline</a>
+  <a href="news.html">News</a>
+  <a href="faqs.html">137 FAQs</a>
+  <a href="index.html#contact">Contact</a>
+</header>
+
+<div class="hero">
+  <div class="pent-bg">
+    <svg viewBox="0 0 600 680" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="300,30 560,210 465,560 135,560 40,210" fill="none" stroke="white" stroke-width="1.5"/>
+      <polygon points="300,100 500,250 415,515 185,515 100,250" fill="none" stroke="white" stroke-width="0.7"/>
+      <line x1="300" y1="30" x2="465" y2="560" stroke="white" stroke-width="0.5"/>
+      <line x1="300" y1="30" x2="135" y2="560" stroke="white" stroke-width="0.5"/>
+      <line x1="560" y1="210" x2="135" y2="560" stroke="white" stroke-width="0.5"/>
+      <line x1="40" y1="210" x2="465" y2="560" stroke="white" stroke-width="0.5"/>
+      <line x1="560" y1="210" x2="40" y2="210" stroke="white" stroke-width="0.5"/>
+    </svg>
+  </div>
+  <div class="hero-tag">Interactive</div>
+  <h1>Tools</h1>
+  <p class="hero-sub">Explore the Pentagon Physics derivations interactively. Each tool lets you trace a result from the axiom through the geometry to a measurable prediction.</p>
+</div>
+
+<div class="tools-grid">
+
+  <!-- BRIDGE PLAYGROUND -->
+  <div class="tool-card">
+    <div class="tc-tag">Cosmological Constants</div>
+    <div class="tc-title">The Bridge Line</div>
+    <div class="tc-preview">
+      <canvas class="preview-canvas" id="bridgePreview"></canvas>
+    </div>
+    <div class="tc-desc">Three fundamental constants from three disconnected experiments — collinear in bridge space. Slope: α⁻¹ = 137.036. Explore the partition, the polyhedra, the five bridge positions, and the consequences for the Hubble tension.</div>
+    <div class="tc-stats">
+      <div class="tc-stat"><span class="n">4</span><span class="l">Occupied positions</span></div>
+      <div class="tc-stat"><span class="n">1</span><span class="l">Open prediction</span></div>
+      <div class="tc-stat"><span class="n">0</span><span class="l">Free parameters</span></div>
+    </div>
+    <a href="tools/bridge-playground.html" class="tc-launch">Launch tool</a>
+  </div>
+
+  <!-- NUCLEAR MASSES -->
+  <div class="tool-card">
+    <div class="tc-tag">Nuclear Physics</div>
+    <div class="tc-title">Nuclear Mass Explorer</div>
+    <div class="tc-preview">
+      <canvas class="preview-canvas" id="nuclearPreview"></canvas>
+    </div>
+    <div class="tc-desc">Five-term nuclear mass formula, zero free parameters. Select any element from hydrogen to uranium and watch the 600-cell spectrum fill its bonding modes. Iron-56 sits at the axiom's fixed point b* = 1/φ.</div>
+    <div class="tc-stats">
+      <div class="tc-stat"><span class="n">0.11%</span><span class="l">RMS accuracy</span></div>
+      <div class="tc-stat"><span class="n">118</span><span class="l">Elements</span></div>
+      <div class="tc-stat"><span class="n">30</span><span class="l">Bonding modes</span></div>
+    </div>
+    <a href="tools/nuclear-masses.html" class="tc-launch">Launch tool</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Pentagon Physics · Eric McLean · Independent Researcher, Cyprus · 2026</p>
+  <a href="index.html">← Back to main site</a>
+</footer>
+
+<script>
+const PHI = (1+Math.sqrt(5))/2;
+const GOLD = '#F2C94C', ACCENT = '#5DA8D0', DIM = 'rgba(255,255,255,0.08)';
+
+// ── Bridge preview: mini version of the bridge line chart ──
+(function(){
+  const c = document.getElementById('bridgePreview');
+  function draw(){
+    const W=c.offsetWidth, H=c.offsetHeight;
+    c.width=W; c.height=H;
+    const ctx=c.getContext('2d');
+    ctx.fillStyle='#111113'; ctx.fillRect(0,0,W,H);
+    const pad={l:10,r:10,t:10,b:10};
+    const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
+    const alpha=137.036, phi2=1/(PHI*PHI);
+    const pts=[
+      {R:0.17082,d:23.791,col:'#807C76'},
+      {R:0.27639,d:38.229,col:'#4a8a70'},
+      {R:0.44721,d:61.700,col:'#4a7ab0'},
+      {R:0.89443,d:122.951,col:'#8a4a28'},
+    ];
+    const px=r=>pad.l+r*cw, py=d=>pad.t+ch-d/135*ch;
+    // regression line
+    ctx.strokeStyle='rgba(242,201,76,0.3)'; ctx.lineWidth=1; ctx.setLineDash([4,3]);
+    ctx.beginPath(); ctx.moveTo(px(0),py(phi2)); ctx.lineTo(px(1),py(alpha+phi2)); ctx.stroke();
+    ctx.setLineDash([]);
+    // grid
+    ctx.strokeStyle='rgba(255,255,255,0.05)'; ctx.lineWidth=1;
+    [25,50,75,100,125].forEach(d=>{ctx.beginPath();ctx.moveTo(pad.l,py(d));ctx.lineTo(W-pad.r,py(d));ctx.stroke();});
+    // fifth open circle
+    ctx.beginPath(); ctx.arc(px(0.72361),py(99.54),5,0,Math.PI*2);
+    ctx.strokeStyle='rgba(242,201,76,0.5)'; ctx.lineWidth=1.5; ctx.setLineDash([3,2]); ctx.stroke();
+    ctx.setLineDash([]);
+    // points
+    pts.forEach(p=>{
+      ctx.beginPath(); ctx.arc(px(p.R),py(p.d),5,0,Math.PI*2);
+      ctx.fillStyle=p.col; ctx.fill();
+      ctx.strokeStyle='rgba(255,255,255,0.3)'; ctx.lineWidth=1; ctx.stroke();
+    });
+  }
+  draw(); window.addEventListener('resize',draw);
+})();
+
+// ── Nuclear preview: mini binding curve ──
+(function(){
+  const c = document.getElementById('nuclearPreview');
+  const data=[
+    {A:4,be:7.07},{A:12,be:7.68},{A:16,be:7.98},{A:40,be:8.55},
+    {A:56,be:8.79},{A:62,be:8.79},{A:90,be:8.71},{A:120,be:8.50},
+    {A:208,be:7.87},{A:238,be:7.57}
+  ];
+  function draw(){
+    const W=c.offsetWidth, H=c.offsetHeight;
+    c.width=W; c.height=H;
+    const ctx=c.getContext('2d');
+    ctx.fillStyle='#111113'; ctx.fillRect(0,0,W,H);
+    const pad={l:10,r:10,t:10,b:10};
+    const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
+    const minBE=6.5, maxBE=9;
+    const px=A=>pad.l+(A/238)*cw, py=be=>pad.t+ch-(be-minBE)/(maxBE-minBE)*ch;
+    // grid lines
+    ctx.strokeStyle='rgba(255,255,255,0.05)'; ctx.lineWidth=1;
+    [7,8,9].forEach(v=>{ctx.beginPath();ctx.moveTo(pad.l,py(v));ctx.lineTo(W-pad.r,py(v));ctx.stroke();});
+    // iron fixed point line
+    ctx.strokeStyle='rgba(242,201,76,0.25)'; ctx.setLineDash([3,3]);
+    const ix=px(56);
+    ctx.beginPath(); ctx.moveTo(ix,pad.t); ctx.lineTo(ix,H-pad.b); ctx.stroke();
+    ctx.setLineDash([]);
+    // curve
+    ctx.strokeStyle=ACCENT; ctx.lineWidth=2;
+    ctx.beginPath();
+    data.forEach((d,i)=>{if(i===0)ctx.moveTo(px(d.A),py(d.be));else ctx.lineTo(px(d.A),py(d.be));});
+    ctx.stroke();
+    // dots
+    data.forEach(d=>{
+      ctx.beginPath(); ctx.arc(px(d.A),py(d.be),4,0,Math.PI*2);
+      ctx.fillStyle=d.A===56?GOLD:ACCENT; ctx.fill();
+    });
+  }
+  draw(); window.addEventListener('resize',draw);
+})();
+</script>
+</body>
+</html>
