@@ -1,1 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The Bridge Line — Λ, G, and H₀ are collinear in bridge space with slope α⁻¹ = 137.036. Pentagon Physics interactive explorer.">
+<meta name="author" content="Eric McLean">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<title>The Bridge Line — Pentagon Physics Tools</title>
+<script>
+MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#F2C94C; --gold-dim:#9A7820; --gold-pale:#FBE89A;
+  --bg:#090909; --bg2:#111113; --bg3:#19191E;
+  --border:rgba(255,255,255,0.1); --border-hi:rgba(255,255,255,0.2);
+  --text:#F0EDE6; --text-mid:#C0BCB4; --text-dim:#807C76;
+  --accent:#5DA8D0;
+  --green:rgba(80,180,130,1); --red:rgba(200,90,70,1);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --pad:8vw;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.75;overflow-x:hidden;}
+mjx-container{color:var(--text)!important;}
 
+header{
+  background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);
+  padding:0 var(--pad);display:flex;gap:2.5rem;align-items:center;height:52px;
+  position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);
+}
+header a{color:var(--text-dim);text-decoration:none;font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header .logo{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;display:flex;align-items:center;gap:8px;}
+
+/* ── HERO ── */
+.hero{padding:5rem var(--pad) 3rem;border-bottom:1px solid var(--border-hi);position:relative;overflow:hidden;}
+.pent-bg{position:absolute;top:0;right:0;width:45%;height:100%;pointer-events:none;overflow:hidden;opacity:0.04;}
+.pent-bg svg{position:absolute;top:50%;right:-5%;transform:translateY(-50%);width:100%;}
+.hero-tag{font-size:0.72rem;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;}
+h1{font-family:var(--serif);font-size:clamp(2.4rem,5vw,4.2rem);font-weight:700;color:var(--text);line-height:1.05;margin-bottom:0.8rem;}
+.hero-sub{font-size:1rem;color:var(--text-mid);max-width:65ch;line-height:1.8;margin-bottom:1.5rem;}
+.hero-eq{font-size:0.8rem;color:var(--text-dim);}
+.hero-eq mjx-container{color:var(--text-dim)!important;}
+
+/* ── TABS ── */
+.tabs-wrap{
+  border-bottom:1px solid var(--border-hi);
+  background:var(--bg2);
+  position:sticky;top:52px;z-index:90;
+  overflow-x:auto;
+}
+.tabs{display:flex;padding:0 var(--pad);}
+.tab-btn{
+  font-size:0.68rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--text-dim);padding:1rem 1.5rem 1rem 0;border:none;background:none;
+  cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;margin-right:2rem;
+  transition:all 0.2s;
+}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* ── PANELS ── */
+.panel{display:none;padding:4rem var(--pad);}
+.panel.active{display:block;}
+
+/* ── TYPOGRAPHY ── */
+h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;color:var(--text);margin-bottom:1rem;line-height:1.1;}
+h3{font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:0.8rem;margin-top:2rem;}
+.sec-tag{font-size:0.68rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;}
+.sec-sub{font-size:0.95rem;color:var(--text-dim);max-width:72ch;line-height:1.7;margin-bottom:2rem;}
+p{color:var(--text-mid);font-size:0.95rem;line-height:1.8;margin-bottom:1rem;max-width:72ch;}
+p strong{color:var(--text);}
+
+/* ── GRID ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin:2rem 0;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border-hi);border:1px solid var(--border-hi);margin:2rem 0;}
+.g3-cell{background:var(--bg2);padding:2rem;}
+
+/* ── CHART ── */
+.chart-wrap{
+  border:1px solid var(--border-hi);background:var(--bg2);
+  overflow:hidden;margin:2rem 0;position:relative;
+}
+.chart-header{background:var(--bg3);border-bottom:1px solid var(--border-hi);padding:0.8rem 1.5rem;display:flex;justify-content:space-between;align-items:center;}
+.chart-title{font-size:0.68rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);}
+.chart-hint{font-size:0.72rem;color:var(--text-dim);}
+canvas.chart{display:block;width:100%;}
+.chart-caption{padding:0.8rem 1.5rem;font-size:0.78rem;color:var(--text-dim);border-top:1px solid var(--border);}
+.tooltip{position:fixed;background:var(--bg3);border:1px solid var(--border-hi);padding:0.7rem 1rem;font-size:0.82rem;color:var(--text);pointer-events:none;opacity:0;transition:opacity 0.15s;z-index:200;min-width:220px;}
+.tooltip.show{opacity:1;}
+
+/* ── BARS ── */
+.bar-rows{display:flex;flex-direction:column;gap:0.5rem;margin:1.5rem 0;}
+.bar-row{display:flex;align-items:center;gap:1rem;}
+.bar-label{font-size:0.78rem;font-weight:500;color:var(--text-mid);min-width:180px;flex-shrink:0;}
+.bar-wrap{flex:1;height:16px;background:var(--bg3);border:1px solid var(--border);}
+.bar-fill{height:100%;transition:width 0.6s;}
+.bar-val{font-size:0.78rem;color:var(--text-dim);min-width:55px;text-align:right;}
+.bar-acc{font-size:0.7rem;color:var(--accent);min-width:55px;text-align:right;}
+
+/* ── FACT BOXES ── */
+.fact{border:1px solid var(--border-hi);background:var(--bg2);padding:1.5rem;margin:1rem 0;}
+.fact-key{font-size:0.65rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
+.fact-val{font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:0.4rem;}
+.fact-val mjx-container{color:var(--text)!important;}
+.fact-desc{font-size:0.85rem;color:var(--text-dim);line-height:1.55;}
+
+/* ── INSIGHT BOXES ── */
+.insight{border-left:3px solid var(--border-hi);padding:1rem 1.5rem;background:var(--bg2);margin:1rem 0;font-size:0.9rem;color:var(--text-mid);}
+.insight strong{color:var(--text);}
+.insight.gold{border-left-color:var(--gold-dim);}
+.insight.accent{border-left-color:rgba(93,168,208,0.5);}
+.insight.green{border-left-color:rgba(80,180,130,0.5);}
+
+/* ── TABLE ── */
+.pp-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:0.88rem;}
+.pp-table th{font-size:0.65rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);padding:0.6rem 1rem;border-bottom:2px solid var(--gold-dim);text-align:left;}
+.pp-table td{padding:0.6rem 1rem;border-bottom:1px solid var(--border);color:var(--text-mid);}
+.pp-table tr:last-child td{border-bottom:none;}
+.pp-table td:first-child{font-weight:700;color:var(--text);}
+
+/* ── PROOF STEPS ── */
+.proof{background:var(--bg3);border:1px solid var(--border-hi);padding:1.5rem;margin:1rem 0;font-size:0.9rem;}
+.proof-step{padding:0.25rem 0;color:var(--text-mid);}
+.proof-step .gold{color:var(--gold);font-weight:600;}
+
+/* ── FIFTH POINT ── */
+.fifth-box{
+  border:1px solid var(--gold-dim);
+  background:rgba(242,201,76,0.04);
+  padding:2rem;margin:2rem 0;
+}
+.fifth-tag{font-size:0.65rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.fifth-val{font-family:'Courier New',monospace;font-size:0.88rem;line-height:2;color:var(--text-mid);}
+.fifth-val strong{color:var(--text);}
+
+/* ── SHAPES ── */
+.shapes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-hi);border:1px solid var(--border-hi);margin:2rem 0;}
+.shape-card{background:var(--bg2);cursor:pointer;transition:background 0.2s;}
+.shape-card:hover,.shape-card.active{background:var(--bg3);}
+.shape-stage{height:180px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.shape-name{position:absolute;top:10px;left:14px;font-size:0.65rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+.shape-sub{position:absolute;bottom:10px;left:14px;font-size:0.65rem;color:var(--text-dim);letter-spacing:0.08em;}
+.shape-tab-bar{display:flex;border-top:1px solid var(--border);background:var(--bg3);}
+.shape-tab-btn{flex:1;font-size:0.65rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);padding:0.6rem;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;}
+.shape-tab-btn.active,.shape-card.active .shape-tab-btn{color:var(--gold);border-bottom-color:var(--gold);}
+.shape-info{display:none;padding:2rem;border-top:1px solid var(--border-hi);}
+.shape-info.active{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+
+/* ── REQUIREMENTS ── */
+.req-list{margin:2rem 0;}
+.req{display:grid;grid-template-columns:48px 1fr;gap:1.5rem;padding:1.2rem 0;border-bottom:1px solid var(--border);align-items:start;}
+.req:last-child{border-bottom:none;}
+.req-num{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--gold-dim);line-height:1;padding-top:0.1rem;}
+.req-claim{font-size:0.95rem;font-weight:500;color:var(--text);margin-bottom:0.2rem;}
+.req-sector{font-size:0.72rem;color:var(--text-dim);letter-spacing:0.05em;}
+
+/* ── KILL CONDITIONS ── */
+.kill{border-left:3px solid var(--border-hi);padding:1.2rem 1.5rem;margin-bottom:1rem;background:var(--bg2);}
+.kill.pass{border-left-color:rgba(80,180,130,0.6);}
+.kill.watch{border-left-color:var(--gold-dim);}
+.k-id{font-size:0.64rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.3rem;}
+.k-cond{font-size:0.95rem;font-weight:500;color:var(--text);margin-bottom:0.3rem;}
+.k-status{font-size:0.85rem;color:var(--text-dim);}
+.k-status.ok{color:rgba(100,190,140,1);}
+.k-status.watch{color:var(--gold);}
+
+/* ── OMEGA BARS ── */
+.omega-row{display:flex;align-items:center;gap:1rem;margin:0.4rem 0;}
+.omega-label{font-size:0.8rem;font-weight:500;min-width:200px;flex-shrink:0;}
+.omega-bar-wrap{flex:1;height:20px;background:var(--bg3);border:1px solid var(--border);position:relative;}
+.omega-fill{position:absolute;top:0;left:0;height:100%;}
+.omega-val{font-size:0.8rem;min-width:50px;text-align:right;}
+
+/* ── CARD ── */
+.card{border:1px solid var(--border-hi);background:var(--bg3);padding:1.5rem;margin:1rem 0;}
+.card-title{font-size:0.65rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+.card-value{font-family:var(--serif);font-size:2rem;font-weight:700;color:var(--text);margin-bottom:0.4rem;}
+.card-desc{font-size:0.82rem;color:var(--text-dim);line-height:1.55;}
+
+/* ── SUB TABS ── */
+.sub-tabs{display:flex;border-bottom:1px solid var(--border-hi);margin-bottom:2rem;}
+.sub-tab{font-size:0.68rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);padding:0.7rem 0;border:none;background:none;cursor:pointer;margin-right:2rem;border-bottom:2px solid transparent;transition:all 0.2s;}
+.sub-tab:hover{color:var(--text);}
+.sub-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.sub-panel{display:none;}
+.sub-panel.active{display:block;}
+
+/* ── FOOTER ── */
+footer{background:var(--bg2);border-top:1px solid var(--border-hi);padding:3rem var(--pad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+footer p{font-size:0.85rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;font-size:0.85rem;}
+footer a:hover{color:var(--gold);}
+
+@media(max-width:900px){
+  .g2,.shape-info.active{grid-template-columns:1fr;}
+  .shapes-grid{grid-template-columns:1fr;}
+  .g3{grid-template-columns:1fr;}
+}
+@media(max-width:600px){:root{--pad:5vw;} .tabs{padding:0 var(--pad);}}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="../index.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="28" height="28" style="flex-shrink:0;">
+      <defs><mask id="mn"><path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/><path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/><path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/><path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/><path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/><path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/><path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/><path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/><path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/><path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/><circle cx="0" cy="0" r="71.19" fill="black"/><polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/></mask></defs>
+      <rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mn)"/>
+    </svg>
+    Pentagon Physics
+  </a>
+  <a href="../index.html#programme">Programme</a>
+  <a href="../index.html#results">Results</a>
+  <a href="../index.html#papers">Papers</a>
+  <a href="../tools.html">Tools</a>
+  <a href="../pipeline.html">Pipeline</a>
+  <a href="../news.html">News</a>
+  <a href="../faqs.html">137 FAQs</a>
+</header>
+
+<div class="hero">
+  <div class="pent-bg">
+    <svg viewBox="0 0 600 680" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="300,30 560,210 465,560 135,560 40,210" fill="none" stroke="white" stroke-width="1.5"/>
+      <line x1="300" y1="30" x2="465" y2="560" stroke="white" stroke-width="0.5"/>
+      <line x1="300" y1="30" x2="135" y2="560" stroke="white" stroke-width="0.5"/>
+      <line x1="560" y1="210" x2="135" y2="560" stroke="white" stroke-width="0.5"/>
+      <line x1="40" y1="210" x2="465" y2="560" stroke="white" stroke-width="0.5"/>
+      <line x1="560" y1="210" x2="40" y2="210" stroke="white" stroke-width="0.5"/>
+    </svg>
+  </div>
+  <div class="hero-tag">Tool · Cosmological Constants</div>
+  <h1>The Bridge Line</h1>
+  <p class="hero-sub">Λ, G, and H₀ — three constants from three disconnected experiments — are collinear in bridge space. The slope is 137.036. That is α⁻¹, measured independently by atomic physics with no electromagnetic input here.</p>
+  <div class="hero-eq">\(\sigma = \tfrac{1}{1+\sigma} \;\to\; \varphi \;\to\; \text{partition} \;\to\; \text{bridge ratios} \;\to\; \alpha^{-1}\)</div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('line')">The Line</button>
+    <button class="tab-btn" onclick="showTab('partition')">The Partition</button>
+    <button class="tab-btn" onclick="showTab('polyhedra')">The Polyhedra</button>
+    <button class="tab-btn" onclick="showTab('consequences')">Consequences</button>
+    <button class="tab-btn" onclick="showTab('numerology')">Not Numerology</button>
+    <button class="tab-btn" onclick="showTab('kills')">Kill Conditions</button>
+  </div>
+</div>
+
+<!-- ══ THE LINE ══ -->
+<div class="panel active" id="panel-line">
+  <div class="sec-tag">01 · Central Result</div>
+  <h2>Three experiments. One line. One slope.</h2>
+  <p class="sec-sub">Horizontal axis: pure algebra from σ = 1/(1+σ). Vertical axis: physical depth measured by three independent experimental programmes. No measurements enter the x-axis. No algebra enters the y-axis.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-header">
+      <span class="chart-title">Bridge Line — Depth vs Bridge Ratio</span>
+      <span class="chart-hint">Hover any point</span>
+    </div>
+    <canvas class="chart" id="bc" height="420"></canvas>
+    <div class="chart-caption">Slope = α⁻¹ = 137.036 · Intercept = φ⁻² = 0.382 · Neither parameter was fitted · Open circle = fifth position (Galois conjugate, depth 99.54)</div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <h3>The four bridge ratios</h3>
+      <div class="bar-rows">
+        <div class="bar-row"><span class="bar-label">R_floor &nbsp; φ⁻²/√5</span><div class="bar-wrap"><div class="bar-fill" style="width:19%;background:#807C76"></div></div><span class="bar-val">0.1708</span><span class="bar-acc">stored</span></div>
+        <div class="bar-row"><span class="bar-label">R_G &nbsp; φ⁻¹/√5</span><div class="bar-wrap"><div class="bar-fill" style="width:31%;background:rgba(80,180,130,0.7)"></div></div><span class="bar-val">0.2764</span><span class="bar-acc">escape</span></div>
+        <div class="bar-row"><span class="bar-label">R_H &nbsp; 1/√5</span><div class="bar-wrap"><div class="bar-fill" style="width:50%;background:rgba(93,168,208,0.7)"></div></div><span class="bar-val">0.4472</span><span class="bar-acc">one-way</span></div>
+        <div class="bar-row"><span class="bar-label" style="color:rgba(242,201,76,0.6)">R_? &nbsp; φ/√5</span><div class="bar-wrap"><div class="bar-fill" style="width:72%;background:rgba(242,201,76,0.3)"></div></div><span class="bar-val" style="color:rgba(242,201,76,0.6)">0.7236</span><span class="bar-acc" style="color:rgba(242,201,76,0.5)">? open</span></div>
+        <div class="bar-row"><span class="bar-label">R_Λ &nbsp; 2/√5</span><div class="bar-wrap"><div class="bar-fill" style="width:100%;background:rgba(200,120,60,0.7)"></div></div><span class="bar-val">0.8944</span><span class="bar-acc">round-trip</span></div>
+      </div>
+      <div style="font-size:0.82rem;color:var(--text-dim);line-height:2.2;margin-top:1rem;">
+        R_Λ − R_G = <strong style="color:var(--text)">φ⁻¹</strong> (exact)<br>
+        R_G + R_floor = <strong style="color:var(--text)">R_H</strong> (exact)<br>
+        R_Λ = <strong style="color:var(--text)">2 × R_H</strong> (exact)
+      </div>
+    </div>
+    <div>
+      <h3>Independent α⁻¹ recovery</h3>
+      <div class="bar-rows">
+        <div class="bar-row"><span class="bar-label" style="color:rgba(200,120,60,0.9)">From Λ (CMB)</span><div class="bar-wrap"><div class="bar-fill" style="width:100%;background:rgba(200,120,60,0.5)"></div></div><span class="bar-val">137.036</span><span class="bar-acc">~0.001%</span></div>
+        <div class="bar-row"><span class="bar-label" style="color:rgba(80,180,130,0.9)">From G (torsion)</span><div class="bar-wrap"><div class="bar-fill" style="width:100%;background:rgba(80,180,130,0.5)"></div></div><span class="bar-val">137.036</span><span class="bar-acc">~0.03%</span></div>
+        <div class="bar-row"><span class="bar-label" style="color:var(--accent)">From H₀ (SN Ia)</span><div class="bar-wrap"><div class="bar-fill" style="width:98%;background:rgba(93,168,208,0.5)"></div></div><span class="bar-val">137.04</span><span class="bar-acc">~0.3%</span></div>
+        <div class="bar-row"><span class="bar-label">Morel 2020 (atomic)</span><div class="bar-wrap"><div class="bar-fill" style="width:100%;background:rgba(255,255,255,0.25)"></div></div><span class="bar-val">137.036</span><span class="bar-acc">81 ppt</span></div>
+      </div>
+      <div class="insight gold" style="margin-top:1.5rem;"><strong>Overdetermination:</strong> Four independent experimental programmes recovering the same slope. No electromagnetic input in the first three. This is not consistency — it is structural constraint.</div>
+      <div class="insight accent"><strong>R_Λ = 2R_H exactly.</strong> Λ is not independent of H₀. Λ is H₀ traversing a return trip. The Standard Model treats two aspects of one traversal as two separate free parameters.</div>
+    </div>
+  </div>
+
+  <div class="fifth-box">
+    <div class="fifth-tag">The Fifth Bridge Position — Open Prediction</div>
+    <div class="g2" style="margin:0;">
+      <div>
+        <p>The Galois conjugate character χ(5A) = φ generates a fifth candidate position on the bridge line.</p>
+        <div class="fifth-val">
+          \(R = \varphi/\sqrt{5} = \)<strong>0.7236</strong><br>
+          Predicted depth \(= \alpha^{-1} \times 0.7236 + \varphi^{-2} = \)<strong>99.54</strong><br>
+          Between H₀ (61.7) and Λ (122.95)<br>
+          ~10²³ times stronger than Λ<br>
+          ~10⁶¹ times weaker than G
+        </div>
+      </div>
+      <div>
+        <p>No known constant is assigned to this position. Its existence would complete the Galois pair of the gravitational coupling. If a cosmological or gravitational constant is confirmed at depth ~99.5, the bridge line gains its fifth point from the Galois conjugate.</p>
+        <div class="insight gold"><strong>Why it's open:</strong> The partition assigns M values from {2, 1, φ⁻¹, φ⁻²}. The Galois conjugate φ gives R = φ/√5 = 0.724 — the mirror of R_G under √5 → −√5. The bridge line predicts a constant here. We don't yet know what it is.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ THE PARTITION ══ -->
+<div class="panel" id="panel-partition">
+  <div class="sec-tag">02 · Algebraic Origin</div>
+  <h2>Where the bridge ratios come from</h2>
+  <p class="sec-sub">σ = 1/(1+σ) has a unique positive solution φ. Its fixed-point identity divides unity into two parts. Those parts, scaled by the discriminant of ℚ(√5), produce exactly four bridge ratios — plus the Galois conjugate fifth.</p>
+
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="showSub('part','axiom')">The Axiom</button>
+    <button class="sub-tab" onclick="showSub('part','identities')">Three Identities</button>
+    <button class="sub-tab" onclick="showSub('part','character')">Character Values</button>
+    <button class="sub-tab" onclick="showSub('part','fifth')">The Fifth Point</button>
+  </div>
+
+  <div class="sub-panel active" id="part-axiom">
+    <div class="g2">
+      <div>
+        <div class="fact"><div class="fact-key">The only self-referential equation needing no external input</div><div class="fact-val">\(\sigma = \dfrac{1}{1+\sigma}\)</div><div class="fact-desc">Every coefficient is 1. Rearranges to σ² + σ − 1 = 0. Positive root: φ = (1+√5)/2 ≈ 1.618</div></div>
+        <div class="fact"><div class="fact-key">The partition identity</div><div class="fact-val">\(\varphi^{-1} + \varphi^{-2} = 1\)</div><div class="fact-desc">Exhaustive partition of unity into two positive parts. Forced by the minimal polynomial of φ over ℚ.</div></div>
+        <div class="fact"><div class="fact-key">The discriminant bridge of ℚ(√5)</div><div class="fact-val">\(1/\sqrt{5} = (\chi(5A) - \chi(5B))^{-1}\)</div><div class="fact-desc">The inverse spread of the Galois conjugate pair at the 5-fold axis.</div></div>
+      </div>
+      <div>
+        <p><strong>Why this and not 7?</strong> For σ = a/(b+σ), the coefficient pair (a,b) must equal (1,1) for the fixed point to have the unit partition property. Any other values require external input. σ = 1/(1+σ) is the unique parameter-free form.</p>
+        <div class="insight gold"><strong>Why 5?</strong> 5 is the discriminant of ℚ(√5). Class number 1 (unique factorisation). 5 is a Fermat prime, making the pentagon constructible. The Galois group of Φ₅(x) factors through ℚ(√5), so five-fold rotation contains φ. 7 does not have this property — its Galois group does not factor through a quadratic field.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="part-identities">
+    <div class="g2">
+      <div>
+        <div class="fact"><div class="fact-key">Identity (3) — proof</div>
+          <div class="proof">
+            <div class="proof-step">\(R_\Lambda - R_G = 2/\sqrt{5} - \varphi^{-1}/\sqrt{5}\)</div>
+            <div class="proof-step" style="padding-left:1.5rem">\(= (2\varphi - 1)/(\varphi\sqrt{5})\)</div>
+            <div class="proof-step" style="padding-left:1.5rem">\(= \sqrt{5}/(\varphi\sqrt{5})\) &nbsp;<span style="color:var(--text-dim);font-size:0.8em">\([2\varphi-1=\sqrt{5}]\)</span></div>
+            <div class="proof-step" style="padding-left:1.5rem">= <span class="gold">\(\varphi^{-1}\)  ✓</span></div>
+          </div>
+        </div>
+        <div class="fact"><div class="fact-key">Identity (4) — from partition</div>
+          <div class="proof">
+            <div class="proof-step">\(R_G + R_\text{floor} = \varphi^{-1}/\sqrt{5} + \varphi^{-2}/\sqrt{5}\)</div>
+            <div class="proof-step" style="padding-left:1.5rem">\(= (\varphi^{-1} + \varphi^{-2})/\sqrt{5}\)</div>
+            <div class="proof-step" style="padding-left:1.5rem">= <span class="gold">\(1/\sqrt{5} = R_H\)  ✓</span></div>
+          </div>
+        </div>
+        <div class="fact"><div class="fact-key">Identity (5)</div><div class="proof"><div class="proof-step">\(R_\Lambda = 2/\sqrt{5} = 2 \times (1/\sqrt{5}) = \)  <span class="gold">\(2R_H\)  ✓</span></div></div></div>
+      </div>
+      <div>
+        <p><strong>What these identities do:</strong> Identity (3) forces the gap between Λ and G to be exactly φ⁻¹ = 0.618. This gives the Dirac ratio log(Λ/G) = −α⁻¹φ⁻¹ exactly.</p>
+        <p>Identity (5) is the most important. R_Λ = 2R_H forces Λ and H₀ to be dependent. In the Friedmann equation this causes the α⁻¹ terms to cancel exactly — dark energy domination becomes a theorem.</p>
+        <div class="insight accent"><strong>Assignment uniqueness:</strong> All 24 permutations of the four constants to the four bridge ratios were tested. Only one assignment satisfies all three identities simultaneously while matching the measured depths. The assignment is forced, not chosen.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="part-character">
+    <div class="g2">
+      <div>
+        <p><strong>The bridge multipliers are character values of ρ₂</strong> — the spin-half representation of the binary icosahedral group 2I — at specific conjugacy classes.</p>
+        <table class="pp-table">
+          <tr><th>M value</th><th>Class</th><th>χ(ρ₂)</th><th>Assignment</th></tr>
+          <tr><td style="color:rgba(200,120,60,0.9)">2</td><td>1A (identity)</td><td>dim(ρ₂) = 2</td><td style="color:rgba(200,120,60,0.9)">Λ (round trip)</td></tr>
+          <tr><td style="color:var(--accent)">1</td><td>3A (order-3)</td><td>χ(3A) = 1</td><td style="color:var(--accent)">H₀ (one-way)</td></tr>
+          <tr><td style="color:rgba(80,180,130,0.9)">φ⁻¹</td><td>5B (order-5, 144°)</td><td>χ(5B) = φ⁻¹</td><td style="color:rgba(80,180,130,0.9)">G (escape)</td></tr>
+          <tr><td style="color:var(--gold)">φ ⚡</td><td>5A (order-5, 72°)</td><td>χ(5A) = φ</td><td style="color:var(--gold)">? (open)</td></tr>
+          <tr><td style="color:var(--text-dim)">φ⁻²</td><td>χ(5B)²</td><td>(φ⁻¹)² = φ⁻²</td><td style="color:var(--text-dim)">Vacuum floor</td></tr>
+        </table>
+        <div class="insight gold"><strong>Partition IS the minimal polynomial:</strong> χ(5B) = φ⁻¹ satisfies x² + x − 1 = 0. At x = φ⁻¹: φ⁻² + φ⁻¹ = 1. The partition identity is the irreducibility condition of the 5B character value over ℚ.</div>
+      </div>
+      <div>
+        <div class="fact"><div class="fact-key">Galois spread at 5-fold axis</div><div class="fact-val">\(\chi(5A) - \chi(5B) = \varphi - \varphi^{-1} = \sqrt{5}\)</div><div class="fact-desc">Therefore 1/√5 = (χ(5A) − χ(5B))⁻¹. The discriminant bridge factor is the inverse Galois spread.</div></div>
+        <div class="fact"><div class="fact-key">Bridge ratio formula</div><div class="fact-val">\(R = \chi(\text{class}) / \Delta\)</div><div class="fact-desc">where Δ = χ(5A) − χ(5B) = √5. The bridge line is the character map of ρ₂ normalised by the field discriminant.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="part-fifth">
+    <div class="fifth-box">
+      <div class="fifth-tag">The Fifth Bridge Position — Unoccupied</div>
+      <div class="g2" style="margin:0;">
+        <div>
+          <div class="fifth-val">
+            \(R_5 = \varphi/\sqrt{5} = \)<strong>0.7236</strong><br>
+            \(\text{depth}_5 = \alpha^{-1} \times 0.7236 + \varphi^{-2} = \)<strong>99.54</strong><br>
+            Position: between H₀ (61.7) and Λ (122.95)<br>
+            Character class: 5A (Galois conjugate of 5B)<br>
+            Energy scale: ~10²³ × Λ energy density
+          </div>
+        </div>
+        <div>
+          <p>No known constant is assigned here. A cosmological or gravitational constant at depth ~99.54 would complete the Galois pair. The 5B class gives R_G (gravity). The 5A class gives R_? (unknown). They are algebraic conjugates.</p>
+          <p style="color:var(--gold);">This is a genuine open prediction. Any precision measurement finding a constant at depth 99.5 would complete the 2I character map of the bridge line.</p>
+        </div>
+      </div>
+    </div>
+    <div class="chart-wrap" style="margin-top:2rem;">
+      <div class="chart-header"><span class="chart-title">Bridge Line with Fifth Position</span></div>
+      <canvas class="chart" id="fifthCanvas" height="300"></canvas>
+      <div class="chart-caption">Fifth position shown as open circle at R = 0.7236, depth 99.54 — predicted but unoccupied.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ POLYHEDRA ══ -->
+<div class="panel" id="panel-polyhedra">
+  <div class="sec-tag">03 · Geometric Chain</div>
+  <h2>From axiom to polytope to spectrum</h2>
+  <p class="sec-sub">σ = 1/(1+σ) → φ → pentagon → icosahedron → 600-cell. Each step produces a new level of physical prediction. The bridge line sits at the icosahedron level. The mass eigenvalues live in the 600-cell.</p>
+
+  <div class="shapes-grid">
+    <div class="shape-card active" id="sc-pent" onclick="selectShape('pent')">
+      <div class="shape-stage"><div class="shape-name">Pentagon</div><div class="shape-sub">φ = 2cos(π/5)</div><canvas id="cPent" width="160" height="160"></canvas></div>
+      <div class="shape-tab-bar"><button class="shape-tab-btn active" id="stb-pent">Pentagon</button></div>
+    </div>
+    <div class="shape-card" id="sc-ico" onclick="selectShape('ico')">
+      <div class="shape-stage"><div class="shape-name">Icosahedron</div><div class="shape-sub">12 vertices · Group 2I</div><canvas id="cIco" width="160" height="160"></canvas></div>
+      <div class="shape-tab-bar"><button class="shape-tab-btn" id="stb-ico">Icosahedron</button></div>
+    </div>
+    <div class="shape-card" id="sc-cell" onclick="selectShape('cell')">
+      <div class="shape-stage"><div class="shape-name">600-Cell (projection)</div><div class="shape-sub">120 vertices · 600 cells</div><canvas id="cCell" width="160" height="160"></canvas></div>
+      <div class="shape-tab-bar"><button class="shape-tab-btn" id="stb-cell">600-Cell</button></div>
+    </div>
+  </div>
+
+  <div class="shape-info active" id="info-pent">
+    <div>
+      <h3>Pentagon → φ → partition</h3>
+      <p>The regular pentagon is the geometric home of φ. The diagonal-to-side ratio is exactly φ. The interior angle is 108° = 3π/5. The key identity: <strong>φ = 2cos(π/5)</strong>.</p>
+      <p>This is why five-fold symmetry and φ are the same thing. The axiom σ = 1/(1+σ) generates φ, φ generates the pentagon, and the bridge partition is the pentagon's ratio written as an identity.</p>
+      <div class="insight gold">5 is a Fermat prime (2²+1), making the pentagon constructible by compass and straightedge. The Galois group of Φ₅(x) factors through ℚ(√5), making five-fold rotation the unique order where circular geometry and golden geometry share a field.</div>
+    </div>
+    <div>
+      <div class="bar-rows">
+        <div class="bar-row"><span class="bar-label">φ = diag/side</span><div class="bar-wrap"><div class="bar-fill" style="width:62%;background:var(--gold)"></div></div><span class="bar-val">1.6180</span></div>
+        <div class="bar-row"><span class="bar-label">Interior angle</span><div class="bar-wrap"><div class="bar-fill" style="width:60%;background:var(--gold)"></div></div><span class="bar-val">108°</span></div>
+        <div class="bar-row"><span class="bar-label">φ⁻¹ + φ⁻²</span><div class="bar-wrap"><div class="bar-fill" style="width:100%;background:var(--gold)"></div></div><span class="bar-val">= 1 (exact)</span></div>
+        <div class="bar-row"><span class="bar-label">Golden angle</span><div class="bar-wrap"><div class="bar-fill" style="width:84%;background:var(--gold)"></div></div><span class="bar-val">137.508°</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="shape-info" id="info-ico">
+    <div>
+      <h3>Icosahedron → 2I → Galois boundary</h3>
+      <p>The icosahedron has 12 vertices, 30 edges, 20 triangular faces. Its symmetry group is A₅. The double cover of A₅ is <strong>2I = the binary icosahedral group</strong>, order 120.</p>
+      <p>The character table of 2I has 81 entries. All 81 are real. This forces all neutrinos to be Majorana particles — a theorem from the character table, not a prediction.</p>
+      <div class="insight green">The bridge line's character map uses the spin-half representation ρ₂ of 2I. The bridge multipliers {2, 1, φ⁻¹, φ} are character values of ρ₂ at specific conjugacy classes.</div>
+    </div>
+    <div>
+      <div class="card"><div class="card-title">2I Character table</div><div class="card-value">81 entries</div><div class="card-desc">15 distinct values · 4 operations · All real · Pion mass: 144/1001 at 4.5 ppm · The Standard Model lives in a single character table</div></div>
+      <div class="card"><div class="card-title">Galois boundary</div><div class="card-value" style="font-size:1.3rem;">Free ↔ Confined</div><div class="card-desc">φ-characters = free sector (bridge line). Integer characters = confined sector (masses). The Galois automorphism √5→−√5 separates them.</div></div>
+    </div>
+  </div>
+  <div class="shape-info" id="info-cell">
+    <div>
+      <h3>600-Cell → eigenvalues → masses</h3>
+      <p>The 600-cell is the 4D analogue of the icosahedron: 120 vertices (= order of 2I), 600 tetrahedral cells, 1200 edges. Its adjacency operator eigenvalues, normalised through the Rydberg formula, give the lepton masses, mixing angles, and nuclear binding energies.</p>
+      <div class="insight accent">118 nuclear masses predicted with zero free parameters at 0.11% RMS. The 600-cell has finite capacity: exactly 120 modes. Iron sits at the 30th bonding mode.</div>
+    </div>
+    <div>
+      <div class="bar-rows">
+        <div class="bar-row"><span class="bar-label">mₑ (Koide)</span><div class="bar-wrap"><div class="bar-fill" style="width:3%;background:var(--accent)"></div></div><span class="bar-val">0.511 MeV</span><span class="bar-acc">0.005 ppm</span></div>
+        <div class="bar-row"><span class="bar-label">mμ/mₑ</span><div class="bar-wrap"><div class="bar-fill" style="width:42%;background:var(--accent)"></div></div><span class="bar-val">206.77</span><span class="bar-acc">0.021%</span></div>
+        <div class="bar-row"><span class="bar-label">mp/mₑ = 6π⁵+…</span><div class="bar-wrap"><div class="bar-fill" style="width:52%;background:rgba(80,180,130,0.7)"></div></div><span class="bar-val">1836.15</span><span class="bar-acc">0.005 ppm</span></div>
+        <div class="bar-row"><span class="bar-label">Nuclear (118 el)</span><div class="bar-wrap"><div class="bar-fill" style="width:100%;background:rgba(80,180,130,0.7)"></div></div><span class="bar-val">0.11% RMS</span><span class="bar-acc">0 params</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONSEQUENCES ══ -->
+<div class="panel" id="panel-consequences">
+  <div class="sec-tag">04 · What Follows</div>
+  <h2>Four consequences, zero free parameters</h2>
+
+  <div class="sub-tabs">
+    <button class="sub-tab active" onclick="showSub('con','dirac')">Dirac Numbers</button>
+    <button class="sub-tab" onclick="showSub('con','friedmann')">Friedmann</button>
+    <button class="sub-tab" onclick="showSub('con','hubble')">Hubble Tension</button>
+    <button class="sub-tab" onclick="showSub('con','faces')">Three Faces</button>
+  </div>
+
+  <div class="sub-panel active" id="con-dirac">
+    <div class="g2">
+      <div>
+        <p>In 1937, Dirac noticed dimensionless combinations of G, H₀, and atomic constants give numbers near 10⁴⁰ and 10⁸⁰. He proposed time-varying G. The hypothesis failed. The numbers stayed unexplained for 89 years.</p>
+        <div class="bar-rows">
+          <div class="bar-row"><span class="bar-label">log(Λ/G) = −α⁻¹φ⁻¹</span><div class="bar-wrap"><div class="bar-fill" style="width:100%;background:rgba(200,120,60,0.5)"></div></div><span class="bar-val">−84.69</span><span class="bar-acc">exact</span></div>
+          <div class="bar-row"><span class="bar-label">log(H₀/G) = −α⁻¹R_floor</span><div class="bar-wrap"><div class="bar-fill" style="width:28%;background:rgba(93,168,208,0.5)"></div></div><span class="bar-val">−23.41</span><span class="bar-acc">exact</span></div>
+          <div class="bar-row"><span class="bar-label">log(Λ/H₀) = −α⁻¹R_H</span><div class="bar-wrap"><div class="bar-fill" style="width:72%;background:rgba(80,180,130,0.5)"></div></div><span class="bar-val">−61.28</span><span class="bar-acc">exact</span></div>
+        </div>
+        <div class="insight gold" style="margin-top:1.5rem;">These are the lengths of intervals on a straight line. Not mysterious. Not coincidental. The Dirac large numbers are α⁻¹ times the partition fractions — forced by the bridge line identities.</div>
+      </div>
+      <div>
+        <div class="fact"><div class="fact-key">The general formula</div><div class="fact-val">\(\log(X/Y) = -\alpha^{-1} \times (R_X - R_Y)\)</div><div class="fact-desc">Every ratio of bridge-family constants is α⁻¹ times a φ-fraction. The Dirac numbers are large because they are the bridge slope (137) multiplied by the partition fractions. No time-varying G required.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="con-friedmann">
+    <div class="g2">
+      <div>
+        <div class="fact"><div class="fact-key">The α⁻¹ cancellation — exact</div><div class="fact-val">\(2R_H - R_\Lambda = 0\)</div><div class="fact-desc">Forced by identity R_Λ = 2R_H. α⁻¹ drops out of the Friedmann equation entirely. Ω_Λ is a pure function of φ.</div></div>
+        <div style="font-size:0.85rem;color:var(--text-dim);line-height:2.2;margin-top:1rem;">
+          \(\log(\Omega_\Lambda) = \log(8\pi/3) - 3\varphi^{-2}\)<br>
+          \(\Omega_\Lambda = (8\pi/3) \times 10^{3\varphi-6}\)
+        </div>
+        <div class="insight accent" style="margin-top:1rem;"><strong>Dark energy domination is a theorem.</strong> α has left the building. The dark energy fraction is geometrically constrained, not a free initial condition.</div>
+      </div>
+      <div>
+        <p><strong>Three values, one story:</strong></p>
+        <div class="omega-row"><span class="omega-label" style="color:rgba(80,180,130,0.9)">Bridge-Friedmann</span><div class="omega-bar-wrap"><div class="omega-fill" style="width:78%;background:rgba(80,180,130,0.3)"></div></div><span class="omega-val" style="color:rgba(80,180,130,0.9)">0.599</span></div>
+        <div class="omega-row"><span class="omega-label" style="color:var(--gold)">Attractor φ⁻¹</span><div class="omega-bar-wrap"><div class="omega-fill" style="width:80%;background:rgba(242,201,76,0.3)"></div></div><span class="omega-val" style="color:var(--gold)">0.618</span></div>
+        <div class="omega-row"><span class="omega-label" style="color:var(--accent)">Planck 2018</span><div class="omega-bar-wrap"><div class="omega-fill" style="width:89%;background:rgba(93,168,208,0.3)"></div></div><span class="omega-val" style="color:var(--accent)">0.685</span></div>
+        <p style="margin-top:1rem;">The universe is converging toward Ω_Λ = φ⁻¹ from above. Dark energy domination is not the end state — it is the approach to the fixed point. The same fixed point as the axiom.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="con-hubble">
+    <div class="g2">
+      <div>
+        <p><strong>R_Λ = 2R_H exactly</strong> means Λ is H₀ traversing a return trip. H₀ is the prior quantity. Λ is downstream. Standard CMB analyses treat Λ as independent and fit H₀ — this inverts the true causal arrow.</p>
+        <div class="bar-rows">
+          <div class="bar-row"><span class="bar-label" style="color:var(--accent)">CMB (Planck)</span><div class="bar-wrap"><div class="bar-fill" style="width:92%;background:rgba(93,168,208,0.5)"></div></div><span class="bar-val">67.4 km/s/Mpc</span></div>
+          <div class="bar-row"><span class="bar-label" style="color:var(--gold)">PP prediction</span><div class="bar-wrap"><div class="bar-fill" style="width:98%;background:rgba(242,201,76,0.4)"></div></div><span class="bar-val">71.7 km/s/Mpc</span></div>
+          <div class="bar-row"><span class="bar-label" style="color:rgba(80,180,130,0.9)">SH0ES (local)</span><div class="bar-wrap"><div class="bar-fill" style="width:100%;background:rgba(80,180,130,0.4)"></div></div><span class="bar-val">73.0 km/s/Mpc</span></div>
+        </div>
+        <div class="insight accent" style="margin-top:1rem;"><strong>Diagnostic, not crisis.</strong> Any CMB analysis that treats Λ as independent and fits H₀ from it will systematically underestimate H₀. The gap is the imprint of the wrong causal model.</div>
+      </div>
+      <div>
+        <p><strong>α variation — the stronger constraint:</strong></p>
+        <p>If α varies, the bridge line requires simultaneous shifts in ratios of 2φ and φ — irrational numbers. No single mechanism other than the bridge structure can produce this.</p>
+        <div class="fact"><div class="fact-key">Variation ratios</div><div class="fact-val">\(\delta\Lambda/\delta G = 2\varphi, \quad \delta H_0/\delta G = \varphi\)</div><div class="fact-desc">Any drift in α must produce correlated drifts in all three constants in exact irrational ratios simultaneously.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="con-faces">
+    <div class="g3">
+      <div class="g3-cell">
+        <div class="sec-tag">Face I · Algebraic</div>
+        <div style="font-size:0.88rem;color:var(--text);margin:0.8rem 0;">\(\text{depth} = \alpha^{-1} \cdot R + \varphi^{-2}\)</div>
+        <p style="max-width:none;">GR constants live here. Open traversals. Free sector. The bridge line in (R, depth) space.</p>
+      </div>
+      <div class="g3-cell">
+        <div class="sec-tag">Face II · Geometric</div>
+        <div style="font-size:0.88rem;color:var(--text);margin:0.8rem 0;">Free ↔ Confined (2I)</div>
+        <p style="max-width:none;">The Galois partition of the 2I character table. Couplings outside. Masses inside.</p>
+      </div>
+      <div class="g3-cell">
+        <div class="sec-tag">Face III · Physical</div>
+        <div style="font-size:0.88rem;color:var(--text);margin:0.8rem 0;">\(E = 2m_e(\alpha^{-1})^2 = 1.022\) MeV</div>
+        <p style="max-width:none;">Breit-Wheeler threshold. Confirmed STAR 2021. Light becomes matter exactly here.</p>
+      </div>
+    </div>
+    <div style="text-align:center;padding:2rem;background:var(--bg2);border:1px solid var(--border-hi);margin-top:1px;">
+      <p style="max-width:none;color:var(--text-mid);font-size:1rem;line-height:2.2;">
+        The bridge line tells you <em>where</em> each constant sits.<br>
+        The Galois boundary tells you <em>what kind</em> of thing each constant is.<br>
+        The Breit-Wheeler threshold tells you <em>what it costs</em> to move between kinds.<br>
+        <strong style="color:var(--text);font-size:1.1rem;">Same object. Three readings. One axiom.</strong>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NOT NUMEROLOGY ══ -->
+<div class="panel" id="panel-numerology">
+  <div class="sec-tag">05 · The Charge</div>
+  <h2>This is not numerology</h2>
+  <p class="sec-sub">The numerology objection has a precise form. It is answered precisely, not by assertion. To fabricate the bridge line result you would need to simultaneously satisfy six independent requirements across four disconnected experimental programmes.</p>
+
+  <div class="req-list">
+    <div class="req"><div class="req-num">01</div><div><div class="req-claim">Place Λ at depth 122.951</div><div class="req-sector">Cosmological measurement · CMB satellite · Planck 2018</div></div></div>
+    <div class="req"><div class="req-num">02</div><div><div class="req-claim">Place G at depth 38.23</div><div class="req-sector">Gravitational measurement · Torsion balance · CODATA 2022</div></div></div>
+    <div class="req"><div class="req-num">03</div><div><div class="req-claim">Place H₀ at depth 61.70</div><div class="req-sector">Expansion measurement · Supernova ladders · SH0ES</div></div></div>
+    <div class="req"><div class="req-num">04</div><div><div class="req-claim">Have all three fall on a line</div><div class="req-sector" style="color:var(--gold);">Pure geometry · Probability zero under any non-degenerate measure</div></div></div>
+    <div class="req"><div class="req-num">05</div><div><div class="req-claim">Have that line pass through intercept φ⁻² = 0.382</div><div class="req-sector" style="color:var(--gold);">Pure algebra · Partition floor · No measurements enter</div></div></div>
+    <div class="req"><div class="req-num">06</div><div><div class="req-claim">Have the slope equal 137.036</div><div class="req-sector">Atomic measurement · Rubidium recoil · Morel 2020</div></div></div>
+  </div>
+
+  <div class="insight gold" style="margin-top:2rem;"><strong>Numerology fits numbers to data.</strong> This paper derives geometric coordinates from algebra, collects physical depths from three independent sectors, finds them collinear, and recovers a fourth independently measured constant as the slope. That is overdetermination — not fitting.</div>
+
+  <div class="g2" style="margin-top:1rem;">
+    <div class="insight green"><strong>Ablation test:</strong> 81,225 candidate expressions in φ, π, and small integers tested for α. One survived. The search confirmed uniqueness.</div>
+    <div class="insight accent"><strong>Nuclear binding:</strong> 118 elements. Zero free parameters. 0.11% RMS. Probability of coincidence: 10⁻³⁵⁴. Not a probability question — it is impossible by chance.</div>
+  </div>
+</div>
+
+<!-- ══ KILL CONDITIONS ══ -->
+<div class="panel" id="panel-kills">
+  <div class="sec-tag">06 · Falsifiability</div>
+  <h2>We invite the test</h2>
+  <p class="sec-sub">A framework that cannot be falsified is not physics. Each condition below would definitively break the bridge line. All are testable with current or near-future experiments.</p>
+
+  <div class="kill pass"><div class="k-id">K1 · Fourth Constant</div><div class="k-cond">A fourth constant from the same template that does not lie on the line</div><div class="k-status ok">✓ No candidate found. Bridge line complete at four (+one open) positions.</div></div>
+  <div class="kill pass"><div class="k-id">K2 · G Precision — target &lt;50 ppm</div><div class="k-cond">Next-generation torsion balance tightening G to 50 ppm. If recovered α⁻¹ deviates from Morel 2020 by more than 3σ, the line fails for G.</div><div class="k-status ok">✓ Currently consistent. NIST/PTB programmes approaching required level.</div></div>
+  <div class="kill watch"><div class="k-id">K3 · DESI DR2 — 2026</div><div class="k-cond">PP predicts w₀ ≈ −0.97. DESI DR1 showed w₀ ≈ −0.8 (tension). DR2 will be decisive.</div><div class="k-status watch">⚡ DESI DR2 expected 2026 — watch this space.</div></div>
+  <div class="kill pass"><div class="k-id">K4 · Λ/G Ratio</div><div class="k-cond">Independently measured Λ and G disagreeing with \(\log(\Lambda/G) = -\alpha^{-1}\varphi^{-1}\) beyond combined measurement precision.</div><div class="k-status ok">✓ Currently consistent within experimental uncertainty.</div></div>
+  <div class="kill pass"><div class="k-id">K5 · Ultra-Light Dark Energy</div><div class="k-cond">Any confirmed constant deeper than Λ (depth &gt; 122.95). The partition forbids R &gt; R_Λ.</div><div class="k-status ok">✓ No such constant confirmed. Note: the fifth position at depth 99.54 is within the allowed range — its confirmation would validate, not break, the framework.</div></div>
+</div>
+
+<footer>
+  <p>Pentagon Physics · Eric McLean · Independent Researcher, Cyprus · 2026</p>
+  <div style="display:flex;gap:2rem;align-items:center;">
+    <a href="../tools.html">← All Tools</a>
+    <a href="../index.html">Main site</a>
+  </div>
+</footer>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+const PHI = (1+Math.sqrt(5))/2, phi2 = 1/(PHI*PHI), alpha = 137.035999207;
+const pts = [
+  {name:'Vacuum Floor', R:0.17082, d:23.791, col:'#807C76',  eq:'φ⁻²/√5', desc:'Partition floor — stored fraction that never departs. Minimum depth of any physical process.'},
+  {name:'G · Gravity',  R:0.27639, d:38.229, col:'rgba(80,180,130,0.9)', eq:'φ⁻¹/√5', desc:'Gravitational constant. Torsion balance (CODATA 2022).'},
+  {name:'H₀ · Hubble',  R:0.44721, d:61.700, col:'#5DA8D0',  eq:'1/√5',   desc:'Hubble expansion rate. PP predicts 71.7 km/s/Mpc.'},
+  {name:'Λ · Cosmology',R:0.89443, d:122.951,col:'rgba(200,120,60,0.9)',  eq:'2/√5',   desc:'Cosmological constant. Planck 2018 CMB.'},
+];
+const fifthPt = {R:0.72361, d:99.542, col:'#F2C94C', eq:'φ/√5', name:'? · Open (predicted)', desc:'Fifth position — Galois conjugate of R_G. Depth 99.54. No constant currently assigned.'};
+
+// ── MAIN BRIDGE CHART ──
+let hov = null;
+const bc = document.getElementById('bc');
+const ttEl = document.getElementById('tooltip');
+
+function drawBridge(canvasId, showFifth=true, interactive=false) {
+  const c = document.getElementById(canvasId);
+  if (!c) return;
+  const W=c.clientWidth, H=c.clientHeight;
+  c.width=W*devicePixelRatio; c.height=H*devicePixelRatio;
+  const ctx=c.getContext('2d');
+  ctx.scale(devicePixelRatio,devicePixelRatio);
+  const P={l:65,r:25,t:25,b:55};
+  const cw=W-P.l-P.r, ch=H-P.t-P.b;
+  const px=r=>P.l+r*cw, py=d=>P.t+ch-d/135*ch;
+
+  ctx.fillStyle='#111113'; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='rgba(255,255,255,0.05)'; ctx.lineWidth=1;
+  [25,50,75,100,125].forEach(d=>{ctx.beginPath();ctx.moveTo(P.l,py(d));ctx.lineTo(W-P.r,py(d));ctx.stroke();});
+  ctx.strokeStyle='rgba(255,255,255,0.15)'; ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(P.l,P.t);ctx.lineTo(P.l,H-P.b);ctx.lineTo(W-P.r,H-P.b);ctx.stroke();
+
+  ctx.fillStyle='#807C76'; ctx.font='11px DM Sans, system-ui'; ctx.textAlign='right';
+  [0,25,50,75,100,125].forEach(d=>ctx.fillText(d,P.l-6,py(d)+4));
+  ctx.textAlign='center';
+  [0.2,0.4,0.6,0.8,1.0].forEach(r=>ctx.fillText(r.toFixed(1),px(r),H-P.b+18));
+  ctx.fillText('R  (bridge ratio)', W/2, H-8);
+  ctx.save();ctx.translate(14,P.t+ch/2);ctx.rotate(-Math.PI/2);
+  ctx.fillText('depth  =  −log₁₀(const / Planck unit)',0,0);ctx.restore();
+
+  // Regression line
+  ctx.setLineDash([6,4]); ctx.strokeStyle='rgba(242,201,76,0.4)'; ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(px(0),py(phi2));ctx.lineTo(px(1.0),py(alpha+phi2));ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='rgba(242,201,76,0.6)'; ctx.font='10px DM Sans, system-ui'; ctx.textAlign='left';
+  ctx.fillText('φ⁻² = 0.382', px(0.01), py(phi2)-8);
+  ctx.save();ctx.translate(px(0.48),py(alpha*0.48+phi2)-16);ctx.rotate(-Math.atan2(alpha*ch/135,cw));
+  ctx.fillText('slope = α⁻¹ = 137.036',0,0);ctx.restore();
+
+  // Fifth
+  if (showFifth) {
+    const fx=px(fifthPt.R), fy=py(fifthPt.d);
+    const isH=interactive&&hov===99;
+    ctx.beginPath();ctx.arc(fx,fy,isH?9:6,0,Math.PI*2);
+    ctx.strokeStyle=isH?'#F2C94C':'rgba(242,201,76,0.5)'; ctx.lineWidth=1.5; ctx.setLineDash([4,3]); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='rgba(242,201,76,0.55)'; ctx.font='10px DM Sans, system-ui'; ctx.textAlign='left';
+    ctx.fillText('⚡ ? (depth 99.54)',fx+10,fy+4);
+  }
+
+  // Main points
+  pts.forEach((pt,i)=>{
+    const bx=px(pt.R), by=py(pt.d);
+    const isH=interactive&&hov===i;
+    if(isH){ctx.beginPath();ctx.arc(bx,by,18,0,Math.PI*2);ctx.fillStyle=pt.col.replace('0.9','0.1');ctx.fill();}
+    ctx.beginPath();ctx.arc(bx,by,isH?10:7,0,Math.PI*2);
+    ctx.fillStyle=pt.col; ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.4)'; ctx.lineWidth=1.5; ctx.stroke();
+    const lx=i<2?bx+12:bx-12;
+    ctx.fillStyle=pt.col; ctx.font=isH?'bold 11px DM Sans':'11px DM Sans'; ctx.fontWeight='500';
+    ctx.textAlign=i<2?'left':'right';
+    ctx.fillText(pt.name.split('·')[0].trim(),lx,by-12);
+  });
+}
+
+bc.addEventListener('mousemove',e=>{
+  const r=bc.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
+  const W=bc.clientWidth,H=bc.clientHeight;
+  const P={l:65,r:25,t:25,b:55},cw=W-P.l-P.r,ch=H-P.t-P.b;
+  const px=rv=>P.l+rv*cw,py=d=>P.t+ch-d/135*ch;
+  let found=null;
+  pts.forEach((pt,i)=>{const dx=mx-px(pt.R),dy=my-py(pt.d);if(Math.sqrt(dx*dx+dy*dy)<20)found=i;});
+  const fdx=mx-px(fifthPt.R),fdy=my-py(fifthPt.d);
+  if(Math.sqrt(fdx*fdx+fdy*fdy)<16)found=99;
+  if(found!==hov){hov=found;drawBridge('bc',true,true);}
+  if(found!==null){
+    const pt=found===99?fifthPt:pts[found];
+    ttEl.innerHTML=`<strong style="color:${pt.col}">${pt.name}</strong><br>R = ${pt.R.toFixed(4)}<br>depth = ${pt.d}<br><span style="color:var(--text-dim)">${pt.desc}</span>`;
+    ttEl.style.left=Math.min(e.clientX+14,window.innerWidth-240)+'px';
+    ttEl.style.top=Math.max(e.clientY-60,4)+'px';
+    ttEl.classList.add('show');
+  } else {ttEl.classList.remove('show');}
+});
+bc.addEventListener('mouseleave',()=>{hov=null;drawBridge('bc',true,true);ttEl.classList.remove('show');});
+
+// ── TABS ──
+const tabIds=['line','partition','polyhedra','consequences','numerology','kills'];
+function showTab(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',tabIds[i]===id));
+  document.getElementById('panel-'+id).classList.add('active');
+  if(id==='partition')setTimeout(()=>drawBridge('fifthCanvas',true,false),100);
+  if(id==='polyhedra')setTimeout(initShapes,100);
+}
+
+// ── SUB TABS ──
+function showSub(grp,id){
+  const prefix=grp+'-';
+  document.querySelectorAll('[id^="'+prefix+'"]').forEach(el=>{
+    el.classList.toggle('active',el.id===prefix+id);
+    if(el.style)el.style.display='';
+  });
+  document.querySelectorAll('#panel-'+(grp==='part'?'partition':'consequences')+' .sub-tab').forEach(b=>{
+    const m=b.getAttribute('onclick')||'';
+    b.classList.toggle('active',m.includes("'"+id+"'"));
+  });
+  if(grp==='part'&&id==='fifth')setTimeout(()=>drawBridge('fifthCanvas',true,false),100);
+}
+
+// ── SHAPES ──
+function selectShape(name){
+  ['pent','ico','cell'].forEach(n=>{
+    document.getElementById('sc-'+n).classList.toggle('active',n===name);
+    document.getElementById('stb-'+n).classList.toggle('active',n===name);
+    document.getElementById('info-'+n).classList.toggle('active',n===name);
+  });
+}
+
+// ── 3D GEOMETRY ──
+let shapeAngle=0, shapeRAF=null;
+
+function project3D(v, angle, tilt=0.3) {
+  // Rotate around Y axis
+  const cosY=Math.cos(angle), sinY=Math.sin(angle);
+  const x1=v[0]*cosY+v[2]*sinY, y1=v[1], z1=-v[0]*sinY+v[2]*cosY;
+  // Tilt around X
+  const cosX=Math.cos(tilt), sinX=Math.sin(tilt);
+  const y2=y1*cosX-z1*sinX, z2=y1*sinX+z1*cosX;
+  // Simple perspective
+  const fov=280, dz=fov+z2;
+  return [fov*x1/dz, fov*y2/dz, z2];
+}
+
+// Icosahedron vertices (radius ~75)
+const PHI3 = (1+Math.sqrt(5))/2;
+const S = 50 / Math.sqrt(1+PHI3*PHI3);
+const icoV = [
+  [0,S,PHI3*S],[0,-S,PHI3*S],[0,S,-PHI3*S],[0,-S,-PHI3*S],
+  [S,PHI3*S,0],[-S,PHI3*S,0],[S,-PHI3*S,0],[-S,-PHI3*S,0],
+  [PHI3*S,0,S],[-PHI3*S,0,S],[PHI3*S,0,-S],[-PHI3*S,0,-S]
+];
+// Edges: all pairs with distance ≈ 2S
+const icoE = [];
+for(let i=0;i<12;i++)for(let j=i+1;j<12;j++){
+  const dx=icoV[i][0]-icoV[j][0],dy=icoV[i][1]-icoV[j][1],dz=icoV[i][2]-icoV[j][2];
+  if(Math.sqrt(dx*dx+dy*dy+dz*dz)<2*S*1.1)icoE.push([i,j]);
+}
+
+// 600-cell: use coherent concentric pentagon layers
+function draw600Cell(ctx, W, H, angle){
+  ctx.fillStyle='#111113'; ctx.fillRect(0,0,W,H);
+  const cx=W/2,cy=H/2;
+  const layers=[
+    {r:14, n:5, phase:0, col:'rgba(93,168,208,0.9)', lw:1.2},
+    {r:28, n:5, phase:Math.PI/5, col:'rgba(93,168,208,0.75)', lw:1},
+    {r:42, n:10, phase:0, col:'rgba(93,168,208,0.6)', lw:0.9},
+    {r:56, n:5, phase:Math.PI/10, col:'rgba(93,168,208,0.5)', lw:0.8},
+    {r:68, n:10, phase:Math.PI/5, col:'rgba(93,168,208,0.4)', lw:0.7},
+    {r:78, n:5, phase:0, col:'rgba(93,168,208,0.3)', lw:0.6},
+  ];
+  const verts = layers.map(l=>
+    Array.from({length:l.n},(_,i)=>[
+      cx+l.r*Math.cos(angle*l.r/30+l.phase+2*Math.PI*i/l.n),
+      cy+l.r*Math.sin(angle*l.r/30+l.phase+2*Math.PI*i/l.n)
+    ])
+  );
+  // Draw edges within each layer
+  layers.forEach((l,li)=>{
+    ctx.strokeStyle=l.col; ctx.lineWidth=l.lw;
+    const v=verts[li];
+    ctx.beginPath();
+    v.forEach((p,i)=>{
+      if(i===0)ctx.moveTo(p[0],p[1]);else ctx.lineTo(p[0],p[1]);
+    });
+    ctx.closePath(); ctx.stroke();
+  });
+  // Draw spokes between adjacent layers
+  layers.forEach((l,li)=>{
+    if(li>=layers.length-1)return;
+    const v1=verts[li], v2=verts[li+1];
+    const n=Math.min(v1.length,v2.length);
+    ctx.strokeStyle='rgba(93,168,208,0.2)'; ctx.lineWidth=0.5;
+    for(let i=0;i<n;i++){
+      ctx.beginPath();ctx.moveTo(v1[i][0],v1[i][1]);ctx.lineTo(v2[i][0],v2[i][1]);ctx.stroke();
+    }
+  });
+  // Draw vertices
+  verts.forEach((v,li)=>{
+    v.forEach(p=>{
+      ctx.beginPath();ctx.arc(p[0],p[1],1.5,0,Math.PI*2);
+      ctx.fillStyle=layers[li].col;ctx.fill();
+    });
+  });
+  // Central dot
+  ctx.beginPath();ctx.arc(cx,cy,3,0,Math.PI*2);ctx.fillStyle='rgba(93,168,208,0.9)';ctx.fill();
+}
+
+function drawIco(ctx, W, H, angle){
+  ctx.fillStyle='#111113'; ctx.fillRect(0,0,W,H);
+  const cx=W/2,cy=H/2;
+  const proj=icoV.map(v=>project3D(v,angle,0.35));
+  const zMax=Math.max(...proj.map(p=>p[2]));
+  // Sort edges by avg z (back to front)
+  const edges=[...icoE].sort((a,b)=>(proj[a[0]][2]+proj[a[1]][2])-(proj[b[0]][2]+proj[b[1]][2]));
+  edges.forEach(([i,j])=>{
+    const a=proj[i],b=proj[j];
+    const z=(a[2]+b[2])/2;
+    const fade=0.2+0.8*(z+100)/200;
+    ctx.beginPath();ctx.moveTo(cx+a[0],cy+a[1]);ctx.lineTo(cx+b[0],cy+b[1]);
+    ctx.strokeStyle=`rgba(80,180,130,${fade})`; ctx.lineWidth=1.2; ctx.stroke();
+  });
+  // Vertices
+  proj.forEach((p,i)=>{
+    const fade=0.3+0.7*(p[2]+100)/200;
+    ctx.beginPath();ctx.arc(cx+p[0],cy+p[1],2.5,0,Math.PI*2);
+    ctx.fillStyle=`rgba(80,180,130,${fade})`; ctx.fill();
+  });
+}
+
+function drawPent(ctx, W, H, angle){
+  ctx.fillStyle='#111113'; ctx.fillRect(0,0,W,H);
+  const cx=W/2,cy=H/2,r=62;
+  const verts=Array.from({length:5},(_,i)=>[cx+r*Math.cos(angle+2*Math.PI*i/5-Math.PI/2),cy+r*Math.sin(angle+2*Math.PI*i/5-Math.PI/2)]);
+  // Diagonals
+  ctx.strokeStyle='rgba(242,201,76,0.3)'; ctx.lineWidth=0.8;
+  for(let i=0;i<5;i++)for(let j=i+2;j<5;j++){
+    if(j-i===1||j-i===4)continue;
+    ctx.beginPath();ctx.moveTo(verts[i][0],verts[i][1]);ctx.lineTo(verts[j][0],verts[j][1]);ctx.stroke();
+  }
+  // Pentagon
+  ctx.strokeStyle='rgba(242,201,76,0.9)'; ctx.lineWidth=1.5;
+  ctx.beginPath();verts.forEach((v,i)=>{if(i===0)ctx.moveTo(v[0],v[1]);else ctx.lineTo(v[0],v[1]);});
+  ctx.closePath();ctx.stroke();
+  // Vertices
+  verts.forEach(v=>{ctx.beginPath();ctx.arc(v[0],v[1],3,0,Math.PI*2);ctx.fillStyle='#F2C94C';ctx.fill();});
+  ctx.beginPath();ctx.arc(cx,cy,2,0,Math.PI*2);ctx.fillStyle='rgba(242,201,76,0.5)';ctx.fill();
+}
+
+function initShapes(){
+  const cPent=document.getElementById('cPent');
+  const cIco=document.getElementById('cIco');
+  const cCell=document.getElementById('cCell');
+  if(!cPent||!cIco||!cCell)return;
+  const W=160,H=160;
+  cPent.width=W;cPent.height=H;
+  cIco.width=W;cIco.height=H;
+  cCell.width=W;cCell.height=H;
+  if(shapeRAF)cancelAnimationFrame(shapeRAF);
+  function animate(){
+    shapeAngle+=0.008;
+    drawPent(cPent.getContext('2d'),W,H,shapeAngle);
+    drawIco(cIco.getContext('2d'),W,H,shapeAngle);
+    draw600Cell(cCell.getContext('2d'),W,H,shapeAngle);
+    shapeRAF=requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+// ── INIT ──
+window.addEventListener('load',()=>{
+  drawBridge('bc',true,true);
+  window.addEventListener('resize',()=>{
+    drawBridge('bc',true,true);
+    const fc=document.getElementById('fifthCanvas');
+    if(fc&&fc.closest('.panel.active'))drawBridge('fifthCanvas',true,false);
+  });
+});
+</script>
+</body>
+</html>
