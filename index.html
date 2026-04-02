@@ -1014,22 +1014,8 @@ footer {
 
 <div class="foot-bar">
   Pentagon Physics &middot; Eric McLean &middot; Cyprus &middot; 80 papers &middot; Open access &middot; CC BY 4.0
-  &ensp;&middot;&ensp; <span style="color:var(--border-hi);">visitors</span> <span id="visitor-count" style="color:var(--text-dim);">—</span>
+  &ensp;&middot;&ensp; <span style="color:var(--border-hi);">visitors</span> <img src="https://hits.sh/pentagonphysics.com.svg?style=flat&color=807C76&labelColor=19191E&label=" alt="visitor counter" style="height:14px;vertical-align:middle;margin-left:4px;border-radius:2px;">
 </div>
 
-<script>
-(function(){
-  fetch('https://api.counterapi.dev/v1/pentagonphysics/visits/up')
-    .then(r => r.json())
-    .then(d => {
-      const el = document.getElementById('visitor-count');
-      if (el && d && d.value) {
-        el.textContent = d.value.toLocaleString();
-        el.style.color = 'var(--text-dim)';
-      }
-    })
-    .catch(() => {});
-})();
-</script>
 </body>
 </html>
