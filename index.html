@@ -1017,5 +1017,19 @@ footer {
   &ensp;&middot;&ensp; <span style="color:var(--border-hi);">visitors</span> <span id="visitor-count" style="color:var(--text-dim);">—</span>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// Visitor counter using countapi.xyz (fr
+<script>
+(function(){
+  fetch('https://api.counterapi.dev/v1/pentagonphysics/visits/up')
+    .then(r => r.json())
+    .then(d => {
+      const el = document.getElementById('visitor-count');
+      if (el && d && d.value) {
+        el.textContent = d.value.toLocaleString();
+        el.style.color = 'var(--text-dim)';
+      }
+    })
+    .catch(() => {});
+})();
+</script>
+</body>
+</html>
