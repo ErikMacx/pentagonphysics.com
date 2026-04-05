@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Architecture — Pentagon Physics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+:root {
+  --gold:#F2C94C; --gold-dim:#9A7820;
+  --bg:#090909; --bg2:#111113; --bg3:#19191E;
+  --border:rgba(255,255,255,0.08); --border-hi:rgba(255,255,255,0.18);
+  --text:#F0EDE6; --text-mid:#C0BCB4; --text-dim:#807C76;
+  --accent:#5DA8D0;
+  --t1:#50B482; --t1-bg:rgba(80,180,130,0.08); --t1-b:rgba(80,180,130,0.28);
+  --t2:#9B7FD4; --t2-bg:rgba(155,127,212,0.08); --t2-b:rgba(155,127,212,0.28);
+  --alpha-c:#E07060; --alpha-bg:rgba(220,100,80,0.07); --alpha-b:rgba(220,100,80,0.35);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono','Courier New',monospace;
+  --pad:8vw;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.7;overflow-x:hidden;}
+
+/* ── NAV ── */
+header{background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);padding:0 var(--pad);display:flex;gap:2.5rem;align-items:center;height:52px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+header a{color:var(--text-dim);text-decoration:none;font-size:0.7rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header .logo{font-family:var(--serif);font-size:0.95rem;font-weight:700;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;display:flex;align-items:center;gap:8px;}
+
+/* ── HERO ── */
+.hero{padding:4rem var(--pad) 3rem;border-bottom:1px solid var(--border-hi);position:relative;overflow:hidden;}
+.pent-bg{position:absolute;top:0;right:0;width:40%;height:100%;pointer-events:none;overflow:hidden;opacity:0.035;}
+.pent-bg svg{position:absolute;top:50%;right:-5%;transform:translateY(-50%);width:100%;}
+.hero-tag{font-size:0.68rem;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+h1{font-family:var(--serif);font-size:clamp(2.4rem,5vw,4rem);font-weight:700;color:var(--text);line-height:1.05;margin-bottom:0.5rem;}
+.hero-sub{font-size:0.95rem;color:var(--text-mid);max-width:65ch;line-height:1.8;}
+
+/* ── DIAGRAM WRAPPER ── */
+.content{padding:3rem var(--pad) 5rem;}
+.dia{max-width:680px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:0;}
+
+/* ── BOXES ── */
+.box{border-radius:6px;padding:0.9rem 1.1rem;width:100%;border:1px solid;}
+
+/* Arrow */
+.arr{text-align:center;color:var(--text-dim);font-size:1.1rem;padding:4px 0;}
+.lbl{text-align:center;font-size:0.72rem;color:var(--text-dim);font-style:italic;padding:2px 0;}
+
+/* Axiom */
+.box-axiom{background:rgba(242,201,76,0.06);border-color:var(--gold-dim);border-width:1.5px;}
+.box-axiom .bt{color:var(--gold);font-weight:600;font-size:0.95rem;}
+.box-axiom .bs{color:rgba(242,201,76,0.6);font-size:0.78rem;margin-top:2px;}
+
+/* Trunk 1 — green */
+.box-t1{background:var(--t1-bg);border-color:var(--t1-b);}
+.box-t1 .bt{color:var(--t1);font-weight:600;font-size:0.88rem;}
+.box-t1 .bs{color:rgba(80,180,130,0.7);font-size:0.75rem;margin-top:3px;line-height:1.6;}
+
+/* Trunk 2 — purple */
+.box-t2{background:var(--t2-bg);border-color:var(--t2-b);}
+.box-t2 .bt{color:var(--t2);font-weight:600;font-size:0.88rem;}
+.box-t2 .bs{color:rgba(155,127,212,0.7);font-size:0.75rem;margin-top:3px;line-height:1.6;}
+
+/* α — red */
+.box-alpha{background:var(--alpha-bg);border-color:var(--alpha-b);border-width:1.5px;}
+.box-alpha .bt{color:var(--alpha-c);font-weight:600;font-size:0.95rem;}
+.box-alpha .bs{color:rgba(220,100,80,0.65);font-size:0.75rem;margin-top:3px;line-height:1.6;}
+
+/* Bypass — green dashed */
+.box-bypass{background:var(--t1-bg);border-color:var(--t1-b);border-style:dashed;}
+.box-bypass .bt{color:var(--t1);font-weight:600;font-size:0.82rem;}
+.box-bypass .bs{color:rgba(80,180,130,0.7);font-size:0.75rem;line-height:1.7;margin-top:2px;}
+
+/* Output (neutral) */
+.box-out{background:var(--bg2);border-color:var(--border-hi);}
+.box-out .bt{color:var(--text);font-weight:500;font-size:0.85rem;}
+.box-out .bs{color:var(--text-dim);font-size:0.72rem;margin-top:3px;line-height:1.55;}
+
+/* Footer SM box */
+.box-sm{background:var(--bg3);border-color:var(--border-hi);border-style:dashed;}
+.box-sm .bt{color:var(--text);font-weight:500;font-size:0.82rem;margin-bottom:5px;}
+.box-sm .bs{color:var(--text-dim);font-size:0.72rem;line-height:1.65;}
+
+/* ── LAYOUTS ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;}
+.four-col{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;width:100%;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;width:100%;}
+
+/* Side-by-side: bypass + alpha */
+.side-row{display:grid;grid-template-columns:1fr 2.2fr;gap:10px;width:100%;align-items:start;}
+
+/* Merge/split connectors */
+.split-svg,.merge-svg{width:100%;height:32px;}
+
+/* ── FOOTER ── */
+.dia-footer{text-align:center;font-size:0.75rem;color:var(--text-dim);font-style:italic;padding:8px 0;}
+
+footer{background:var(--bg2);border-top:1px solid var(--border-hi);padding:2.5rem var(--pad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+footer p{font-size:0.82rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;}
+footer a:hover{color:var(--gold);}
+
+@media(max-width:640px){
+  .two-col,.three-col,.four-col{grid-template-columns:1fr;}
+  .side-row{grid-template-columns:1fr;}
+  h1{font-size:2.2rem;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="../index.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="26" height="26" style="flex-shrink:0;"><defs><mask id="mn"><path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/><path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/><path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/><path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/><path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/><path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/><path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/><path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/><path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/><path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/><circle cx="0" cy="0" r="71.19" fill="black"/><polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/></mask></defs><rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mn)"/></svg>
+    Pentagon Physics
+  </a>
+  <a href="../index.html#programme">Programme</a>
+  <a href="../index.html#papers">Papers</a>
+  <a href="../tools.html">Tools</a>
+  <a href="../pipeline.html">Pipeline</a>
+</header>
+
+<div class="hero">
+  <div class="pent-bg"><svg viewBox="0 0 600 680" xmlns="http://www.w3.org/2000/svg"><polygon points="300,30 560,210 465,560 135,560 40,210" fill="none" stroke="white" stroke-width="1.5"/><line x1="300" y1="30" x2="465" y2="560" stroke="white" stroke-width="0.5"/><line x1="300" y1="30" x2="135" y2="560" stroke="white" stroke-width="0.5"/><line x1="560" y1="210" x2="135" y2="560" stroke="white" stroke-width="0.5"/><line x1="40" y1="210" x2="465" y2="560" stroke="white" stroke-width="0.5"/><line x1="560" y1="210" x2="40" y2="210" stroke="white" stroke-width="0.5"/></svg></div>
+  <div class="hero-tag">Programme Architecture</div>
+  <h1>The Architecture</h1>
+  <p class="hero-sub">Two trunks merge at α. Everything downstream passes through the exchange rate.</p>
+</div>
+
+<div class="content"><div class="dia">
+
+  <!-- AXIOM -->
+  <div class="box box-axiom" style="max-width:340px;text-align:center;">
+    <div class="bt">σ = 1/(1+σ)</div>
+    <div class="bs">The axiom</div>
+  </div>
+  <div class="arr">↓</div>
+  <div class="box box-axiom" style="max-width:340px;text-align:center;border-width:0.5px;">
+    <div class="bt">Discriminant 5 → ℚ(√5) → φ, σ</div>
+  </div>
+
+  <!-- SPLIT -->
+  <svg class="split-svg" viewBox="0 0 680 32" preserveAspectRatio="none">
+    <line x1="340" y1="0" x2="170" y2="30" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <line x1="340" y1="0" x2="510" y2="30" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+  </svg>
+  <div class="lbl">Two trunks</div>
+
+  <!-- TRUNKS ROW 1 -->
+  <div class="two-col">
+    <div class="box box-t1">
+      <div class="bt">Trunk 1: partition</div>
+      <div class="bs">{σ², σ, 1, φ, 2}/√5<br>Bridge positions (no α needed)<br>↔ 5 Galois-invariant irreps</div>
+    </div>
+    <div class="box box-t2">
+      <div class="bt">Trunk 2: state space</div>
+      <div class="bs">2I → character table → McKay → E₈<br>Galois split: 94 invariant / 26 active<br>60 fermions = 60 bosons (exact)</div>
+    </div>
+  </div>
+  <div class="arr">↓</div>
+
+  <!-- TRUNK OUTPUTS -->
+  <div class="two-col">
+    <div class="box box-t1">
+      <div class="bt">Three geometries</div>
+      <div class="bs">φ coheres · π closes · e grows</div>
+    </div>
+    <div class="box box-t2">
+      <div class="bt">Gauge structure from E₈</div>
+      <div class="bs">4 EW bosons · 3 colours · 8 gluons<br>3+1 doublets · 3 generations (D₄)<br>Y = Z₅/dim(ρ₄) = 1/3</div>
+    </div>
+  </div>
+
+  <!-- MERGE -->
+  <div class="lbl" style="padding-top:4px;">Both trunks required</div>
+  <svg class="merge-svg" viewBox="0 0 680 32" preserveAspectRatio="none">
+    <line x1="170" y1="0" x2="340" y2="30" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <line x1="510" y1="0" x2="340" y2="30" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <circle cx="340" cy="31" r="3" fill="rgba(220,100,80,0.4)"/>
+  </svg>
+
+  <!-- BYPASS + α -->
+  <div class="side-row">
+    <div class="box box-bypass">
+      <div class="bt">Bypass α</div>
+      <div class="bs">sin²θ₁₃ = 1/45<br>sin²θ₂₃ = 3/(2φ²)<br>sin²θ_W → σ³<br>α_s = σ³/2</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div class="box box-alpha">
+        <div class="bt">α⁻¹ = 137.036</div>
+        <div class="bs">Exchange rate: algebra → physics<br>E₈ propagator at z = φ: ratios 2, φ, 0</div>
+      </div>
+      <div class="arr" style="padding:0;">↓</div>
+      <div class="box box-out">
+        <div class="bt">Bridge line: depth = α⁻¹ × R + σ²</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arr">↓</div>
+
+  <!-- BRIDGE OUTPUTS -->
+  <div class="four-col">
+    <div class="box box-out">
+      <div class="bt">G = α¹⁸×12/7</div>
+      <div class="bs">18 = cage bars<br>R = σ/√5 ↔ ρ₆</div>
+    </div>
+    <div class="box box-out">
+      <div class="bt">H₀</div>
+      <div class="bs">R = 1/√5 ↔ ρ₇</div>
+    </div>
+    <div class="box box-out">
+      <div class="bt">Λ</div>
+      <div class="bs">R = 2/√5 ↔ ρ₉</div>
+    </div>
+    <div class="box box-out">
+      <div class="bt">FDM mass</div>
+      <div class="bs">49.9 nHz</div>
+    </div>
+  </div>
+
+  <div class="arr">↓</div>
+
+  <!-- CAGE ROW -->
+  <div class="three-col">
+    <div class="box box-out">
+      <div class="bt">Impedance cage</div>
+      <div class="bs">3 colours × 3 gen × 2 chiral = 18<br>gravity = EM behind the cage</div>
+    </div>
+    <div class="box box-out">
+      <div class="bt">Mass / gravity duality</div>
+      <div class="bs">mₚ/mπ = 7×(12²−1)/12²<br>7/12 inward · 12/7 outward</div>
+    </div>
+    <div class="box box-out">
+      <div class="bt">mₑ, mₚ, mᵥ, nuclei</div>
+      <div class="bs">integers = irrep dims<br>6, 2, 5, 3, 7, 12, 360</div>
+    </div>
+  </div>
+
+  <!-- REVERSE -->
+  <div class="dia-footer" style="padding-top:14px;">
+    Way back: measure G, Λ, H₀ → fit line → intercept = σ² → σ = 1−σ² → axiom
+  </div>
+
+  <!-- SM BOX -->
+  <div class="box box-sm" style="width:100%;margin-top:4px;">
+    <div class="bt">SM reading: SU(3)×SU(2)×U(1) from character table of 2I</div>
+    <div class="bs">ρ₂ = quark · ρ₃ = lepton · ρ₄ = colour · ρ₇ = γ W⁺ W⁻ Z · ρ₈ = Higgs</div>
+    <div class="bs">Propagator at z = φ: colour ratio = 2 · EW ratio = φ · lepton-Higgs = 0</div>
+    <div class="bs" style="font-style:italic;margin-top:5px;color:rgba(255,255,255,0.3);">Paper: "The Standard Model Has One Address"</div>
+  </div>
+
+</div></div><!-- /dia /content -->
+
+<footer>
+  <p>Pentagon Physics · Eric McLean · Independent Researcher, Cyprus · 2026</p>
+  <a href="../index.html">← Main site</a>
+</footer>
+</body>
+</html>

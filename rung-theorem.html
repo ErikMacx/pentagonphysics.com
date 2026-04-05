@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Rung Theorem — Pentagon Physics</title>
+<script>
+MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+:root {
+  --gold:#F2C94C; --gold-dim:#9A7820; --gold-pale:#FBE89A;
+  --bg:#090909; --bg2:#111113; --bg3:#19191E;
+  --border:rgba(255,255,255,0.08); --border-hi:rgba(255,255,255,0.18);
+  --text:#F0EDE6; --text-mid:#C0BCB4; --text-dim:#807C76;
+  --accent:#5DA8D0;
+  --c-odd:rgba(80,180,130,1);  --c-odd-bg:rgba(80,180,130,0.08);  --c-odd-border:rgba(80,180,130,0.3);
+  --c-even:rgba(242,201,76,1); --c-even-bg:rgba(242,201,76,0.06); --c-even-border:rgba(242,201,76,0.25);
+  --c-term:rgba(220,90,70,1);  --c-term-bg:rgba(220,90,70,0.06);  --c-term-border:rgba(220,90,70,0.25);
+  --c-sil:#807C76;             --c-sil-bg:rgba(128,124,118,0.05); --c-sil-border:rgba(128,124,118,0.2);
+  --c-orig:rgba(255,255,255,0.5);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono','Courier New',monospace;
+  --pad:8vw;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.75;overflow-x:hidden;}
+mjx-container{color:var(--text)!important;}
+
+header{background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);padding:0 var(--pad);display:flex;gap:2.5rem;align-items:center;height:52px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+header a{color:var(--text-dim);text-decoration:none;font-size:0.7rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header .logo{font-family:var(--serif);font-size:0.95rem;font-weight:700;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;display:flex;align-items:center;gap:8px;}
+
+.hero{padding:4rem var(--pad) 3rem;border-bottom:1px solid var(--border-hi);position:relative;overflow:hidden;}
+.pent-bg{position:absolute;top:0;right:0;width:40%;height:100%;pointer-events:none;overflow:hidden;opacity:0.035;}
+.pent-bg svg{position:absolute;top:50%;right:-5%;transform:translateY(-50%);width:100%;}
+.hero-tag{font-size:0.68rem;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+h1{font-family:var(--serif);font-size:clamp(2.4rem,5vw,4rem);font-weight:700;color:var(--text);line-height:1.05;margin-bottom:0.5rem;}
+.hero-sub{font-size:0.95rem;color:var(--text-mid);max-width:65ch;line-height:1.8;}
+
+.content{padding:3rem var(--pad) 5rem;max-width:900px;}
+
+/* ── AXIOM STRIP ── */
+.axiom-strip{
+  display:flex;align-items:center;gap:2rem;justify-content:center;
+  padding:1.5rem 0;flex-wrap:wrap;
+}
+.axiom-chip{
+  background:var(--text);color:var(--bg);
+  padding:0.6rem 1.8rem;font-family:var(--serif);font-size:1.2rem;
+  font-weight:700;
+}
+.axiom-result{font-size:1rem;color:var(--text-mid);}
+.axiom-result mjx-container{color:var(--text)!important;}
+
+/* ── RULE ── */
+.rule{height:1px;background:var(--border-hi);margin:0;}
+
+/* ── SIGN FLIP ── */
+.sign-flip{padding:2rem 0 1.5rem;text-align:center;}
+.sf-label{font-size:0.62rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.8rem;}
+.sf-eq{font-family:var(--serif);font-size:1.2rem;margin-bottom:1rem;}
+.sf-eq mjx-container{color:var(--text)!important;}
+.sign-row{display:flex;border:1px solid var(--border-hi);max-width:600px;margin:0 auto;}
+.sign-cell{flex:1;padding:0.7rem 1.5rem;font-size:0.9rem;}
+.sign-cell:first-child{border-right:1px solid var(--border-hi);}
+.sign-cell strong{display:block;margin-bottom:0.2rem;}
+
+/* ── PARTITION LINE ── */
+.partition-line{
+  text-align:center;padding:0.6rem 0;
+  font-family:var(--mono);font-size:0.85rem;color:var(--text-dim);
+}
+
+/* ── RUNGS ── */
+.rungs{display:flex;flex-direction:column;gap:3px;margin:1rem 0;}
+
+.rung{
+  border:1px solid;
+  background:var(--bg2);
+  overflow:hidden;
+  transition:box-shadow 0.2s;
+}
+.rung:hover{box-shadow:0 0 0 1px rgba(255,255,255,0.1);}
+.rung.odd{border-color:var(--c-odd-border);background:var(--c-odd-bg);}
+.rung.even{border-color:var(--c-even-border);background:var(--c-even-bg);}
+.rung.terminal{border-color:var(--c-term-border);background:var(--c-term-bg);}
+.rung.silent{border-color:var(--c-sil-border);background:var(--c-sil-bg);opacity:0.55;}
+.rung.origin{border-color:var(--border-hi);background:var(--bg2);}
+
+.rung-left-bar{width:3px;flex-shrink:0;align-self:stretch;}
+.rung.odd .rung-left-bar{background:var(--c-odd);}
+.rung.even .rung-left-bar{background:var(--c-even);}
+.rung.terminal .rung-left-bar{background:var(--c-term);}
+.rung.silent .rung-left-bar{background:var(--c-sil);}
+.rung.origin .rung-left-bar{background:var(--border-hi);}
+
+.rung-inner{padding:1rem 1.2rem;flex:1;cursor:pointer;}
+.rung-header{display:flex;align-items:center;gap:1rem;margin-bottom:0.5rem;}
+.rung-k{font-family:var(--mono);font-size:0.7rem;color:var(--text-dim);min-width:38px;}
+.rung-sector{font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--text);flex:1;}
+.rung-badges{display:flex;gap:4px;}
+
+/* ── PROGRESS BAR ── */
+.rung-bar-row{display:flex;align-items:center;gap:1rem;margin-bottom:0.6rem;}
+.rung-pct{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--text);min-width:60px;text-align:right;}
+.rung-bar-wrap{flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;}
+.rung-bar{height:100%;border-radius:3px;width:0%;transition:width 1.2s cubic-bezier(0.4,0,0.2,1);}
+.rung.odd .rung-bar{background:var(--c-odd);}
+.rung.even .rung-bar{background:var(--c-even);}
+.rung.terminal .rung-bar{background:var(--c-term);}
+.rung.silent .rung-bar{background:var(--c-sil);}
+.rung.origin .rung-bar{background:rgba(255,255,255,0.3);}
+
+.rung-meta{font-family:var(--mono);font-size:0.72rem;color:var(--text-dim);margin-bottom:0.3rem;}
+.rung-meta mjx-container{color:var(--text-dim)!important;font-size:0.9em!important;}
+
+/* Expandable body */
+.rung-body{display:none;padding:0 1.2rem 1rem;border-top:1px solid var(--border);}
+.rung-body.open{display:block;}
+.rung-desc{font-size:0.9rem;color:var(--text-mid);line-height:1.7;margin-bottom:0.5rem;}
+.rung-desc mjx-container{color:var(--text)!important;}
+.rung-physics{font-size:0.85rem;font-style:italic;color:var(--text-dim);line-height:1.6;}
+.rung-physics mjx-container{color:var(--text-dim)!important;}
+
+/* ── BADGES ── */
+.badge{font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:2px 7px;border:1px solid;}
+.b-odd{color:var(--c-odd);border-color:var(--c-odd-border);background:rgba(80,180,130,0.08);}
+.b-even{color:var(--c-even);border-color:var(--c-even-border);background:rgba(242,201,76,0.06);}
+.b-term{color:var(--c-term);border-color:var(--c-term-border);background:rgba(220,90,70,0.06);}
+.b-sil{color:var(--c-sil);border-color:var(--c-sil-border);background:rgba(128,124,118,0.05);}
+.b-orig{color:var(--text-dim);border-color:var(--border-hi);}
+.b-parity{margin-left:2px;}
+
+/* ── TOGGLE BUTTON ── */
+.rung-toggle{
+  padding:0 1rem;cursor:pointer;
+  display:flex;align-items:center;
+  color:var(--text-dim);font-size:0.75rem;
+  border:none;background:none;transition:color 0.2s;
+  align-self:stretch;border-left:1px solid var(--border);
+}
+.rung-toggle:hover{color:var(--text);}
+.rung-layout{display:flex;align-items:stretch;}
+
+/* ── ALPHA SERIES ── */
+.alpha-section{padding:2rem 0;}
+.alpha-label{font-size:0.62rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:1rem;}
+.alpha-chip{
+  background:var(--bg3);border:1px solid var(--border-hi);
+  border-left:3px solid var(--accent);
+  padding:1.2rem 1.5rem;font-family:var(--mono);font-size:0.88rem;
+  line-height:2;color:var(--text-mid);margin:1rem 0;
+}
+.alpha-chip mjx-container{color:var(--text)!important;}
+.alpha-result{font-size:0.9rem;color:var(--text-mid);line-height:1.8;}
+.alpha-result mjx-container{color:var(--text)!important;}
+.alpha-result strong{color:var(--text);}
+
+/* ── FALSIFICATION ── */
+.falsification{padding:2rem 0;}
+.fals-label{font-size:0.62rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:1rem;}
+.fals-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.3rem 2rem;margin-bottom:1.2rem;}
+.fals-item{display:flex;align-items:baseline;gap:0.6rem;font-size:0.88rem;color:var(--text-mid);padding:0.2rem 0;}
+.fals-x{color:var(--c-term);font-weight:700;font-size:0.8rem;flex-shrink:0;}
+.abandon{font-size:0.95rem;font-weight:600;color:var(--text);padding:0.8rem 1.2rem;border:1px solid var(--border-hi);background:var(--bg2);}
+
+footer{background:var(--bg2);border-top:1px solid var(--border-hi);padding:2.5rem var(--pad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+footer p{font-size:0.82rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;}
+footer a:hover{color:var(--gold);}
+
+@media(max-width:600px){.fals-grid{grid-template-columns:1fr;} h1{font-size:2.2rem;} .sign-row{flex-direction:column;} .sign-cell:first-child{border-right:none;border-bottom:1px solid var(--border-hi);}}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="../index.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="26" height="26" style="flex-shrink:0;"><defs><mask id="mn"><path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/><path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/><path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/><path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/><path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/><path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/><path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/><path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/><path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/><path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/><circle cx="0" cy="0" r="71.19" fill="black"/><polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/></mask></defs><rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mn)"/></svg>
+    Pentagon Physics
+  </a>
+  <a href="../index.html#programme">Programme</a>
+  <a href="../index.html#papers">Papers</a>
+  <a href="../tools.html">Tools</a>
+  <a href="../pipeline.html">Pipeline</a>
+</header>
+
+<div class="hero">
+  <div class="pent-bg"><svg viewBox="0 0 600 680" xmlns="http://www.w3.org/2000/svg"><polygon points="300,30 560,210 465,560 135,560 40,210" fill="none" stroke="white" stroke-width="1.5"/><line x1="300" y1="30" x2="465" y2="560" stroke="white" stroke-width="0.5"/><line x1="300" y1="30" x2="135" y2="560" stroke="white" stroke-width="0.5"/><line x1="560" y1="210" x2="135" y2="560" stroke="white" stroke-width="0.5"/><line x1="40" y1="210" x2="465" y2="560" stroke="white" stroke-width="0.5"/><line x1="560" y1="210" x2="40" y2="210" stroke="white" stroke-width="0.5"/></svg></div>
+  <div class="hero-tag">Spectral Structure</div>
+  <h1>The Rung Theorem</h1>
+  <p class="hero-sub">A discrete spectrum of self-referential coupling. The φ-series partitions physical reality into eight levels — odd rungs active, even rungs budget, the ladder terminating by Wigner 3j selection. Click any rung to expand its physics.</p>
+</div>
+
+<div class="content">
+
+  <div class="rule"></div>
+  <div class="axiom-strip">
+    <div class="axiom-chip">σ = 1/(1+σ)</div>
+    <div class="axiom-result">→ &ensp;\(\varphi = (1+\sqrt{5})/2 \approx 1.618\)</div>
+  </div>
+  <div class="rule"></div>
+
+  <!-- SIGN FLIP -->
+  <div class="sign-flip">
+    <div class="sf-label">The Sign-Flip Identity</div>
+    <div class="sf-eq">\[\varphi^k - L_k = (-1)^{k+1} \cdot \varphi^{-k}\]</div>
+    <div class="sign-row">
+      <div class="sign-cell">
+        <strong style="color:var(--c-odd);">Odd k</strong>
+        <span style="color:var(--text-mid);">return leg adds → loop closes → </span><strong style="color:var(--c-odd);">Active</strong>
+      </div>
+      <div class="sign-cell">
+        <strong style="color:var(--c-even);">Even k</strong>
+        <span style="color:var(--text-mid);">return leg subtracts → loop jams → </span><strong style="color:var(--c-even);">Budget</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="partition-line" style="margin:0.8rem 0;">
+    \(1 = \varphi^{-1} + \varphi^{-2}\) &ensp;—&ensp; the recursive partition of unity
+  </div>
+
+  <!-- RUNGS -->
+  <div class="rungs" id="rungContainer">
+
+    <!-- k=0 -->
+    <div class="rung origin" id="rung-0">
+      <div class="rung-layout">
+        <div class="rung-left-bar"></div>
+        <div class="rung-inner" onclick="toggleRung(0)">
+          <div class="rung-header">
+            <span class="rung-k">k = 0</span>
+            <span class="rung-sector">Unity</span>
+            <div class="rung-badges"><span class="badge b-orig">Origin</span></div>
+          </div>
+          <div class="rung-bar-row">
+            <div class="rung-bar-wrap"><div class="rung-bar" data-pct="100"></div></div>
+            <div class="rung-pct">100%</div>
+          </div>
+          <div class="rung-meta">\(\varphi^0 = 1.000\) &ensp;·&ensp; \(L_0 = 2\) &ensp;·&ensp; Gap: 0</div>
+        </div>
+        <button class="rung-toggle" onclick="toggleRung(0)">▾</button>
+      </div>
+      <div class="rung-body" id="body-0">
+        <div class="rung-desc">The undifferentiated whole. Observer and observed are identical. The starting point before self-reference acts.</div>
+      </div>
+    </div>
+
+    <!-- k=1 -->
+    <div class="rung odd" id="rung-1">
+      <div class="rung-layout">
+        <div class="rung-left-bar"></div>
+        <div class="rung-inner" onclick="toggleRung(1)">
+          <div class="rung-header">
+            <span class="rung-k">k = 1</span>
+            <span class="rung-sector">Dark Energy</span>
+            <div class="rung-badges"><span class="badge b-odd">Active</span><span class="badge b-odd b-parity">Odd</span></div>
+          </div>
+          <div class="rung-bar-row">
+            <div class="rung-bar-wrap"><div class="rung-bar" data-pct="61.8"></div></div>
+            <div class="rung-pct">61.8%</div>
+          </div>
+          <div class="rung-meta">\(\varphi^{-1} = 0.618\) &ensp;·&ensp; \(L_1 = 1\) &ensp;·&ensp; Gap: 1 (Integer)</div>
+        </div>
+        <button class="rung-toggle" onclick="toggleRung(1)">▾</button>
+      </div>
+      <div class="rung-body" id="body-1">
+        <div class="rung-desc">The first stable self-reference. Vacuum energy driving cosmic expansion. Current observation ≈ 68.5%, converging toward this attractor. The universe has not yet reached its fixed point.</div>
+        <div class="rung-physics">\(\Omega_\Lambda \to \varphi^{-1} = 61.8\%\) is the attractor of the Friedmann equation under the bridge constraint.</div>
+      </div>
+    </div>
+
+    <!-- k=2 -->
+    <div class="rung even" id="rung-2">
+      <div class="rung-layout">
+        <div class="rung-left-bar"></div>
+        <div class="rung-inner" onclick="toggleRung(2)">
+          <div class="rung-header">
+            <span class="rung-k">k = 2</span>
+            <span class="rung-sector">Total Matter</span>
+            <div class="rung-badges"><span class="badge b-even">Budget</span><span class="badge b-even b-parity">Even</span></div>
+          </div>
+          <div class="rung-bar-row">
+            <div class="rung-bar-wrap"><div class="rung-bar" data-pct="38.2"></div></div>
+            <div class="rung-pct">38.2%</div>
+          </div>
+          <div class="rung-meta">\(\varphi^{-2} = 0.382\) &ensp;·&ensp; \(L_2 = 3\) &ensp;·&ensp; Gap: √5 (Irrational)</div>
+        </div>
+        <button class="rung-toggle" onclick="toggleRung(2)">▾</button>
+      </div>
+      <div class="rung-body" id="body-2">
+        <div class="rung-desc">Everything that is not dark energy. Unstable — must split further. \(L_2 = 3\) is the onset of chaos in the logistic map. The irrational gap √5 signals that this rung cannot close on itself.</div>
+        <div class="rung-physics">\(\Omega_m\) total, observed ≈ 31.5%, converging to \(\varphi^{-2}\). The complement of rung k=1 by the partition identity.</div>
+      </div>
+    </div>
+
+    <!-- k=3 -->
+    <div class="rung odd" id="rung-3">
+      <div class="rung-layout">
+        <div class="rung-left-bar"></div>
+        <div class="rung-inner" onclick="toggleRung(3)">
+          <div class="rung-header">
+            <span class="rung-k">k = 3</span>
+            <span class="rung-sector">Dark Matter</span>
+            <div class="rung-badges"><span class="badge b-odd">Active</span><span class="badge b-odd b-parity">Odd</span></div>
+          </div>
+          <div class="rung-bar-row">
+            <div class="rung-bar-wrap"><div class="rung-bar" data-pct="23.6"></div></div>
+            <div class="rung-pct">23.6%</div>
+          </div>
+          <div class="rung-meta">\(\varphi^{-3} = 0.236\) &ensp;·&ensp; \(L_3 = 4\) &ensp;·&ensp; Gap: 4 (Integer) &ensp;·&ensp; FDM: 5A class</div>
+        </div>
+        <button class="rung-toggle" onclick="toggleRung(3)">▾</button>
+      </div>
+      <div class="rung-body" id="body-3">
+        <div class="rung-desc">Gravitational coupling without electromagnetic expression. Observed ≈ 26.5%, converging. The nuclear forces share this rung — they are gravity's confined cousins. <strong>PP identifies the dark matter at this rung</strong> as Fuzzy Dark Matter (FDM): the fifth bridge position at \(R = \varphi/\sqrt{5} = 0.7236\), depth 99.54, character class 5A of 2I (Galois conjugate of the gravitational escape class 5B).</div>
+        <div class="rung-physics">FDM mass: \(m = m_p \times \varphi \times \sqrt{H_0/\omega_\text{Pl}} = 2.07 \times 10^{-22}\) eV. Oscillation period T = 232 days = 50 nHz — in the pulsar timing array band. GW emission at 100 nHz from soliton oscillation. PP has exactly one dark matter candidate. Weinberg angle: \(\sin^2\!\theta_W = \varphi^{-3}\) (full). Strong coupling: \(\alpha_s = \varphi^{-3}/2\) (half). Split by chirality.</div>
+      </div>
+    </div>
+
+    <!-- k=4 -->
+    <div class="rung even" id="rung-4">
+      <div class="rung-layout">
+        <div class="rung-left-bar"></div>
+        <div class="rung-inner" onclick="toggleRung(4)">
+          <div class="rung-header">
+            <span class="rung-k">k = 4</span>
+            <span class="rung-sector">Sub-Matter</span>
+            <div class="rung-badges"><span class="badge b-even">Budget</span><span class="badge b-even b-parity">Even</span></div>
+          </div>
+          <div class="rung-bar-row">
+            <div class="rung-bar-wrap"><div class="rung-bar" data-pct="14.6"></div></div>
+            <div class="rung-pct">14.6%</div>
+          </div>
+          <div class="rung-meta">\(\varphi^{-4} = 0.146\) &ensp;·&ensp; \(L_4 = 7\) &ensp;·&ensp; Gap: \(3\sqrt{5}\) (Irrational)</div>
+        </div>
+        <button class="rung-toggle" onclick="toggleRung(4)">▾</button>
+      </div>
+      <div class="rung-body" id="body-4">
+        <div class="rung-desc">Remainder after dark matter. The hinge between cosmic-scale and local-scale sectors. Must split further — the irrational gap prevents closure.</div>
+        <div class="rung-physics">G corrects here: \(G = 1/(5\varphi^4)\) in natural units. The dark matter environment in which gravity operates.</div>
+      </div>
+    </div>
+
+    <!-- k=5 -->
+    <div class="rung odd" id="rung-5">
+      <div class="rung-layout">
+        <div class="rung-left-bar"></div>
+        <div class="rung-inner" onclick="toggleRung(5)">
+          <div class="rung-header">
+            <span class="rung-k">k = 5</span>
+            <span class="rung-sector">Transition (WHIM)</span>
+            <div class="rung-badges"><span class="badge b-odd">Active</span><span class="badge b-odd b-parity">Odd</span></div>
+          </div>
+          <div class="rung-bar-row">
+            <div class="rung-bar-wrap"><div class="rung-bar" data-pct="9.0"></div></div>
+            <div class="rung-pct">9.0%</div>
+          </div>
+          <div class="rung-meta">\(\varphi^{-5} = 0.090\) &ensp;·&ensp; \(L_5 = 11\) &ensp;·&ensp; Gap: 11 (Integer)</div>
+        </div>
+        <button class="rung-toggle" onclick="toggleRung(5)">▾</button>
+      </div>
+      <div class="rung-body" id="body-5">
+        <div class="rung-desc">Warm-hot intergalactic medium. Bridge between structure and form. The WHIM was predicted by cosmological simulations but only recently observed.</div>
+        <div class="rung-physics">Hardy's quantum entanglement probability (1993): \(\varphi^{-5} \approx 0.09\). Same level, completely different domain — another signature of the rung structure.</div>
+      </div>
+    </div>
+
+    <!-- k=6 -->
+    <div class="rung terminal" id="rung-6">
+      <div class="rung-layout">
+        <div class="rung-left-bar"></div>
+        <div class="rung-inner" onclick="toggleRung(6)">
+          <div class="rung-header">
+            <span class="rung-k">k = 6</span>
+            <span class="rung-sector">Baryonic Matter</span>
+            <div class="rung-badges"><span class="badge b-term">Terminal</span><span class="badge b-even b-parity">Even</span></div>
+          </div>
+          <div class="rung-bar-row">
+            <div class="rung-bar-wrap"><div class="rung-bar" data-pct="5.6"></div></div>
+            <div class="rung-pct">5.6%</div>
+          </div>
+          <div class="rung-meta">\(\varphi^{-6} = 0.056\) &ensp;·&ensp; \(L_6 = 18\) &ensp;·&ensp; Gap: \(8\sqrt{5}\) (Irrational)</div>
+        </div>
+        <button class="rung-toggle" onclick="toggleRung(6)">▾</button>
+      </div>
+      <div class="rung-body" id="body-6">
+        <div class="rung-desc">The coherence floor. All visible matter — every atom, every star, every galaxy — lives at this rung. Observed ≈ 4.9%. \(L_6 = 18\) cycles is the minimum depth for self-referential closure: 18 eigenmodes = the proton's confinement depth.</div>
+        <div class="rung-physics">Photosynthetic energy transfer operates at exactly this depth. Matter is where coherence freezes into visible form — this is not metaphor, it is the spectral condition.</div>
+      </div>
+    </div>
+
+    <!-- k=7 -->
+    <div class="rung silent" id="rung-7">
+      <div class="rung-layout">
+        <div class="rung-left-bar"></div>
+        <div class="rung-inner" onclick="toggleRung(7)">
+          <div class="rung-header">
+            <span class="rung-k">k = 7</span>
+            <span class="rung-sector">Below Floor</span>
+            <div class="rung-badges"><span class="badge b-sil">Silent</span><span class="badge b-odd b-parity">Odd</span></div>
+          </div>
+          <div class="rung-bar-row">
+            <div class="rung-bar-wrap"><div class="rung-bar" data-pct="3.4"></div></div>
+            <div class="rung-pct" style="color:var(--text-dim);">3.4%</div>
+          </div>
+          <div class="rung-meta">\(\varphi^{-7} = 0.034\) &ensp;·&ensp; \(L_7 = 29\) &ensp;·&ensp; Gap: 29 (Integer)</div>
+        </div>
+        <button class="rung-toggle" onclick="toggleRung(7)">▾</button>
+      </div>
+      <div class="rung-body" id="body-7">
+        <div class="rung-desc">Algebraically valid, physically silent. The Wigner 3j symbol (1 1 3 / 0 0 0) = 0. Angular momentum coupling is forbidden at this rung. The cascade does not fade — it is cut. An exact selection rule, not an approximation.</div>
+        <div class="rung-physics">This is not a coincidence. The rung structure terminates because the 600-cell's representation theory forbids the coupling — the geometry closes before the algebra runs out.</div>
+      </div>
+    </div>
+
+  </div><!-- /rungs -->
+
+  <div class="rule"></div>
+
+  <!-- ALPHA SERIES -->
+  <div class="alpha-section">
+    <div class="alpha-label">The α Series — Rung Theorem Made Quantitative</div>
+    <div style="font-size:0.9rem;color:var(--text-mid);margin-bottom:0.8rem;">The fine structure constant is the Rung Theorem written as a number. Corrections live on odd rungs only — even rungs are absent because the return leg subtracts.</div>
+    <div class="alpha-chip">
+      \(\alpha^{-1} = 360/\varphi^2 - 2/\varphi^3\)<br>
+      \(\quad + \frac{1}{\varphi^2} \sum_{k} (-1)^{k+1} \cdot 2^{k^2} \cdot \zeta(2k+1) \cdot w^k\)
+    </div>
+    <div class="alpha-result">
+      \(\zeta(3)\) at rung 3 &ensp;·&ensp; \(\zeta(5)\) at rung 5 &ensp;·&ensp; \(\zeta(7)\) at rung 7.<br>
+      Even rungs absent — return leg subtracts, loop jams.<br>
+      <strong>Result: \(\alpha^{-1} = 137.035999207\)</strong>
+      <span style="color:var(--text-dim);">&ensp;(0.05σ match to Morel 2020)</span>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- FALSIFICATION -->
+  <div class="falsification">
+    <div class="fals-label">Falsification · Sunset 2035</div>
+    <div class="fals-grid">
+      <div class="fals-item"><span class="fals-x">✕</span> P1: Dark energy stabilises above 65%</div>
+      <div class="fals-item"><span class="fals-x">✕</span> P2: Baryonic fraction pinned below 5.0%</div>
+      <div class="fals-item"><span class="fals-x">✕</span> P3: WHIM census less than 5%</div>
+      <div class="fals-item"><span class="fals-x">✕</span> P4: \(\alpha_s\) outside 0.1175–0.1185</div>
+      <div class="fals-item"><span class="fals-x">✕</span> P5: Weinberg angle crossing arbitrary</div>
+      <div class="fals-item"><span class="fals-x">✕</span> P6: Zeta split explained without φ</div>
+      <div class="fals-item"><span class="fals-x">✕</span> P7: Constant found on even rung</div>
+      <div class="fals-item"><span class="fals-x">✕</span> P8: Lyman-α confirms FDM mass &gt; 10⁻²¹ eV at 5σ</div>
+    </div>
+    <div class="abandon">If fewer than four survive — abandon.</div>
+  </div>
+
+</div><!-- /content -->
+
+<footer>
+  <p>Pentagon Physics · Eric McLean · Independent Researcher, Cyprus · 2026</p>
+  <a href="../index.html">← Main site</a>
+</footer>
+
+<script>
+// ── EXPAND/COLLAPSE RUNGS ──
+function toggleRung(k) {
+  const body = document.getElementById(`body-${k}`);
+  const rung = document.getElementById(`rung-${k}`);
+  const btn = rung.querySelector('.rung-toggle');
+  const open = body.classList.toggle('open');
+  btn.textContent = open ? '▴' : '▾';
+}
+
+// ── ANIMATE BARS ON LOAD ──
+function animateBars() {
+  document.querySelectorAll('.rung-bar').forEach((bar, i) => {
+    const pct = parseFloat(bar.dataset.pct);
+    setTimeout(() => { bar.style.width = pct + '%'; }, 200 + i * 120);
+  });
+}
+window.addEventListener('load', animateBars);
+
+// Also re-trigger on scroll into view
+if ('IntersectionObserver' in window) {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { animateBars(); obs.disconnect(); } });
+  }, { threshold: 0.1 });
+  obs.observe(document.getElementById('rungContainer'));
+}
+</script>
+</body>
+</html>
