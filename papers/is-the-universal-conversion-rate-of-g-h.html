@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The fine structure constant α⁻¹ as the universal conversion rate linking Λ, G, and H₀.">
+<meta name="author" content="Eric McLean">
+<meta name="keywords" content="Pentagon Physics, Eric McLean, Fine Structure Constant, Cosmological Constant">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<title>α⁻¹ IS THE UNIVERSAL CONVERSION RATE OF Λ, G, H₀ — Pentagon Physics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#F2C94C; --gold-dim:#9A7820; --gold-pale:#FBE89A;
+  --bg:#090909; --bg2:#111113; --bg3:#19191E;
+  --border:rgba(255,255,255,0.1); --border-hi:rgba(255,255,255,0.2);
+  --text:#F0EDE6; --text-mid:#C0BCB4; --text-dim:#807C76;
+  --accent:#5DA8D0;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.75;}
+
+header{
+  background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);
+  padding:0 8vw;display:flex;gap:2rem;align-items:center;height:52px;
+  position:sticky;top:0;z-index:100;
+}
+header a{color:var(--text-dim);text-decoration:none;font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header .logo{color:var(--text);font-weight:500;margin-right:auto;}
+
+.page{max-width:960px;margin:0 auto;padding:5rem 8vw;}
+
+.domain-tag{
+  font-size:0.68rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem;
+}
+
+h1{
+  font-family:var(--serif);
+  font-size:clamp(1.8rem,4vw,3rem);font-weight:700;
+  color:var(--text);line-height:1.15;margin-bottom:2rem;
+}
+
+.doi-strip{
+  display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;
+  padding:1rem 1.5rem;background:var(--bg2);border:1px solid var(--border-hi);
+  border-left:3px solid var(--gold);margin-bottom:3rem;
+}
+.doi-label{font-size:0.7rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);}
+.doi-val{font-size:0.85rem;color:var(--accent);font-family:monospace;}
+.zenodo-btn{
+  margin-left:auto;
+  background:var(--gold);color:#090909;text-decoration:none;
+  font-size:0.75rem;font-weight:600;letter-spacing:0.1em;
+  padding:0.5em 1.2em;transition:all 0.2s;white-space:nowrap;
+}
+.zenodo-btn:hover{background:var(--gold-pale);}
+
+.summary{
+  font-size:1.05rem;color:var(--text-mid);line-height:1.85;
+  margin-bottom:2.5rem;max-width:72ch;
+}
+.summary p{margin-bottom:1.2rem;}
+
+.page-nav{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);
+}
+.back-link{font-size:0.78rem;color:var(--text-dim);text-decoration:none;letter-spacing:0.05em;transition:color 0.2s;}
+.back-link:hover{color:var(--text);}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html" style="display:flex;align-items:center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="28" height="28" style="display:inline-block;vertical-align:middle;margin-right:8px;flex-shrink:0;">
+  <defs>
+    <mask id="mtp57">
+      <path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/>
+      <path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/>
+      <path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/>
+      <path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/>
+      <path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/>
+      <path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/>
+      <path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/>
+      <path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/>
+      <path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/>
+      <path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/>
+      <circle cx="0" cy="0" r="71.19" fill="black"/>
+      <polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/>
+    </mask>
+  </defs>
+  <rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mtp57)"/>
+
+</svg>Pentagon Physics</a>
+  <a href="../index.html#programme">Programme</a>
+  <a href="../index.html#results">Results</a>
+  <a href="../index.html#papers">All papers</a>
+  <a href="../pipeline.html">Pipeline</a>
+  <a href="../news.html">News</a>
+  <a href="../faqs.html">137 FAQs</a>
+  <a href="../index.html#contact">Contact</a>
+</header>
+
+<div class="page">
+  <div class="domain-tag">Pentagon Physics</div>
+  <h1>α⁻¹ IS THE UNIVERSAL CONVERSION RATE OF Λ, G, H₀</h1>
+
+  <div class="doi-strip">
+    <div>
+      <div class="doi-label">DOI</div>
+      <div class="doi-val">10.5281/zenodo.19365448</div>
+    </div>
+    <a class="zenodo-btn" href="https://doi.org/10.5281/zenodo.19365448" target="_blank">Read full paper on Zenodo →</a>
+  </div>
+
+  <div class="summary">
+    <p>The fine structure constant α⁻¹ as the universal conversion rate linking Λ, G, and H₀.</p>
+    <p>This paper is hosted on Zenodo. Click the button above to access the full publication.</p>
+  </div>
+
+  <div class="page-nav">
+    <span></span>
+    <a class="back-link" href="../index.html#papers">← Back to catalogue</a>
+    <span></span>
+  </div>
+</div>
+
+</body>
+</html>
