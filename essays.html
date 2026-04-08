@@ -41,9 +41,14 @@ h1{font-family:var(--serif);font-size:clamp(2.8rem,6vw,5rem);font-weight:700;col
 .ec-title{font-family:var(--serif);font-size:1.9rem;font-weight:700;color:var(--text);line-height:1.15;}
 .ec-sub{font-family:var(--serif);font-size:1.05rem;font-style:italic;color:var(--text-mid);line-height:1.5;}
 .ec-desc{font-size:0.98rem;color:var(--text-mid);line-height:1.75;max-width:52ch;}
-.ec-launch{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--bg);background:var(--gold);text-decoration:none;padding:0.75em 1.8em;border:1px solid var(--gold);transition:all 0.2s;align-self:flex-start;margin-top:auto;}
+.ec-actions{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:auto;align-items:center;}
+.ec-launch,.ec-pdf{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;padding:0.75em 1.6em;border:1px solid;transition:all 0.2s;}
+.ec-launch{color:var(--bg);background:var(--gold);border-color:var(--gold);}
 .ec-launch:hover{background:var(--accent);border-color:var(--accent);}
 .ec-launch::after{content:'→';}
+.ec-pdf{color:var(--gold);background:transparent;border-color:var(--gold-dim);}
+.ec-pdf:hover{color:var(--bg);background:var(--gold);border-color:var(--gold);}
+.ec-pdf::before{content:'↓ ';}
 
 footer{background:var(--bg2);border-top:1px solid var(--border-hi);padding:3rem var(--pad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
 footer p{font-size:0.85rem;color:var(--text-dim);}
@@ -83,7 +88,10 @@ footer a:hover{color:var(--gold);}
     <div class="ec-title">The Emperor's New Constants</div>
     <div class="ec-sub">Why E = mc² and 1/137 are models, and what lies beneath them.</div>
     <div class="ec-desc">A century after Wigner asked why mathematics is so unreasonably effective in physics, the answer turns out to be that physics has been measuring the customer first and visiting the cupboard for clothes that fit. This essay strips the famous equations and shows the relational structure underneath.</div>
-    <a href="essays/the-emperors-new-constants.html" class="ec-launch">Read essay</a>
+    <div class="ec-actions">
+      <a href="essays/the-emperors-new-constants.html" class="ec-launch">Read essay</a>
+      <a href="essays/pdf/the-emperors-new-constants.pdf" class="ec-pdf" download>PDF</a>
+    </div>
   </div>
 
   <div class="ec">
@@ -91,7 +99,10 @@ footer a:hover{color:var(--gold);}
     <div class="ec-title">The Emperor's New Benchmark</div>
     <div class="ec-sub">A note to be read before evaluating any paper in the Pentagon Physics programme.</div>
     <div class="ec-desc">The Lagrangian is a consequence, not a credential. This essay sets out the appropriate benchmark for a derivational physics programme — pre-registered predictions, kill conditions, ablation tests, and the asymmetry between answering a question and declining to address it.</div>
-    <a href="essays/the-emperors-new-benchmark.html" class="ec-launch">Read essay</a>
+    <div class="ec-actions">
+      <a href="essays/the-emperors-new-benchmark.html" class="ec-launch">Read essay</a>
+      <a href="essays/pdf/the-emperors-new-benchmark.pdf" class="ec-pdf" download>PDF</a>
+    </div>
   </div>
 
   <div class="ec">
@@ -99,7 +110,10 @@ footer a:hover{color:var(--gold);}
     <div class="ec-title">The Hostile Referee</div>
     <div class="ec-sub">A systematic stress test of Pentagon Physics.</div>
     <div class="ec-desc">Eighteen adversarial tests applied to the programme — nuclear mass completeness, the positive-eigenvalue rule, the alpha formula uniqueness, the bridge line, fuzzy dark matter tension, and pre-registered predictions. Five resolved cleanly, eight require more work, three present near-term kill conditions.</div>
-    <a href="essays/the-hostile-referee.html" class="ec-launch">Read essay</a>
+    <div class="ec-actions">
+      <a href="essays/the-hostile-referee.html" class="ec-launch">Read essay</a>
+      <a href="essays/pdf/the-hostile-referee.pdf" class="ec-pdf" download>PDF</a>
+    </div>
   </div>
 
 </div>
