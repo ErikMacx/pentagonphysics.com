@@ -25,7 +25,7 @@
   --pad:8vw;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7;overflow-x:hidden;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.7;overflow-x:hidden;}
 
 /* NAV */
 header{background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);padding:0 var(--pad);display:flex;gap:2rem;align-items:center;height:52px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
@@ -40,55 +40,72 @@ h1{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:700;col
 .hero-sub{font-size:0.9rem;color:var(--text-mid);max-width:60ch;line-height:1.8;}
 
 /* DIAGRAM */
-.dia-wrap{padding:2.5rem var(--pad) 4rem;display:flex;justify-content:center;}
-.h{font-family:var(--sans);color:var(--text);padding:0.5rem 0;max-width:680px;width:100%;margin:0 auto;}
-.title{text-align:center;font-size:15px;font-weight:600;margin-bottom:2px;color:var(--text);}
-.subtitle{text-align:center;font-size:11px;color:var(--text-dim);font-style:italic;margin-bottom:20px;}
-.row{display:flex;justify-content:center;gap:12px;margin:0 auto;position:relative;}
-.col{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;max-width:320px;}
+.dia-wrap{padding:2rem var(--pad) 2rem;}
+.scroll{max-width:1200px;margin:0 auto;border:1px solid var(--border-hi);background:var(--bg2);border-radius:8px;max-height:78vh;overflow:auto;padding:2.5rem 2rem;}
+.scroll::-webkit-scrollbar{width:10px;height:10px;}
+.scroll::-webkit-scrollbar-track{background:var(--bg);}
+.scroll::-webkit-scrollbar-thumb{background:var(--border-hi);border-radius:5px;}
+.scroll::-webkit-scrollbar-thumb:hover{background:var(--gold-dim);}
+.dia-hint{text-align:center;font-size:0.78rem;color:var(--text-dim);max-width:1200px;margin:0 auto 1rem;letter-spacing:0.05em;}
+.h{font-family:var(--sans);color:var(--text);padding:0.5rem 0;max-width:1080px;width:100%;margin:0 auto;}
+.row{display:flex;justify-content:center;gap:20px;margin:0 auto;position:relative;}
+.col{display:flex;flex-direction:column;align-items:center;gap:14px;flex:1;max-width:500px;}
 
 /* BOXES */
-.box{border-radius:6px;padding:10px 14px;text-align:center;width:100%;border:0.5px solid;}
-.box .bt{font-weight:500;font-size:13px;margin-bottom:2px;}
-.box .bs{font-size:11px;opacity:0.85;line-height:1.55;}
+.box{border-radius:8px;padding:18px 22px;text-align:center;width:100%;border:1px solid;cursor:pointer;transition:transform 0.18s, box-shadow 0.18s, opacity 0.18s, border-color 0.18s;}
+.box:hover{transform:translateY(-1px);box-shadow:0 4px 18px rgba(0,0,0,0.4);}
+.box.active{box-shadow:0 0 0 2px var(--gold), 0 6px 24px rgba(242,201,76,0.18);transform:translateY(-1px);}
+.h.has-active .box:not(.active){opacity:0.4;}
+.box .bt{font-weight:600;font-size:17px;margin-bottom:4px;}
+.box .bs{font-size:14px;opacity:0.85;line-height:1.6;}
 
-.box-axiom{background:rgba(242,201,76,0.08);border-color:var(--gold-dim);border-width:1.5px;}
-.box-axiom .bt{color:var(--gold);font-size:14px;}
-.box-axiom .bs{color:rgba(242,201,76,0.7);}
+.box-axiom{background:rgba(242,201,76,0.08);border-color:var(--gold-dim);border-width:2px;}
+.box-axiom .bt{color:var(--gold);font-size:20px;}
+.box-axiom .bs{color:rgba(242,201,76,0.75);}
 
 .box-trunk1{background:var(--t1-bg);border-color:var(--t1-b);}
 .box-trunk1 .bt{color:var(--t1);}
-.box-trunk1 .bs{color:rgba(80,180,130,0.75);}
+.box-trunk1 .bs{color:rgba(80,180,130,0.78);}
 
 .box-trunk2{background:var(--t2-bg);border-color:var(--t2-b);}
 .box-trunk2 .bt{color:var(--t2);}
-.box-trunk2 .bs{color:rgba(155,127,212,0.75);}
+.box-trunk2 .bs{color:rgba(155,127,212,0.78);}
 
-.box-alpha{background:var(--alpha-bg);border-color:var(--alpha-b);border-width:1.5px;}
-.box-alpha .bt{color:var(--alpha);font-size:14px;}
-.box-alpha .bs{color:rgba(220,100,80,0.7);}
+.box-alpha{background:var(--alpha-bg);border-color:var(--alpha-b);border-width:2px;}
+.box-alpha .bt{color:var(--alpha);font-size:22px;}
+.box-alpha .bs{color:rgba(220,100,80,0.78);}
 
 .box-out{background:var(--out-bg);border-color:var(--out-b);}
-.box-out .bt{color:var(--text);font-size:12px;}
-.box-out .bs{color:var(--text-dim);font-size:10px;}
+.box-out .bt{color:var(--text);font-size:15px;}
+.box-out .bs{color:var(--text-dim);font-size:12.5px;}
 
 .box-bypass{background:var(--bypass-bg);border-color:var(--bypass-b);border-style:dashed;}
-.box-bypass .bt{color:var(--t1);font-size:12px;}
-.box-bypass .bs{color:rgba(80,180,130,0.75);font-size:10px;line-height:1.6;}
+.box-bypass .bt{color:var(--t1);font-size:15px;}
+.box-bypass .bs{color:rgba(80,180,130,0.78);font-size:12.5px;line-height:1.65;}
 
 /* LAYOUT HELPERS */
-.arrow{display:flex;justify-content:center;color:var(--text-dim);font-size:16px;margin:3px 0;}
-.split-label{text-align:center;font-size:11px;color:var(--text-dim);font-style:italic;margin:6px 0;}
-.const-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;width:100%;max-width:600px;margin:0 auto;}
-.footer-txt{text-align:center;font-size:11px;color:var(--text-dim);font-style:italic;margin-top:14px;line-height:1.7;}
-.footer-box{border:0.5px dashed var(--border-hi);border-radius:6px;padding:12px 16px;margin:10px auto;max-width:600px;}
-.footer-box .bt{color:var(--text);font-weight:500;font-size:12px;margin-bottom:5px;}
-.footer-box .bs{color:var(--text-dim);font-size:11px;line-height:1.65;}
-.side-row{display:flex;gap:12px;align-items:flex-start;max-width:640px;margin:0 auto;}
+.arrow{display:flex;justify-content:center;color:var(--text-dim);font-size:22px;margin:6px 0;}
+.split-label{text-align:center;font-size:13px;color:var(--text-dim);font-style:italic;margin:14px 0;letter-spacing:0.04em;}
+.const-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;width:100%;max-width:1000px;margin:0 auto;}
+.footer-txt{text-align:center;font-size:13px;color:var(--text-dim);font-style:italic;margin-top:22px;line-height:1.7;}
+.footer-box{border:1px dashed var(--border-hi);border-radius:8px;padding:18px 22px;margin:16px auto;max-width:1000px;cursor:pointer;transition:background 0.18s;}
+.footer-box:hover{background:var(--bg3);}
+.footer-box .bt{color:var(--text);font-weight:600;font-size:14px;margin-bottom:6px;}
+.footer-box .bs{color:var(--text-dim);font-size:13px;line-height:1.7;}
+.side-row{display:flex;gap:20px;align-items:flex-start;max-width:1080px;margin:0 auto;}
 .side-col-main{flex:3;}
-.side-col-bypass{flex:1.2;min-width:140px;}
-.cage-row{display:flex;gap:10px;max-width:600px;margin:0 auto;}
+.side-col-bypass{flex:1.2;min-width:200px;}
+.cage-row{display:flex;gap:16px;max-width:1000px;margin:0 auto;}
 .cage-row .box{flex:1;}
+
+/* DETAIL PANEL */
+.detail-wrap{max-width:1200px;margin:1.5rem auto 4rem;padding:0 var(--pad);}
+.detail-panel{background:var(--bg2);border:1px solid var(--border-hi);border-left:3px solid var(--gold);border-radius:6px;padding:1.6rem 2rem;min-height:120px;font-size:0.95rem;color:var(--text-mid);line-height:1.8;}
+.detail-panel.empty{color:var(--text-dim);font-style:italic;border-left-color:var(--border-hi);}
+.detail-panel h3{font-family:var(--serif);color:var(--gold);font-size:1.4rem;font-weight:700;margin-bottom:0.6rem;}
+.detail-panel p{margin-bottom:0.8rem;}
+.detail-panel a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(93,168,208,0.3);}
+.detail-panel a:hover{color:var(--gold);border-color:var(--gold);}
 
 /* FOOTER */
 footer{background:var(--bg2);border-top:1px solid var(--border-hi);padding:2rem var(--pad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
@@ -96,11 +113,12 @@ footer p{font-size:0.8rem;color:var(--text-dim);}
 footer a{color:var(--accent);text-decoration:none;}
 footer a:hover{color:var(--gold);}
 
-@media(max-width:600px){
+@media(max-width:760px){
   .const-grid{grid-template-columns:1fr 1fr;}
   .cage-row{flex-direction:column;}
   .side-row{flex-direction:column;}
   .row{flex-direction:column;align-items:center;}
+  .scroll{padding:1.5rem 1rem;}
 }
 </style>
 </head>
@@ -126,40 +144,42 @@ footer a:hover{color:var(--gold);}
   <p class="hero-sub">Two trunks emerge from one axiom and merge at α. Everything downstream passes through the exchange rate.</p>
 </div>
 
+<div class="dia-hint">Click any box to expand its derivation. Scroll inside the frame to navigate the full architecture.</div>
 <div class="dia-wrap">
-<div class="h">
+<div class="scroll">
+<div class="h" id="diagram">
 
-<div style="max-width:320px;margin:0 auto">
-  <div class="box box-axiom"><div class="bt">σ = 1/(1+σ)</div><div class="bs">The axiom</div></div>
+<div style="max-width:520px;margin:0 auto">
+  <div class="box box-axiom" data-detail="axiom"><div class="bt">σ = 1/(1+σ)</div><div class="bs">The axiom</div></div>
   <div class="arrow">↓</div>
-  <div class="box box-axiom" style="border-width:0.5px"><div class="bt">Discriminant 5 → ℚ(√5) → φ, σ</div></div>
+  <div class="box box-axiom" data-detail="disc5"><div class="bt">Discriminant 5 → ℚ(√5) → φ, σ</div></div>
 </div>
 
 <div class="split-label">Two trunks</div>
 
-<div class="row" style="max-width:640px">
+<div class="row" style="max-width:1080px">
   <div class="col">
-    <div class="box box-trunk1">
+    <div class="box box-trunk1" data-detail="t1-partition">
       <div class="bt">Trunk 1: partition</div>
       <div class="bs">{σ², σ, 1, φ, 2}/√5</div>
       <div class="bs">Bridge positions (no α needed)</div>
       <div class="bs">↔ 5 Galois-invariant irreps</div>
     </div>
     <div class="arrow">↓</div>
-    <div class="box box-trunk1">
+    <div class="box box-trunk1" data-detail="t1-geom">
       <div class="bt">Three geometries</div>
       <div class="bs">φ coheres · π closes · e grows</div>
     </div>
   </div>
   <div class="col">
-    <div class="box box-trunk2">
+    <div class="box box-trunk2" data-detail="t2-state">
       <div class="bt">Trunk 2: state space</div>
       <div class="bs">2I → character table → McKay → E₈</div>
       <div class="bs">Galois split: 94 invariant / 26 active</div>
       <div class="bs">60 fermions = 60 bosons (exact)</div>
     </div>
     <div class="arrow">↓</div>
-    <div class="box box-trunk2">
+    <div class="box box-trunk2" data-detail="t2-gauge">
       <div class="bt">Gauge structure from E₈</div>
       <div class="bs">4 EW bosons · 3 colours · 8 gluons</div>
       <div class="bs">3+1 doublets · 3 generations (D₄)</div>
@@ -172,19 +192,19 @@ footer a:hover{color:var(--gold);}
 
 <div class="side-row">
   <div class="side-col-bypass">
-    <div class="box box-bypass" style="padding:8px 10px">
+    <div class="box box-bypass" data-detail="bypass">
       <div class="bt">Bypass α</div>
       <div class="bs">sin²θ₁₃ = 1/45<br>sin²θ₂₃ = 3/(2φ²)<br>sin²θ_W → σ³<br>α_s = σ³/2</div>
     </div>
   </div>
   <div class="side-col-main">
-    <div class="box box-alpha">
+    <div class="box box-alpha" data-detail="alpha">
       <div class="bt">α⁻¹ = 137.036</div>
       <div class="bs">Exchange rate: algebra → physics</div>
       <div class="bs" style="margin-top:4px">E₈ propagator at z = φ: ratios 2, φ, 0</div>
     </div>
     <div class="arrow">↓</div>
-    <div class="box box-out">
+    <div class="box box-out" data-detail="bridge-line">
       <div class="bt">Bridge line: depth = α⁻¹ × R + σ²</div>
     </div>
     <div class="arrow">↓</div>
@@ -192,24 +212,24 @@ footer a:hover{color:var(--gold);}
 </div>
 
 <div class="const-grid">
-  <div class="box box-out"><div class="bt">G = α¹⁸×12/7</div><div class="bs">18 = cage bars<br>R = σ/√5 ↔ ρ₆</div></div>
-  <div class="box box-out"><div class="bt">H₀</div><div class="bs">R = 1/√5 ↔ ρ₇</div></div>
-  <div class="box box-out"><div class="bt">Λ</div><div class="bs">R = 2/√5 ↔ ρ₉</div></div>
-  <div class="box box-out"><div class="bt">FDM mass</div><div class="bs">49.9 nHz</div></div>
+  <div class="box box-out" data-detail="G"><div class="bt">G = α¹⁸×12/7</div><div class="bs">18 = cage bars<br>R = σ/√5 ↔ ρ₆</div></div>
+  <div class="box box-out" data-detail="H0"><div class="bt">H₀</div><div class="bs">R = 1/√5 ↔ ρ₇</div></div>
+  <div class="box box-out" data-detail="Lambda"><div class="bt">Λ</div><div class="bs">R = 2/√5 ↔ ρ₉</div></div>
+  <div class="box box-out" data-detail="FDM"><div class="bt">FDM mass</div><div class="bs">49.9 nHz</div></div>
 </div>
 
 <div class="arrow">↓</div>
 
 <div class="cage-row">
-  <div class="box box-out">
+  <div class="box box-out" data-detail="cage">
     <div class="bt">Impedance cage</div>
     <div class="bs">3 colours × 3 gen × 2 chiral = 18<br>gravity = EM behind the cage</div>
   </div>
-  <div class="box box-out">
+  <div class="box box-out" data-detail="duality">
     <div class="bt">Mass / gravity duality</div>
     <div class="bs">mₚ/mπ = 7×(12²−1)/12²<br>7/12 inward · 12/7 outward</div>
   </div>
-  <div class="box box-out">
+  <div class="box box-out" data-detail="masses">
     <div class="bt">mₑ, mₚ, mᵥ, nuclei</div>
     <div class="bs">integers = irrep dims<br>6, 2, 5, 3, 7, 12, 360</div>
   </div>
@@ -217,7 +237,7 @@ footer a:hover{color:var(--gold);}
 
 <div class="footer-txt">Way back: measure G, Λ, H₀ → fit line → intercept = σ² → σ = 1−σ² → axiom</div>
 
-<div class="footer-box">
+<div class="footer-box" data-detail="sm-reading">
   <div class="bt">SM reading: SU(3)×SU(2)×U(1) from character table of 2I</div>
   <div class="bs">ρ₂ = quark · ρ₃ = lepton · ρ₄ = colour · ρ₇ = γ W⁺ W⁻ Z · ρ₈ = Higgs</div>
   <div class="bs">Propagator at z = φ: colour ratio = 2 · EW ratio = φ · lepton-Higgs = 0</div>
@@ -226,10 +246,113 @@ footer a:hover{color:var(--gold);}
 
 </div>
 </div>
+</div>
+
+<div class="detail-wrap">
+  <div class="detail-panel empty" id="detail">Click any box above to read its derivation.</div>
+</div>
 
 <footer>
   <p>Pentagon Physics · Eric McLean · Independent Researcher, Cyprus · 2026</p>
   <a href="../index.html">← Main site</a>
 </footer>
+
+<script>
+const DETAILS = {
+  'axiom': {
+    title: 'σ = 1/(1+σ) — the axiom',
+    body: '<p>The single self-referential identity from which Pentagon Physics is constructed. Solving gives σ = (√5−1)/2 = 1/φ, the unique positive fixed point.</p><p>Every downstream structure — the discriminant, the bridge line, the gauge group, the fundamental constants — descends from this one equation. Zero free parameters enter from below.</p><p><a href="../papers/the-rung-theorem.html">→ The Rung Theorem</a></p>'
+  },
+  'disc5': {
+    title: 'Discriminant 5 → ℚ(√5) → φ, σ',
+    body: '<p>The minimal polynomial of σ has discriminant 5. This forces the underlying field to be the real quadratic field ℚ(√5), which contains both φ and σ as Galois conjugates.</p><p>The number 5 is not chosen — it is the discriminant of the only field consistent with self-reference. Everything pentagonal in the framework (the 600-cell, the icosian ring, the bridge partition) is downstream of this single algebraic fact.</p>'
+  },
+  't1-partition': {
+    title: 'Trunk 1 — the partition {σ², σ, 1, φ, 2}/√5',
+    body: '<p>The five Galois-invariant elements of ℚ(√5) divided by √5 form the bridge positions. They appear before α is invoked: pure algebra, no coupling constant required.</p><p>Each position corresponds to one of five Galois-invariant irreducible representations of the binary icosahedral group 2I.</p><p><a href="../papers/all-fundamental-constants-lie-on-two-bridge-lines.html">→ All Fundamental Constants Lie on Two Bridge Lines</a></p>'
+  },
+  't1-geom': {
+    title: 'Three geometries: φ, π, e',
+    body: '<p>φ coheres (the closure ratio of the icosahedral geometry), π closes (the rotational invariant of the embedding), e grows (the exponential of the iteration).</p><p>The three transcendentals appear together because each is forced by a different aspect of the same self-referential structure — coherence, closure, and growth.</p>'
+  },
+  't2-state': {
+    title: 'Trunk 2 — state space (2I → E₈)',
+    body: '<p>The binary icosahedral group 2I has a 9-row character table. McKay correspondence lifts it to the E₈ root system.</p><p>The Galois action splits the 120 states of 2I into 94 invariant + 26 active — and the 26 active states match the 26 free parameters of the Standard Model exactly.</p><p>Fermion–boson balance: 60 = 60.</p>'
+  },
+  't2-gauge': {
+    title: 'Gauge structure from E₈',
+    body: '<p>The Standard Model gauge group SU(3)×SU(2)×U(1) reads off the character table of 2I directly:</p><p>4 electroweak bosons · 3 colours · 8 gluons · 3 generations from D₄ symmetry · hypercharge Y = Z₅/dim(ρ₄) = 1/3.</p><p><a href="../papers/the-standard-model-has-one-address.html">→ The Standard Model Has One Address</a></p>'
+  },
+  'bypass': {
+    title: 'Bypass α',
+    body: '<p>Several Standard Model parameters are determined without α — directly from the algebraic structure:</p><p>sin²θ₁₃ = 1/45 · sin²θ₂₃ = 3/(2φ²) · sin²θ_W → σ³ · α_s = σ³/2.</p><p>These bypass the exchange rate entirely. They are pure outputs of trunk 1.</p>'
+  },
+  'alpha': {
+    title: 'α⁻¹ = 137.036 — the exchange rate',
+    body: '<p>The fine-structure constant is the exchange rate between algebra and physics. It is computed from the E₈ propagator at z = φ, where three irrep ratios appear: 2 (colour), φ (electroweak), and 0 (lepton–Higgs).</p><p>Once α is fixed, every constant on the bridge line is forced.</p><p><a href="../papers/why-137.html">→ Why 137</a></p>'
+  },
+  'bridge-line': {
+    title: 'Bridge line: depth = α⁻¹ × R + σ²',
+    body: '<p>Three independent measured constants — G, Λ, H₀ — lie collinearly in (R, depth) coordinates. The slope is exactly α⁻¹; the intercept is exactly σ².</p><p>Going forward: the axiom predicts the line. Going backward: measure the line, recover σ from the intercept.</p><p><a href="bridge-playground.html">→ Bridge Playground (interactive)</a></p>'
+  },
+  'G': {
+    title: 'G — Newton\'s constant',
+    body: '<p>G = α¹⁸ × 12/7 in natural units, where 18 counts the bars of the impedance cage (3 colours × 3 generations × 2 chiralities).</p><p>Position on the bridge line: R = σ/√5, irrep ρ₆.</p>'
+  },
+  'H0': {
+    title: 'H₀ — Hubble constant',
+    body: '<p>Hubble constant sits at R = 1/√5 ↔ irrep ρ₇.</p><p>The Pentagon Physics value resolves the Hubble tension by predicting the value before either CMB or local-distance measurement enters.</p>'
+  },
+  'Lambda': {
+    title: 'Λ — cosmological constant',
+    body: '<p>Cosmological constant at R = 2/√5 ↔ irrep ρ₉.</p><p>The vacuum energy problem (120 orders of magnitude) dissolves: Λ is fixed by the bridge line position, not a fine-tuning of vacuum modes.</p>'
+  },
+  'FDM': {
+    title: 'FDM mass — 49.9 nHz',
+    body: '<p>Fuzzy dark matter mass predicted at 49.9 nHz from the bridge line — the open fifth bridge position. This is a forward, falsifiable prediction.</p>'
+  },
+  'cage': {
+    title: 'Impedance cage',
+    body: '<p>3 colours × 3 generations × 2 chiralities = 18 bars. Gravity is electromagnetism viewed from behind the cage — the same long-range mode, projected through 18 internal degrees of freedom.</p>'
+  },
+  'duality': {
+    title: 'Mass / gravity duality',
+    body: '<p>mₚ/mπ = 7 × (12²−1)/12². The 7/12 ratio runs inward (mass), the 12/7 ratio runs outward (gravitational coupling). One factor, two directions.</p>'
+  },
+  'masses': {
+    title: 'Particle and nuclear masses',
+    body: '<p>The electron, proton, neutrino, and nuclear masses are integer combinations of irrep dimensions — 6, 2, 5, 3, 7, 12, 360 — with no free fit parameters.</p><p><a href="../papers/exotic-masses-predicted.html">→ Exotic Masses Predicted</a></p>'
+  },
+  'sm-reading': {
+    title: 'Standard Model from the character table of 2I',
+    body: '<p>The Standard Model is read directly off the character table of the binary icosahedral group:</p><p>ρ₂ = quark · ρ₃ = lepton · ρ₄ = colour · ρ₇ = γ, W⁺, W⁻, Z · ρ₈ = Higgs.</p><p>Propagator at z = φ gives colour ratio 2, EW ratio φ, lepton–Higgs 0.</p><p><a href="../papers/the-standard-model-has-one-address.html">→ The Standard Model Has One Address (doi:10.5281/zenodo.19438769)</a></p>'
+  }
+};
+
+const panel = document.getElementById('detail');
+const diagram = document.getElementById('diagram');
+
+document.querySelectorAll('[data-detail]').forEach(el => {
+  el.addEventListener('click', e => {
+    e.stopPropagation();
+    const key = el.getAttribute('data-detail');
+    const d = DETAILS[key];
+    if (!d) return;
+    const wasActive = el.classList.contains('active');
+    document.querySelectorAll('.box.active, .footer-box.active').forEach(b => b.classList.remove('active'));
+    if (wasActive) {
+      diagram.classList.remove('has-active');
+      panel.className = 'detail-panel empty';
+      panel.textContent = 'Click any box above to read its derivation.';
+    } else {
+      el.classList.add('active');
+      diagram.classList.add('has-active');
+      panel.className = 'detail-panel';
+      panel.innerHTML = '<h3>' + d.title + '</h3>' + d.body;
+      panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+    }
+  });
+});
+</script>
 </body>
 </html>
