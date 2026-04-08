@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A systematic stress test of Pentagon Physics — eighteen adversarial reviews.">
+<meta name="author" content="Eric McLean">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<title>The Hostile Referee — Pentagon Physics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#F2C94C; --gold-dim:#9A7820; --gold-pale:#FBE89A;
+  --bg:#090909; --bg2:#111113; --bg3:#19191E;
+  --border:rgba(255,255,255,0.1); --border-hi:rgba(255,255,255,0.2);
+  --text:#F5F2EC; --text-mid:#DCD8D0; --text-dim:#A8A49C;
+  --accent:#5DA8D0;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.8;}
+header{background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);padding:0 8vw;display:flex;gap:2rem;align-items:center;height:52px;position:sticky;top:0;z-index:100;}
+header a{color:var(--text);text-decoration:none;font-size:0.82rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header .logo{color:var(--text);font-weight:500;margin-right:auto;}
+.page{max-width:780px;margin:0 auto;padding:5rem 8vw 6rem;}
+.essay-tag{font-size:0.7rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;}
+h1{font-family:var(--serif);font-size:clamp(2.2rem,5vw,3.6rem);font-weight:700;color:var(--text);line-height:1.1;margin-bottom:1rem;}
+.subtitle{font-family:var(--serif);font-size:1.2rem;font-style:italic;color:var(--text-mid);margin-bottom:3rem;line-height:1.5;}
+h2{font-family:var(--serif);font-size:1.6rem;font-weight:700;color:var(--gold-pale);margin-top:2.6rem;margin-bottom:1rem;line-height:1.25;}
+p{color:var(--text-mid);margin-bottom:1.3rem;font-size:1.05rem;}
+p.closer{text-align:center;color:var(--gold-pale);margin-top:3rem;font-size:1.1rem;}
+.eq-display{padding:1.2rem 1.6rem;background:var(--bg3);border:1px solid var(--border-hi);border-left:3px solid var(--gold-dim);margin:1.5rem 0;font-family:'Courier New',monospace;color:var(--gold-pale);font-size:1.05rem;text-align:center;}
+.reg-table{width:100%;border-collapse:collapse;margin:1.6rem 0;font-size:0.92rem;}
+.reg-table th,.reg-table td{padding:0.75rem 0.9rem;border-bottom:1px solid var(--border);text-align:left;color:var(--text-mid);}
+.reg-table th{color:var(--gold);font-weight:600;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;border-bottom:1px solid var(--gold-dim);}
+.reg-table tr:hover td{background:var(--bg2);}
+.back{display:inline-block;margin-top:3rem;font-size:0.78rem;color:var(--text-dim);text-decoration:none;letter-spacing:0.05em;}
+.back:hover{color:var(--gold);}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">Pentagon Physics</a>
+  <a href="../index.html#programme">Programme</a>
+  <a href="../index.html#papers">Papers</a>
+  <a href="../tools.html">Tools</a>
+  <a href="../essays.html">Essays</a>
+  <a href="../pipeline.html">Pipeline</a>
+  <a href="../news.html">News</a>
+</header>
+<div class="page">
+  <div class="essay-tag">Essay</div>
+  <h1>The Hostile Referee</h1>
+  <div class="subtitle">A systematic stress test of Pentagon Physics</div>
+  <p>The Hostile Referee</p>
+<p>A systematic stress test of Pentagon Physics</p>
+<p>Imagine a physicist reading about nuclear masses for the first time in Pentagon Physics. The formula produces 0.11% root-mean-square accuracy across hundreds of nuclei, with zero free parameters. The natural response is not this is interesting. It is this can’t be right. Nuclear physics isn’t four-dimensional geometry.</p>
+<p>Good. That is the correct response. That is the reaction this essay is designed to honour.</p>
+<p>A framework claiming to derive nuclear masses from the character table of a four-dimensional polytope, with no fitted parameters, should not be accepted until it has been systematically broken, or failed to break. This essay assembles the adversarial review that the programme needs. It is written in the voice of the hostile referee. Where we write you have not shown this, the subject is PP, not the reader.</p>
+<p>A hostile referee has a standard toolkit: numerical completeness checks (run it on everything, not just the examples the author chose), uniqueness tests (how many candidates were tested before this one?), derivation chain audits (where exactly does this factor come from?), structural necessity questions (why this object and not that one?), and pre-registered predictions (tell me something you don’t yet know, and wait for the experiment). Eighteen tests apply each tool in turn.</p>
+<h2>Nuclear mass completeness</h2>
+<p>The published formula covers around 500 isotopes. There are roughly 3,000 known. The hard cases are the halo nuclei: He-8, Li-11, Be-14. These have proton cores surrounded by diffuse neutron halos extending far beyond the nuclear surface. The 600-cell is a perfectly symmetric object. Why would its subgraph eigenvalues reproduce the spatial asymmetry of a halo? The kill condition: if the root-mean-square error exceeds 1% across the full AME2020 dataset, or if the residuals are correlated with neutron skin thickness, the formula fails for an entire class of nuclei. Status: open. The full test must be run.</p>
+<h2>The positive-eigenvalue rule</h2>
+<p>The nuclear mass formula sums only positive eigenvalues of the adjacency operator. Why? The claim is that bound states correspond to positive-eigenvalue modes. But this rule is imposed, not derived. If summing all eigenvalues, or absolute values, or only the largest gives comparable accuracy, the rule is not physics. It is selection. The rule must be derived from first principles or acknowledged as a structural assumption. Status: open. This is not a small thing.</p>
+<h2>The alpha formula: uniqueness under search</h2>
+<p>The fine structure constant inverse is:</p>
+<div class="eq-display">α⁻¹ = 360/φ² − 2/φ³ + 3⁻⁵/φ⁵ + 7⁻⁷/φ⁷ = 137.035999207</div>
+<p>81,225 candidates were tested. The published formula ranked first. But the search was constrained by the ansatz that coefficients follow C_k = 2^(k²). If this was assumed rather than derived, the effective search space was much smaller than 81,225. The referee asks for the generating function derivation of C_k = 2^(k²), not its value but the algebraic step that forces it. Status: partially resolved. Numeric uniqueness demonstrated; algebraic uniqueness of the coefficient structure needs explicit proof.</p>
+<h2>G = α¹⁸ × 12/7: are both factors derived?</h2>
+<p>Two numbers need independent derivations: the 18 Galois-boundary crossings, and the proton geometry factor 12/7. If either was adjusted to match the CODATA value of G, the derivation is a retrodiction. The 18-crossing argument is published and self-consistent. The 12/7 factor depends on the proton mass formula. Both need explicit algebraic closure before G can be called truly derived. Status: partial.</p>
+<h2>The proton mass formula</h2>
+<p>The proton-to-electron mass ratio:</p>
+<div class="eq-display">m_p/m_e = 6π⁵ + π⁵/[φ⁷(π⁵ − 1)] = 1836.15267...</div>
+<p>accurate to 0.005 ppm. This is either the most remarkable formula in physics or the most elaborate coincidence. To distinguish these, the derivation must be stated as a chain of forced algebraic steps from the axiom, without numerical experimentation at any link. If the argument jumps from “we expect a formula of this form” to “and indeed 6π⁵ works,” the chain is incomplete. The formula has been verified numerically. The full algebraic chain needs to be made explicit. That is still outstanding.</p>
+<h2>Neutrino masses and ordering</h2>
+<p>PP predicts normal ordering with m₁ = 10.06 meV, m₂ = 13.29 meV, m₃ = 51.30 meV, summing to 74.65 meV. Inverted ordering is algebraically excluded by the same structure. This is a sharp, testable claim. Kill conditions: inverted ordering confirmed at 5σ by Hyper-K, or Euclid measures Σmν outside [50, 95] meV at 3σ. Both experiments will report within this decade. Status: consistent with all current data. Three near-term experiments provide decisive tests.</p>
+<h2>The Weinberg angle: what scale is that?</h2>
+<p>sin²θ_W = φ⁻³ at a renormalisation scale of approximately 243 GeV, close to the Higgs vacuum expectation value. The numerical match is real. The question is whether 243 GeV is derived from PP first principles or chosen to make the crossing work. If the Higgs VEV is independently derived in PP, the agreement is a prediction. If it is imported from experiment, it is retrodiction. Status: ratio derived; scale derivation needs to be made independent of the experimental VEV.</p>
+<h2>The Higgs mass: is the VEV an input?</h2>
+<p>m_H = 2v√φ/5 = 125.09 GeV, 0.17σ from the observed value. The dimensionless ratio m_H/v = 2√φ/5 is derived from the D₄ gauge structure. The absolute mass prediction requires the Higgs VEV v = 246.2 GeV. Whether v is itself derived in PP is an open question that needs explicit resolution. Status: ratio derived; absolute prediction depends on v.</p>
+<h2>The bridge line: is there a fourth point?</h2>
+<p>Three independently measured constants, Λ, G and H₀, are collinear in (R, depth) space with slope α⁻¹ = 137.036. Three points determine a line exactly. The fourth point is needed. PP identifies it as the fuzzy dark matter particle at the fifth bridge position, with mass m ≈ 2.07 × 10⁻²² eV. If the FDM mass is measured and does not sit at the predicted position, the bridge line fails. Status: three-point verification real. The fourth point is a pre-registered prediction.</p>
+<h2>Fuzzy dark matter: already in tension?</h2>
+<p>The PP FDM prediction sits at 2.07 × 10⁻²² eV. The tightest Lyman-α bounds push the lower limit to 2 × 10⁻²¹ eV, an order of magnitude higher. Weaker structure-formation bounds are consistent with the prediction. The bounds are model-dependent and contested. But they cannot be dismissed, and the programme is not dismissing them.</p>
+<p>This is the one that keeps the programme honest. The honest approach: document the tension prominently, identify which astrophysical assumptions drive the bound, and pre-register the pulsar timing array prediction at 50 nHz. The NANOGrav archive already contains the relevant signal window. Status: in tension with the tightest existing bounds. Most immediate kill condition.</p>
+<h2>The axiom: is it uniquely self-referential?</h2>
+<p>σ = 1/(1+σ) is claimed as the unique equation that is self-referential, has coefficient 1, and requires no external parameter. What about σ = 1/(1+σ²)? Or σ = 1/(2+σ)? The uniqueness argument has been made informally across multiple papers. A formal theorem enumerating the alternatives and showing each fails on structural grounds has not yet been published. Status: argued informally; formal proof at moderate priority.</p>
+<h2>The 600-cell: why this polytope?</h2>
+<p>The selection argument runs: axiom → φ → pentagon → icosahedral group → binary icosahedral group 2I → 600-cell. Each arrow must be forced, not chosen. The step from the icosahedral group to its double cover 2I needs explicit algebraic justification. Without it, the 600-cell is assumed rather than derived, and all character-table results are framework-dependent. The chain is coherent and published. The double-cover step needs explicit treatment.</p>
+<h2>The character table as a complete lexicon</h2>
+<p>The character table of 2I has 81 entries drawn from 15 distinct values. The claim is that this is a sufficient finite alphabet for Standard Model mass ratios. But “complete” needs a boundary. What physics is NOT in the table? The strong coupling α_s is a running quantity. The CKM CP-violation phase needs careful treatment. A claim of completeness requires explicit limits. Status: 26 parameters covered; the completeness boundary has not been formally stated.</p>
+<h2>The no-free-parameters claim: audit required</h2>
+<p>Over seventy papers, all claiming zero free parameters. This needs a programme-wide audit. For each of the 26 derived quantities, trace the derivation back to the axiom. The deepest issue is the unit problem: the axiom is dimensionless, but physical constants have units. At some point a unit scale must enter. If it enters via a measured value, all masses in those units are retrodictions relative to that unit. This choice must be stated explicitly. Status: mostly substantiated; formal audit document recommended.</p>
+<h2>Baryon asymmetry: Sakharov from the axiom?</h2>
+<p>η = n_B/n_γ ≈ 6.1 × 10⁻¹⁰. The CP-violation phase is derived as δ = π + π/(5φ²). But three conditions must be satisfied quantitatively: C violation, CP violation at the right magnitude, and departure from equilibrium via a specified mechanism. The challenge is showing that PP gives these conditions quantitatively and that the resulting η equals 6.1 × 10⁻¹⁰ and not 10⁻⁵ or 10⁻²⁰. Status: CP phase derived; full Sakharov chain needs explicit treatment.</p>
+<h2>The arrow of time: theorem or claim?</h2>
+<p>The fixed-point attractor of the axiom defines a preferred direction: iteration converges to σ = φ⁻¹ for all positive starting values. The mathematics is correct. The challenge is the final step: why is the indexing variable of a mathematical iteration identical to physical time? This identification requires an argument that avoids circular reasoning. The mathematics is right. The physical interpretation needs to be said out loud. Status: mathematics correct; interpretation needs explicit statement.</p>
+<h2>Pre-registered predictions</h2>
+<p>Retrodiction is table stakes. The real test is prediction. Seven quantities are now pre-registered in this paper as a timestamped record:</p>
+<p>Σm_ν = 74.65 meV. Decisive test: Euclid, 2026–2028.</p>
+<p>FDM mass = 2.07 × 10⁻²² eV. Decisive test: PTA / JWST solitons, 2025–2027.</p>
+<p>sin²θ_W crossing at 243 ± 3 GeV. Decisive test: FCC-ee, 2030+.</p>
+<p>Fifth bridge position at depth 99.54. Decisive test: any new cosmological constant.</p>
+<p>Dark energy w₀ → −1 from above. Decisive test: DESI DR2 / Euclid, 2025–2026.</p>
+<p>Ω_Λ attractor → φ⁻¹ = 0.618. Decisive test: future CMB surveys.</p>
+<p>Neutrinoless ββ signal at scale set by m₁ = 10.06 meV. Decisive test: nEXO, 2027–2030.</p>
+<p>Any of these falsified at 5σ excludes that sector of PP. All confirmed makes PP the leading zero-parameter framework for fundamental physics. And guess what, we won’t have to wait long to find out.</p>
+<h2>Internal consistency: is there a genuine root?</h2>
+<p>In a programme with seventy papers, derivations can become circular. Paper A derives X from Y. Paper B derives Y from X. The system is consistent but not grounded. The dependency graph for PP has one candidate root, the axiom, and no cycle has been found. The G derivation uses α and m_p. The proton mass uses the 600-cell spectrum and m_e. The electron mass uses the Rydberg and α. If α enters these derivations independently without each requiring the other, there is no loop. A formal directed acyclic graph should be published. Status: no cycle found; formal graph not yet published.</p>
+<h2>What survives the hostile review</h2>
+<p>Five tests are cleanly resolved: the alpha formula, the cosmological constant derivation, the neutrino sector, the bridge line, and the character table of 2I. These results are not accidental and not fragile.</p>
+<p>Eight tests require additional work but are not in crisis: the proton mass chain, the G derivation, the Weinberg angle scale, the Higgs VEV, the axiom uniqueness proof, the 600-cell selection argument, the completeness boundary, and the dependency graph.</p>
+<p>Three present genuine near-term kill conditions: the full nuclear mass test, the neutrino ordering measurement, and, most urgently, the fuzzy dark matter mass in tension with Lyman-α bounds.</p>
+<p>The programme is not broken by this review. But it is not complete. The gaps identified here are not fatal. They are the agenda for the next phase of work.</p>
+<p>A theory that survives a hostile referee is stronger than one that was never attacked. Pentagon Physics now has enough specific, numerical, pre-registered predictions that the adversarial review is possible in a way it was not two years ago. That is itself a sign of maturity.</p>
+<p class="closer"><em>Show me a prediction that is currently unknown, and wait for the experiment. Seven are now registered. The clock is running.</em></p>
+  <a class="back" href="../essays.html">← Back to essays</a>
+</div>
+</body>
+</html>

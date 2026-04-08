@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Essays from the Pentagon Physics programme — long-form writing on the axiom, the constants, and the benchmark.">
+<meta name="author" content="Eric McLean">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Essays — Pentagon Physics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#F2C94C; --gold-dim:#9A7820; --gold-pale:#FBE89A;
+  --bg:#090909; --bg2:#111113; --bg3:#19191E;
+  --border:rgba(255,255,255,0.1); --border-hi:rgba(255,255,255,0.2);
+  --text:#F5F2EC; --text-mid:#DCD8D0; --text-dim:#A8A49C;
+  --accent:#5DA8D0;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --pad:8vw;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.75;overflow-x:hidden;}
+header{background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);padding:0 var(--pad);display:flex;gap:2.5rem;align-items:center;height:52px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+header a{color:var(--text);text-decoration:none;font-size:0.82rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header a.active{color:var(--gold);}
+header .logo{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;display:flex;align-items:center;gap:8px;}
+
+.hero{padding:6rem var(--pad) 4rem;border-bottom:1px solid var(--border-hi);}
+.hero-tag{font-size:0.72rem;font-weight:600;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;}
+h1{font-family:var(--serif);font-size:clamp(2.8rem,6vw,5rem);font-weight:700;color:var(--text);line-height:1.05;margin-bottom:1rem;}
+.hero-sub{font-size:1.1rem;color:var(--text-mid);max-width:60ch;line-height:1.8;}
+
+.essays-grid{padding:5rem var(--pad);display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:1px;background:var(--border-hi);border-top:1px solid var(--border-hi);border-bottom:1px solid var(--border-hi);}
+.ec{background:var(--bg2);padding:3rem;display:flex;flex-direction:column;gap:1.2rem;transition:background 0.2s;}
+.ec:hover{background:var(--bg3);}
+.ec-tag{font-size:0.65rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);}
+.ec-title{font-family:var(--serif);font-size:1.9rem;font-weight:700;color:var(--text);line-height:1.15;}
+.ec-sub{font-family:var(--serif);font-size:1.05rem;font-style:italic;color:var(--text-mid);line-height:1.5;}
+.ec-desc{font-size:0.98rem;color:var(--text-mid);line-height:1.75;max-width:52ch;}
+.ec-launch{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--bg);background:var(--gold);text-decoration:none;padding:0.75em 1.8em;border:1px solid var(--gold);transition:all 0.2s;align-self:flex-start;margin-top:auto;}
+.ec-launch:hover{background:var(--accent);border-color:var(--accent);}
+.ec-launch::after{content:'→';}
+
+footer{background:var(--bg2);border-top:1px solid var(--border-hi);padding:3rem var(--pad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+footer p{font-size:0.85rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;font-size:0.85rem;}
+footer a:hover{color:var(--gold);}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="index.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="28" height="28" style="flex-shrink:0;">
+      <defs><mask id="mn"><path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/><path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/><path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/><path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/><path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/><path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/><path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/><path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/><path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/><path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/><circle cx="0" cy="0" r="71.19" fill="black"/><polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/></mask></defs>
+      <rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mn)"/>
+    </svg>
+    Pentagon Physics
+  </a>
+  <a href="index.html#programme">Programme</a>
+  <a href="index.html#results">Results</a>
+  <a href="index.html#papers">Papers</a>
+  <a href="tools.html">Tools</a>
+  <a href="essays.html" class="active">Essays</a>
+  <a href="pipeline.html">Pipeline</a>
+  <a href="news.html">News</a>
+  <a href="faqs.html">137 FAQs</a>
+</header>
+
+<div class="hero">
+  <div class="hero-tag">Long-form</div>
+  <h1>Essays</h1>
+  <p class="hero-sub">Three essays on the Pentagon Physics programme — what the constants really are, what a fair benchmark looks like, and a systematic adversarial stress test of the framework.</p>
+</div>
+
+<div class="essays-grid">
+
+  <div class="ec">
+    <div class="ec-tag">On the constants</div>
+    <div class="ec-title">The Emperor's New Constants</div>
+    <div class="ec-sub">Why E = mc² and 1/137 are models, and what lies beneath them.</div>
+    <div class="ec-desc">A century after Wigner asked why mathematics is so unreasonably effective in physics, the answer turns out to be that physics has been measuring the customer first and visiting the cupboard for clothes that fit. This essay strips the famous equations and shows the relational structure underneath.</div>
+    <a href="essays/the-emperors-new-constants.html" class="ec-launch">Read essay</a>
+  </div>
+
+  <div class="ec">
+    <div class="ec-tag">On evaluation</div>
+    <div class="ec-title">The Emperor's New Benchmark</div>
+    <div class="ec-sub">A note to be read before evaluating any paper in the Pentagon Physics programme.</div>
+    <div class="ec-desc">The Lagrangian is a consequence, not a credential. This essay sets out the appropriate benchmark for a derivational physics programme — pre-registered predictions, kill conditions, ablation tests, and the asymmetry between answering a question and declining to address it.</div>
+    <a href="essays/the-emperors-new-benchmark.html" class="ec-launch">Read essay</a>
+  </div>
+
+  <div class="ec">
+    <div class="ec-tag">Adversarial review</div>
+    <div class="ec-title">The Hostile Referee</div>
+    <div class="ec-sub">A systematic stress test of Pentagon Physics.</div>
+    <div class="ec-desc">Eighteen adversarial tests applied to the programme — nuclear mass completeness, the positive-eigenvalue rule, the alpha formula uniqueness, the bridge line, fuzzy dark matter tension, and pre-registered predictions. Five resolved cleanly, eight require more work, three present near-term kill conditions.</div>
+    <a href="essays/the-hostile-referee.html" class="ec-launch">Read essay</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Pentagon Physics · Eric McLean · Independent Researcher, Cyprus · 2026</p>
+  <a href="index.html">← Back to main site</a>
+</footer>
+</body>
+</html>
