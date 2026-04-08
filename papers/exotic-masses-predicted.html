@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Exotic Masses Predicted — zero-parameter nuclear mass formula validated against 51 measured nuclei, applied to 30 unmeasured exotic isotopes. Eric McLean, Pentagon Physics.">
 <meta name="author" content="Eric McLean">
-<meta name="keywords" content="Pentagon Physics, Eric McLean, Exotic Masses, Nuclear Mass Formula">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <title>Exotic Masses Predicted — Pentagon Physics</title>
 <script>
@@ -26,152 +25,109 @@ MathJax = {
   --accent:#5DA8D0;
   --serif:'Playfair Display',Georgia,serif;
   --sans:'DM Sans',system-ui,sans-serif;
+  --pad:8vw;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.75;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.75;overflow-x:hidden;}
 mjx-container{color:var(--text)!important;}
-.eq-display mjx-container{color:var(--gold-pale)!important;font-size:1.1em!important;}
-
-header{
-  background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);
-  padding:0 8vw;display:flex;gap:2rem;align-items:center;height:52px;
-  position:sticky;top:0;z-index:100;
-}
-header a{color:var(--text-dim);text-decoration:none;font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;transition:color 0.2s;}
+header{background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);padding:0 var(--pad);display:flex;gap:2.5rem;align-items:center;height:52px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+header a{color:var(--text-dim);text-decoration:none;font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;transition:color 0.2s;}
 header a:hover{color:var(--gold);}
-header .logo{color:var(--text);font-weight:500;margin-right:auto;}
-
-.page{max-width:960px;margin:0 auto;padding:5rem 8vw;}
-
-.domain-tag{
-  font-size:0.68rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:1rem;
-}
-
-h1{
-  font-family:var(--serif);
-  font-size:clamp(1.8rem,4vw,3rem);font-weight:700;
-  color:var(--text);line-height:1.15;margin-bottom:2rem;
-}
-
-.doi-strip{
-  display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;
-  padding:1rem 1.5rem;background:var(--bg2);border:1px solid var(--border-hi);
-  border-left:3px solid var(--gold);margin-bottom:3rem;
-}
-.doi-label{font-size:0.7rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);}
-.doi-val{font-size:0.85rem;color:var(--accent);font-family:monospace;}
-.zenodo-btn{
-  margin-left:auto;
-  background:var(--gold);color:#090909;text-decoration:none;
-  font-size:0.75rem;font-weight:600;letter-spacing:0.1em;
-  padding:0.5em 1.2em;transition:all 0.2s;white-space:nowrap;
-}
-.zenodo-btn:hover{background:var(--gold-pale);}
-
-.summary{
-  font-size:1.05rem;color:var(--text-mid);line-height:1.85;
-  margin-bottom:2.5rem;max-width:72ch;
-}
-.summary p{margin-bottom:1.2rem;}
-
-.eq-display{
-  padding:1.5rem 2rem;
-  background:var(--bg3);
-  border:1px solid var(--border-hi);
-  border-left:3px solid var(--gold-dim);
-  margin:2rem 0;overflow-x:auto;
-}
-
-.result-box{
-  display:grid;grid-template-columns:1fr 1fr;gap:1px;
-  border:1px solid var(--border-hi);background:var(--border-hi);
-  margin:2rem 0;
-}
-.rb{background:var(--bg2);padding:1.5rem;}
-.rb-label{font-size:0.65rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
-.rb-val{font-size:0.95rem;color:var(--text-mid);line-height:1.5;}
-.rb-val mjx-container{color:var(--text)!important;}
-
-.page-nav{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);
-}
-.nav-btn{
-  font-size:0.78rem;font-weight:500;letter-spacing:0.1em;
-  color:var(--accent);text-decoration:none;padding:0.5em 1em;
-  border:1px solid rgba(93,168,208,0.3);transition:all 0.2s;
-}
-.nav-btn:hover{color:var(--gold);border-color:rgba(242,201,76,0.4);}
-.back-link{font-size:0.78rem;color:var(--text-dim);text-decoration:none;letter-spacing:0.05em;transition:color 0.2s;}
-.back-link:hover{color:var(--text);}
+header .logo{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;display:flex;align-items:center;gap:8px;}
+.hero{padding:6rem var(--pad) 4rem;border-bottom:1px solid var(--border-hi);position:relative;overflow:hidden;}
+.pent-bg{position:absolute;top:0;right:0;width:50%;height:100%;pointer-events:none;overflow:hidden;opacity:0.04;}
+.pent-bg svg{position:absolute;top:50%;right:-5%;transform:translateY(-50%);width:100%;}
+.hero-tag{font-size:0.72rem;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;}
+h1{font-family:var(--serif);font-size:clamp(2.2rem,5vw,4.2rem);font-weight:700;color:var(--text);line-height:1.05;margin-bottom:0.8rem;}
+.hero-sub{font-size:1.05rem;color:var(--text-mid);max-width:65ch;line-height:1.8;margin-bottom:2rem;}
+.hero-meta{font-size:0.8rem;color:var(--text-dim);display:flex;flex-wrap:wrap;gap:0;align-items:center;}
+.hero-meta .dot{color:var(--gold);margin:0 0.6rem;}
+.hero-meta a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(93,168,208,0.3);transition:all 0.2s;}
+.hero-meta a:hover{color:var(--gold);border-color:var(--gold);}
+.stats-strip{border-top:1px solid var(--border-hi);padding:1.2rem var(--pad);display:flex;gap:3rem;flex-wrap:wrap;background:var(--bg2);}
+.stat{display:flex;align-items:baseline;gap:0.5rem;}
+.stat .n{font-family:var(--serif);font-size:2rem;font-weight:700;color:var(--gold);line-height:1;}
+.stat .l{font-size:0.68rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);}
+.sec{padding:5rem var(--pad);border-bottom:1px solid var(--border);}
+.sec-tag{font-size:0.7rem;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.9rem;}
+h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--text);margin-bottom:1.5rem;line-height:1.1;}
+.body{font-size:1rem;color:var(--text-mid);margin-bottom:1.2rem;max-width:72ch;line-height:1.85;}
+.claims{display:flex;flex-direction:column;gap:1px;background:var(--border-hi);border:1px solid var(--border-hi);margin:2rem 0;max-width:760px;}
+.claim{background:var(--bg2);padding:1.2rem 1.5rem;display:flex;gap:1rem;align-items:baseline;}
+.claim:hover{background:var(--bg3);}
+.claim-n{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--gold);min-width:2rem;line-height:1;}
+.claim-body{font-size:0.95rem;color:var(--text-mid);line-height:1.6;}
+.claim-body mjx-container{color:var(--text)!important;}
+.kill-box{border:1px solid var(--border-hi);border-left:3px solid var(--gold-dim);background:var(--bg2);padding:1.5rem 2rem;margin:2rem 0;max-width:760px;}
+.kill-tag{font-size:0.65rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:0.8rem;}
+.kill-item{font-size:0.9rem;color:var(--text-dim);padding:0.2rem 0;line-height:1.6;}
+.zenodo-cta{margin:3rem 0;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+.btn-zenodo{display:inline-flex;align-items:center;gap:0.6rem;background:var(--gold);color:#000;font-weight:700;font-size:0.85rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.9rem 2rem;text-decoration:none;transition:all 0.2s;}
+.btn-zenodo:hover{background:var(--gold-pale);}
+.btn-doi{font-family:'DM Mono',monospace;font-size:0.8rem;color:var(--text-dim);text-decoration:none;border-bottom:1px solid var(--border-hi);padding-bottom:1px;transition:color 0.2s;}
+.btn-doi:hover{color:var(--accent);}
+footer{background:var(--bg2);border-top:1px solid var(--border-hi);padding:2.5rem var(--pad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+footer p{font-size:0.82rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;}
+footer a:hover{color:var(--gold);}
 </style>
 </head>
 <body>
 <header>
-  <a class="logo" href="../index.html" style="display:flex;align-items:center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="28" height="28" style="display:inline-block;vertical-align:middle;margin-right:8px;flex-shrink:0;">
-  <defs>
-    <mask id="mtp57">
-      <path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/>
-      <path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/>
-      <path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/>
-      <path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/>
-      <path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/>
-      <path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/>
-      <path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/>
-      <path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/>
-      <path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/>
-      <path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/>
-      <circle cx="0" cy="0" r="71.19" fill="black"/>
-      <polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/>
-    </mask>
-  </defs>
-  <rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mtp57)"/>
-
-</svg>Pentagon Physics</a>
+  <a class="logo" href="../index.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="26" height="26" style="flex-shrink:0;"><defs><mask id="mn"><path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/><path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/><path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/><path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/><path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/><path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/><path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/><path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/><path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/><path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/><circle cx="0" cy="0" r="71.19" fill="black"/><polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/></mask></defs><rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mn)"/></svg>
+    Pentagon Physics
+  </a>
   <a href="../index.html#programme">Programme</a>
   <a href="../index.html#results">Results</a>
-  <a href="../index.html#papers">All papers</a>
+  <a href="../index.html#papers">Papers</a>
+  <a href="../tools.html">Tools</a>
   <a href="../pipeline.html">Pipeline</a>
   <a href="../news.html">News</a>
   <a href="../faqs.html">137 FAQs</a>
-  <a href="../index.html#contact">Contact</a>
 </header>
 
-<div class="page">
-  <div class="domain-tag">Pentagon Physics</div>
+<div class="hero">
+  <div class="pent-bg"><svg viewBox="0 0 600 680" xmlns="http://www.w3.org/2000/svg"><polygon points="300,30 560,210 465,560 135,560 40,210" fill="none" stroke="white" stroke-width="1.5"/><line x1="300" y1="30" x2="465" y2="560" stroke="white" stroke-width="0.5"/><line x1="300" y1="30" x2="135" y2="560" stroke="white" stroke-width="0.5"/><line x1="560" y1="210" x2="135" y2="560" stroke="white" stroke-width="0.5"/><line x1="40" y1="210" x2="465" y2="560" stroke="white" stroke-width="0.5"/><line x1="560" y1="210" x2="40" y2="210" stroke="white" stroke-width="0.5"/></svg></div>
+  <div class="hero-tag">Nuclear Physics · April 2026</div>
   <h1>Exotic Masses Predicted</h1>
-
-  <div class="doi-strip">
-    <div>
-      <div class="doi-label">DOI</div>
-      <div class="doi-val">10.5281/zenodo.19452207</div>
-    </div>
-    <a class="zenodo-btn" href="https://doi.org/10.5281/zenodo.19452207" target="_blank">Read full paper on Zenodo →</a>
-  </div>
-
-  <div class="summary">
-    <p>A zero-parameter nuclear mass formula validated against 51 measured nuclei is applied to 30 unmeasured exotic isotopes. Each prediction is a falsifiable kill condition for experiments at FAIR and RIKEN. The five-term formula derived from the 600-cell adjacency spectrum makes pre-registered predictions. If three or more land outside the predicted range when FAIR Super-FRS reports in 2027, the derivation fails.</p>
-  </div>
-
-  <div class="result-box">
-    <div class="rb">
-      <div class="rb-label">Nuclei validated</div>
-      <div class="rb-val">51 measured nuclei, RMS error 0.054%</div>
-    </div>
-    <div class="rb">
-      <div class="rb-label">Exotic predictions</div>
-      <div class="rb-val">30 unmeasured isotopes, zero free parameters</div>
-    </div>
-  </div>
-
-  <div class="page-nav">
-    <span></span>
-    <a class="back-link" href="../index.html#papers">← Back to catalogue</a>
-    <span></span>
+  <p class="hero-sub">A zero-parameter nuclear mass formula validated against 51 measured nuclei is applied to 30 unmeasured exotic isotopes. Each prediction is a falsifiable kill condition for experiments at FAIR and RIKEN.</p>
+  <div class="hero-meta">
+    Eric McLean <span class="dot">·</span> Independent Researcher, Cyprus <span class="dot">·</span> Pentagon Physics <span class="dot">·</span> 7 April 2026 <span class="dot">·</span> <a href="https://doi.org/10.5281/zenodo.19452207" target="_blank">10.5281/zenodo.19452207</a>
   </div>
 </div>
 
+<div class="stats-strip">
+  <div class="stat"><span class="n">51</span><span class="l">Nuclei validated</span></div>
+  <div class="stat"><span class="n">30</span><span class="l">Exotic predictions</span></div>
+  <div class="stat"><span class="n">0.054%</span><span class="l">RMS error</span></div>
+  <div class="stat"><span class="n">0</span><span class="l">Free parameters</span></div>
+</div>
+
+<div class="sec">
+  <div class="sec-tag">Key Results</div>
+  <h2>The formula extrapolates without fitting</h2>
+  <p class="body">The five-term nuclear mass formula derived from the 600-cell adjacency spectrum makes pre-registered predictions for 30 exotic isotopes not yet measured. Each is a kill condition. If three or more land outside the predicted range when FAIR Super-FRS reports in 2027, the derivation fails.</p>
+  <div class="claims">
+    <div class="claim"><div class="claim-n">1</div><div class="claim-body">Five-term formula M = Zmₚ + Nmₙ − (mπ/12)Σλ⁺(σ/b)^{2σ²} + Coulomb + asymmetry. Zero free parameters.</div></div>
+    <div class="claim"><div class="claim-n">2</div><div class="claim-body">RMS 0.054% across 51 measured nuclei. Exotic isotope RMS 0.043% across 16 exotics with known masses.</div></div>
+    <div class="claim"><div class="claim-n">3</div><div class="claim-body">At iron: b → σ = 1/φ exactly. The fixed point of the axiom is the nuclear fixed point. Iron is where the axiom converges.</div></div>
+    <div class="claim"><div class="claim-n">4</div><div class="claim-body">For A &gt; 120: two 600-cells required. The second shell of the icosian geometry becomes active at the heavy nucleus boundary.</div></div>
+  </div>
+  <div class="kill-box"><div class="kill-tag">Kill Conditions</div>
+    <div class="kill-item">K1: Three or more exotic predictions outside ±0.2% when measured → formula falsified</div>
+    <div class="kill-item">K2: Any measured exotic isotope deviating by more than 0.5% → structural assumption fails</div>
+    <div class="kill-item">K3: FAIR Super-FRS Early Science (2027) provides decisive test</div></div>
+  <div class="zenodo-cta">
+    <a class="btn-zenodo" href="https://doi.org/10.5281/zenodo.19452207" target="_blank">↗ Read on Zenodo</a>
+    <a class="btn-doi" href="https://doi.org/10.5281/zenodo.19452207" target="_blank">doi:10.5281/zenodo.19452207</a>
+  </div>
+</div>
+
+<footer>
+  <p>Pentagon Physics &middot; Eric McLean &middot; Independent Researcher, Cyprus &middot; 85 papers on <a href="https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22McLean%2C+Eric%22" target="_blank">Zenodo</a></p>
+  <a href="../index.html#papers">← All papers</a>
+</footer>
 </body>
 </html>
