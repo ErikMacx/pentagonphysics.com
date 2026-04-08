@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Architecture — Pentagon Physics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+:root {
+  --gold:#F2C94C; --gold-dim:#9A7820;
+  --bg:#090909; --bg2:#111113; --bg3:#19191E;
+  --border:rgba(255,255,255,0.08); --border-hi:rgba(255,255,255,0.18);
+  --text:#F0EDE6; --text-mid:#C0BCB4; --text-dim:#807C76;
+  --accent:#5DA8D0;
+  --t1:#50B482; --t1-bg:rgba(80,180,130,0.1); --t1-b:rgba(80,180,130,0.35);
+  --t2:#9B7FD4; --t2-bg:rgba(155,127,212,0.1); --t2-b:rgba(155,127,212,0.35);
+  --alpha:#E07060; --alpha-bg:rgba(220,100,80,0.1); --alpha-b:rgba(220,100,80,0.4);
+  --out-bg:#111113; --out-b:rgba(255,255,255,0.18);
+  --bypass-bg:rgba(80,180,130,0.08); --bypass-b:rgba(80,180,130,0.3);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono','Courier New',monospace;
+  --pad:8vw;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7;overflow-x:hidden;}
+
+/* NAV */
+header{background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);padding:0 var(--pad);display:flex;gap:2rem;align-items:center;height:52px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+header a{color:var(--text-dim);text-decoration:none;font-size:0.7rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header .logo{font-family:var(--serif);font-size:0.95rem;font-weight:700;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;display:flex;align-items:center;gap:8px;}
+
+/* HERO */
+.hero{padding:3.5rem var(--pad) 2.5rem;border-bottom:1px solid var(--border-hi);}
+.hero-tag{font-size:0.65rem;font-weight:600;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;}
+h1{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:700;color:var(--text);line-height:1.05;margin-bottom:0.4rem;}
+.hero-sub{font-size:0.9rem;color:var(--text-mid);max-width:60ch;line-height:1.8;}
+
+/* DIAGRAM */
+.dia-wrap{padding:2.5rem var(--pad) 4rem;display:flex;justify-content:center;}
+.h{font-family:var(--sans);color:var(--text);padding:0.5rem 0;max-width:680px;width:100%;margin:0 auto;}
+.title{text-align:center;font-size:15px;font-weight:600;margin-bottom:2px;color:var(--text);}
+.subtitle{text-align:center;font-size:11px;color:var(--text-dim);font-style:italic;margin-bottom:20px;}
+.row{display:flex;justify-content:center;gap:12px;margin:0 auto;position:relative;}
+.col{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;max-width:320px;}
+
+/* BOXES */
+.box{border-radius:6px;padding:10px 14px;text-align:center;width:100%;border:0.5px solid;}
+.box .bt{font-weight:500;font-size:13px;margin-bottom:2px;}
+.box .bs{font-size:11px;opacity:0.85;line-height:1.55;}
+
+.box-axiom{background:rgba(242,201,76,0.08);border-color:var(--gold-dim);border-width:1.5px;}
+.box-axiom .bt{color:var(--gold);font-size:14px;}
+.box-axiom .bs{color:rgba(242,201,76,0.7);}
+
+.box-trunk1{background:var(--t1-bg);border-color:var(--t1-b);}
+.box-trunk1 .bt{color:var(--t1);}
+.box-trunk1 .bs{color:rgba(80,180,130,0.75);}
+
+.box-trunk2{background:var(--t2-bg);border-color:var(--t2-b);}
+.box-trunk2 .bt{color:var(--t2);}
+.box-trunk2 .bs{color:rgba(155,127,212,0.75);}
+
+.box-alpha{background:var(--alpha-bg);border-color:var(--alpha-b);border-width:1.5px;}
+.box-alpha .bt{color:var(--alpha);font-size:14px;}
+.box-alpha .bs{color:rgba(220,100,80,0.7);}
+
+.box-out{background:var(--out-bg);border-color:var(--out-b);}
+.box-out .bt{color:var(--text);font-size:12px;}
+.box-out .bs{color:var(--text-dim);font-size:10px;}
+
+.box-bypass{background:var(--bypass-bg);border-color:var(--bypass-b);border-style:dashed;}
+.box-bypass .bt{color:var(--t1);font-size:12px;}
+.box-bypass .bs{color:rgba(80,180,130,0.75);font-size:10px;line-height:1.6;}
+
+/* LAYOUT HELPERS */
+.arrow{display:flex;justify-content:center;color:var(--text-dim);font-size:16px;margin:3px 0;}
+.split-label{text-align:center;font-size:11px;color:var(--text-dim);font-style:italic;margin:6px 0;}
+.const-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;width:100%;max-width:600px;margin:0 auto;}
+.footer-txt{text-align:center;font-size:11px;color:var(--text-dim);font-style:italic;margin-top:14px;line-height:1.7;}
+.footer-box{border:0.5px dashed var(--border-hi);border-radius:6px;padding:12px 16px;margin:10px auto;max-width:600px;}
+.footer-box .bt{color:var(--text);font-weight:500;font-size:12px;margin-bottom:5px;}
+.footer-box .bs{color:var(--text-dim);font-size:11px;line-height:1.65;}
+.side-row{display:flex;gap:12px;align-items:flex-start;max-width:640px;margin:0 auto;}
+.side-col-main{flex:3;}
+.side-col-bypass{flex:1.2;min-width:140px;}
+.cage-row{display:flex;gap:10px;max-width:600px;margin:0 auto;}
+.cage-row .box{flex:1;}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border-hi);padding:2rem var(--pad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+footer p{font-size:0.8rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;}
+footer a:hover{color:var(--gold);}
+
+@media(max-width:600px){
+  .const-grid{grid-template-columns:1fr 1fr;}
+  .cage-row{flex-direction:column;}
+  .side-row{flex-direction:column;}
+  .row{flex-direction:column;align-items:center;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="../index.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="26" height="26" style="flex-shrink:0;"><defs><mask id="mn"><path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/><path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/><path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/><path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/><path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/><path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/><path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/><path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/><path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/><path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/><circle cx="0" cy="0" r="71.19" fill="black"/><polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/></mask></defs><rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mn)"/></svg>
+    Pentagon Physics
+  </a>
+  <a href="../index.html#programme">Programme</a>
+  <a href="../index.html#results">Results</a>
+  <a href="../index.html#papers">All papers</a>
+  <a href="../tools.html">Tools</a>
+  <a href="../pipeline.html">Pipeline</a>
+  <a href="../news.html">News</a>
+  <a href="../faqs.html">137 FAQs</a>
+</header>
+
+<div class="hero">
+  <div class="hero-tag">Programme Architecture</div>
+  <h1>The Architecture</h1>
+  <p class="hero-sub">Two trunks emerge from one axiom and merge at α. Everything downstream passes through the exchange rate.</p>
+</div>
+
+<div class="dia-wrap">
+<div class="h">
+
+<div style="max-width:320px;margin:0 auto">
+  <div class="box box-axiom"><div class="bt">σ = 1/(1+σ)</div><div class="bs">The axiom</div></div>
+  <div class="arrow">↓</div>
+  <div class="box box-axiom" style="border-width:0.5px"><div class="bt">Discriminant 5 → ℚ(√5) → φ, σ</div></div>
+</div>
+
+<div class="split-label">Two trunks</div>
+
+<div class="row" style="max-width:640px">
+  <div class="col">
+    <div class="box box-trunk1">
+      <div class="bt">Trunk 1: partition</div>
+      <div class="bs">{σ², σ, 1, φ, 2}/√5</div>
+      <div class="bs">Bridge positions (no α needed)</div>
+      <div class="bs">↔ 5 Galois-invariant irreps</div>
+    </div>
+    <div class="arrow">↓</div>
+    <div class="box box-trunk1">
+      <div class="bt">Three geometries</div>
+      <div class="bs">φ coheres · π closes · e grows</div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="box box-trunk2">
+      <div class="bt">Trunk 2: state space</div>
+      <div class="bs">2I → character table → McKay → E₈</div>
+      <div class="bs">Galois split: 94 invariant / 26 active</div>
+      <div class="bs">60 fermions = 60 bosons (exact)</div>
+    </div>
+    <div class="arrow">↓</div>
+    <div class="box box-trunk2">
+      <div class="bt">Gauge structure from E₈</div>
+      <div class="bs">4 EW bosons · 3 colours · 8 gluons</div>
+      <div class="bs">3+1 doublets · 3 generations (D₄)</div>
+      <div class="bs">Y = Z₅/dim(ρ₄) = 1/3</div>
+    </div>
+  </div>
+</div>
+
+<div class="split-label">Both trunks required</div>
+
+<div class="side-row">
+  <div class="side-col-bypass">
+    <div class="box box-bypass" style="padding:8px 10px">
+      <div class="bt">Bypass α</div>
+      <div class="bs">sin²θ₁₃ = 1/45<br>sin²θ₂₃ = 3/(2φ²)<br>sin²θ_W → σ³<br>α_s = σ³/2</div>
+    </div>
+  </div>
+  <div class="side-col-main">
+    <div class="box box-alpha">
+      <div class="bt">α⁻¹ = 137.036</div>
+      <div class="bs">Exchange rate: algebra → physics</div>
+      <div class="bs" style="margin-top:4px">E₈ propagator at z = φ: ratios 2, φ, 0</div>
+    </div>
+    <div class="arrow">↓</div>
+    <div class="box box-out">
+      <div class="bt">Bridge line: depth = α⁻¹ × R + σ²</div>
+    </div>
+    <div class="arrow">↓</div>
+  </div>
+</div>
+
+<div class="const-grid">
+  <div class="box box-out"><div class="bt">G = α¹⁸×12/7</div><div class="bs">18 = cage bars<br>R = σ/√5 ↔ ρ₆</div></div>
+  <div class="box box-out"><div class="bt">H₀</div><div class="bs">R = 1/√5 ↔ ρ₇</div></div>
+  <div class="box box-out"><div class="bt">Λ</div><div class="bs">R = 2/√5 ↔ ρ₉</div></div>
+  <div class="box box-out"><div class="bt">FDM mass</div><div class="bs">49.9 nHz</div></div>
+</div>
+
+<div class="arrow">↓</div>
+
+<div class="cage-row">
+  <div class="box box-out">
+    <div class="bt">Impedance cage</div>
+    <div class="bs">3 colours × 3 gen × 2 chiral = 18<br>gravity = EM behind the cage</div>
+  </div>
+  <div class="box box-out">
+    <div class="bt">Mass / gravity duality</div>
+    <div class="bs">mₚ/mπ = 7×(12²−1)/12²<br>7/12 inward · 12/7 outward</div>
+  </div>
+  <div class="box box-out">
+    <div class="bt">mₑ, mₚ, mᵥ, nuclei</div>
+    <div class="bs">integers = irrep dims<br>6, 2, 5, 3, 7, 12, 360</div>
+  </div>
+</div>
+
+<div class="footer-txt">Way back: measure G, Λ, H₀ → fit line → intercept = σ² → σ = 1−σ² → axiom</div>
+
+<div class="footer-box">
+  <div class="bt">SM reading: SU(3)×SU(2)×U(1) from character table of 2I</div>
+  <div class="bs">ρ₂ = quark · ρ₃ = lepton · ρ₄ = colour · ρ₇ = γ W⁺ W⁻ Z · ρ₈ = Higgs</div>
+  <div class="bs">Propagator at z = φ: colour ratio = 2 · EW ratio = φ · lepton-Higgs = 0</div>
+  <div class="bs" style="font-style:italic;margin-top:5px;color:rgba(255,255,255,0.3);">Paper: "The Standard Model Has One Address" · doi:10.5281/zenodo.19438769</div>
+</div>
+
+</div>
+</div>
+
+<footer>
+  <p>Pentagon Physics · Eric McLean · Independent Researcher, Cyprus · 2026</p>
+  <a href="../index.html">← Main site</a>
+</footer>
+</body>
+</html>
