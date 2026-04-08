@@ -357,13 +357,7 @@ footer a:hover{color:var(--gold);}
     <div class="card-badge badge-derived">DERIVED</div>
   </div>
 
-  <div class="card dom-em status-derived" onclick="openModal('c')" data-status="derived" data-dom="em">
-    <div class="card-eigen">●●</div>
-    <div class="card-symbol">c</div>
-    <div class="card-name">Speed of Light</div>
-    <div class="card-value">299,792,458 m/s</div>
-    <div class="card-badge badge-derived">DERIVED</div>
-  </div>
+  <div class="cell-empty">·</div>
 
   <div class="card dom-ew status-derived" onclick="openModal('weinberg')" data-status="derived" data-dom="ew">
     <div class="card-eigen">●●</div>
@@ -540,12 +534,6 @@ const CARDS = {
     domain:'VAC', domClass:'dom-vac', symbol:'600-cell', name:'State Space Geometry',
     value:'120 vertices · 720 edges · 1200 faces · 600 cells · symmetry group 2I',
     note:'The second geometric mode is the 600-cell itself — the unique regular polytope in four dimensions whose symmetry group is the binary icosahedral group 2I, order 120. Six steps of π/5 close the irrational inner-product cycle (\\(\\varphi^6\\)). Nine polyhedral layers yield five probability classes. Measurement is projection. The adjacency matrix has nine eigenvalues, all multiplicities perfect squares.',
-    status:'DERIVED', depth:'σ² · Second Fold · Eigenvalue order 2'
-  },
-  c: {
-    domain:'EM', domClass:'dom-em', symbol:'c', name:'Speed of Light',
-    value:'\\(c = 1/\\sqrt{\\varepsilon_0\\mu_0} = 299{,}792{,}458\\) m/s',
-    note:'Both ε₀ and μ₀ are α in disguise — SI artefacts carrying no physical content beyond α. In Gaussian units they vanish. c is the spiral completion rate in vacuum: the rate at which the vacuum medium generates itself. Vacuum impedance: \\(Z_0 = 2\\alpha R_K = 376.73\\) Ω, where \\(R_K = h/e^2\\) is the von Klitzing constant.',
     status:'DERIVED', depth:'σ² · Second Fold · Eigenvalue order 2'
   },
   weinberg: {
