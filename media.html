@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pentagon Physics Media — podcasts, talks, and presentations exploring the derivation of fundamental constants from a single axiom.">
+<meta name="author" content="Eric McLean">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Media — Pentagon Physics</title>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Pentagon Physics Media",
+  "url": "https://www.pentagonphysics.com/media.html",
+  "description": "Podcasts, talks, and presentations from Pentagon Physics.",
+  "isPartOf": { "@type": "WebSite", "name": "Pentagon Physics", "url": "https://www.pentagonphysics.com" },
+  "author": {
+    "@type": "Person",
+    "name": "Eric McLean",
+    "jobTitle": "Independent Researcher",
+    "address": { "@type": "PostalAddress", "addressCountry": "CY" }
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#F2C94C; --gold-dim:#9A7820; --gold-pale:#FBE89A;
+  --bg:#090909; --bg2:#111113; --bg3:#19191E;
+  --border:rgba(255,255,255,0.1); --border-hi:rgba(255,255,255,0.2);
+  --text:#F0EDE6; --text-mid:#C0BCB4; --text-dim:#807C76;
+  --accent:#5DA8D0;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --pad:8vw;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.75;overflow-x:hidden;}
+
+header{
+  background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);
+  padding:0 var(--pad);display:flex;gap:2.5rem;align-items:center;height:52px;
+  position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);
+}
+header a{color:var(--text);text-decoration:none;font-size:0.82rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header a.active{color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px;}
+header .logo{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;display:flex;align-items:center;gap:8px;}
+
+.hero{padding:5rem var(--pad) 3rem;border-bottom:1px solid var(--border-hi);}
+.hero-tag{font-size:0.72rem;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.hero h1{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4rem);font-weight:700;color:var(--text);line-height:1.05;margin-bottom:0.8rem;}
+.hero p{font-size:0.95rem;color:var(--text-mid);max-width:60ch;line-height:1.7;}
+
+/* ═══ PODCAST GRID ═══ */
+.episodes{padding:4rem var(--pad) 5rem;}
+.section-label{
+  font-size:0.68rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:2.5rem;padding-bottom:0.8rem;
+  border-bottom:1px solid var(--border-hi);
+  display:flex;align-items:center;gap:0.8rem;
+}
+.section-label .count{
+  font-size:0.6rem;font-weight:500;letter-spacing:0.1em;
+  color:var(--text-dim);background:var(--bg3);padding:0.2em 0.7em;
+  border:1px solid var(--border-hi);
+}
+
+/* ═══ EPISODE CARD ═══ */
+.episode{
+  background:var(--bg2);
+  border:1px solid var(--border-hi);
+  padding:0;
+  margin-bottom:2rem;
+  transition:border-color 0.3s;
+}
+.episode:hover{border-color:rgba(242,201,76,0.3);}
+
+.ep-header{
+  padding:2.5rem 2.5rem 1.5rem;
+  display:flex;gap:2rem;align-items:flex-start;
+}
+
+.ep-artwork{
+  flex-shrink:0;
+  width:160px;height:160px;
+  background:linear-gradient(135deg,var(--bg3) 0%,#1a1a22 50%,var(--bg3) 100%);
+  border:1px solid var(--border-hi);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.ep-artwork::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(93,168,208,0.12) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(242,201,76,0.08) 0%, transparent 50%);
+}
+.ep-artwork svg{position:relative;z-index:1;opacity:0.6;}
+
+.ep-info{flex:1;min-width:0;}
+.ep-number{
+  font-size:0.62rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:0.6rem;
+}
+.ep-title{
+  font-family:var(--serif);font-size:1.6rem;font-weight:700;
+  color:var(--text);line-height:1.2;margin-bottom:0.6rem;
+}
+.ep-meta{
+  display:flex;gap:1.2rem;flex-wrap:wrap;align-items:center;
+  margin-bottom:1rem;
+}
+.ep-meta span{
+  font-size:0.75rem;color:var(--text-dim);
+  display:flex;align-items:center;gap:0.4rem;
+}
+.ep-meta .dot{width:3px;height:3px;border-radius:50%;background:var(--text-dim);display:inline-block;}
+.ep-desc{font-size:0.92rem;color:var(--text-mid);line-height:1.75;max-width:60ch;}
+
+/* ═══ PLAYER ═══ */
+.ep-player{
+  padding:1.2rem 2.5rem 1.5rem;
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;gap:1rem;
+}
+
+.play-btn{
+  width:48px;height:48px;flex-shrink:0;
+  border-radius:50%;border:2px solid var(--gold);
+  background:transparent;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.25s;
+  position:relative;
+}
+.play-btn:hover{background:var(--gold);transform:scale(1.05);}
+.play-btn:hover .play-icon{fill:var(--bg);}
+.play-btn:hover .pause-icon rect{fill:var(--bg);}
+.play-icon{fill:var(--gold);transition:fill 0.25s;}
+.pause-icon rect{fill:var(--gold);transition:fill 0.25s;}
+.pause-icon{display:none;}
+.play-btn.playing .play-icon{display:none;}
+.play-btn.playing .pause-icon{display:block;}
+
+.player-track{flex:1;display:flex;flex-direction:column;gap:0.35rem;}
+.progress-bar{
+  width:100%;height:4px;background:var(--bg3);cursor:pointer;
+  position:relative;border-radius:2px;
+}
+.progress-bar:hover{height:6px;}
+.progress-fill{
+  height:100%;background:linear-gradient(90deg,var(--gold),var(--accent));
+  width:0%;border-radius:2px;transition:width 0.1s linear;
+  pointer-events:none;
+}
+.progress-handle{
+  position:absolute;top:50%;right:0;
+  width:12px;height:12px;border-radius:50%;
+  background:var(--gold);transform:translate(50%,-50%);
+  opacity:0;transition:opacity 0.2s;pointer-events:none;
+}
+.progress-bar:hover .progress-handle{opacity:1;}
+.time-row{display:flex;justify-content:space-between;}
+.time-row span{font-size:0.7rem;color:var(--text-dim);font-variant-numeric:tabular-nums;}
+
+.speed-btn{
+  font-size:0.65rem;font-weight:600;letter-spacing:0.1em;
+  color:var(--text-dim);background:var(--bg3);border:1px solid var(--border-hi);
+  padding:0.3em 0.7em;cursor:pointer;transition:all 0.2s;
+  flex-shrink:0;
+}
+.speed-btn:hover{color:var(--gold);border-color:var(--gold-dim);}
+
+.volume-group{display:flex;align-items:center;gap:0.5rem;flex-shrink:0;}
+.vol-icon{width:18px;height:18px;fill:var(--text-dim);cursor:pointer;transition:fill 0.2s;}
+.vol-icon:hover{fill:var(--text);}
+.vol-bar{
+  width:60px;height:3px;background:var(--bg3);cursor:pointer;
+  position:relative;border-radius:2px;
+}
+.vol-fill{
+  height:100%;background:var(--text-dim);width:80%;border-radius:2px;
+  transition:width 0.1s;pointer-events:none;
+}
+
+/* ═══ TOPICS ═══ */
+.ep-topics{
+  padding:0 2.5rem 2rem;
+  display:flex;gap:0.5rem;flex-wrap:wrap;
+}
+.topic-tag{
+  font-size:0.65rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;
+  padding:0.3em 0.8em;border:1px solid var(--border-hi);color:var(--text-dim);
+  transition:all 0.2s;
+}
+.topic-tag:hover{color:var(--gold);border-color:var(--gold-dim);}
+
+/* ═══ DOWNLOAD LINK ═══ */
+.ep-actions{
+  padding:0 2.5rem 2rem;
+  display:flex;gap:0.8rem;flex-wrap:wrap;
+}
+.dl-btn{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.7rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;
+  text-decoration:none;padding:0.65em 1.4em;
+  color:var(--gold);border:1px solid var(--gold-dim);
+  transition:all 0.2s;
+}
+.dl-btn:hover{color:var(--bg);background:var(--gold);border-color:var(--gold);}
+.dl-btn svg{width:14px;height:14px;fill:currentColor;}
+
+/* ═══ COMING SOON ═══ */
+.coming-soon{
+  padding:4rem var(--pad) 5rem;
+  border-top:1px solid var(--border-hi);
+  text-align:center;
+}
+.coming-soon .cs-icon{
+  width:64px;height:64px;margin:0 auto 1.5rem;
+  border:1px solid var(--border-hi);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg2);
+}
+.coming-soon h2{
+  font-family:var(--serif);font-size:1.4rem;font-weight:700;
+  color:var(--text);margin-bottom:0.6rem;
+}
+.coming-soon p{font-size:0.9rem;color:var(--text-dim);max-width:45ch;margin:0 auto;line-height:1.7;}
+
+footer{background:var(--bg2);border-top:1px solid var(--border-hi);padding:3rem var(--pad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+footer p{font-size:0.85rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;font-size:0.85rem;}
+footer a:hover{color:var(--gold);}
+
+@media(max-width:768px){
+  header{gap:1.2rem;padding:0 5vw;overflow-x:auto;}
+  .ep-header{flex-direction:column;padding:1.8rem 1.5rem 1.2rem;}
+  .ep-artwork{width:120px;height:120px;}
+  .ep-player{padding:1rem 1.5rem 1.2rem;flex-wrap:wrap;}
+  .volume-group{display:none;}
+  .ep-topics,.ep-actions{padding:0 1.5rem 1.5rem;}
+  .ep-title{font-size:1.3rem;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="28" height="28" style="flex-shrink:0;">
+      <defs><mask id="mn"><path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/><path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/><path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/><path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/><path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/><path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/><path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/><path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/><path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/><path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/><circle cx="0" cy="0" r="71.19" fill="black"/><polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/></mask></defs>
+      <rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mn)"/>
+    </svg>
+    Pentagon Physics
+  </a>
+  <a href="index.html#programme">Programme</a>
+  <a href="index.html#results">Results</a>
+  <a href="index.html#papers">Papers</a>
+  <a href="tools.html">Tools</a>
+  <a href="essays.html">Essays</a>
+  <a href="pipeline.html">Pipeline</a>
+  <a href="media.html" class="active">Media</a>
+  <a href="news.html">News</a>
+  <a href="faqs.html">137 FAQs</a>
+</header>
+
+<div class="hero">
+  <div class="hero-tag">Podcasts &amp; Talks</div>
+  <h1>Media</h1>
+  <p>Audio explorations of the Pentagon Physics programme — from the single axiom to every constant in nature.</p>
+</div>
+
+<section class="episodes">
+  <div class="section-label">
+    Episodes <span class="count">1</span>
+  </div>
+
+  <!-- ═══ EPISODE 1 ═══ -->
+  <article class="episode" data-src="media/4D_Geometry_Predicts_Exotic_Atomic_Masses.m4a">
+    <div class="ep-header">
+      <div class="ep-artwork">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="100" height="100">
+          <defs>
+            <linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#5DA8D0" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#F2C94C" stop-opacity="0.6"/>
+            </linearGradient>
+          </defs>
+          <polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19"
+                   fill="none" stroke="url(#ag)" stroke-width="2.5" stroke-linejoin="round" opacity="0.7"/>
+          <polygon points="0,-55 52.31,-17 32.36,44.55 -32.36,44.55 -52.31,-17"
+                   fill="none" stroke="url(#ag)" stroke-width="1.5" stroke-linejoin="round" opacity="0.45"/>
+          <circle cx="0" cy="0" r="8" fill="none" stroke="#F2C94C" stroke-width="1" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="ep-info">
+        <div class="ep-number">Episode 01</div>
+        <h2 class="ep-title">4D Geometry Predicts Exotic Atomic Masses</h2>
+        <div class="ep-meta">
+          <span>Eric McLean</span>
+          <span class="dot"></span>
+          <span>April 2026</span>
+          <span class="dot"></span>
+          <span class="ep-duration">--:--</span>
+        </div>
+        <p class="ep-desc">
+          How does a single self-referential axiom predict the masses of exotic atoms?
+          This episode walks through the 600-cell geometry, the bridge-line algebra,
+          and the cascade that locks every nuclear mass to a theorem —
+          not a measurement.
+        </p>
+      </div>
+    </div>
+
+    <div class="ep-player">
+      <button class="play-btn" aria-label="Play episode">
+        <svg class="play-icon" viewBox="0 0 24 24" width="20" height="20">
+          <polygon points="8,5 19,12 8,19"/>
+        </svg>
+        <svg class="pause-icon" viewBox="0 0 24 24" width="20" height="20">
+          <rect x="7" y="5" width="3" height="14" rx="1"/>
+          <rect x="14" y="5" width="3" height="14" rx="1"/>
+        </svg>
+      </button>
+      <div class="player-track">
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+          <div class="progress-handle"></div>
+        </div>
+        <div class="time-row">
+          <span class="time-current">0:00</span>
+          <span class="time-total">--:--</span>
+        </div>
+      </div>
+      <button class="speed-btn">1x</button>
+      <div class="volume-group">
+        <svg class="vol-icon" viewBox="0 0 24 24">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 8.5v7a4.49 4.49 0 002.5-3.5zM14 3.23v2.06a6.51 6.51 0 010 13.42v2.06A8.51 8.51 0 0014 3.23z"/>
+        </svg>
+        <div class="vol-bar"><div class="vol-fill"></div></div>
+      </div>
+    </div>
+
+    <div class="ep-topics">
+      <span class="topic-tag">600-cell</span>
+      <span class="topic-tag">Exotic atoms</span>
+      <span class="topic-tag">Nuclear masses</span>
+      <span class="topic-tag">Bridge lines</span>
+      <span class="topic-tag">4D geometry</span>
+    </div>
+
+    <div class="ep-actions">
+      <a class="dl-btn" href="media/4D_Geometry_Predicts_Exotic_Atomic_Masses.m4a" download>
+        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        Download Episode
+      </a>
+      <a class="dl-btn" href="papers/exotic-masses-predicted.html">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
+        Read the Paper
+      </a>
+    </div>
+  </article>
+</section>
+
+<div class="coming-soon">
+  <div class="cs-icon">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--text-dim)" stroke-width="1.5">
+      <path d="M12 18.5A1.5 1.5 0 0113.5 20v0a1.5 1.5 0 01-1.5 1.5v0A1.5 1.5 0 0110.5 20v0A1.5 1.5 0 0112 18.5z"/>
+      <path d="M19.5 8c0 6-3 7.5-6 10.5h-3C7.5 15.5 4.5 14 4.5 8a7.5 7.5 0 1115 0z"/>
+    </svg>
+  </div>
+  <h2>More Episodes Coming</h2>
+  <p>New episodes exploring the axiom, the constants, and the geometry behind the Standard Model.</p>
+</div>
+
+<footer>
+  <p>Pentagon Physics &middot; Eric McLean &middot; Independent Researcher, Cyprus &middot; 2026</p>
+  <a href="index.html">&larr; Back to main site</a>
+</footer>
+
+<script>
+document.querySelectorAll('.episode').forEach(card => {
+  const src = card.dataset.src;
+  const audio = new Audio();
+  audio.preload = 'metadata';
+  audio.src = src;
+
+  const playBtn    = card.querySelector('.play-btn');
+  const progBar    = card.querySelector('.progress-bar');
+  const progFill   = card.querySelector('.progress-fill');
+  const progHandle = card.querySelector('.progress-handle');
+  const timeCur    = card.querySelector('.time-current');
+  const timeTotal  = card.querySelector('.time-total');
+  const durLabel   = card.querySelector('.ep-duration');
+  const speedBtn   = card.querySelector('.speed-btn');
+  const volBar     = card.querySelector('.vol-bar');
+  const volFill    = card.querySelector('.vol-fill');
+  const volIcon    = card.querySelector('.vol-icon');
+
+  const speeds = [1, 1.25, 1.5, 1.75, 2, 0.75];
+  let si = 0;
+
+  function fmt(s) {
+    if (!isFinite(s)) return '--:--';
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const sec = Math.floor(s % 60);
+    return h > 0
+      ? h + ':' + String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0')
+      : m + ':' + String(sec).padStart(2,'0');
+  }
+
+  audio.addEventListener('loadedmetadata', () => {
+    timeTotal.textContent = fmt(audio.duration);
+    durLabel.textContent = fmt(audio.duration);
+  });
+
+  audio.addEventListener('timeupdate', () => {
+    const pct = (audio.currentTime / audio.duration) * 100;
+    progFill.style.width = pct + '%';
+    progHandle.style.left = pct + '%';
+    timeCur.textContent = fmt(audio.currentTime);
+  });
+
+  audio.addEventListener('ended', () => {
+    playBtn.classList.remove('playing');
+  });
+
+  playBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      // pause any other players
+      document.querySelectorAll('audio').forEach(a => { if (a !== audio) a.pause(); });
+      document.querySelectorAll('.play-btn').forEach(b => b.classList.remove('playing'));
+      audio.play();
+      playBtn.classList.add('playing');
+    } else {
+      audio.pause();
+      playBtn.classList.remove('playing');
+    }
+  });
+
+  progBar.addEventListener('click', e => {
+    const pct = e.offsetX / progBar.offsetWidth;
+    audio.currentTime = pct * audio.duration;
+  });
+
+  speedBtn.addEventListener('click', () => {
+    si = (si + 1) % speeds.length;
+    audio.playbackRate = speeds[si];
+    speedBtn.textContent = speeds[si] + 'x';
+  });
+
+  // Volume
+  let vol = 0.8;
+  audio.volume = vol;
+
+  if (volBar) {
+    volBar.addEventListener('click', e => {
+      vol = e.offsetX / volBar.offsetWidth;
+      audio.volume = Math.max(0, Math.min(1, vol));
+      volFill.style.width = (audio.volume * 100) + '%';
+      audio.muted = false;
+    });
+  }
+
+  if (volIcon) {
+    volIcon.addEventListener('click', () => {
+      audio.muted = !audio.muted;
+      volFill.style.width = audio.muted ? '0%' : (audio.volume * 100) + '%';
+    });
+  }
+});
+</script>
+</body>
+</html>
