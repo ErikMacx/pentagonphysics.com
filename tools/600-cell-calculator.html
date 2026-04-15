@@ -266,7 +266,7 @@ function render() {
   // Proton cell
   const pShells = getShells(Z);
   let pHTML = `<div class="card-label">Proton 600-cell</div>
-    <div class="cell-title blue">${Z} of 120 eigenvectors occupied${pMagic ? ' <span style="color:#f0883e">— shell closed</span>' : ''}</div>
+    <div class="cell-title blue">${Z} of 240 states occupied (120 eigenvectors × 2 spins)${pMagic ? ' <span style="color:#f0883e">— shell closed</span>' : ''}</div>
     ${shellHTML(pShells, 'blue', Z)}`;
   if (Z <= 30) pHTML += `<div class="bonding-note">Bonding modes: ${Math.min(Z,30)}/30${Z===30 ? ' <span class="sat">— SATURATED</span>' : ''}</div>`;
   document.getElementById('proton-card').innerHTML = pHTML;
@@ -274,7 +274,7 @@ function render() {
   // Neutron cell
   const nShells = getShells(N);
   let nHTML = `<div class="card-label">Neutron 600-cell</div>
-    <div class="cell-title purple">${N} of 120 eigenvectors occupied${nMagic ? ' <span style="color:#f0883e">— shell closed</span>' : ''}</div>
+    <div class="cell-title purple">${N} of 240 states occupied (120 eigenvectors × 2 spins)${nMagic ? ' <span style="color:#f0883e">— shell closed</span>' : ''}</div>
     ${shellHTML(nShells, 'purple', N)}`;
   if (N <= 30) nHTML += `<div class="bonding-note">Bonding modes: ${Math.min(N,30)}/30${N===30 ? ' <span class="sat">— SATURATED</span>' : ''}</div>`;
   document.getElementById('neutron-card').innerHTML = nHTML;
