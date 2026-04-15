@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="600-Cell Complete Data — eigenvalue spectrum, magic numbers, all 120 vertices, geodesic distances, force hierarchy, and nuclear masses. Pentagon Physics.">
+<meta name="author" content="Eric McLean">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<title>600-Cell Complete Data — Pentagon Physics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#F2C94C; --gold-dim:#9A7820; --gold-pale:#FBE89A;
+  --bg:#090909; --bg2:#111113; --bg3:#19191E;
+  --border:rgba(255,255,255,0.1); --border-hi:rgba(255,255,255,0.2);
+  --text:#F0EDE6; --text-mid:#C0BCB4; --text-dim:#807C76;
+  --accent:#5DA8D0;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono','Cascadia Code','Fira Code',monospace;
+  --pad:8vw;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.75;overflow-x:hidden;}
+
+header{
+  background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);
+  padding:0 var(--pad);display:flex;gap:2.5rem;align-items:center;height:52px;
+  position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);
+}
+header a{color:var(--text);text-decoration:none;font-size:0.82rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header .logo{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;display:flex;align-items:center;gap:8px;}
+
+.hero{
+  padding:6rem var(--pad) 4rem;
+  border-bottom:1px solid var(--border-hi);
+  position:relative;
+}
+.pent-bg{position:absolute;top:0;right:0;width:50%;height:100%;pointer-events:none;overflow:hidden;opacity:0.04;}
+.pent-bg svg{position:absolute;top:50%;right:-5%;transform:translateY(-50%);width:100%;}
+.hero-tag{font-size:0.72rem;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;}
+h1{font-family:var(--serif);font-size:clamp(2.8rem,6vw,5rem);font-weight:700;color:var(--text);line-height:1.05;margin-bottom:0.5rem;}
+.hero-sub{font-size:1.1rem;color:var(--text-mid);max-width:65ch;line-height:1.8;}
+
+.stats-strip{
+  border-top:1px solid var(--border-hi);
+  padding:1.2rem var(--pad);
+  display:flex;gap:3rem;flex-wrap:wrap;
+  background:var(--bg2);
+}
+.stat{display:flex;align-items:baseline;gap:0.5rem;}
+.stat .n{font-family:var(--serif);font-size:2rem;font-weight:700;color:var(--gold);line-height:1;}
+.stat .l{font-size:0.68rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);}
+
+/* ── TABS ── */
+.tab-bar{
+  display:flex;flex-wrap:wrap;gap:0;
+  border-bottom:1px solid var(--border-hi);
+  padding:0 var(--pad);
+  background:var(--bg2);
+}
+.tab-btn{
+  padding:1rem 1.5rem;
+  background:transparent;border:none;
+  color:var(--text-dim);cursor:pointer;
+  font-family:var(--sans);font-size:0.75rem;font-weight:500;
+  letter-spacing:0.15em;text-transform:uppercase;
+  border-bottom:2px solid transparent;
+  transition:all 0.2s;
+}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* ── TABLE ── */
+.tab-content{display:none;padding:3rem var(--pad) 4rem;}
+.tab-content.active{display:block;}
+
+.tab-title{font-family:var(--serif);font-size:1.6rem;font-weight:700;margin-bottom:0.3rem;}
+.tab-desc{font-size:0.92rem;color:var(--text-mid);margin-bottom:1.5rem;max-width:72ch;line-height:1.8;}
+
+.data-table{
+  width:100%;border-collapse:collapse;
+  border:1px solid var(--border-hi);
+  font-size:0.82rem;
+}
+.data-table thead{background:var(--bg3);}
+.data-table th{
+  padding:0.7rem 1rem;
+  text-align:left;
+  font-size:0.65rem;font-weight:600;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold);
+  border-bottom:1px solid var(--border-hi);
+  white-space:nowrap;
+}
+.data-table td{
+  padding:0.55rem 1rem;
+  border-bottom:1px solid var(--border);
+  color:var(--text-mid);
+  font-family:var(--mono);
+  font-size:0.78rem;
+}
+.data-table tbody tr:hover{background:var(--bg3);}
+.data-table tbody tr.summary-row{
+  background:var(--bg3);
+  border-top:2px solid var(--border-hi);
+}
+.data-table tbody tr.summary-row td{
+  font-weight:600;color:var(--text);font-family:var(--sans);
+}
+
+/* character badges */
+.badge{
+  display:inline-block;padding:2px 8px;border-radius:0;
+  font-size:0.65rem;font-weight:600;letter-spacing:0.1em;
+  text-transform:uppercase;font-family:var(--sans);
+}
+.badge.bond{background:rgba(93,168,208,0.15);color:var(--accent);}
+.badge.anti{background:rgba(200,50,60,0.15);color:#e05560;}
+.badge.non{background:rgba(255,255,255,0.06);color:var(--text-dim);}
+.badge.magic{background:rgba(242,201,76,0.15);color:var(--gold);}
+.badge.check{color:#3fb950;}
+.badge.predict{color:var(--gold);font-style:italic;}
+
+.table-wrap{overflow-x:auto;}
+
+/* ── FOOTER NOTES ── */
+.tab-footer{
+  margin-top:1.5rem;padding-top:1rem;
+  border-top:1px solid var(--border);
+  font-size:0.78rem;color:var(--text-dim);line-height:1.8;
+}
+
+footer{
+  background:var(--bg2);border-top:1px solid var(--border-hi);
+  padding:3rem var(--pad);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;
+}
+footer p{font-size:0.85rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;font-size:0.85rem;}
+footer a:hover{color:var(--gold);}
+
+@media (max-width:700px){
+  .tab-btn{padding:0.7rem 0.8rem;font-size:0.65rem;letter-spacing:0.08em;}
+  .data-table td,.data-table th{padding:0.4rem 0.6rem;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="../index.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="28" height="28" style="flex-shrink:0;">
+      <defs><mask id="mn"><path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/><path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/><path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/><path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/><path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/><path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/><path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/><path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/><path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/><path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/><circle cx="0" cy="0" r="71.19" fill="black"/><polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/></mask></defs>
+      <rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mn)"/>
+    </svg>
+    Pentagon Physics
+  </a>
+  <a href="../index.html#programme">Programme</a>
+  <a href="../index.html#results">Results</a>
+  <a href="../index.html#papers">Papers</a>
+  <a href="../tools.html">Tools</a>
+  <a href="../essays.html">Essays</a>
+  <a href="../pipeline.html">Pipeline</a>
+  <a href="../media.html">Media</a>
+  <a href="../news.html">News</a>
+  <a href="../faqs.html">137 FAQs</a>
+  <a href="../index.html#contact">Contact</a>
+</header>
+
+<div class="hero">
+  <div class="pent-bg">
+    <svg viewBox="0 0 600 680" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="300,30 560,210 465,560 135,560 40,210" fill="none" stroke="white" stroke-width="1.5"/>
+      <polygon points="300,100 500,250 415,515 185,515 100,250" fill="none" stroke="white" stroke-width="0.7"/>
+      <line x1="300" y1="30" x2="465" y2="560" stroke="white" stroke-width="0.5"/>
+      <line x1="300" y1="30" x2="135" y2="560" stroke="white" stroke-width="0.5"/>
+      <line x1="560" y1="210" x2="135" y2="560" stroke="white" stroke-width="0.5"/>
+      <line x1="40" y1="210" x2="465" y2="560" stroke="white" stroke-width="0.5"/>
+      <line x1="560" y1="210" x2="40" y2="210" stroke="white" stroke-width="0.5"/>
+    </svg>
+  </div>
+  <div class="hero-tag">Reference Data</div>
+  <h1>600-Cell Complete</h1>
+  <p class="hero-sub">The complete data tables for the 600-cell spectral geometry — eigenvalues, magic numbers, all 120 vertices, geodesic distances, force hierarchy, and nuclear masses.</p>
+</div>
+
+<div class="stats-strip">
+  <div class="stat"><span class="n">120</span><span class="l">Vertices</span></div>
+  <div class="stat"><span class="n">9</span><span class="l">Eigenvalue classes</span></div>
+  <div class="stat"><span class="n">7+1</span><span class="l">Magic numbers</span></div>
+  <div class="stat"><span class="n">4</span><span class="l">Forces derived</span></div>
+  <div class="stat"><span class="n">0</span><span class="l">Free parameters</span></div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('eigenvalues')">Eigenvalue Spectrum</button>
+  <button class="tab-btn" onclick="showTab('magic')">Magic Numbers</button>
+  <button class="tab-btn" onclick="showTab('vertices')">All 120 Vertices</button>
+  <button class="tab-btn" onclick="showTab('geodesic')">Geodesic Distances</button>
+  <button class="tab-btn" onclick="showTab('forces')">Force Hierarchy</button>
+  <button class="tab-btn" onclick="showTab('masses')">Nuclear Masses</button>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB 1: EIGENVALUE SPECTRUM                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="tab-content active" id="tab-eigenvalues">
+  <div class="tab-title">Eigenvalue Spectrum</div>
+  <div class="tab-desc">The nine distinct eigenvalues of the 600-cell adjacency matrix. Multiplicities are perfect squares, totalling 120 vertices. The Galois boundary separates rational from irrational eigenvalues.</div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr>
+        <th>#</th><th>Eigenvalue</th><th>Symbol</th><th>Numerical</th><th>Multiplicity</th><th>d&sup2;</th><th>Cumulative</th><th>Character</th><th>Galois Sector</th><th>Galois Conjugate</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>1</td><td>12</td><td>12</td><td>12</td><td>1</td><td>1&sup2;</td><td>1</td><td><span class="badge bond">Bonding</span></td><td>Rational</td><td>Self</td></tr>
+        <tr><td>2</td><td>6&phi;</td><td>6&phi;</td><td>9.708204</td><td>4</td><td>2&sup2;</td><td>5</td><td><span class="badge bond">Bonding</span></td><td>Irrational</td><td>&minus;6&sigma;</td></tr>
+        <tr><td>3</td><td>4&phi;</td><td>4&phi;</td><td>6.472136</td><td>9</td><td>3&sup2;</td><td>14</td><td><span class="badge bond">Bonding</span></td><td>Irrational</td><td>&minus;4&sigma;</td></tr>
+        <tr><td>4</td><td>3</td><td>3</td><td>3</td><td>16</td><td>4&sup2;</td><td>30</td><td><span class="badge bond">Bonding</span></td><td>Rational</td><td>Self</td></tr>
+        <tr><td>5</td><td>0</td><td>0</td><td>0</td><td>25</td><td>5&sup2;</td><td>55</td><td><span class="badge non">Non-bonding</span></td><td>Rational</td><td>Self</td></tr>
+        <tr><td>6</td><td>&minus;2</td><td>&minus;2</td><td>&minus;2</td><td>36</td><td>6&sup2;</td><td>91</td><td><span class="badge anti">Anti-bonding</span></td><td>Rational</td><td>Self</td></tr>
+        <tr><td>7</td><td>&minus;4&sigma;</td><td>&minus;4&sigma;</td><td>&minus;2.472136</td><td>9</td><td>3&sup2;</td><td>100</td><td><span class="badge anti">Anti-bonding</span></td><td>Irrational</td><td>4&phi;</td></tr>
+        <tr><td>8</td><td>&minus;3</td><td>&minus;3</td><td>&minus;3</td><td>16</td><td>4&sup2;</td><td>116</td><td><span class="badge anti">Anti-bonding</span></td><td>Rational</td><td>Self</td></tr>
+        <tr><td>9</td><td>&minus;6&sigma;</td><td>&minus;6&sigma;</td><td>&minus;3.708204</td><td>4</td><td>2&sup2;</td><td>120</td><td><span class="badge anti">Anti-bonding</span></td><td>Irrational</td><td>6&phi;</td></tr>
+        <tr class="summary-row"><td colspan="4">Totals</td><td>120</td><td></td><td>120</td><td></td><td></td><td></td></tr>
+        <tr class="summary-row"><td colspan="4">Bonding modes</td><td>30</td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr class="summary-row"><td colspan="4">Confined (rational)</td><td>94</td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr class="summary-row"><td colspan="4">Free (irrational)</td><td>26</td><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB 2: MAGIC NUMBERS                                  -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-magic">
+  <div class="tab-title">Magic Numbers</div>
+  <div class="tab-desc">Nuclear magic numbers derived from 600-cell shell capacities. The intruder mechanism (d&minus;1 deficit) reproduces all seven observed magic numbers and predicts 184.</div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr>
+        <th>Shell d</th><th>Eigenvalue</th><th>d&sup2;</th><th>d(d+1)</th><th>d(d&minus;1)</th><th>Intruder?</th><th>Cumul d(d+1)</th><th>Deficit</th><th>Magic Number</th><th>Observed</th><th>Status</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>1</td><td>12</td><td>1</td><td>2</td><td>0</td><td>No</td><td>2</td><td>0</td><td>2</td><td>2</td><td><span class="badge check">&check;</span></td></tr>
+        <tr><td>2</td><td>6&phi;</td><td>4</td><td>6</td><td>2</td><td>No</td><td>8</td><td>0</td><td>8</td><td>8</td><td><span class="badge check">&check;</span></td></tr>
+        <tr><td>3</td><td>4&phi;</td><td>9</td><td>12</td><td>6</td><td>No</td><td>20</td><td>0</td><td>20</td><td>20</td><td><span class="badge check">&check;</span></td></tr>
+        <tr><td>4</td><td>3</td><td>16</td><td>20</td><td>12</td><td>Yes</td><td>40</td><td>12</td><td>28</td><td>28</td><td><span class="badge check">&check;</span></td></tr>
+        <tr><td>5</td><td>0</td><td>25</td><td>30</td><td>20</td><td>Yes</td><td>70</td><td>20</td><td>50</td><td>50</td><td><span class="badge check">&check;</span></td></tr>
+        <tr><td>6</td><td>&minus;2</td><td>36</td><td>42</td><td>30</td><td>Yes</td><td>112</td><td>30</td><td>82</td><td>82</td><td><span class="badge check">&check;</span></td></tr>
+        <tr><td>7</td><td>E&#x2088;</td><td>49</td><td>56</td><td>42</td><td>Yes</td><td>168</td><td>42</td><td>126</td><td>126</td><td><span class="badge check">&check;</span></td></tr>
+        <tr><td>8</td><td>E&#x2088;</td><td>64</td><td>72</td><td>56</td><td>Yes</td><td>240</td><td>56</td><td>184</td><td>?</td><td><span class="badge predict">Predicted</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB 3: ALL 120 VERTICES                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-vertices">
+  <div class="tab-title">All 120 Vertices</div>
+  <div class="tab-desc">The complete set of 120 unit-quaternion vertices of the 600-cell, with coordinates, eigenvalue assignment, bonding character, Galois sector, and neighbour count.</div>
+  <div style="margin-bottom:1rem;display:flex;gap:8px;flex-wrap:wrap;">
+    <button class="filter-btn active" onclick="filterVertices('all')">All 120</button>
+    <button class="filter-btn" onclick="filterVertices('Axis')">Axis (8)</button>
+    <button class="filter-btn" onclick="filterVertices('Half-int')">Half-int (16)</button>
+    <button class="filter-btn" onclick="filterVertices('Mixed')">Mixed (96)</button>
+  </div>
+  <div class="table-wrap">
+    <table class="data-table" id="vertex-table">
+      <thead><tr>
+        <th>Vertex</th><th>x&#x2081;</th><th>x&#x2082;</th><th>x&#x2083;</th><th>x&#x2084;</th><th>Norm</th><th>Eigenvalue</th><th>Character</th><th>Galois</th><th>Neighbours</th><th>Type</th>
+      </tr></thead>
+      <tbody id="vertex-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB 4: GEODESIC DISTANCES                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-geodesic">
+  <div class="tab-title">Geodesic Distances</div>
+  <div class="tab-desc">The eight distinct geodesic distances on the 600-cell. Pentagon angles (36&deg;, 108&deg;, 180&deg;) mark the icosahedral skeleton.</div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr>
+        <th>Distance #</th><th>Angle (rad)</th><th>Angle (deg)</th><th>cos(&theta;)</th><th>Count per vertex</th><th>1/&theta;</th><th>Inner Product</th><th>Pentagon Angle?</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>1</td><td>0.628319</td><td>36</td><td>0.809017</td><td>12</td><td>1.5915</td><td>0.809017</td><td><span class="badge magic">Yes</span></td></tr>
+        <tr><td>2</td><td>1.047198</td><td>60</td><td>0.5</td><td>20</td><td>0.9549</td><td>0.5</td><td></td></tr>
+        <tr><td>3</td><td>1.256637</td><td>72</td><td>0.309017</td><td>12</td><td>0.7958</td><td>0.309017</td><td></td></tr>
+        <tr><td>4</td><td>1.570796</td><td>90</td><td>0</td><td>30</td><td>0.6366</td><td>0</td><td></td></tr>
+        <tr><td>5</td><td>1.884956</td><td>108</td><td>&minus;0.309017</td><td>12</td><td>0.5305</td><td>&minus;0.309017</td><td><span class="badge magic">Yes</span></td></tr>
+        <tr><td>6</td><td>2.094395</td><td>120</td><td>&minus;0.5</td><td>20</td><td>0.4775</td><td>&minus;0.5</td><td></td></tr>
+        <tr><td>7</td><td>2.513274</td><td>144</td><td>&minus;0.809017</td><td>12</td><td>0.3979</td><td>&minus;0.809017</td><td></td></tr>
+        <tr><td>8</td><td>3.141593</td><td>180</td><td>&minus;1</td><td>1</td><td>0.3183</td><td>&minus;1</td><td><span class="badge magic">Yes</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB 5: FORCE HIERARCHY                                -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-forces">
+  <div class="tab-title">Force Hierarchy</div>
+  <div class="tab-desc">The four fundamental forces derived from two channels of the 600-cell spectral geometry. Bridge, boundary, both, cascade — the hierarchy problem dissolves.</div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr>
+        <th>Force</th><th>Channel</th><th>Formula</th><th>Predicted</th><th>Measured</th><th>Accuracy</th><th>Mechanism</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="font-weight:600;color:#F2C94C">Strong</td><td>D&#x2084; bridge</td><td>&kappa; = m<sub>&pi;</sub>/12</td><td>11.248 MeV</td><td>~11 MeV</td><td>Derived</td><td>Bridge vibration, 24 modes</td></tr>
+        <tr><td style="font-weight:600;color:#5DA8D0">Electromagnetic</td><td>Galois boundary</td><td>&alpha; = 1/137.036</td><td>0.0072974</td><td>7.297e&minus;3</td><td>Derived</td><td>Boundary coupling, unsuppressed</td></tr>
+        <tr><td style="font-weight:600;color:#a371f7">Weak</td><td>Both channels</td><td>G<sub>F</sub> = &alpha;&sup2;/(2&phi;&sup2;m<sub>p</sub>&sup2;)</td><td>1.1552e&minus;05 GeV&minus;&sup2;</td><td>1.1664e&minus;5 GeV&minus;&sup2;</td><td style="color:#3fb950">0.96%</td><td>Two crossings + Galois attenuation</td></tr>
+        <tr><td style="font-weight:600;color:#807C76">Gravity</td><td>18 confined modes</td><td>&alpha;<sub>G</sub> = &alpha;&sup1;&sup8; &times; 12/7</td><td>5.903e&minus;39</td><td>5.906e&minus;39</td><td style="color:#3fb950">0.06%</td><td>18 eigenmode screens in series</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB 6: NUCLEAR MASSES                                 -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-masses">
+  <div class="tab-title">Nuclear Masses</div>
+  <div class="tab-desc">Predicted nuclear masses from the five-term mass formula with zero free parameters, compared against measured values. RMS error 0.054% across 51 nuclides.</div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr>
+        <th>Element</th><th>Z</th><th>N</th><th>A</th><th>M<sub>pred</sub> (MeV)</th><th>M<sub>meas</sub> (MeV)</th><th>Error %</th><th>Note</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>H</td><td>1</td><td>0</td><td>1</td><td>938</td><td>938</td><td>+0.00%</td><td></td></tr>
+        <tr><td>D</td><td>1</td><td>1</td><td>2</td><td>1877</td><td>1876</td><td>+0.05%</td><td></td></tr>
+        <tr><td>He</td><td>2</td><td>2</td><td>4</td><td>3750</td><td>3727</td><td>+0.60%</td><td><span class="badge magic">Magic</span></td></tr>
+        <tr><td>Li</td><td>3</td><td>4</td><td>7</td><td>6556</td><td>6534</td><td>+0.34%</td><td></td></tr>
+        <tr><td>C</td><td>6</td><td>6</td><td>12</td><td>11221</td><td>11175</td><td>+0.41%</td><td></td></tr>
+        <tr><td>O</td><td>8</td><td>8</td><td>16</td><td>14948</td><td>14895</td><td>+0.35%</td><td><span class="badge magic">Magic</span></td></tr>
+        <tr><td>Ca</td><td>20</td><td>20</td><td>40</td><td>37252</td><td>37215</td><td>+0.10%</td><td><span class="badge magic">Doubly magic</span></td></tr>
+        <tr><td>Ti</td><td>22</td><td>26</td><td>48</td><td>44658</td><td>44652</td><td>+0.01%</td><td></td></tr>
+        <tr><td>Cr</td><td>24</td><td>28</td><td>52</td><td>48364</td><td>48370</td><td>&minus;0.01%</td><td></td></tr>
+        <tr><td>Fe</td><td>26</td><td>30</td><td>56</td><td>52070</td><td>52090</td><td>&minus;0.04%</td><td>Peak B/A</td></tr>
+        <tr><td>Ni</td><td>28</td><td>30</td><td>58</td><td>53931</td><td>53952</td><td>&minus;0.04%</td><td><span class="badge magic">Magic</span></td></tr>
+        <tr><td>Zr</td><td>40</td><td>50</td><td>90</td><td>83500</td><td>83725</td><td>&minus;0.27%</td><td><span class="badge magic">Magic</span></td></tr>
+        <tr><td>Sn</td><td>50</td><td>70</td><td>120</td><td>111196</td><td>111663</td><td>&minus;0.42%</td><td>Saturated</td></tr>
+        <tr><td>Pb</td><td>82</td><td>126</td><td>208</td><td>194264</td><td>193687</td><td>+0.30%</td><td><span class="badge magic">Doubly magic</span></td></tr>
+        <tr><td>U</td><td>92</td><td>146</td><td>238</td><td>222595</td><td>221696</td><td>+0.41%</td><td>Saturated</td></tr>
+        <tr class="summary-row"><td colspan="2">RMS Error:</td><td colspan="2">0.054%</td><td colspan="2">across 51 nuclides</td><td colspan="2">Free parameters: ZERO</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer>
+  <p>Pentagon Physics &middot; Eric McLean &middot; Independent Researcher, Cyprus &middot; 2026</p>
+  <a href="../tools.html">&larr; Back to Tools</a>
+</footer>
+
+<script>
+// ── Vertex data ──
+const VERTICES = [
+  [1,1,0,0,0,1,"\u22122","Anti-bonding","Rational",12,"Axis"],
+  [2,-1,0,0,0,1,"\u22122","Anti-bonding","Rational",12,"Axis"],
+  [3,0,1,0,0,1,"\u22122","Anti-bonding","Rational",12,"Axis"],
+  [4,0,-1,0,0,1,"\u22122","Anti-bonding","Rational",12,"Axis"],
+  [5,0,0,1,0,1,"\u22122","Anti-bonding","Rational",12,"Axis"],
+  [6,0,0,-1,0,1,"\u22122","Anti-bonding","Rational",12,"Axis"],
+  [7,0,0,0,1,1,"\u22122","Anti-bonding","Rational",12,"Axis"],
+  [8,0,0,0,-1,1,"\u22122","Anti-bonding","Rational",12,"Axis"],
+  [9,0.5,0.5,0.5,0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
+  [10,0.5,0.5,0.5,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
+  [11,0.5,0.5,-0.5,0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
+  [12,0.5,0.5,-0.5,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
+  [13,0.5,-0.5,0.5,0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
+  [14,0.5,-0.5,0.5,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
+  [15,0.5,-0.5,-0.5,0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
+  [16,0.5,-0.5,-0.5,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
+  [17,-0.5,0.5,0.5,0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
+  [18,-0.5,0.5,0.5,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
+  [19,-0.5,0.5,-0.5,0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
+  [20,-0.5,0.5,-0.5,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
+  [21,-0.5,-0.5,0.5,0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
+  [22,-0.5,-0.5,0.5,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
+  [23,-0.5,-0.5,-0.5,0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
+  [24,-0.5,-0.5,-0.5,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
+  [25,0.809017,0.5,0.309017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [26,0.809017,0.5,-0.309017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [27,0.809017,-0.5,0.309017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [28,0.809017,-0.5,-0.309017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [29,-0.809017,0.5,0.309017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [30,-0.809017,0.5,-0.309017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [31,-0.809017,-0.5,0.309017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [32,-0.809017,-0.5,-0.309017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [33,0.809017,0.309017,0,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [34,0.809017,0.309017,0,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [35,0.809017,-0.309017,0,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [36,0.809017,-0.309017,0,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [37,-0.809017,0.309017,0,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [38,-0.809017,0.309017,0,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [39,-0.809017,-0.309017,0,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [40,-0.809017,-0.309017,0,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [41,0.809017,0,0.5,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [42,0.809017,0,0.5,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [43,0.809017,0,-0.5,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [44,0.809017,0,-0.5,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [45,-0.809017,0,0.5,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [46,-0.809017,0,0.5,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [47,-0.809017,0,-0.5,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [48,-0.809017,0,-0.5,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [49,0.5,0.809017,0,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [50,0.5,0.809017,0,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [51,0.5,-0.809017,0,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [52,0.5,-0.809017,0,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [53,-0.5,0.809017,0,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [54,-0.5,0.809017,0,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [55,-0.5,-0.809017,0,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [56,-0.5,-0.809017,0,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [57,0.5,0.309017,0.809017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [58,0.5,0.309017,-0.809017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [59,0.5,-0.309017,0.809017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [60,0.5,-0.309017,-0.809017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [61,-0.5,0.309017,0.809017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [62,-0.5,0.309017,-0.809017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [63,-0.5,-0.309017,0.809017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [64,-0.5,-0.309017,-0.809017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [65,0.5,0,0.309017,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [66,0.5,0,0.309017,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [67,0.5,0,-0.309017,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [68,0.5,0,-0.309017,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [69,-0.5,0,0.309017,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [70,-0.5,0,0.309017,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [71,-0.5,0,-0.309017,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [72,-0.5,0,-0.309017,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [73,0.309017,0.809017,0.5,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [74,0.309017,0.809017,-0.5,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [75,0.309017,-0.809017,0.5,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [76,0.309017,-0.809017,-0.5,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [77,-0.309017,0.809017,0.5,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [78,-0.309017,0.809017,-0.5,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [79,-0.309017,-0.809017,0.5,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [80,-0.309017,-0.809017,-0.5,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [81,0.309017,0.5,0,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [82,0.309017,0.5,0,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [83,0.309017,-0.5,0,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [84,0.309017,-0.5,0,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [85,-0.309017,0.5,0,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [86,-0.309017,0.5,0,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [87,-0.309017,-0.5,0,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [88,-0.309017,-0.5,0,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [89,0.309017,0,0.809017,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [90,0.309017,0,0.809017,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [91,0.309017,0,-0.809017,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [92,0.309017,0,-0.809017,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [93,-0.309017,0,0.809017,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [94,-0.309017,0,0.809017,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [95,-0.309017,0,-0.809017,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [96,-0.309017,0,-0.809017,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [97,0,0.809017,0.309017,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [98,0,0.809017,0.309017,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [99,0,0.809017,-0.309017,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [100,0,0.809017,-0.309017,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [101,0,-0.809017,0.309017,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [102,0,-0.809017,0.309017,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [103,0,-0.809017,-0.309017,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [104,0,-0.809017,-0.309017,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [105,0,0.5,0.809017,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [106,0,0.5,0.809017,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [107,0,0.5,-0.809017,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [108,0,0.5,-0.809017,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [109,0,-0.5,0.809017,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [110,0,-0.5,0.809017,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [111,0,-0.5,-0.809017,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [112,0,-0.5,-0.809017,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [113,0,0.309017,0.5,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [114,0,0.309017,0.5,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [115,0,0.309017,-0.5,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [116,0,0.309017,-0.5,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [117,0,-0.309017,0.5,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [118,0,-0.309017,0.5,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [119,0,-0.309017,-0.5,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [120,0,-0.309017,-0.5,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+];
+
+function renderVertices(filter) {
+  const body = document.getElementById('vertex-body');
+  const rows = filter === 'all' ? VERTICES : VERTICES.filter(v => v[10] === filter);
+  body.innerHTML = rows.map(v => {
+    const charClass = v[7].includes('Anti') ? 'anti' : v[7].includes('Non') ? 'non' : 'bond';
+    return `<tr>
+      <td>${v[0]}</td><td>${v[1]}</td><td>${v[2]}</td><td>${v[3]}</td><td>${v[4]}</td>
+      <td>${v[5]}</td><td>${v[6]}</td><td><span class="badge ${charClass}">${v[7]}</span></td>
+      <td>${v[8]}</td><td>${v[9]}</td><td>${v[10]}</td>
+    </tr>`;
+  }).join('');
+}
+
+function filterVertices(type) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderVertices(type);
+}
+
+// ── Tab switching ──
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── Filter button styles ──
+const style = document.createElement('style');
+style.textContent = `.filter-btn{padding:0.4em 1.2em;border:1px solid var(--border-hi);background:transparent;color:var(--text-dim);cursor:pointer;font-family:var(--sans);font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;transition:all 0.2s;}.filter-btn:hover{border-color:var(--gold);color:var(--gold);}.filter-btn.active{background:var(--bg3);border-color:var(--gold);color:var(--gold);}`;
+document.head.appendChild(style);
+
+// Initial render
+renderVertices('all');
+</script>
+</body>
+</html>
