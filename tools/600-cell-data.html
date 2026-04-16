@@ -203,6 +203,7 @@ footer a:hover{color:var(--gold);}
   <button class="tab-btn" onclick="showTab('geodesic')">Geodesic Distances</button>
   <button class="tab-btn" onclick="showTab('forces')">Force Hierarchy</button>
   <button class="tab-btn" onclick="showTab('masses')">Nuclear Masses</button>
+  <button class="tab-btn" onclick="showTab('e8')">E&#x2088; Cross-Reference</button>
 </div>
 
 <!-- ══════════════════════════════════════════════════════ -->
@@ -265,7 +266,7 @@ footer a:hover{color:var(--gold);}
 <!-- ══════════════════════════════════════════════════════ -->
 <div class="tab-content" id="tab-vertices">
   <div class="tab-title">All 120 Vertices</div>
-  <div class="tab-desc">The complete set of 120 unit-quaternion vertices of the 600-cell, with coordinates, eigenvalue assignment, bonding character, Galois sector, and neighbour count.</div>
+  <div class="tab-desc">The complete set of 120 unit-quaternion vertices of the 600-cell, with coordinates, Galois sector, and neighbour count. Eigenvalues and bonding character are properties of eigenvectors — 120-dimensional linear combinations of vertices — not of individual vertices. See the Eigenvalue Spectrum tab for the 9 eigenspace decomposition.</div>
   <div style="margin-bottom:1rem;display:flex;gap:8px;flex-wrap:wrap;">
     <button class="filter-btn active" onclick="filterVertices('all')">All 120</button>
     <button class="filter-btn" onclick="filterVertices('Axis')">Axis (8)</button>
@@ -275,10 +276,13 @@ footer a:hover{color:var(--gold);}
   <div class="table-wrap">
     <table class="data-table" id="vertex-table">
       <thead><tr>
-        <th>Vertex</th><th>x&#x2081;</th><th>x&#x2082;</th><th>x&#x2083;</th><th>x&#x2084;</th><th>Norm</th><th>Eigenvalue</th><th>Character</th><th>Galois</th><th>Neighbours</th><th>Type</th>
+        <th>Vertex</th><th>x&#x2081;</th><th>x&#x2082;</th><th>x&#x2083;</th><th>x&#x2084;</th><th>Norm</th><th>Galois</th><th>Neighbours</th><th>Type</th>
       </tr></thead>
       <tbody id="vertex-body"></tbody>
     </table>
+  </div>
+  <div class="tab-footer">
+    Under the Galois automorphism &radic;5 &rarr; &minus;&radic;5, each Icosian vertex maps to another vertex in the 600-cell (Galois-active); axis and half-integer vertices are fixed (Galois-invariant).
   </div>
 </div>
 
@@ -361,6 +365,64 @@ footer a:hover{color:var(--gold);}
   </div>
 </div>
 
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB 7: E8 CROSS-REFERENCE                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-e8">
+  <div class="tab-title">E&#x2088; Cross-Reference &mdash; McKay Correspondence</div>
+  <div class="tab-desc">The 9 eigenspaces of the 600-cell adjacency matrix correspond to the 9 irreducible representations of the binary icosahedral group 2I, which form the 9 nodes of the extended E&#x2088; Dynkin diagram. Multiplicities sum to |2I| = 120 (one full 600-cell). Galois-invariant (rational) eigenvalues total 94 modes; Galois-active (irrational, &radic;5-involving) eigenvalues total 26 modes, paired under &radic;5 &rarr; &minus;&radic;5.</div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr>
+        <th>#</th><th>Eigenvalue</th><th>Numerical</th><th>Mult (d&sup2;)</th><th>2I irrep dim</th><th>Character</th><th>Galois sector</th><th>Galois pair</th><th>Role in E&#x2088; / Physical interpretation</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>1</td><td>+12</td><td>12</td><td>1</td><td>1</td><td><span class="badge bond">Bonding</span></td><td>Invariant (rational)</td><td>(self)</td><td>Trivial rep. Node 0 of &#x1D626;&#x2088;. Proton mass anchor, 600-cell ground mode.</td></tr>
+        <tr><td>2</td><td>+6&phi;</td><td>9.708203</td><td>4</td><td>2</td><td><span class="badge bond">Bonding</span></td><td>Active (irrational)</td><td>&minus;6&sigma;</td><td>Two-dim spin rep. Galois-paired with &minus;6&sigma;. Leading Galois-coupled bonding mode.</td></tr>
+        <tr><td>3</td><td>+4&phi;</td><td>6.472136</td><td>9</td><td>3</td><td><span class="badge bond">Bonding</span></td><td>Active (irrational)</td><td>&minus;4&sigma;</td><td>Three-dim rep (Galois-twisted). Paired with &minus;4&sigma;. Intermediate bonding modes.</td></tr>
+        <tr><td>4</td><td>+3</td><td>3</td><td>16</td><td>4</td><td><span class="badge bond">Bonding</span></td><td>Invariant (rational)</td><td>(self)</td><td>Four-dim rep. Node with Coxeter label 4. Completes 30 bonding modes with +12, +6&phi;, +4&phi;.</td></tr>
+        <tr><td>5</td><td>0</td><td>0</td><td>25</td><td>5</td><td><span class="badge non">Non-bonding</span></td><td>Invariant (rational)</td><td>(self)</td><td>Five-dim rep. Zero modes &mdash; the kernel. These are the &ldquo;no-binding&rdquo; eigenstates.</td></tr>
+        <tr><td>6</td><td>&minus;2</td><td>&minus;2</td><td>36</td><td>6</td><td><span class="badge anti">Anti-bonding</span></td><td>Invariant (rational)</td><td>(self)</td><td>Six-dim rep. Central node of &#x1D626;&#x2088; (largest multiplicity). Dominant anti-bonding channel.</td></tr>
+        <tr><td>7</td><td>&minus;4&sigma;</td><td>&minus;2.472136</td><td>9</td><td>3</td><td><span class="badge anti">Anti-bonding</span></td><td>Active (irrational)</td><td>+4&phi;</td><td>Three-dim rep (Galois conjugate of #3). Paired with +4&phi; under &radic;5 &rarr; &minus;&radic;5.</td></tr>
+        <tr><td>8</td><td>&minus;3</td><td>&minus;3</td><td>16</td><td>4</td><td><span class="badge anti">Anti-bonding</span></td><td>Invariant (rational)</td><td>(self)</td><td>Four-dim rep (second). Rational anti-bonding, mirrors +3 at negative eigenvalue.</td></tr>
+        <tr><td>9</td><td>&minus;6&sigma;</td><td>&minus;3.708203</td><td>4</td><td>2</td><td><span class="badge anti">Anti-bonding</span></td><td>Active (irrational)</td><td>+6&phi;</td><td>Two-dim rep (second spin). Galois conjugate of +6&phi;. Deepest Galois-active mode.</td></tr>
+        <tr class="summary-row"><td colspan="3">Totals</td><td>120</td><td>&Sigma; d&sup2;</td><td colspan="4"></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--border-hi);border:1px solid var(--border-hi);">
+    <div style="background:var(--bg2);padding:1.5rem;">
+      <div style="font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:0.4rem;">94</div>
+      <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.7rem;">Invariant modes</div>
+      <div style="font-size:0.85rem;color:var(--text-mid);line-height:1.7;">Galois-fixed, rational eigenvalues. Irreps #1, #4, #5, #6, #8 &mdash; dims 1, 4, 5, 6, 4.<br><span style="font-family:var(--mono);color:var(--text-dim);font-size:0.78rem;">1 + 16 + 25 + 36 + 16 = 94</span></div>
+    </div>
+    <div style="background:var(--bg2);padding:1.5rem;">
+      <div style="font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:0.4rem;">26</div>
+      <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.7rem;">Active modes</div>
+      <div style="font-size:0.85rem;color:var(--text-mid);line-height:1.7;">Galois-coupled, &radic;5-involving eigenvalues. Irreps #2, #3, #7, #9 &mdash; dims 2, 3, 3, 2.<br><span style="font-family:var(--mono);color:var(--text-dim);font-size:0.78rem;">4 + 9 + 9 + 4 = 26</span></div>
+    </div>
+    <div style="background:var(--bg2);padding:1.5rem;">
+      <div style="font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:0.4rem;">2</div>
+      <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.7rem;">Galois pairs</div>
+      <div style="font-size:0.85rem;color:var(--text-mid);line-height:1.7;">Eigenvalue &harr; Galois-conjugate eigenvalue. {+6&phi;, &minus;6&sigma;} at mult 4; {+4&phi;, &minus;4&sigma;} at mult 9.<br><span style="font-family:var(--mono);color:var(--text-dim);font-size:0.78rem;">(4+4) + (9+9) = 26</span></div>
+    </div>
+    <div style="background:var(--bg2);padding:1.5rem;">
+      <div style="font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:0.4rem;">30</div>
+      <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.7rem;">Bonding modes</div>
+      <div style="font-size:0.85rem;color:var(--text-mid);line-height:1.7;">Positive eigenvalues only. Irreps #1, #2, #3, #4.<br><span style="font-family:var(--mono);color:var(--text-dim);font-size:0.78rem;">1 + 4 + 9 + 16 = 30</span></div>
+    </div>
+  </div>
+
+  <div class="tab-footer">
+    <div style="font-weight:600;color:var(--text);margin-bottom:0.6rem;text-transform:uppercase;letter-spacing:0.12em;font-size:0.72rem;">Physical reading</div>
+    &bull; The 94 invariant modes are the confined sector &mdash; Galois-fixed, coupling only via &alpha;&#x2070; (strong) through the D&#x2084; bridge.<br>
+    &bull; The 26 active modes are the free sector &mdash; Galois-paired, coupling via &alpha; at the Galois boundary (electromagnetic).<br>
+    &bull; Weak interactions use both channels (&alpha;&sup2; &times; &sigma;&sup2;/2); gravity cascades through the 18 occupied confined eigenmodes (&alpha;&sup1;&sup8; &times; 12/7).<br>
+    &bull; Via McKay, each of the 9 irreps is a node of &#x1D626;&#x2088; (extended E&#x2088; Dynkin diagram) with Coxeter label = irrep dim.
+  </div>
+</div>
+
 <footer>
   <p>Pentagon Physics &middot; Eric McLean &middot; Independent Researcher, Cyprus &middot; 2026</p>
   <a href="../tools.html">&larr; Back to Tools</a>
@@ -368,140 +430,137 @@ footer a:hover{color:var(--gold);}
 
 <script>
 // ── Vertex data ──
+// [vertex, x1, x2, x3, x4, norm, galois, neighbours, type]
 const VERTICES = [
-  [1,1,0,0,0,1,"\u22122","Anti-bonding","Rational",12,"Axis"],
-  [2,-1,0,0,0,1,"\u22122","Anti-bonding","Rational",12,"Axis"],
-  [3,0,1,0,0,1,"\u22122","Anti-bonding","Rational",12,"Axis"],
-  [4,0,-1,0,0,1,"\u22122","Anti-bonding","Rational",12,"Axis"],
-  [5,0,0,1,0,1,"\u22122","Anti-bonding","Rational",12,"Axis"],
-  [6,0,0,-1,0,1,"\u22122","Anti-bonding","Rational",12,"Axis"],
-  [7,0,0,0,1,1,"\u22122","Anti-bonding","Rational",12,"Axis"],
-  [8,0,0,0,-1,1,"\u22122","Anti-bonding","Rational",12,"Axis"],
-  [9,0.5,0.5,0.5,0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
-  [10,0.5,0.5,0.5,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
-  [11,0.5,0.5,-0.5,0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
-  [12,0.5,0.5,-0.5,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
-  [13,0.5,-0.5,0.5,0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
-  [14,0.5,-0.5,0.5,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
-  [15,0.5,-0.5,-0.5,0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
-  [16,0.5,-0.5,-0.5,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
-  [17,-0.5,0.5,0.5,0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
-  [18,-0.5,0.5,0.5,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
-  [19,-0.5,0.5,-0.5,0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
-  [20,-0.5,0.5,-0.5,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
-  [21,-0.5,-0.5,0.5,0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
-  [22,-0.5,-0.5,0.5,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
-  [23,-0.5,-0.5,-0.5,0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
-  [24,-0.5,-0.5,-0.5,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Half-int"],
-  [25,0.809017,0.5,0.309017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [26,0.809017,0.5,-0.309017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [27,0.809017,-0.5,0.309017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [28,0.809017,-0.5,-0.309017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [29,-0.809017,0.5,0.309017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [30,-0.809017,0.5,-0.309017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [31,-0.809017,-0.5,0.309017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [32,-0.809017,-0.5,-0.309017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [33,0.809017,0.309017,0,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [34,0.809017,0.309017,0,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [35,0.809017,-0.309017,0,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [36,0.809017,-0.309017,0,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [37,-0.809017,0.309017,0,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [38,-0.809017,0.309017,0,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [39,-0.809017,-0.309017,0,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [40,-0.809017,-0.309017,0,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [41,0.809017,0,0.5,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [42,0.809017,0,0.5,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [43,0.809017,0,-0.5,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [44,0.809017,0,-0.5,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [45,-0.809017,0,0.5,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [46,-0.809017,0,0.5,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [47,-0.809017,0,-0.5,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [48,-0.809017,0,-0.5,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [49,0.5,0.809017,0,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [50,0.5,0.809017,0,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [51,0.5,-0.809017,0,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [52,0.5,-0.809017,0,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [53,-0.5,0.809017,0,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [54,-0.5,0.809017,0,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [55,-0.5,-0.809017,0,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [56,-0.5,-0.809017,0,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [57,0.5,0.309017,0.809017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [58,0.5,0.309017,-0.809017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [59,0.5,-0.309017,0.809017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [60,0.5,-0.309017,-0.809017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [61,-0.5,0.309017,0.809017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [62,-0.5,0.309017,-0.809017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [63,-0.5,-0.309017,0.809017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [64,-0.5,-0.309017,-0.809017,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [65,0.5,0,0.309017,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [66,0.5,0,0.309017,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [67,0.5,0,-0.309017,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [68,0.5,0,-0.309017,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [69,-0.5,0,0.309017,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [70,-0.5,0,0.309017,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [71,-0.5,0,-0.309017,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [72,-0.5,0,-0.309017,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [73,0.309017,0.809017,0.5,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [74,0.309017,0.809017,-0.5,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [75,0.309017,-0.809017,0.5,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [76,0.309017,-0.809017,-0.5,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [77,-0.309017,0.809017,0.5,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [78,-0.309017,0.809017,-0.5,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [79,-0.309017,-0.809017,0.5,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [80,-0.309017,-0.809017,-0.5,0,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [81,0.309017,0.5,0,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [82,0.309017,0.5,0,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [83,0.309017,-0.5,0,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [84,0.309017,-0.5,0,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [85,-0.309017,0.5,0,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [86,-0.309017,0.5,0,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [87,-0.309017,-0.5,0,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [88,-0.309017,-0.5,0,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [89,0.309017,0,0.809017,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [90,0.309017,0,0.809017,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [91,0.309017,0,-0.809017,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [92,0.309017,0,-0.809017,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [93,-0.309017,0,0.809017,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [94,-0.309017,0,0.809017,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [95,-0.309017,0,-0.809017,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [96,-0.309017,0,-0.809017,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [97,0,0.809017,0.309017,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [98,0,0.809017,0.309017,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [99,0,0.809017,-0.309017,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [100,0,0.809017,-0.309017,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [101,0,-0.809017,0.309017,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [102,0,-0.809017,0.309017,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [103,0,-0.809017,-0.309017,0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [104,0,-0.809017,-0.309017,-0.5,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [105,0,0.5,0.809017,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [106,0,0.5,0.809017,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [107,0,0.5,-0.809017,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [108,0,0.5,-0.809017,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [109,0,-0.5,0.809017,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [110,0,-0.5,0.809017,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [111,0,-0.5,-0.809017,0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [112,0,-0.5,-0.809017,-0.309017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [113,0,0.309017,0.5,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [114,0,0.309017,0.5,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [115,0,0.309017,-0.5,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [116,0,0.309017,-0.5,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [117,0,-0.309017,0.5,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [118,0,-0.309017,0.5,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [119,0,-0.309017,-0.5,0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
-  [120,0,-0.309017,-0.5,-0.809017,1,"\u22122","Anti-bonding","Rational",12,"Mixed"],
+  [1,1,0,0,0,1,"Rational (\u211A)",12,"Axis"],
+  [2,-1,0,0,0,1,"Rational (\u211A)",12,"Axis"],
+  [3,0,1,0,0,1,"Rational (\u211A)",12,"Axis"],
+  [4,0,-1,0,0,1,"Rational (\u211A)",12,"Axis"],
+  [5,0,0,1,0,1,"Rational (\u211A)",12,"Axis"],
+  [6,0,0,-1,0,1,"Rational (\u211A)",12,"Axis"],
+  [7,0,0,0,1,1,"Rational (\u211A)",12,"Axis"],
+  [8,0,0,0,-1,1,"Rational (\u211A)",12,"Axis"],
+  [9,0.5,0.5,0.5,0.5,1,"Rational (\u211A)",12,"Half-int"],
+  [10,0.5,0.5,0.5,-0.5,1,"Rational (\u211A)",12,"Half-int"],
+  [11,0.5,0.5,-0.5,0.5,1,"Rational (\u211A)",12,"Half-int"],
+  [12,0.5,0.5,-0.5,-0.5,1,"Rational (\u211A)",12,"Half-int"],
+  [13,0.5,-0.5,0.5,0.5,1,"Rational (\u211A)",12,"Half-int"],
+  [14,0.5,-0.5,0.5,-0.5,1,"Rational (\u211A)",12,"Half-int"],
+  [15,0.5,-0.5,-0.5,0.5,1,"Rational (\u211A)",12,"Half-int"],
+  [16,0.5,-0.5,-0.5,-0.5,1,"Rational (\u211A)",12,"Half-int"],
+  [17,-0.5,0.5,0.5,0.5,1,"Rational (\u211A)",12,"Half-int"],
+  [18,-0.5,0.5,0.5,-0.5,1,"Rational (\u211A)",12,"Half-int"],
+  [19,-0.5,0.5,-0.5,0.5,1,"Rational (\u211A)",12,"Half-int"],
+  [20,-0.5,0.5,-0.5,-0.5,1,"Rational (\u211A)",12,"Half-int"],
+  [21,-0.5,-0.5,0.5,0.5,1,"Rational (\u211A)",12,"Half-int"],
+  [22,-0.5,-0.5,0.5,-0.5,1,"Rational (\u211A)",12,"Half-int"],
+  [23,-0.5,-0.5,-0.5,0.5,1,"Rational (\u211A)",12,"Half-int"],
+  [24,-0.5,-0.5,-0.5,-0.5,1,"Rational (\u211A)",12,"Half-int"],
+  [25,0.809017,0.5,0.309017,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [26,0.809017,0.5,-0.309017,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [27,0.809017,-0.5,0.309017,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [28,0.809017,-0.5,-0.309017,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [29,-0.809017,0.5,0.309017,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [30,-0.809017,0.5,-0.309017,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [31,-0.809017,-0.5,0.309017,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [32,-0.809017,-0.5,-0.309017,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [33,0.809017,0.309017,0,0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [34,0.809017,0.309017,0,-0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [35,0.809017,-0.309017,0,0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [36,0.809017,-0.309017,0,-0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [37,-0.809017,0.309017,0,0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [38,-0.809017,0.309017,0,-0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [39,-0.809017,-0.309017,0,0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [40,-0.809017,-0.309017,0,-0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [41,0.809017,0,0.5,0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [42,0.809017,0,0.5,-0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [43,0.809017,0,-0.5,0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [44,0.809017,0,-0.5,-0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [45,-0.809017,0,0.5,0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [46,-0.809017,0,0.5,-0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [47,-0.809017,0,-0.5,0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [48,-0.809017,0,-0.5,-0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [49,0.5,0.809017,0,0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [50,0.5,0.809017,0,-0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [51,0.5,-0.809017,0,0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [52,0.5,-0.809017,0,-0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [53,-0.5,0.809017,0,0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [54,-0.5,0.809017,0,-0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [55,-0.5,-0.809017,0,0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [56,-0.5,-0.809017,0,-0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [57,0.5,0.309017,0.809017,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [58,0.5,0.309017,-0.809017,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [59,0.5,-0.309017,0.809017,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [60,0.5,-0.309017,-0.809017,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [61,-0.5,0.309017,0.809017,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [62,-0.5,0.309017,-0.809017,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [63,-0.5,-0.309017,0.809017,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [64,-0.5,-0.309017,-0.809017,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [65,0.5,0,0.309017,0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [66,0.5,0,0.309017,-0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [67,0.5,0,-0.309017,0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [68,0.5,0,-0.309017,-0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [69,-0.5,0,0.309017,0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [70,-0.5,0,0.309017,-0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [71,-0.5,0,-0.309017,0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [72,-0.5,0,-0.309017,-0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [73,0.309017,0.809017,0.5,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [74,0.309017,0.809017,-0.5,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [75,0.309017,-0.809017,0.5,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [76,0.309017,-0.809017,-0.5,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [77,-0.309017,0.809017,0.5,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [78,-0.309017,0.809017,-0.5,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [79,-0.309017,-0.809017,0.5,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [80,-0.309017,-0.809017,-0.5,0,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [81,0.309017,0.5,0,0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [82,0.309017,0.5,0,-0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [83,0.309017,-0.5,0,0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [84,0.309017,-0.5,0,-0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [85,-0.309017,0.5,0,0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [86,-0.309017,0.5,0,-0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [87,-0.309017,-0.5,0,0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [88,-0.309017,-0.5,0,-0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [89,0.309017,0,0.809017,0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [90,0.309017,0,0.809017,-0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [91,0.309017,0,-0.809017,0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [92,0.309017,0,-0.809017,-0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [93,-0.309017,0,0.809017,0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [94,-0.309017,0,0.809017,-0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [95,-0.309017,0,-0.809017,0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [96,-0.309017,0,-0.809017,-0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [97,0,0.809017,0.309017,0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [98,0,0.809017,0.309017,-0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [99,0,0.809017,-0.309017,0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [100,0,0.809017,-0.309017,-0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [101,0,-0.809017,0.309017,0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [102,0,-0.809017,0.309017,-0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [103,0,-0.809017,-0.309017,0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [104,0,-0.809017,-0.309017,-0.5,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [105,0,0.5,0.809017,0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [106,0,0.5,0.809017,-0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [107,0,0.5,-0.809017,0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [108,0,0.5,-0.809017,-0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [109,0,-0.5,0.809017,0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [110,0,-0.5,0.809017,-0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [111,0,-0.5,-0.809017,0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [112,0,-0.5,-0.809017,-0.309017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [113,0,0.309017,0.5,0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [114,0,0.309017,0.5,-0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [115,0,0.309017,-0.5,0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [116,0,0.309017,-0.5,-0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [117,0,-0.309017,0.5,0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [118,0,-0.309017,0.5,-0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [119,0,-0.309017,-0.5,0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
+  [120,0,-0.309017,-0.5,-0.809017,1,"Icosian (\u211A(\u221A5))",12,"Mixed"],
 ];
 
 function renderVertices(filter) {
   const body = document.getElementById('vertex-body');
-  const rows = filter === 'all' ? VERTICES : VERTICES.filter(v => v[10] === filter);
-  body.innerHTML = rows.map(v => {
-    const charClass = v[7].includes('Anti') ? 'anti' : v[7].includes('Non') ? 'non' : 'bond';
-    return `<tr>
+  const rows = filter === 'all' ? VERTICES : VERTICES.filter(v => v[8] === filter);
+  body.innerHTML = rows.map(v => `<tr>
       <td>${v[0]}</td><td>${v[1]}</td><td>${v[2]}</td><td>${v[3]}</td><td>${v[4]}</td>
-      <td>${v[5]}</td><td>${v[6]}</td><td><span class="badge ${charClass}">${v[7]}</span></td>
-      <td>${v[8]}</td><td>${v[9]}</td><td>${v[10]}</td>
-    </tr>`;
-  }).join('');
+      <td>${v[5]}</td><td>${v[6]}</td><td>${v[7]}</td><td>${v[8]}</td>
+    </tr>`).join('');
 }
 
 function filterVertices(type) {
