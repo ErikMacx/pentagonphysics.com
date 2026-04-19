@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pentagon Physics — twelve famous unsolved problems in physics, solved from one axiom.">
+<meta name="author" content="Eric McLean">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Solved — Pentagon Physics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #D4A843;
+  --gold-bright: #F0C860;
+  --gold-dim: #8A6E2A;
+  --bg: #0A0A0B;
+  --bg2: #111113;
+  --bg3: #181820;
+  --border: #2A2A35;
+  --border-bright: #3A3A48;
+  --text: #E8E4DC;
+  --text-mid: #B8B4AC;
+  --text-dim: #787470;
+  --accent: #5B9BC4;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 18px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* ── HEADER NAV ── */
+header{background:rgba(10,10,11,0.94);border-bottom:1px solid var(--border);padding:0 10vw;display:flex;gap:2.5rem;align-items:center;height:52px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+header a{font-family:var(--sans);font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header a.active{color:var(--gold);}
+header .logo{font-family:var(--serif);font-size:1rem;font-weight:600;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;display:flex;align-items:center;gap:8px;}
+
+/* ── HEADER ── */
+.header {
+  padding: 6rem 10vw 3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.header-tag {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: rise 0.9s 0.1s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.header-title {
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: rise 0.9s 0.25s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.header-sub {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text-mid);
+  max-width: 640px;
+  opacity: 0;
+  animation: rise 0.9s 0.4s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+/* ── GRID ── */
+.grid-section {
+  padding: 4rem 10vw 6rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.2rem;
+  opacity: 0;
+  animation: rise 0.9s 0.55s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.card {
+  position: relative;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 2rem 2rem 2.4rem;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s, transform 0.2s;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.card:hover {
+  border-color: var(--gold-dim);
+  background: var(--bg3);
+  transform: translateY(-2px);
+}
+
+.card-problem {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.card-answer {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--text-mid);
+}
+
+.card-doi {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--accent);
+  margin-top: auto;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
+  letter-spacing: 0.05em;
+}
+
+/* ── FOOTER ── */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 10vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;font-family:var(--sans);}
+footer p{font-size:0.85rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;font-size:0.85rem;}
+footer a:hover{color:var(--gold);}
+
+/* ── ANIMATION ── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .header, .grid-section, footer { padding-left: 6vw; padding-right: 6vw; }
+  header { padding: 0 6vw; gap: 1.5rem; }
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="28" height="28" style="flex-shrink:0;">
+      <defs><mask id="mn"><path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/><path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/><path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/><path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/><path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/><path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/><path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/><path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/><path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/><path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/><circle cx="0" cy="0" r="71.19" fill="black"/><polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/></mask></defs>
+      <rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mn)"/>
+    </svg>
+    Pentagon Physics
+  </a>
+  <a href="index.html#programme">Programme</a>
+  <a href="index.html#results">Results</a>
+  <a href="index.html#papers">Papers</a>
+  <a href="solved.html" class="active">Solved</a>
+  <a href="tools.html">Tools</a>
+  <a href="essays.html">Essays</a>
+  <a href="pipeline.html">Pipeline</a>
+  <a href="media.html">Media</a>
+  <a href="news.html">News</a>
+  <a href="faqs.html">137 FAQs</a>
+</header>
+
+<div class="header">
+  <div class="header-tag">Pentagon Physics</div>
+  <h1 class="header-title">Solved.</h1>
+  <p class="header-sub">Twelve famous open problems in physics. One axiom. Zero free parameters. Each card links to the paper that closes it.</p>
+</div>
+
+<div class="grid-section">
+  <div class="grid">
+
+    <a class="card" href="https://doi.org/10.5281/zenodo.19109094" target="_blank">
+      <div class="card-problem">The Hierarchy Problem</div>
+      <div class="card-title">Why is gravity 10<sup>36</sup> weaker than electromagnetism?</div>
+      <div class="card-answer">Because gravity crosses 18 eigenvalue modes through the D₄ bridge. Each mode screens by α. The total: G = α¹⁸ × 12/7. Not weak. Screened.</div>
+      <div class="card-doi">doi:10.5281/zenodo.19109094</div>
+    </a>
+
+    <a class="card" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">
+      <div class="card-problem">The Strong CP Problem</div>
+      <div class="card-title">Why is the QCD θ-parameter zero?</div>
+      <div class="card-answer">The D₄ bridge is Galois-invariant. All 24 vertices have no φ-content. A CP-violating θ would require the bridge to distinguish φ from σ. It cannot. θ = 0 is a theorem of the bridge geometry. No axion needed.</div>
+      <div class="card-doi">doi:10.5281/zenodo.19147058</div>
+    </a>
+
+    <a class="card" href="https://doi.org/10.5281/zenodo.19147058" target="_blank">
+      <div class="card-problem">Three Generations</div>
+      <div class="card-title">Why are there exactly three families of fermions?</div>
+      <div class="card-answer">D₄ triality. The group so(8) has three 8-dimensional representations permuted by S₃. These force three copies of every fermion. Not two. Not four. Three, by the symmetry of the bridge.</div>
+      <div class="card-doi">doi:10.5281/zenodo.19147058</div>
+    </a>
+
+    <a class="card" href="https://doi.org/10.5281/zenodo.19115512" target="_blank">
+      <div class="card-problem">The Cosmological Constant</div>
+      <div class="card-title">Why is Λ so small but not zero?</div>
+      <div class="card-answer">De Sitter space is prevented. The axiom's potential has a minimum at φ⁻² = 38.2% matter, not at zero. The cosmological constant sits on the bridge line with slope α⁻¹ and intercept φ⁻².</div>
+      <div class="card-doi">doi:10.5281/zenodo.19115512</div>
+    </a>
+
+    <a class="card" href="https://doi.org/10.5281/zenodo.18912388" target="_blank">
+      <div class="card-problem">The Measurement Problem</div>
+      <div class="card-title">What determines quantum outcomes?</div>
+      <div class="card-answer">States live in 4D. Observers see 3D. Measurement is a hyperplane cutting a polytope. The Born rule is the squared projection: |proj|² = 1 − v₄². Collapse is geometry, not dynamics.</div>
+      <div class="card-doi">doi:10.5281/zenodo.18912388</div>
+    </a>
+
+    <a class="card" href="https://doi.org/10.5281/zenodo.19557759" target="_blank">
+      <div class="card-problem">Unification of GR and QM</div>
+      <div class="card-title">How do gravity and quantum mechanics fit together?</div>
+      <div class="card-answer">They are two eigenspaces of the same transfer matrix. E₈ = two 600-cells sharing a 24-cell. Matter in cell 1, geometry in cell 2, spin connection in the bridge. Four projections give four forces.</div>
+      <div class="card-doi">doi:10.5281/zenodo.19557759</div>
+    </a>
+
+    <a class="card" href="https://doi.org/10.5281/zenodo.18669206" target="_blank">
+      <div class="card-problem">Dark Energy / Dark Matter Ratio</div>
+      <div class="card-title">Why is the universe 68% dark energy and 27% dark matter?</div>
+      <div class="card-answer">The attractor is φ⁻¹ / φ⁻² = 61.8% / 38.2%. The current 68/27 split is an overshoot. The universe is oscillating toward the golden ratio. DESI is measuring the descent.</div>
+      <div class="card-doi">doi:10.5281/zenodo.18669206</div>
+    </a>
+
+    <a class="card" href="https://doi.org/10.5281/zenodo.19135102" target="_blank">
+      <div class="card-problem">Neutrino Masses</div>
+      <div class="card-title">What are the neutrino masses and why are they so small?</div>
+      <div class="card-answer">Q(ν) = σ² = 1/φ². Normal ordering: m₁ = 10.06, m₂ = 13.29, m₃ = 51.30 meV. Σm = 74.65 meV. Majorana, not Dirac. All from the axiom squared.</div>
+      <div class="card-doi">doi:10.5281/zenodo.19135102</div>
+    </a>
+
+    <a class="card" href="https://doi.org/10.5281/zenodo.18936715" target="_blank">
+      <div class="card-problem">Matter-Antimatter Asymmetry</div>
+      <div class="card-title">Why is there more matter than antimatter?</div>
+      <div class="card-answer">The Galois automorphism maps φ to σ but not symmetrically: |φ| > |σ|. The φ-direction expands state space. The σ-direction contracts it. The asymmetry is algebraic, present from the first act.</div>
+      <div class="card-doi">doi:10.5281/zenodo.18936715</div>
+    </a>
+
+    <a class="card" href="https://doi.org/10.5281/zenodo.18632291" target="_blank">
+      <div class="card-problem">Why Is Nature Lagrangian?</div>
+      <div class="card-title">Why does physics obey an action principle?</div>
+      <div class="card-answer">Because the axiom is a contraction mapping. Contraction mappings minimise a functional at each step. The Lagrangian is the cost function of the contraction. The action principle is the axiom iterating.</div>
+      <div class="card-doi">doi:10.5281/zenodo.18632291</div>
+    </a>
+
+    <a class="card" href="https://doi.org/10.5281/zenodo.19125869" target="_blank">
+      <div class="card-problem">Why Quantum?</div>
+      <div class="card-title">Why does nature obey quantum mechanics at all?</div>
+      <div class="card-answer">Because the 600-cell state space is finite and 4-dimensional. Superposition is the existence of multiple vertices in the same 3D shadow. Quantisation is the discreteness of the polytope.</div>
+      <div class="card-doi">doi:10.5281/zenodo.19125869</div>
+    </a>
+
+    <a class="card" href="https://doi.org/10.5281/zenodo.18648550" target="_blank">
+      <div class="card-problem">The Fine Structure Constant</div>
+      <div class="card-title">Why does α⁻¹ ≈ 137.036?</div>
+      <div class="card-answer">α is a convergent series generated by the axiom. Each term is 2^(k²) × ζ(2k+1) × wᵏ. Five terms give α⁻¹ = 137.035999... matching Morel (2020) to 0.05σ. α is a theorem, not a measurement.</div>
+      <div class="card-doi">doi:10.5281/zenodo.18648550</div>
+    </a>
+
+  </div>
+</div>
+
+<footer>
+  <p>Pentagon Physics · Eric McLean · Independent Researcher, Cyprus · 2026</p>
+  <a href="index.html">← Back to main site</a>
+</footer>
+
+</body>
+</html>
