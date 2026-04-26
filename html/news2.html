@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Physics News — latest research and discoveries from Quanta Magazine, Phys.org, CERN, and the physics community.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Physics News — Pentagon Physics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#F2C94C; --gold-dim:#9A7820; --gold-pale:#FBE89A;
+  --bg:#090909; --bg2:#111113; --bg3:#19191E;
+  --border:rgba(255,255,255,0.1); --border-hi:rgba(255,255,255,0.2);
+  --text:#F0EDE6; --text-mid:#C0BCB4; --text-dim:#807C76;
+  --accent:#5DA8D0; --red:#C0392B;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --pad:8vw;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.75;overflow-x:hidden;}
+
+header{
+  background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);
+  padding:0 var(--pad);display:flex;gap:2.5rem;align-items:center;height:52px;
+  position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);
+}
+header a{color:var(--text-dim);text-decoration:none;font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header a.active{color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px;}
+header .logo{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;}
+
+.hero{padding:5rem var(--pad) 3rem;border-bottom:1px solid var(--border-hi);}
+.hero-tag{font-size:0.72rem;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.hero h1{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4rem);font-weight:700;color:var(--text);line-height:1.05;margin-bottom:0.8rem;}
+.hero p{font-size:0.95rem;color:var(--text-mid);max-width:60ch;line-height:1.7;}
+
+.feed-bar{
+  padding:0.9rem var(--pad);
+  background:var(--bg2);border-bottom:1px solid var(--border-hi);
+  display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;
+}
+.feed-label{font-size:0.68rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-right:0.3rem;}
+.feed-btn{
+  font-size:0.7rem;font-weight:500;padding:0.28em 0.85em;cursor:pointer;
+  border:1px solid var(--border-hi);background:transparent;color:var(--text-dim);
+  transition:all 0.2s;
+}
+.feed-btn:hover{color:var(--text);border-color:var(--border-hi);}
+.feed-btn.active{background:var(--gold);color:#090909;border-color:var(--gold);font-weight:600;}
+
+.main{display:grid;grid-template-columns:1fr 300px;min-height:70vh;}
+
+.articles{padding:2.5rem var(--pad) 4rem;border-right:1px solid var(--border);}
+
+.feed-section{margin-bottom:3rem;}
+.feed-section-header{
+  display:flex;align-items:center;gap:0.8rem;
+  margin-bottom:1rem;padding-bottom:0.7rem;
+  border-bottom:1px solid var(--border-hi);
+}
+.feed-section-title{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--text);}
+.feed-badge{
+  font-size:0.6rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;
+  padding:0.2em 0.65em;border:1px solid;
+}
+.badge-quanta{color:#E8A840;border-color:rgba(232,168,64,0.35);background:rgba(232,168,64,0.06);}
+.badge-phys{color:#5DA8D0;border-color:rgba(93,168,208,0.35);background:rgba(93,168,208,0.06);}
+.badge-cern{color:#9C6ADE;border-color:rgba(156,106,222,0.35);background:rgba(156,106,222,0.06);}
+.badge-reddit{color:#E8603A;border-color:rgba(232,96,58,0.35);background:rgba(232,96,58,0.06);}
+.badge-aps{color:#4CAF50;border-color:rgba(76,175,80,0.35);background:rgba(76,175,80,0.06);}
+.feed-count{font-size:0.7rem;color:var(--text-dim);margin-left:auto;}
+
+.article-card{
+  padding:1.1rem 0;border-bottom:1px solid var(--border);
+  transition:padding-left 0.15s;
+}
+.article-card:hover{padding-left:0.5rem;}
+.article-card:last-child{border-bottom:none;}
+.article-meta{display:flex;gap:0.8rem;align-items:center;margin-bottom:0.3rem;flex-wrap:wrap;}
+.article-source{font-size:0.62rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);}
+.article-date{font-size:0.7rem;color:var(--text-dim);}
+.article-authors{font-size:0.7rem;color:var(--text-dim);}
+.article-title{
+  font-size:1rem;font-weight:400;color:var(--text);
+  line-height:1.35;margin-bottom:0.35rem;
+  text-decoration:none;display:block;transition:color 0.2s;
+}
+.article-title:hover{color:var(--gold);}
+.article-summary{
+  font-size:0.83rem;color:var(--text-dim);line-height:1.55;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+
+.loading{padding:3rem 0;text-align:center;color:var(--text-dim);font-size:0.9rem;}
+.ld{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin:0 3px;animation:bnc 1.2s infinite;}
+.ld:nth-child(2){animation-delay:0.2s;}.ld:nth-child(3){animation-delay:0.4s;}
+@keyframes bnc{0%,80%,100%{transform:translateY(0);}40%{transform:translateY(-6px);}}
+.error-msg{padding:1.5rem 0;color:var(--text-dim);font-size:0.88rem;line-height:1.7;}
+
+.sidebar{padding:2.5rem 2rem 4rem;}
+.sb-section{margin-bottom:2.5rem;}
+.sb-title{
+  font-size:0.68rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem;padding-bottom:0.5rem;
+  border-bottom:1px solid var(--border-hi);
+}
+.src-item{
+  display:flex;align-items:center;gap:0.8rem;
+  padding:0.6rem 0;border-bottom:1px solid var(--border);font-size:0.85rem;
+}
+.src-item:last-child{border-bottom:none;}
+.src-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--text-dim);}
+.src-dot.ok{background:#4CAF50;}
+.src-dot.err{background:var(--red);}
+.src-name{color:var(--text-mid);flex:1;}
+.src-status{font-size:0.68rem;color:var(--text-dim);}
+
+.pp-item{padding:0.65rem 0;border-bottom:1px solid var(--border);}
+.pp-item:last-child{border-bottom:none;}
+.pp-item a{font-size:0.88rem;color:var(--text-mid);text-decoration:none;line-height:1.4;display:block;transition:color 0.2s;}
+.pp-item a:hover{color:var(--gold);}
+.pp-item .pp-tag{font-size:0.65rem;color:var(--text-dim);margin-top:0.2rem;}
+
+footer{
+  background:var(--bg2);border-top:1px solid var(--border-hi);
+  padding:2rem var(--pad);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+footer p{font-size:0.82rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;font-size:0.82rem;}
+footer a:hover{color:var(--gold);}
+
+@media(max-width:900px){
+  .main{grid-template-columns:1fr;}
+  .sidebar{border-top:1px solid var(--border);padding:2rem var(--pad);}
+}
+@media(max-width:600px){:root{--pad:6vw;}header{gap:1.5rem;overflow-x:auto;}}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html" style="display:flex;align-items:center;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="28" height="28" style="display:inline-block;vertical-align:middle;margin-right:8px;flex-shrink:0;">
+  <defs>
+    <mask id="mtn2">
+      <path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/>
+      <path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/>
+      <path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/>
+      <path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/>
+      <path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/>
+      <path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/>
+      <path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/>
+      <path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/>
+      <path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/>
+      <path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/>
+      <circle cx="0" cy="0" r="71.19" fill="black"/>
+      <polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/>
+    </mask>
+  </defs>
+  <rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mtn2)"/>
+
+</svg>Pentagon Physics</a>
+  <a href="index.html#programme">Programme</a>
+  <a href="index.html#results">Results</a>
+  <a href="index.html#papers">Papers</a>
+  <a href="pipeline.html">Pipeline</a>
+  <a href="news.html" class="active">News</a>
+  <a href="faqs.html">137 FAQs</a>
+  <a href="index.html#contact">Contact</a>
+</header>
+
+<div class="hero">
+  <div class="hero-tag">Live feed</div>
+  <h1>Physics News</h1>
+  <p>Latest physics discussion and research from the Reddit physics community — r/Physics, r/quantum, r/HEP and r/astrophysics — refreshed on every visit.</p>
+</div>
+
+<div class="feed-bar">
+  <span class="feed-label">Show</span>
+  <button class="feed-btn active" onclick="setFilter('all',this)">All</button>
+  <button class="feed-btn" onclick="setFilter('reddit_physics',this)">r/Physics</button>
+  <button class="feed-btn" onclick="setFilter('reddit_quantum',this)">r/Quantum</button>
+  <button class="feed-btn" onclick="setFilter('reddit_hep',this)">r/HEP</button>
+  <button class="feed-btn" onclick="setFilter('reddit_astro',this)">r/Astrophysics</button>
+</div>
+
+<div class="main">
+  <div class="articles" id="articles-col">
+    <div class="loading" id="main-loading">
+      <div class="ld"></div><div class="ld"></div><div class="ld"></div>
+      <p style="margin-top:1rem">Fetching latest physics…</p>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="sb-section">
+      <div class="sb-title">Sources</div>
+      <div class="src-item"><div class="src-dot" id="dot-reddit_physics"></div><span class="src-name">Reddit r/Physics</span><span class="src-status" id="st-reddit_physics">loading…</span></div>
+      <div class="src-item"><div class="src-dot" id="dot-reddit_quantum"></div><span class="src-name">Reddit r/quantum</span><span class="src-status" id="st-reddit_quantum">loading…</span></div>
+      <div class="src-item"><div class="src-dot" id="dot-reddit_hep"></div><span class="src-name">Reddit r/HEP+Cosmology</span><span class="src-status" id="st-reddit_hep">loading…</span></div>
+      <div class="src-item"><div class="src-dot" id="dot-reddit_astro"></div><span class="src-name">Reddit r/astrophysics</span><span class="src-status" id="st-reddit_astro">loading…</span></div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-title">Pentagon Physics Papers</div>
+      <div class="pp-item"><a href="papers/solving-alpha-the-prime-spectrum-of-self-reference.html">Solving Alpha — The Prime Spectrum of Self-Reference</a><div class="pp-tag">QED · doi:18648550</div></div>
+      <div class="pp-item"><a href="papers/the-origin-of-the-long-range-forces.html">The Origin of the Long-Range Forces</a><div class="pp-tag">Foundations · doi:19330871</div></div>
+      <div class="pp-item"><a href="papers/gravity-from-confinement.html">Gravity from Confinement</a><div class="pp-tag">Gravity · doi:19100930</div></div>
+      <div class="pp-item"><a href="papers/majorana-neutrino-masses-derived.html">Majorana Neutrino Masses Derived</a><div class="pp-tag">Neutrino Physics · doi:19135102</div></div>
+      <div class="pp-item"><a href="papers/the-higgs-quartic-is-not-free.html">The Higgs Quartic Is Not Free</a><div class="pp-tag">Particle Physics · doi:18756247</div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Pentagon Physics · Physics News · Sources: Reddit r/Physics, r/quantum, r/HEP, r/astrophysics</p>
+  <a href="index.html">← Back to main site</a>
+</footer>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────
+// Only APIs with confirmed browser-accessible CORS
+const SOURCES = {
+  reddit_physics: {
+    url: 'https://www.reddit.com/r/Physics/hot.json?limit=15',
+    label: 'Reddit · r/Physics',
+    badge: 'badge-reddit',
+    parse: (data) => (data.data?.children||[])
+      .filter(p=>!p.data.stickied && p.data.title)
+      .map(p => ({
+        title: p.data.title,
+        link: p.data.url.startsWith('http') ? p.data.url : 'https://reddit.com'+p.data.permalink,
+        pubDate: new Date(p.data.created_utc*1000).toISOString(),
+        author: 'u/'+p.data.author,
+        description: p.data.selftext?.slice(0,200) || ''
+      }))
+  },
+  reddit_quantum: {
+    url: 'https://www.reddit.com/r/quantum/hot.json?limit=12',
+    label: 'Reddit · r/quantum',
+    badge: 'badge-reddit',
+    parse: (data) => (data.data?.children||[])
+      .filter(p=>!p.data.stickied && p.data.title)
+      .map(p => ({
+        title: p.data.title,
+        link: p.data.url.startsWith('http') ? p.data.url : 'https://reddit.com'+p.data.permalink,
+        pubDate: new Date(p.data.created_utc*1000).toISOString(),
+        author: 'u/'+p.data.author,
+        description: p.data.selftext?.slice(0,200) || ''
+      }))
+  },
+  reddit_hep: {
+    url: 'https://www.reddit.com/r/HEP+GravityResearch+cosmology/hot.json?limit=12',
+    label: 'Reddit · r/HEP + Cosmology',
+    badge: 'badge-reddit',
+    parse: (data) => (data.data?.children||[])
+      .filter(p=>!p.data.stickied && p.data.title)
+      .map(p => ({
+        title: p.data.title,
+        link: p.data.url.startsWith('http') ? p.data.url : 'https://reddit.com'+p.data.permalink,
+        pubDate: new Date(p.data.created_utc*1000).toISOString(),
+        author: 'u/'+p.data.author,
+        description: p.data.selftext?.slice(0,200) || ''
+      }))
+  },
+  reddit_astro: {
+    url: 'https://www.reddit.com/r/astrophysics/hot.json?limit=10',
+    label: 'Reddit · r/astrophysics',
+    badge: 'badge-reddit',
+    parse: (data) => (data.data?.children||[])
+      .filter(p=>!p.data.stickied && p.data.title)
+      .map(p => ({
+        title: p.data.title,
+        link: p.data.url.startsWith('http') ? p.data.url : 'https://reddit.com'+p.data.permalink,
+        pubDate: new Date(p.data.created_utc*1000).toISOString(),
+        author: 'u/'+p.data.author,
+        description: p.data.selftext?.slice(0,200) || ''
+      }))
+  }
+}
+let allArticles = {};
+let activeFilter = 'all';
+
+function decodeHtml(html) {
+  const t = document.createElement('textarea');
+  t.innerHTML = html;
+  return t.value;
+}
+
+function formatDate(s) {
+  if (!s) return '';
+  try { return new Date(s).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
+  catch { return ''; }
+}
+
+async function fetchSource(key) {
+  const src = SOURCES[key];
+  const dot = document.getElementById('dot-'+key);
+  const st = document.getElementById('st-'+key);
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(()=>ctrl.abort(), 12000);
+    const res = await fetch(src.url, {signal: ctrl.signal});
+    clearTimeout(timer);
+    if (!res.ok) throw new Error('HTTP '+res.status);
+    const data = await res.json();
+    const items = src.parse(data).filter(i=>i.title);
+    if (items.length > 0) {
+      allArticles[key] = items.map(i=>({...i, sourceKey:key, source:src}));
+      dot.classList.add('ok');
+      st.textContent = items.length + ' articles';
+      return items.length;
+    }
+    throw new Error('empty');
+  } catch(e) {
+    dot.classList.add('err');
+    st.textContent = e.name==='AbortError' ? 'timeout' : 'unavailable';
+    return 0;
+  }
+}
+
+function renderArticle(item) {
+  const src = SOURCES[item.sourceKey];
+  const date = formatDate(item.pubDate);
+  return `<div class="article-card">
+    <div class="article-meta">
+      <span class="article-source">${item.sourceKey}</span>
+      ${date?`<span class="article-date">${date}`+'</span>':''}
+      ${item.author?`<span class="article-authors">${item.author}`+'</span>':''}
+    </div>
+    <a class="article-title" href="${item.link}" target="_blank" rel="noopener">${item.title}</a>
+    ${item.description?`<div class="article-summary">${item.description}…`+'</div>':''}
+  </div>`;
+}
+
+function renderAll() {
+  const col = document.getElementById('articles-col');
+  const keys = activeFilter === 'all' ? Object.keys(SOURCES) : [activeFilter];
+  let html = '';
+  let total = 0;
+  for (const key of keys) {
+    const items = allArticles[key] || [];
+    if (!items.length) continue;
+    const src = SOURCES[key];
+    html += `<div class="feed-section" id="section-${key}">
+      <div class="feed-section-header">
+        <div class="feed-section-title">${src.label}</div>
+        <span class="feed-badge ${src.badge}">${src.label.split(' ')[0]}</span>
+        <span class="feed-count">${items.length} articles</span>
+      </div>
+      ${items.map(renderArticle).join('')}
+    </div>`;
+    total += items.length;
+  }
+  document.getElementById('main-loading')?.remove();
+  if (!html) {
+    col.innerHTML = `<div class="error-msg">
+      <strong style="color:var(--text)">Feeds temporarily unavailable</strong><br>
+      External news feeds can occasionally be blocked by browser security policies on static sites.<br><br>
+      Read directly from the sources:<br><br>
+      <a href="https://www.quantamagazine.org/physics/" target="_blank" style="color:var(--accent)">Quanta Magazine →</a><br>
+      <a href="https://phys.org/physics-news/" target="_blank" style="color:var(--accent)">Phys.org →</a><br>
+      <a href="https://home.cern/news" target="_blank" style="color:var(--accent)">CERN News →</a><br>
+      <a href="https://www.reddit.com/r/Physics/" target="_blank" style="color:var(--accent)">Reddit r/Physics →</a><br>
+      <a href="https://physics.aps.org/" target="_blank" style="color:var(--accent)">APS Physics →</a>
+    </div>`;
+  } else {
+    col.innerHTML = html;
+  }
+}
+
+function setFilter(key, btn) {
+  activeFilter = key;
+  document.querySelectorAll('.feed-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderAll();
+}
+
+async function init() {
+  // Fetch all in parallel, render as they arrive
+  const promises = Object.keys(SOURCES).map(async key => {
+    const n = await fetchSource(key);
+    if (n > 0) renderAll(); // re-render each time a feed arrives
+    return n;
+  });
+  await Promise.all(promises);
+  renderAll(); // final render
+}
+
+init();
+</script>
+</body>
+</html>

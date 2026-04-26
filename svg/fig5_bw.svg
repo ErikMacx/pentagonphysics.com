@@ -1,0 +1,76 @@
+<svg viewBox="0 0 420 640" xmlns="http://www.w3.org/2000/svg" font-family="Cambria, serif">
+  <rect width="420" height="640" fill="#ffffff"/>
+  
+  <text x="210" y="25" text-anchor="middle" fill="#000000" font-size="14" font-weight="bold">Figure 5. From Axiom to Standard Model</text>
+  <text x="210" y="42" text-anchor="middle" fill="#666666" font-size="10">Every arrow is forced. There is no branching.</text>
+  
+  <defs><marker id="arwD" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+    <path d="M0,0 L7,2.5 L0,5" fill="none" stroke="#000000" stroke-width="0.8"/></marker></defs>
+  
+  <!-- Box 1 -->
+  <rect x="100" y="60" width="220" height="42" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+  <text x="210" y="79" text-anchor="middle" fill="#000000" font-size="14" font-weight="bold" font-style="italic">σ = 1/(1+σ)</text>
+  <text x="210" y="96" text-anchor="middle" fill="#888888" font-size="9">the axiom</text>
+  <line x1="210" y1="102" x2="210" y2="120" stroke="#000000" stroke-width="1" marker-end="url(#arwD)"/>
+  <text x="260" y="115" fill="#888888" font-size="8">discriminant</text>
+  
+  <!-- Box 2 -->
+  <rect x="130" y="120" width="160" height="35" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="210" y="142" text-anchor="middle" fill="#000000" font-size="13" font-weight="bold">5</text>
+  <line x1="210" y1="155" x2="210" y2="173" stroke="#000000" stroke-width="1" marker-end="url(#arwD)"/>
+  <text x="265" y="168" fill="#888888" font-size="8">number field</text>
+  
+  <!-- Box 3 -->
+  <rect x="130" y="173" width="160" height="35" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="210" y="195" text-anchor="middle" fill="#000000" font-size="13" font-weight="bold">Q(√5)</text>
+  <line x1="210" y1="208" x2="210" y2="226" stroke="#000000" stroke-width="1" marker-end="url(#arwD)"/>
+  <text x="280" y="221" fill="#888888" font-size="8">five-fold symmetry</text>
+  
+  <!-- Box 4 -->
+  <rect x="110" y="226" width="200" height="35" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="210" y="248" text-anchor="middle" fill="#000000" font-size="12" font-weight="bold">Regular Icosahedron</text>
+  <line x1="210" y1="261" x2="210" y2="279" stroke="#000000" stroke-width="1" marker-end="url(#arwD)"/>
+  <text x="290" y="274" fill="#888888" font-size="8">double cover</text>
+  
+  <!-- Box 5 -->
+  <rect x="105" y="279" width="210" height="42" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+  <text x="210" y="298" text-anchor="middle" fill="#000000" font-size="13" font-weight="bold">2I  (order 120)</text>
+  <text x="210" y="314" text-anchor="middle" fill="#888888" font-size="9">binary icosahedral group</text>
+  <line x1="210" y1="321" x2="210" y2="339" stroke="#000000" stroke-width="1" marker-end="url(#arwD)"/>
+  <text x="300" y="334" fill="#888888" font-size="8">representation theory</text>
+  
+  <!-- Box 6 -->
+  <rect x="90" y="339" width="240" height="42" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+  <text x="210" y="358" text-anchor="middle" fill="#000000" font-size="13" font-weight="bold">Character Table  (9 × 9)</text>
+  <text x="210" y="374" text-anchor="middle" fill="#888888" font-size="9">81 entries, 15 values</text>
+  <line x1="210" y1="381" x2="210" y2="399" stroke="#000000" stroke-width="1" marker-end="url(#arwD)"/>
+  <text x="310" y="394" fill="#888888" font-size="8">McKay (1980)</text>
+  
+  <!-- Box 7 -->
+  <rect x="100" y="399" width="220" height="42" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="210" y="418" text-anchor="middle" fill="#000000" font-size="13" font-weight="bold">Affine E₈ Graph</text>
+  <text x="210" y="434" text-anchor="middle" fill="#888888" font-size="9">9 nodes, 8 edges</text>
+  <line x1="210" y1="441" x2="210" y2="459" stroke="#000000" stroke-width="1" marker-end="url(#arwD)"/>
+  <text x="330" y="454" fill="#888888" font-size="8">tensor products + Q₈</text>
+  
+  <!-- Box 8: SM (thick border) -->
+  <rect x="55" y="459" width="310" height="55" rx="5" fill="#ffffff" stroke="#000000" stroke-width="3"/>
+  <text x="210" y="480" text-anchor="middle" fill="#000000" font-size="15" font-weight="bold">SU(3) × SU(2) × U(1)</text>
+  <text x="210" y="497" text-anchor="middle" fill="#000000" font-size="11">3 colours, 4 EW bosons, 8 gluons</text>
+  <text x="210" y="510" text-anchor="middle" fill="#666666" font-size="9">3+1 doublets, 3 generations, Y = 1/3</text>
+  
+  <!-- Side brackets -->
+  <line x1="40" y1="60" x2="40" y2="208" stroke="#aaaaaa" stroke-width="0.5"/>
+  <text x="30" y="134" text-anchor="middle" fill="#aaaaaa" font-size="8" transform="rotate(-90,30,134)">ALGEBRA</text>
+  
+  <line x1="40" y1="226" x2="40" y2="381" stroke="#aaaaaa" stroke-width="0.5"/>
+  <text x="30" y="304" text-anchor="middle" fill="#aaaaaa" font-size="8" transform="rotate(-90,30,304)">GROUP THEORY</text>
+  
+  <line x1="40" y1="399" x2="40" y2="514" stroke="#aaaaaa" stroke-width="0.5"/>
+  <text x="30" y="457" text-anchor="middle" fill="#aaaaaa" font-size="8" transform="rotate(-90,30,457)">PHYSICS</text>
+  
+  <!-- Bottom -->
+  <text x="210" y="555" text-anchor="middle" fill="#000000" font-size="11">Zero decisions. Zero parameters.</text>
+  <text x="210" y="578" text-anchor="middle" fill="#444444" font-size="10">The Standard Model has one address:</text>
+  <text x="210" y="605" text-anchor="middle" fill="#000000" font-size="16" font-weight="bold" font-style="italic">σ = 1/(1+σ)</text>
+</svg>

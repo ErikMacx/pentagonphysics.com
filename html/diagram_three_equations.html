@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Architecture of Three Equations — Pentagon Physics</title>
+<style>
+  @page { size: A4; margin: 20mm 24mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #111;
+    padding: 52px 56px;
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .rule { height: 1px; background: #d8d8d8; }
+
+  /* TITLE */
+  .title-block { text-align: center; margin-bottom: 28px; }
+  .title-super { font-size: 9pt; letter-spacing: 0.3em; text-transform: uppercase; color: #888; margin-bottom: 10px; }
+  .title-main  { font-size: 9.5pt; letter-spacing: 0.18em; text-transform: uppercase; color: #888; }
+  .title-rule  { height: 1px; background: #d8d8d8; margin: 14px auto 0; width: 320px; }
+
+  /* EQUATION BOX */
+  .eq-box {
+    border: 1px solid #d8d8d8;
+    border-left: 3px solid #d8d8d8;
+    padding: 20px 32px 18px;
+  }
+  .eq-box.accent {
+    border-left-color: #7a5210;
+    border-color: #c8a84c;
+  }
+  .eq-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; margin-bottom: 14px;
+  }
+  .eq-label { font-size: 8.5pt; letter-spacing: 0.2em; text-transform: uppercase; color: #888; }
+  .eq-scale  { font-size: 9pt; color: #888; font-style: italic; }
+  .eq-formula {
+    text-align: center; margin: 8px 0 16px;
+    font-size: 24pt; font-style: italic; color: #111;
+    letter-spacing: 0.01em; line-height: 1.4;
+  }
+  .eq-formula sup { font-size: 14pt; }
+  .eq-formula sub { font-size: 14pt; }
+  .eq-subtitle { text-align: center; font-size: 11pt; color: #555; font-style: italic; margin-bottom: 0; }
+  .eq-note {
+    margin-top: 10px; padding-top: 8px;
+    border-top: 1px solid #d8d8d8;
+    font-size: 9.5pt; color: #888;
+    text-align: center; font-style: italic;
+  }
+
+  /* ARROW */
+  .arrow-wrap {
+    display: flex; align-items: stretch; margin: 0;
+  }
+  .arrow-side { flex: 1; display: flex; align-items: center; }
+  .arrow-side.right { justify-content: flex-start; padding-left: 20px; }
+  .arrow-center {
+    width: 200px; display: flex; flex-direction: column;
+    align-items: center; padding: 10px 0;
+  }
+  .arrow-vline { width: 1px; height: 18px; background: #d8d8d8; }
+  .arrow-label-top { font-size: 11pt; font-style: italic; color: #7a5210; margin: 3px 0 1px; }
+  .arrow-label-bot { font-size: 9pt; color: #888; margin-bottom: 3px; }
+  .arrow-head {
+    width: 0; height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid #ccc;
+    margin-top: -1px;
+  }
+  .dirichlet-block { text-align: right; line-height: 1.6; }
+  .dirichlet-main  { font-size: 12pt; font-style: italic; color: #111; }
+  .dirichlet-frac  { font-size: 10pt; color: #555; display: block; }
+  .dirichlet-source{ font-size: 8.5pt; color: #888; margin-top: 3px; }
+
+  /* PUNCHLINE */
+  .punchline { text-align: center; margin: 28px 0 20px; }
+  .punch-main { font-size: 13pt; font-style: italic; color: #111; margin-bottom: 10px; }
+  .punch-code {
+    font-size: 10pt; color: #888;
+    font-family: 'Courier New', monospace; letter-spacing: 0.03em; margin-bottom: 6px;
+  }
+  .punch-italic { font-size: 11pt; font-style: italic; color: #555; }
+
+  /* FOOTER */
+  .footer { text-align: center; padding-top: 16px; }
+  .footer-meta { font-size: 9pt; color: #888; }
+</style>
+</head>
+<body>
+
+<!-- TITLE -->
+<div class="title-block">
+  <div class="title-super">Pentagon Physics</div>
+  <div class="title-main">The Architecture of Three Equations</div>
+  <div class="title-rule"></div>
+</div>
+
+<!-- EQUATION 1: QUANTUM -->
+<div class="eq-box">
+  <div class="eq-header">
+    <div class="eq-label">Quantum</div>
+    <div class="eq-scale">spectral</div>
+  </div>
+  <div class="eq-formula">α<sup>−1</sup> = 137</div>
+  <div class="eq-subtitle">The count. Spectral. The cost of one observation.</div>
+  <div class="eq-note">The number of spiral turns in one electromagnetic self-reference. Raw eigenvalue.</div>
+</div>
+
+<!-- ARROW 1 -->
+<div class="arrow-wrap">
+  <div class="arrow-side"></div>
+  <div class="arrow-center">
+    <div class="arrow-vline"></div>
+    <div class="arrow-label-top">squared</div>
+    <div class="arrow-label-bot">pairwise coupling</div>
+    <div class="arrow-vline"></div>
+    <div class="arrow-head"></div>
+  </div>
+  <div class="arrow-side right"></div>
+</div>
+
+<!-- EQUATION 2: PARTICLE -->
+<div class="eq-box">
+  <div class="eq-header">
+    <div class="eq-label">Particle</div>
+    <div class="eq-scale">N²</div>
+  </div>
+  <div class="eq-formula">
+    E = mc<sup>2</sup> = m(α<sup>−1</sup>)<sup>2</sup>
+  </div>
+  <div class="eq-subtitle">The count squared. The local cost. What one particle owes.</div>
+  <div class="eq-note">Pairwise coupling between two spirals. Energy is the square of the turn-count.</div>
+</div>
+
+<!-- ARROW 2 — with Dirichlet side note -->
+<div class="arrow-wrap">
+  <div class="arrow-side" style="justify-content:flex-end; padding-right:20px; padding-top:10px;">
+    <div class="dirichlet-block">
+      <span class="dirichlet-main">L(1, χ<sub>5</sub>)</span>
+      <span class="dirichlet-frac">− 2 log φ / √5</span>
+      <div class="dirichlet-source">Dirichlet, 1837</div>
+    </div>
+  </div>
+  <div class="arrow-center">
+    <div class="arrow-vline"></div>
+    <div class="arrow-label-top">exponentiated</div>
+    <div class="arrow-label-bot">class number bridge</div>
+    <div class="arrow-vline"></div>
+    <div class="arrow-head"></div>
+  </div>
+  <div class="arrow-side right"></div>
+</div>
+
+<!-- EQUATION 3: COSMIC -->
+<div class="eq-box accent">
+  <div class="eq-header">
+    <div class="eq-label">Cosmic</div>
+    <div class="eq-scale">10<sup>N</sup></div>
+  </div>
+  <div class="eq-formula" style="font-size:20pt; line-height:1.5;">
+    ρ<sub>Λ</sub> = 10<sup style="font-size:11pt;">−(α<sup style="font-size:8pt;">−1</sup>·2/√5 + φ<sup style="font-size:8pt;">−2</sup>)</sup>
+  </div>
+  <div class="eq-subtitle">The count exponentiated. The global cost. What the cosmos pays.</div>
+  <div class="eq-note">The only conversion ℚ(√5) admits via L(1, χ₅). One bridge — not a choice.</div>
+</div>
+
+<!-- RULE -->
+<div style="margin: 28px 0 20px;"><div class="rule"></div></div>
+
+<!-- PUNCHLINE -->
+<div class="punchline">
+  <div class="punch-main">One count. Three functions. One universe.</div>
+  <div class="punch-code">The vacuum catastrophe was comparing N² to 10<sup>N</sup></div>
+  <div class="punch-italic">Quantum mechanics and general relativity were never separate theories.</div>
+</div>
+
+<div class="rule"></div>
+
+<!-- FOOTER -->
+<div class="footer" style="padding-top:16px;">
+  <div class="footer-meta">Eric McLean&ensp;&middot;&ensp;Pentagon Physics&ensp;&middot;&ensp;March 2026</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<svg viewBox="0 0 520 700" xmlns="http://www.w3.org/2000/svg" font-family="Cambria, serif">
+  <rect width="520" height="700" fill="#ffffff"/>
+  
+  <text x="260" y="25" text-anchor="middle" fill="#000000" font-size="14" font-weight="bold">Figure 5. From Axiom to Two Readings</text>
+  <text x="260" y="42" text-anchor="middle" fill="#666666" font-size="10">Every arrow is forced. The fork is interpretation, not structure.</text>
+  
+  <defs>
+    <marker id="arwD" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <path d="M0,0 L7,2.5 L0,5" fill="none" stroke="#000000" stroke-width="0.8"/>
+    </marker>
+  </defs>
+  
+  <!-- Box 1: Axiom -->
+  <rect x="150" y="60" width="220" height="42" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2.5"/>
+  <text x="260" y="79" text-anchor="middle" fill="#000000" font-size="14" font-weight="bold" font-style="italic">σ = 1/(1+σ)</text>
+  <text x="260" y="96" text-anchor="middle" fill="#888888" font-size="9">the axiom</text>
+  <line x1="260" y1="102" x2="260" y2="120" stroke="#000000" stroke-width="1" marker-end="url(#arwD)"/>
+  <text x="315" y="115" fill="#888888" font-size="8">discriminant</text>
+  
+  <!-- Box 2: 5 -->
+  <rect x="185" y="120" width="150" height="32" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="260" y="141" text-anchor="middle" fill="#000000" font-size="13" font-weight="bold">5</text>
+  <line x1="260" y1="152" x2="260" y2="167" stroke="#000000" stroke-width="1" marker-end="url(#arwD)"/>
+  <text x="318" y="163" fill="#888888" font-size="8">number field</text>
+  
+  <!-- Box 3: Q(√5) -->
+  <rect x="180" y="167" width="160" height="32" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="260" y="188" text-anchor="middle" fill="#000000" font-size="13" font-weight="bold">ℚ(√5)</text>
+  <line x1="260" y1="199" x2="260" y2="214" stroke="#000000" stroke-width="1" marker-end="url(#arwD)"/>
+  <text x="330" y="210" fill="#888888" font-size="8">five-fold symmetry</text>
+  
+  <!-- Box 4: Icosahedron -->
+  <rect x="160" y="214" width="200" height="32" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="260" y="235" text-anchor="middle" fill="#000000" font-size="12" font-weight="bold">Regular Icosahedron</text>
+  <line x1="260" y1="246" x2="260" y2="261" stroke="#000000" stroke-width="1" marker-end="url(#arwD)"/>
+  <text x="340" y="257" fill="#888888" font-size="8">double cover</text>
+  
+  <!-- Box 5: 2I -->
+  <rect x="155" y="261" width="210" height="42" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+  <text x="260" y="280" text-anchor="middle" fill="#000000" font-size="13" font-weight="bold">2I  (order 120)</text>
+  <text x="260" y="296" text-anchor="middle" fill="#888888" font-size="9">binary icosahedral group</text>
+  <line x1="260" y1="303" x2="260" y2="318" stroke="#000000" stroke-width="1" marker-end="url(#arwD)"/>
+  <text x="350" y="314" fill="#888888" font-size="8">representation theory</text>
+  
+  <!-- Box 6: Character Table -->
+  <rect x="130" y="318" width="260" height="42" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2.5"/>
+  <text x="260" y="337" text-anchor="middle" fill="#000000" font-size="13" font-weight="bold">Character Table  (9 × 9)</text>
+  <text x="260" y="353" text-anchor="middle" fill="#888888" font-size="9">81 entries, 15 values, all in ℚ(√5)</text>
+  <line x1="260" y1="360" x2="260" y2="375" stroke="#000000" stroke-width="1" marker-end="url(#arwD)"/>
+  <text x="350" y="371" fill="#888888" font-size="8">McKay (1980)</text>
+  
+  <!-- Box 7: E₈ Graph -->
+  <rect x="145" y="375" width="230" height="42" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="260" y="394" text-anchor="middle" fill="#000000" font-size="13" font-weight="bold">Affine E₈ Graph</text>
+  <text x="260" y="410" text-anchor="middle" fill="#888888" font-size="9">9 nodes, 8 edges, propagator G(z)</text>
+  
+  <!-- FORK: two diagonal lines down -->
+  <line x1="210" y1="417" x2="130" y2="455" stroke="#000000" stroke-width="1.5" marker-end="url(#arwD)"/>
+  <line x1="310" y1="417" x2="390" y2="455" stroke="#000000" stroke-width="1.5" marker-end="url(#arwD)"/>
+  
+  <!-- Fork label -->
+  <text x="260" y="442" text-anchor="middle" fill="#888888" font-size="9" font-style="italic">same structure, two readings</text>
+  
+  <!-- Left branch: SM Reading -->
+  <rect x="20" y="458" width="225" height="105" rx="5" fill="#f2f2f2" stroke="#000000" stroke-width="2"/>
+  <text x="132" y="478" text-anchor="middle" fill="#000000" font-size="12" font-weight="bold">SM Reading</text>
+  <line x1="30" y1="485" x2="235" y2="485" stroke="#cccccc" stroke-width="0.5"/>
+  <text x="35" y="502" fill="#000000" font-size="9.5">ρ₂ = left-handed quark</text>
+  <text x="35" y="516" fill="#000000" font-size="9.5">ρ₃ = left-handed lepton</text>
+  <text x="35" y="530" fill="#000000" font-size="9.5">ρ₄ = colour (r, g, b)</text>
+  <text x="35" y="544" fill="#000000" font-size="9.5">ρ₇ = γ, W⁺, W⁻, Z</text>
+  <text x="35" y="558" fill="#666666" font-size="9">26 free parameters</text>
+  
+  <!-- Right branch: PP Reading -->
+  <rect x="275" y="458" width="225" height="105" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+  <text x="387" y="478" text-anchor="middle" fill="#000000" font-size="12" font-weight="bold">PP Reading</text>
+  <line x1="285" y1="485" x2="490" y2="485" stroke="#cccccc" stroke-width="0.5"/>
+  <text x="290" y="502" fill="#000000" font-size="9.5">ρ₂ = boundary eigenvalue (Z₅ = ±1)</text>
+  <text x="290" y="516" fill="#000000" font-size="9.5">ρ₃ = boundary eigenvalue (Z₅ = ±2)</text>
+  <text x="290" y="530" fill="#000000" font-size="9.5">ρ₄ = 3 impedance phases</text>
+  <text x="290" y="544" fill="#000000" font-size="9.5">ρ₇ = 4 gauge eigenvalues</text>
+  <text x="290" y="558" fill="#000000" font-size="9.5">0 free parameters</text>
+  
+  <!-- Side brackets -->
+  <line x1="10" y1="60" x2="10" y2="199" stroke="#aaaaaa" stroke-width="0.5"/>
+  <text x="5" y="130" text-anchor="middle" fill="#aaaaaa" font-size="8" transform="rotate(-90,5,130)">ALGEBRA</text>
+  
+  <line x1="10" y1="214" x2="10" y2="360" stroke="#aaaaaa" stroke-width="0.5"/>
+  <text x="5" y="287" text-anchor="middle" fill="#aaaaaa" font-size="8" transform="rotate(-90,5,287)">GROUP THEORY</text>
+  
+  <line x1="10" y1="375" x2="10" y2="563" stroke="#aaaaaa" stroke-width="0.5"/>
+  <text x="5" y="470" text-anchor="middle" fill="#aaaaaa" font-size="8" transform="rotate(-90,5,470)">PHYSICS</text>
+  
+  <!-- Shared structure callout -->
+  <rect x="85" y="585" width="350" height="42" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="260" y="603" text-anchor="middle" fill="#000000" font-size="11">Same table. Same numbers. Same topology.</text>
+  <text x="260" y="620" text-anchor="middle" fill="#000000" font-size="11" font-style="italic">Different mechanisms. Different predictions.</text>
+  
+  <!-- Bottom -->
+  <text x="260" y="660" text-anchor="middle" fill="#000000" font-size="11">Zero decisions. Zero parameters. One equation:</text>
+  <text x="260" y="685" text-anchor="middle" fill="#000000" font-size="16" font-weight="bold" font-style="italic">σ = 1/(1+σ)</text>
+</svg>

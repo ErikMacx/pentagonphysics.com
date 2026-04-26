@@ -1,0 +1,139 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.h{font-family:var(--font-sans);color:var(--color-text-primary);padding:0.5rem 0;max-width:680px;margin:0 auto}
+.title{text-align:center;font-size:16px;font-weight:500;margin-bottom:2px}
+.subtitle{text-align:center;font-size:12px;color:var(--color-text-secondary);font-style:italic;margin-bottom:16px}
+.row{display:flex;justify-content:center;gap:12px;margin:0 auto;position:relative}
+.col{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;max-width:320px}
+.box{border-radius:var(--border-radius-md);padding:10px 14px;text-align:center;width:100%;border:0.5px solid}
+.box-axiom{background:var(--color-background-warning);border-color:var(--color-border-warning);border-width:1.5px}
+.box-axiom .bt{color:var(--color-text-warning);font-weight:500;font-size:14px}
+.box-axiom .bs{color:var(--color-text-warning);font-size:11px;opacity:0.8}
+.box-trunk1{background:var(--color-background-success);border-color:var(--color-border-success)}
+.box-trunk1 .bt{color:var(--color-text-success);font-weight:500;font-size:13px}
+.box-trunk1 .bs{color:var(--color-text-success);font-size:11px;opacity:0.8}
+.box-trunk2{background:var(--color-background-info);border-color:var(--color-border-info)}
+.box-trunk2 .bt{color:var(--color-text-info);font-weight:500;font-size:13px}
+.box-trunk2 .bs{color:var(--color-text-info);font-size:11px;opacity:0.8}
+.box-alpha{background:var(--color-background-danger);border-color:var(--color-border-danger);border-width:1.5px}
+.box-alpha .bt{color:var(--color-text-danger);font-weight:500;font-size:14px}
+.box-alpha .bs{color:var(--color-text-danger);font-size:11px;opacity:0.8}
+.box-out{background:var(--color-background-secondary);border-color:var(--color-border-tertiary)}
+.box-out .bt{color:var(--color-text-primary);font-weight:500;font-size:12px}
+.box-out .bs{color:var(--color-text-secondary);font-size:10px}
+.box-bypass{background:var(--color-background-success);border-color:var(--color-border-success)}
+.box-bypass .bt{color:var(--color-text-success);font-weight:500;font-size:12px}
+.box-bypass .bs{color:var(--color-text-success);font-size:10px;line-height:1.5}
+.arrow{display:flex;justify-content:center;color:var(--color-text-tertiary);font-size:16px;margin:2px 0}
+.split-label{text-align:center;font-size:11px;color:var(--color-text-secondary);font-style:italic;margin:4px 0}
+.const-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;width:100%;max-width:600px;margin:0 auto}
+.footer{text-align:center;font-size:11px;color:var(--color-text-secondary);font-style:italic;margin-top:12px;line-height:1.6}
+.footer-box{border:0.5px dashed var(--color-border-secondary);border-radius:var(--border-radius-md);padding:10px 14px;margin:8px auto;max-width:600px}
+.footer-box .bs{color:var(--color-text-secondary);font-size:11px;line-height:1.6}
+.footer-box .bt{color:var(--color-text-primary);font-weight:500;font-size:12px;margin-bottom:4px}
+.side-row{display:flex;gap:12px;align-items:flex-start;max-width:640px;margin:0 auto}
+.side-col-main{flex:3}
+.side-col-bypass{flex:1.2;min-width:140px}
+.cage-row{display:flex;gap:10px;max-width:600px;margin:0 auto}
+.cage-row .box{flex:1}
+</style>
+<div class="h">
+<div class="title">Pentagon Physics: constant hierarchy</div>
+<div class="subtitle">Two trunks merge at α. Everything downstream passes through the exchange rate.</div>
+
+<div style="max-width:320px;margin:0 auto">
+<div class="box box-axiom"><div class="bt">σ = 1/(1+σ)</div><div class="bs">The axiom</div></div>
+<div class="arrow">↓</div>
+<div class="box box-axiom" style="border-width:0.5px"><div class="bt">Discriminant 5 → ℚ(√5) → φ, σ</div></div>
+</div>
+
+<div class="split-label">Two trunks</div>
+
+<div class="row" style="max-width:640px">
+<div class="col">
+<div class="box box-trunk1">
+<div class="bt">Trunk 1: partition</div>
+<div class="bs">{σ², σ, 1, φ, 2}/√5</div>
+<div class="bs">Bridge positions (no α needed)</div>
+<div class="bs">↔ 5 Galois-invariant irreps</div>
+</div>
+<div class="arrow">↓</div>
+<div class="box box-trunk1">
+<div class="bt">Three geometries</div>
+<div class="bs">φ coheres · π closes · e grows</div>
+</div>
+</div>
+<div class="col">
+<div class="box box-trunk2">
+<div class="bt">Trunk 2: state space</div>
+<div class="bs">2I → character table → McKay → E₈</div>
+<div class="bs">Galois split: 94 invariant / 26 active</div>
+<div class="bs">60 fermions = 60 bosons (exact)</div>
+</div>
+<div class="arrow">↓</div>
+<div class="box box-trunk2">
+<div class="bt">Gauge structure from E₈</div>
+<div class="bs">4 EW bosons · 3 colours · 8 gluons</div>
+<div class="bs">3+1 doublets · 3 generations (D₄)</div>
+<div class="bs">Y = Z₅/dim(ρ₄) = 1/3</div>
+</div>
+</div>
+</div>
+
+<div class="split-label">Both trunks required</div>
+
+<div class="side-row">
+<div class="side-col-bypass">
+<div class="box box-bypass" style="padding:8px 10px">
+<div class="bt">Bypass α</div>
+<div class="bs">sin²θ₁₃ = 1/45<br>sin²θ₂₃ = 3/(2φ²)<br>sin²θ_W → σ³<br>α_s = σ³/2</div>
+</div>
+</div>
+<div class="side-col-main">
+<div class="box box-alpha">
+<div class="bt">α⁻¹ = 137.036</div>
+<div class="bs">Exchange rate: algebra → physics</div>
+<div class="bs" style="margin-top:4px">E₈ propagator at z = φ: ratios 2, φ, 0</div>
+</div>
+<div class="arrow">↓</div>
+<div class="box box-out">
+<div class="bt">Bridge line: depth = α⁻¹ × R + σ²</div>
+</div>
+<div class="arrow">↓</div>
+</div>
+</div>
+
+<div class="const-grid">
+<div class="box box-out"><div class="bt">G = α¹⁸×12/7</div><div class="bs">18 = cage bars<br>R = σ/√5 ↔ ρ₆</div></div>
+<div class="box box-out"><div class="bt">H₀</div><div class="bs">R = 1/√5 ↔ ρ₇</div></div>
+<div class="box box-out"><div class="bt">Λ</div><div class="bs">R = 2/√5 ↔ ρ₉</div></div>
+<div class="box box-out"><div class="bt">FDM mass</div><div class="bs">49.9 nHz</div></div>
+</div>
+
+<div class="arrow">↓</div>
+
+<div class="cage-row">
+<div class="box box-out">
+<div class="bt">Impedance cage</div>
+<div class="bs">3 colours × 3 gen × 2 chiral = 18<br>gravity = EM behind the cage</div>
+</div>
+<div class="box box-out">
+<div class="bt">Mass / gravity duality</div>
+<div class="bs">mₚ/mπ = 7×(12²−1)/12²<br>7/12 inward · 12/7 outward</div>
+</div>
+<div class="box box-out">
+<div class="bt">mₑ, mₚ, mᵥ, nuclei</div>
+<div class="bs">integers = irrep dims<br>6, 2, 5, 3, 7, 12, 360</div>
+</div>
+</div>
+
+<div class="footer" style="margin-top:16px">Way back: measure G, Λ, H₀ → fit line → intercept = σ² → σ = 1−σ² → axiom</div>
+
+<div class="footer-box">
+<div class="bt">SM reading: SU(3)×SU(2)×U(1) from character table of 2I</div>
+<div class="bs">ρ₂ = quark · ρ₃ = lepton · ρ₄ = colour · ρ₇ = γ W⁺ W⁻ Z · ρ₈ = Higgs</div>
+<div class="bs">Propagator at z = φ: colour ratio = 2 · EW ratio = φ · lepton-Higgs = 0</div>
+<div class="bs" style="font-style:italic;margin-top:4px">Paper: "The Standard Model Has One Address"</div>
+</div>
+</div>

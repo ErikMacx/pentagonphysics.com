@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { background: #ffffff; color: #111111; font-family: Georgia, serif; padding: 36px; margin: 0; max-width: 1100px; margin: 0 auto; }
+  h1 { text-align: center; font-size: 24px; font-weight: normal; color: #111; margin-bottom: 6px; }
+  .sub { text-align: center; font-size: 12px; color: #666; margin-bottom: 10px; line-height: 1.7; }
+  .pp { text-align:center; font-size:11px; letter-spacing:0.3em; color:#b07800; margin-bottom:8px; text-transform:uppercase; font-weight:bold; }
+
+  /* QUOTE BOX */
+  .quotebox {
+    border-left: 5px solid #b07800;
+    background: #fffbf0;
+    padding: 18px 22px;
+    margin: 0 0 28px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .quotebox p { margin: 0 0 10px 0; font-size: 13px; color: #333; line-height: 1.75; font-style: italic; }
+  .quotebox p:last-child { margin: 0; }
+  .quotebox .highlight { color: #b07800; font-weight: bold; font-style: normal; }
+
+  /* METRIC BOX */
+  .metricbox {
+    border: 2px solid #1a6bb5;
+    background: #f0f6ff;
+    padding: 16px 20px;
+    margin: 0 0 28px 0;
+    border-radius: 8px;
+  }
+  .metricbox p { margin: 0; font-size: 13px; color: #1a3a5c; line-height: 1.75; }
+  .metricbox strong { color: #1a4a8a; }
+
+  .legend { display:flex; justify-content:center; gap:22px; margin-bottom:20px; flex-wrap:wrap; }
+  .leg { display:flex; align-items:center; gap:8px; font-size:11px; font-weight:bold; }
+  .dot { width:12px; height:12px; border-radius:50%; }
+
+  table { width:100%; border-collapse:collapse; margin-bottom:28px; }
+  th { font-size:10px; letter-spacing:0.15em; color:#444; text-transform:uppercase; padding:10px 8px; border-bottom:2px solid #ccc; text-align:center; font-weight:bold; background:#f8f8f8; }
+  td { padding:6px; vertical-align:top; }
+  .rl { width:120px; padding-right:12px; border-right: 2px solid #eee; }
+  .dnum { font-size:11px; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:3px; font-weight:bold; }
+  .dname { font-size:9px; color:#888; line-height:1.4; }
+  .dbar { height:3px; margin-top:7px; border-radius:2px; }
+  .empty { background:#f8f8f8; border:1px solid #e8e8e8; border-radius:6px; min-height:66px; }
+  .c { border-radius:6px; padding:9px 11px; border:2px solid; margin-bottom:5px; }
+  .c:last-child { margin-bottom:0; }
+  .sym { font-size:17px; font-style:italic; line-height:1; margin-bottom:3px; font-weight:bold; }
+  .form { font-size:10px; font-style:italic; margin-top:3px; }
+  .acc { font-size:9px; margin-top:2px; }
+
+  .d1c { color:#8a6000; border-color:#d4a020; background:#fff8e0; }
+  .d1c .form { color:#a07820; }
+  .d1c .acc { color:#c09030; }
+
+  .d2c { color:#0a4a80; border-color:#2a7abf; background:#e8f3ff; }
+  .d2c .form { color:#1a5a90; }
+  .d2c .acc { color:#3a6a90; }
+
+  .d3c { color:#5a2090; border-color:#9050d0; background:#f3eeff; }
+  .d3c .form { color:#7040a0; }
+  .d3c .acc { color:#8050b0; }
+
+  .d4c { color:#0a6030; border-color:#20a060; background:#e8fff2; }
+  .d4c .form { color:#1a7040; }
+  .d4c .acc { color:#208040; }
+
+  /* URGENT D2 cell highlight */
+  .d2-urgent { border-color: #cc2200 !important; background: #fff0ee !important; position:relative; }
+  .d2-urgent::after { content:"⚑ OPEN"; position:absolute; top:4px; right:6px; font-size:8px; color:#cc2200; font-weight:bold; letter-spacing:0.1em; }
+
+  .rels { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .rel { border-radius:10px; padding:16px 18px; border:2px solid; }
+  .rtag { font-size:10px; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:5px; font-weight:bold; }
+  .rtitle { font-size:14px; font-weight:bold; color:#111; margin-bottom:7px; }
+  .rform { font-family:monospace; font-size:13px; padding:4px 10px; border-radius:4px; display:inline-block; margin-bottom:10px; font-weight:bold; }
+  .rbody { font-size:11px; color:#555; line-height:1.65; }
+
+  .rel1 { border-color:#d4a020; background:#fffbee; } .rel1 .rtag { color:#8a6000; } .rel1 .rform { color:#8a6000; background:#fff3cc; }
+  .rel2 { border-color:#cc2200; background:#fff5f3; } .rel2 .rtag { color:#cc2200; } .rel2 .rform { color:#cc2200; background:#ffe8e4; }
+  .rel3 { border-color:#9050d0; background:#f8f4ff; } .rel3 .rtag { color:#5a2090; } .rel3 .rform { color:#5a2090; background:#ede4ff; }
+  .rel4 { border-color:#20a060; background:#f0fff6; } .rel4 .rtag { color:#0a6030; } .rel4 .rform { color:#0a6030; background:#d8ffe8; }
+
+  .foot { text-align:center; margin-top:28px; font-size:9px; color:#aaa; letter-spacing:0.15em; }
+  .urgent { color:#cc2200; font-weight:bold; }
+  .metric-badge { display:inline-block; background:#1a6bb5; color:#fff; font-size:9px; padding:2px 7px; border-radius:10px; letter-spacing:0.1em; margin-right:6px; vertical-align:middle; }
+</style>
+</head>
+<body>
+
+<div class="pp">Pentagon Physics</div>
+<h1>The Developmental Table of Constants</h1>
+<div class="sub">Derivation depth from σ = 1/(1+σ) · Zero free parameters · 26 constants derived</div>
+
+<!-- QUOTE -->
+<div class="quotebox">
+  <p>"This predicts: there should be exact algebraic relations between the Weinberg angle, the Higgs quartic, and G, because they are all one step deeper. We already have <span class="highlight">sin²θW = φ⁻³</span> and <span class="highlight">λ = 2φ/5²</span>. The relation between them and G — through the bridge algebra — should be findable. <span class="highlight">That's the next calculation the table structure is pointing at.</span>"</p>
+</div>
+
+<!-- METRIC STATEMENT -->
+<div class="metricbox">
+  <p><span class="metric-badge">KEY INSIGHT</span> The table has a natural <strong>metric: distance from the axiom</strong>. Constants at the same distance are not just numerically related — they are <strong>geometrically equivalent</strong>. They are the same theorem, expressed in different physical domains.</p>
+</div>
+
+<div class="legend">
+  <div class="leg"><div class="dot" style="background:#d4a020"></div><span style="color:#8a6000">D1 — Axiom Output</span></div>
+  <div class="leg"><div class="dot" style="background:#2a7abf"></div><span style="color:#0a4a80">D2 — First Geometry</span></div>
+  <div class="leg"><div class="dot" style="background:#9050d0"></div><span style="color:#5a2090">D3 — Polytope Structure</span></div>
+  <div class="leg"><div class="dot" style="background:#20a060"></div><span style="color:#0a6030">D4 — Eigenvalue Depth</span></div>
+</div>
+
+<table>
+<thead>
+  <tr>
+    <th></th>
+    <th>COSMO</th>
+    <th>GRAV</th>
+    <th>EM</th>
+    <th>ELECTROWEAK</th>
+    <th>MASS</th>
+    <th>MIXING / CP</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr>
+  <td class="rl">
+    <div class="dnum" style="color:#8a6000">D1</div>
+    <div class="dname">Axiom Output</div>
+    <div class="dbar" style="background:linear-gradient(90deg,#d4a020,transparent)"></div>
+  </td>
+  <td><div class="c d1c"><div class="sym">Λ</div><div class="form">−(α⁻¹ × 2/√5 + φ⁻²)</div><div class="acc">0.005 residual</div></div></td>
+  <td><div class="empty"></div></td>
+  <td><div class="c d1c"><div class="sym">α</div><div class="form">360/φ² − 2/φ³ + ...</div><div class="acc">0.05σ</div></div></td>
+  <td><div class="empty"></div></td>
+  <td><div class="empty"></div></td>
+  <td><div class="empty"></div></td>
+</tr>
+
+<tr>
+  <td class="rl">
+    <div class="dnum" style="color:#0a4a80">D2</div>
+    <div class="dname">First Geometry</div>
+    <div class="dbar" style="background:linear-gradient(90deg,#2a7abf,transparent)"></div>
+  </td>
+  <td><div class="empty"></div></td>
+  <td><div class="c d2c d2-urgent"><div class="sym">G</div><div class="form">αG · ℏc / mₚ²</div><div class="acc">0.021%</div></div></td>
+  <td><div class="empty"></div></td>
+  <td>
+    <div class="c d2c d2-urgent"><div class="sym">sin²θW</div><div class="form">φ⁻³</div><div class="acc">0.03%</div></div>
+    <div class="c d2c d2-urgent"><div class="sym">λH</div><div class="form">2φ / 5²</div><div class="acc">0.045%</div></div>
+  </td>
+  <td><div class="c d2c"><div class="sym">mH</div><div class="form">2v√φ / 5</div><div class="acc">0.17σ</div></div></td>
+  <td><div class="empty"></div></td>
+</tr>
+
+<tr>
+  <td class="rl">
+    <div class="dnum" style="color:#5a2090">D3</div>
+    <div class="dname">Polytope Structure</div>
+    <div class="dbar" style="background:linear-gradient(90deg,#9050d0,transparent)"></div>
+  </td>
+  <td><div class="empty"></div></td>
+  <td><div class="empty"></div></td>
+  <td><div class="empty"></div></td>
+  <td><div class="c d3c"><div class="sym">θQCD</div><div class="form">0 (stillpoint)</div><div class="acc">Exact</div></div></td>
+  <td><div class="empty"></div></td>
+  <td>
+    <div class="c d3c"><div class="sym">δK</div><div class="form">cos(δ) = −19/28</div><div class="acc">0.021%</div></div>
+    <div class="c d3c"><div class="sym">θ₁₃ PMNS</div><div class="form">1/45</div><div class="acc">0.05σ</div></div>
+    <div class="c d3c"><div class="sym">θ₁₂ PMNS</div><div class="form">2φ⁴/45</div><div class="acc">0.16σ</div></div>
+    <div class="c d3c"><div class="sym">θ₁₂ CKM</div><div class="form">Golden partition</div><div class="acc">0.3σ</div></div>
+  </td>
+</tr>
+
+<tr>
+  <td class="rl">
+    <div class="dnum" style="color:#0a6030">D4</div>
+    <div class="dname">Eigenvalue Depth</div>
+    <div class="dbar" style="background:linear-gradient(90deg,#20a060,transparent)"></div>
+  </td>
+  <td><div class="empty"></div></td>
+  <td><div class="empty"></div></td>
+  <td><div class="empty"></div></td>
+  <td><div class="empty"></div></td>
+  <td>
+    <div class="c d4c"><div class="sym">mₑ</div><div class="form">Rydberg closure</div><div class="acc">0.005 ppm</div></div>
+    <div class="c d4c"><div class="sym">mₚ/mₑ</div><div class="form">6π⁵ + π⁵/[φ⁷(π⁵−1)]</div><div class="acc">0.005 ppm</div></div>
+    <div class="c d4c"><div class="sym">mμ/mₑ</div><div class="form">Koide chain</div><div class="acc">0.021%</div></div>
+  </td>
+  <td>
+    <div class="c d4c"><div class="sym">δCKM</div><div class="form">π/φ²</div><div class="acc">0.3σ</div></div>
+  </td>
+</tr>
+
+</tbody>
+</table>
+
+<div class="rels">
+  <div class="rel rel1">
+    <div class="rtag">D1 Relation — Proven</div>
+    <div class="rtitle">Bridge Identity</div>
+    <div class="rform">R_Λ − R_G = 1/φ</div>
+    <div class="rbody">α and Λ connected by exact algebra. Same depth, two domains. This is what diagonal equivalence looks like when the relation is already found.</div>
+  </div>
+  <div class="rel rel2">
+    <div class="rtag">D2 Relation — <span class="urgent">⚑ URGENT / OPEN</span></div>
+    <div class="rtitle">The Next Target</div>
+    <div class="rform">sin²θW · λH ↔ G = ?</div>
+    <div class="rbody">sin²θW = φ⁻³ and λH = 2φ/5² are proven. G is on the same diagonal. The exact algebraic relation through the bridge algebra must exist and has not yet been found. Immediate priority.</div>
+  </div>
+  <div class="rel rel3">
+    <div class="rtag">D3 Relation</div>
+    <div class="rtitle">Koide – PMNS – CKM</div>
+    <div class="rform">600-cell phase θ</div>
+    <div class="rbody">All D3 constants emerge from the same 600-cell polytope structure. Their mutual relations are geometrically fixed, not fitted.</div>
+  </div>
+  <div class="rel rel4">
+    <div class="rtag">D4 Relation</div>
+    <div class="rtitle">Mass Eigenvalue Closure</div>
+    <div class="rform">mₚ/mₑ = 6π⁵ + π⁵/[φ⁷(π⁵−1)]</div>
+    <div class="rbody">All D4 mass constants are the same eigenvalue theorem in different expressions. Accuracy 0.005 ppm. Zero free parameters.</div>
+  </div>
+</div>
+
+<div class="foot">PENTAGON PHYSICS · σ = 1/(1+σ) · ZERO FREE PARAMETERS · 26 CONSTANTS DERIVED</div>
+</body>
+</html>

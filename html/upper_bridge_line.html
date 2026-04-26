@@ -1,0 +1,137 @@
+
+<div style="padding:1rem 0;">
+<div style="position:relative;width:100%;height:420px;">
+<canvas id="bridgeChart"></canvas>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:10px;font-size:12px;color:var(--color-text-secondary);">
+<span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#1D9E75;display:inline-block;"></span>Occupied (physics)</span>
+<span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#888780;display:inline-block;"></span>Structural / fifth</span>
+<span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:2px;background:#7F77DD;display:inline-block;"></span>Bridge line: depth = α⁻¹ × R + φ⁻²</span>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const phi = (1+Math.sqrt(5))/2;
+const alpha = 1/137.035999207;
+const sq5 = Math.sqrt(5);
+
+const positions = [
+  { R: phi**-2/sq5, depth: alpha**-1*(phi**-2/sq5)+phi**-2, label:'floor', color:'#888780', r:5 },
+  { R: phi**-1/sq5, depth: alpha**-1*(phi**-1/sq5)+phi**-2, label:'G', color:'#1D9E75', r:8 },
+  { R: 1/sq5,       depth: alpha**-1*(1/sq5)+phi**-2,       label:'H₀', color:'#1D9E75', r:8 },
+  { R: phi/sq5,     depth: alpha**-1*(phi/sq5)+phi**-2,     label:'fifth', color:'#888780', r:6 },
+  { R: 2/sq5,       depth: alpha**-1*(2/sq5)+phi**-2,       label:'Λ', color:'#1D9E75', r:8 },
+];
+
+const lineR = [], lineD = [];
+for(let i=0;i<=100;i++){
+  const r = i/100 * 0.95;
+  lineR.push(r);
+  lineD.push(alpha**-1*r + phi**-2);
+}
+
+new Chart(document.getElementById('bridgeChart'), {
+  data: {
+    datasets: [
+      {
+        type:'line', label:'Bridge line',
+        data: lineR.map((r,i)=>({x:r,y:lineD[i]})),
+        borderColor:'#7F77DD', borderWidth:1.5, pointRadius:0, fill:false, tension:0,
+        borderDash:[]
+      },
+      {
+        type:'scatter', label:'Occupied',
+        data: positions.filter(p=>['G','H₀','Λ'].includes(p.label)).map(p=>({x:p.R,y:p.depth,label:p.label})),
+        backgroundColor:'#1D9E75', pointRadius:8, pointHoverRadius:10,
+      },
+      {
+        type:'scatter', label:'Structural',
+        data: positions.filter(p=>!['G','H₀','Λ'].includes(p.label)).map(p=>({x:p.R,y:p.depth,label:p.label})),
+        backgroundColor:'#888780', pointRadius:6, pointHoverRadius:8,
+      },
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{
+        callbacks:{
+          title: items => {
+            const d = items[0].raw;
+            if(d.label) return d.label;
+            return 'Bridge line';
+          },
+          label: items => {
+            const d = items.raw;
+            const depth = (alpha**-1*d.x+phi**-2).toFixed(2);
+            return ['R = '+d.x.toFixed(4), 'depth = '+depth];
+          }
+        }
+      },
+      annotation:{},
+    },
+    scales:{
+      x:{
+        title:{display:true,text:'Bridge ratio R',color:'#888780',font:{size:12}},
+        min:0, max:0.95,
+        ticks:{
+          color:'#888780',font:{size:11},
+          callback: v => {
+            const labels = {
+              [+(phi**-2/sq5).toFixed(4)]:'φ⁻²/√5',
+              [+(phi**-1/sq5).toFixed(4)]:'φ⁻¹/√5',
+              [+(1/sq5).toFixed(4)]:'1/√5',
+              [+(phi/sq5).toFixed(4)]:'φ/√5',
+              [+(2/sq5).toFixed(4)]:'2/√5',
+            };
+            const key = +v.toFixed(4);
+            return labels[key] || '';
+          },
+          autoSkip:false,
+          maxTicksLimit:20,
+        },
+        grid:{color:'rgba(136,135,128,0.12)'}
+      },
+      y:{
+        title:{display:true,text:'depth = −log₁₀(coupling)',color:'#888780',font:{size:12}},
+        min:0, max:135,
+        ticks:{color:'#888780',font:{size:11},stepSize:20},
+        grid:{color:'rgba(136,135,128,0.12)'}
+      }
+    }
+  },
+  plugins:[{
+    id:'labels',
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      const labels = [
+        {R:phi**-2/sq5, text:'floor', dy:-14, dx:4},
+        {R:phi**-1/sq5, text:'G  (38.26)', dy:-14, dx:4},
+        {R:1/sq5,       text:'H₀ (61.67)', dy:-14, dx:4},
+        {R:phi/sq5,     text:'fifth (99.54)', dy:-14, dx:4},
+        {R:2/sq5,       text:'Λ  (122.95)', dy:-14, dx:-6},
+      ];
+      ctx.save();
+      ctx.font = '11px sans-serif';
+      ctx.textBaseline = 'bottom';
+      labels.forEach(l => {
+        const depth = alpha**-1*l.R + phi**-2;
+        const xScale = chart.scales.x;
+        const yScale = chart.scales.y;
+        const px = xScale.getPixelForValue(l.R) + l.dx;
+        const py = yScale.getPixelForValue(depth) + l.dy;
+        ctx.fillStyle = l.R === phi/sq5 || l.R === phi**-2/sq5 ? '#888780' : '#0F6E56';
+        ctx.textAlign = l.dx < 0 ? 'right' : 'left';
+        ctx.fillText(l.text, px, py);
+      });
+      ctx.fillStyle = '#534AB7';
+      ctx.textAlign = 'left';
+      ctx.font = 'italic 11px sans-serif';
+      ctx.fillText('slope = α⁻¹ = 137.036', chart.chartArea.left+8, chart.chartArea.top+18);
+      ctx.fillText('intercept = φ⁻² = 0.382', chart.chartArea.left+8, chart.chartArea.top+32);
+      ctx.restore();
+    }
+  }]
+});
+</script>

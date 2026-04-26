@@ -1,0 +1,340 @@
+
+<style>
+.tab-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.tab{padding:5px 12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:12px;cursor:pointer;color:var(--color-text-secondary);background:var(--color-background-primary);transition:all .15s;}
+.tab.active{background:var(--color-background-info);color:var(--color-text-info);border-color:var(--color-border-info);}
+.panel{display:none;}.panel.active{display:block;}
+.legend-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px;font-size:11px;color:var(--color-text-secondary);}
+.leg-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px;}
+.insight-box{border-left:2px solid var(--color-border-info);padding:8px 12px;margin-top:12px;font-size:12px;color:var(--color-text-secondary);background:var(--color-background-info);}
+.const-row{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:12px;}
+.const-label{min-width:120px;color:var(--color-text-primary);font-weight:500;}
+.const-bar-wrap{flex:1;height:14px;background:var(--color-background-secondary);border-radius:3px;overflow:hidden;}
+.const-bar{height:100%;border-radius:3px;transition:width .4s;}
+.const-val{min-width:70px;text-align:right;color:var(--color-text-secondary);}
+.const-acc{min-width:55px;text-align:right;font-size:11px;color:var(--color-text-tertiary);}
+.op-header{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px;}
+.op-sub{font-size:11px;color:var(--color-text-secondary);margin-bottom:12px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.rung-row{display:flex;align-items:center;gap:8px;margin:4px 0;font-size:12px;}
+.rung-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;}
+.rung-desc{flex:1;color:var(--color-text-secondary);}
+.rung-val{color:var(--color-text-primary);font-size:11px;font-family:var(--font-mono);}
+.tag{display:inline-block;padding:1px 7px;border-radius:10px;font-size:10px;margin-left:4px;}
+.tag-done{background:var(--color-background-success);color:var(--color-text-success);}
+.tag-open{background:var(--color-background-warning);color:var(--color-text-warning);}
+</style>
+
+<div style="padding:4px 0 0">
+<div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px;">Alpha taxonomy — 26 constants, 6 operations</div>
+<div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:14px;">Each operation has its own derivation architecture. The bridge template is the Scaling family only.</div>
+
+<div class="tab-row">
+  <div class="tab active" onclick="showTab('scaling')">Scaling (3)</div>
+  <div class="tab" onclick="showTab('coupling')">Coupling (7)</div>
+  <div class="tab" onclick="showTab('transitioning')">Transitioning (3)</div>
+  <div class="tab" onclick="showTab('weighting')">Weighting (6+)</div>
+  <div class="tab" onclick="showTab('rotating')">Rotating (6)</div>
+  <div class="tab" onclick="showTab('orienting')">Orienting (3)</div>
+</div>
+
+<!-- SCALING -->
+<div class="panel active" id="panel-scaling">
+  <div class="op-header">Scaling — sets absolute magnitude of each physical sector</div>
+  <div class="op-sub">Architecture: bridge partition · log₁₀(const) = −(α⁻¹ · R + φ⁻²) · R from 1 = φ⁻¹ + φ⁻²</div>
+
+  <div class="grid2">
+    <div>
+      <svg width="100%" viewBox="0 0 310 220" style="display:block">
+        <defs><marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+        <line x1="38" y1="185" x2="285" y2="185" stroke="var(--t)" stroke-width="0.5"/>
+        <line x1="38" y1="185" x2="38" y2="20" stroke="var(--t)" stroke-width="0.5"/>
+        <!-- grid -->
+        <line x1="35" y1="155" x2="285" y2="155" stroke="var(--t)" stroke-width="0.3" stroke-dasharray="3 3"/>
+        <line x1="35" y1="120" x2="285" y2="120" stroke="var(--t)" stroke-width="0.3" stroke-dasharray="3 3"/>
+        <line x1="35" y1="85" x2="285" y2="85" stroke="var(--t)" stroke-width="0.3" stroke-dasharray="3 3"/>
+        <line x1="35" y1="50" x2="285" y2="50" stroke="var(--t)" stroke-width="0.3" stroke-dasharray="3 3"/>
+        <!-- y labels -->
+        <text class="ts" x="33" y="158" text-anchor="end" font-size="9">25</text>
+        <text class="ts" x="33" y="123" text-anchor="end" font-size="9">50</text>
+        <text class="ts" x="33" y="88" text-anchor="end" font-size="9">75</text>
+        <text class="ts" x="33" y="53" text-anchor="end" font-size="9">100</text>
+        <!-- x labels -->
+        <text class="ts" x="38" y="196" text-anchor="middle" font-size="9">0</text>
+        <text class="ts" x="100" y="196" text-anchor="middle" font-size="9">0.25</text>
+        <text class="ts" x="163" y="196" text-anchor="middle" font-size="9">0.50</text>
+        <text class="ts" x="225" y="196" text-anchor="middle" font-size="9">0.75</text>
+        <text class="ts" x="285" y="196" text-anchor="middle" font-size="9">1.0</text>
+        <text class="ts" x="160" y="212" text-anchor="middle" font-size="9">R  (bridge ratio)</text>
+        <!-- regression line -->
+        <line x1="38" y1="182" x2="285" y2="32" stroke="var(--s)" stroke-width="0.5" stroke-dasharray="4 3"/>
+        <!-- floor point -->
+        <circle cx="85" cy="168" r="4" fill="var(--color-background-secondary)" stroke="#888780" stroke-width="1.2"/>
+        <text class="ts" x="93" y="166" font-size="9" fill="#888780">floor (stored)</text>
+        <!-- G -->
+        <circle cx="106" cy="153" r="5" fill="#0F6E56"/>
+        <text class="ts" x="115" y="151" font-size="10" font-weight="500" fill="#0F6E56">G</text>
+        <!-- H0 -->
+        <circle cx="145" cy="127" r="5" fill="#185FA5"/>
+        <text class="ts" x="154" y="125" font-size="10" font-weight="500" fill="#185FA5">H₀</text>
+        <!-- Lambda -->
+        <circle cx="253" cy="56" r="5" fill="#BA7517"/>
+        <text class="ts" x="241" y="51" font-size="10" font-weight="500" fill="#BA7517">Λ</text>
+        <!-- slope label -->
+        <text class="ts" x="200" y="110" font-size="9" fill="var(--t)">slope = α⁻¹</text>
+        <text class="ts" x="200" y="121" font-size="9" fill="var(--t)">y-int = φ⁻²</text>
+      </svg>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;">The four bridge ratios</div>
+      <div class="const-row"><span class="const-label">R_floor  φ⁻²/√5</span><div class="const-bar-wrap"><div class="const-bar" style="width:19%;background:#888780"></div></div><span class="const-val">0.171</span></div>
+      <div class="const-row"><span class="const-label">R_G  φ⁻¹/√5</span><div class="const-bar-wrap"><div class="const-bar" style="width:31%;background:#0F6E56"></div></div><span class="const-val">0.276</span></div>
+      <div class="const-row"><span class="const-label">R_H  1/√5</span><div class="const-bar-wrap"><div class="const-bar" style="width:50%;background:#185FA5"></div></div><span class="const-val">0.447</span></div>
+      <div class="const-row"><span class="const-label">R_Λ  2/√5</span><div class="const-bar-wrap"><div class="const-bar" style="width:100%;background:#BA7517"></div></div><span class="const-val">0.894</span></div>
+      <div style="margin-top:10px;font-size:11px;color:var(--color-text-secondary);line-height:1.7;">
+        R_Λ − R_G = <strong style="color:var(--color-text-primary)">1/φ</strong> (exact)<br>
+        R_G + R_floor = <strong style="color:var(--color-text-primary)">R_H</strong> (exact)<br>
+        R_Λ = <strong style="color:var(--color-text-primary)">2 × R_H</strong> (exact)
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <strong>Key extrapolation:</strong> α⁻¹ is the slope — it is the universal exchange rate between geometry (R-space) and physics (log-depth). R-space is dimensionless partition geometry; multiplying by α⁻¹ converts to observed orders of magnitude. The line has a natural maximum at R ≈ 0.894 (the round trip can't exceed 1 without violating the partition). At R = 0 the depth equals exactly φ⁻² — the floor fraction alone, the vacuum's irreducible charge.
+  </div>
+</div>
+
+<!-- COUPLING -->
+<div class="panel" id="panel-coupling">
+  <div class="op-header">Coupling — fixes interaction strength at every vertex</div>
+  <div class="op-sub">Architecture: rung/winding series for α · φ-geometry for electroweak sector · not the bridge template</div>
+
+  <div class="grid2">
+    <div>
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;">α rung series (golden ladder)</div>
+      <div class="rung-row">
+        <div class="rung-num" style="background:#E6F1FB;color:#0C447C">1</div>
+        <div class="rung-desc">360/φ² (golden angle)</div>
+        <div class="rung-val">137.508</div>
+      </div>
+      <div class="rung-row">
+        <div class="rung-num" style="background:#E6F1FB;color:#0C447C">2</div>
+        <div class="rung-desc">−2/φ³ (return leg)</div>
+        <div class="rung-val">−0.472</div>
+      </div>
+      <div class="rung-row">
+        <div class="rung-num" style="background:#B5D4F4;color:#0C447C">3</div>
+        <div class="rung-desc">+2⁴·ζ(3)·w¹/φ² (odd rung)</div>
+        <div class="rung-val">+0.001</div>
+      </div>
+      <div class="rung-row">
+        <div class="rung-num" style="background:#B5D4F4;color:#0C447C">5</div>
+        <div class="rung-desc">+2⁵·ζ(5)·w²/φ² (odd rung)</div>
+        <div class="rung-val">&lt; 10⁻⁶</div>
+      </div>
+      <div style="margin:8px 0 4px;font-size:11px;color:var(--color-text-secondary);">Even rungs absent — return leg subtracts</div>
+      <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);font-family:var(--font-mono);">= 137.035999207</div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;">Electroweak sector (φ-geometry, D2)</div>
+      <div class="const-row"><span class="const-label">sin²θ_W</span><div class="const-bar-wrap"><div class="const-bar" style="width:47%;background:#185FA5"></div></div><span class="const-val">φ⁻³ = 0.236</span><span class="const-acc">0.03%</span></div>
+      <div class="const-row"><span class="const-label">λ_H</span><div class="const-bar-wrap"><div class="const-bar" style="width:26%;background:#3B6D11"></div></div><span class="const-val">2φ/25 = 0.131</span><span class="const-acc">0.045%</span></div>
+      <div class="const-row"><span class="const-label">g′² = λ_H</span><div class="const-bar-wrap"><div class="const-bar" style="width:26%;background:#3B6D11"></div></div><span class="const-val">exact identity</span><span class="const-acc">D2</span></div>
+      <div class="const-row"><span class="const-label">αs at MZ</span><div class="const-bar-wrap"><div class="const-bar" style="width:24%;background:#854F0B"></div></div><span class="const-val">φ⁻³/2 = 0.118</span><span class="const-acc">0.1σ</span></div>
+      <div style="margin-top:10px;font-size:11px;color:var(--color-text-secondary);line-height:1.7;">
+        D2 identity: g′² = λ_H = 2φ/25<br>
+        Same theorem, two domains
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <strong>Key difference from Scaling:</strong> Coupling constants are <em>dimensionless ratios</em> near unity — α ≈ 1/137, αs ≈ 0.118. The bridge template gives depths of 23–123 orders of magnitude; coupling depths are 0.6–2.1. Forcing coupling constants onto the bridge line would require R values near zero (0.001–0.015) — outside the partition's natural range. The coupling family has its own template: a convergent series on φ-rungs, not a linear bridge.
+  </div>
+</div>
+
+<!-- TRANSITIONING -->
+<div class="panel" id="panel-transitioning">
+  <div class="op-header">Transitioning — marks where the operative geometry changes level</div>
+  <div class="op-sub">Architecture: sublimation hierarchy · number → shape → solid → polytope → tensor → eigenvalue</div>
+
+  <div class="grid2">
+    <div>
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;">Three transition scales</div>
+      <div style="margin:8px 0;padding:8px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);">
+        <div style="font-size:12px;font-weight:500">m_Pl = 1.22 × 10¹⁹ GeV</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px">Inherited from G via ℏc/G · D2</div>
+      </div>
+      <div style="margin:8px 0;padding:8px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);">
+        <div style="font-size:12px;font-weight:500">v = 246 GeV (Higgs VEV)</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px">Weinberg stillpoint: sin²θ_W = φ⁻³ locks at μ ≈ 243 GeV · D2</div>
+      </div>
+      <div style="margin:8px 0;padding:8px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);">
+        <div style="font-size:12px;font-weight:500">Λ_QCD ≈ 210 MeV</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px">Not independent: αs(MZ) = φ⁻³/2 propagated through RG · D3</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;">The sublimation sequence</div>
+      <svg width="100%" viewBox="0 0 240 170" style="display:block">
+        <defs><marker id="ar3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+        <rect x="10" y="5" width="80" height="22" rx="4" fill="var(--color-background-secondary)" stroke="var(--color-border-tertiary)" stroke-width="0.5"/>
+        <text x="50" y="20" text-anchor="middle" class="ts" font-size="10">number / field</text>
+        <rect x="10" y="40" width="80" height="22" rx="4" fill="var(--color-background-secondary)" stroke="var(--color-border-tertiary)" stroke-width="0.5"/>
+        <text x="50" y="55" text-anchor="middle" class="ts" font-size="10">shape / polygon</text>
+        <rect x="10" y="75" width="80" height="22" rx="4" fill="var(--color-background-secondary)" stroke="var(--color-border-tertiary)" stroke-width="0.5"/>
+        <text x="50" y="90" text-anchor="middle" class="ts" font-size="10">solid / polyhedron</text>
+        <rect x="10" y="110" width="80" height="22" rx="4" fill="var(--color-background-secondary)" stroke="var(--color-border-tertiary)" stroke-width="0.5"/>
+        <text x="50" y="125" text-anchor="middle" class="ts" font-size="10">polytope / 600-cell</text>
+        <rect x="10" y="145" width="80" height="22" rx="4" fill="var(--color-background-secondary)" stroke="var(--color-border-tertiary)" stroke-width="0.5"/>
+        <text x="50" y="160" text-anchor="middle" class="ts" font-size="10">eigenvalue</text>
+        <line x1="50" y1="27" x2="50" y2="38" stroke="var(--t)" stroke-width="0.7" marker-end="url(#ar3)"/>
+        <line x1="50" y1="62" x2="50" y2="73" stroke="var(--t)" stroke-width="0.7" marker-end="url(#ar3)"/>
+        <line x1="50" y1="97" x2="50" y2="108" stroke="var(--t)" stroke-width="0.7" marker-end="url(#ar3)"/>
+        <line x1="50" y1="132" x2="50" y2="143" stroke="var(--t)" stroke-width="0.7" marker-end="url(#ar3)"/>
+        <text x="125" y="20" class="ts" font-size="9" fill="var(--t)">σ → φ → disc=5</text>
+        <text x="125" y="55" class="ts" font-size="9" fill="var(--t)">pentagon → α</text>
+        <text x="125" y="90" class="ts" font-size="9" fill="var(--t)">icosahedron → G, Λ</text>
+        <text x="125" y="125" class="ts" font-size="9" fill="var(--t)">600-cell → masses</text>
+        <text x="125" y="160" class="ts" font-size="9" fill="var(--t)">spectrum → mμ, mτ</text>
+      </svg>
+    </div>
+  </div>
+  <div class="insight-box">
+    <strong>Key insight:</strong> These three constants aren't derived independently — they mark the joints in the sublimation chain. Each one is where one geometric level hands off to the next. Λ_QCD in particular is not a free parameter in PP: it's αs propagated downward through the QCD renormalisation group, which means the 17% one-loop residual is a computation problem, not a derivation gap.
+  </div>
+</div>
+
+<!-- WEIGHTING -->
+<div class="panel" id="panel-weighting">
+  <div class="op-header">Weighting — assigns inertia to each excitation</div>
+  <div class="op-sub">Architecture: eigenvalue structure of circulant matrices on the 600-cell · Koide balance condition</div>
+
+  <div class="grid2">
+    <div>
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;">Derived masses</div>
+      <div class="const-row"><span class="const-label">mₑ</span><div class="const-bar-wrap"><div class="const-bar" style="width:3%;background:#185FA5"></div></div><span class="const-val">0.511 MeV</span><span class="const-acc">0.005 ppm</span></div>
+      <div class="const-row"><span class="const-label">mμ/mₑ</span><div class="const-bar-wrap"><div class="const-bar" style="width:42%;background:#185FA5"></div></div><span class="const-val">206.77</span><span class="const-acc">0.021%</span></div>
+      <div class="const-row"><span class="const-label">mτ/mₑ</span><div class="const-bar-wrap"><div class="const-bar" style="width:100%;background:#185FA5"></div></div><span class="const-val">3477</span><span class="const-acc">0.03%</span></div>
+      <div class="const-row"><span class="const-label">mp/mₑ</span><div class="const-bar-wrap"><div class="const-bar" style="width:52%;background:#0F6E56"></div></div><span class="const-val">1836.15</span><span class="const-acc">0.005 ppm</span></div>
+      <div class="const-row"><span class="const-label">mH</span><div class="const-bar-wrap"><div class="const-bar" style="width:60%;background:#854F0B"></div></div><span class="const-val">125.25 GeV</span><span class="const-acc">0.17σ</span></div>
+      <div style="margin-top:8px;padding:6px 8px;border:0.5px solid var(--color-border-warning);border-radius:var(--border-radius-md);background:var(--color-background-warning);font-size:11px;color:var(--color-text-warning);">
+        Quark masses (×6) <span class="tag tag-open">open</span><br>
+        Architecture understood · formulae not written
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;">Koide balance condition</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.8;margin-bottom:8px;">
+        3×3 Hermitian circulant with<br>
+        off-diagonal = diagonal/√2<br>
+        → Q = 2/3 (Koide relation)<br>
+        → N = 3 unique (theorem)<br>
+        → one free phase δ<br>
+        → cos(δ) = −19/28 (axiom fixes it)
+      </div>
+      <div style="font-size:11px;color:var(--color-text-secondary);">
+        mp/mₑ = 6π⁵ + π⁵/[φ⁷(π⁵−1)]<br>
+        <span style="font-size:10px;color:var(--color-text-tertiary);">Unique in 2,248 combinations tested</span>
+      </div>
+    </div>
+  </div>
+  <div class="insight-box">
+    <strong>Hadronic frontier:</strong> The pion is already derived (144/1001 from character table at 4.5 ppm). The kaon/pion ratio mK/mπ is the natural next target — it should appear in the primed sector of the 2I character table (Galois mirror of lepton sector). The charm and bottom thresholds require the confinement mechanism to be explicit. This is the main open frontier of the programme.
+  </div>
+</div>
+
+<!-- ROTATING -->
+<div class="panel" id="panel-rotating">
+  <div class="op-header">Rotating — specifies generation misalignment under weak decay</div>
+  <div class="op-sub">Architecture: golden partition of the 600-cell · CKM and PMNS as two projections of the same polytope</div>
+
+  <div class="grid2">
+    <div>
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;">CKM (quark mixing)</div>
+      <div class="const-row"><span class="const-label">θ₁₂ (Cabibbo)</span><div class="const-bar-wrap"><div class="const-bar" style="width:55%;background:#533AB7"></div></div><span class="const-val">golden partition</span><span class="const-acc">0.3σ</span></div>
+      <div class="const-row"><span class="const-label">θ₁₃</span><div class="const-bar-wrap"><div class="const-bar" style="width:20%;background:#533AB7"></div></div><span class="const-val">derived</span><span class="const-acc">—</span></div>
+      <div class="const-row"><span class="const-label">θ₂₃</span><div class="const-bar-wrap"><div class="const-bar" style="width:38%;background:#533AB7"></div></div><span class="const-val">derived</span><span class="const-acc">—</span></div>
+      <div style="margin-top:12px;font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;">PMNS (neutrino mixing)</div>
+      <div class="const-row"><span class="const-label">sin²θ₁₃</span><div class="const-bar-wrap"><div class="const-bar" style="width:22%;background:#185FA5"></div></div><span class="const-val">1/45</span><span class="const-acc">0.05σ</span></div>
+      <div class="const-row"><span class="const-label">sin²θ₁₂</span><div class="const-bar-wrap"><div class="const-bar" style="width:67%;background:#185FA5"></div></div><span class="const-val">2φ⁴/45</span><span class="const-acc">0.16σ</span></div>
+      <div class="const-row"><span class="const-label">sin²θ₂₃</span><div class="const-bar-wrap"><div class="const-bar" style="width:75%;background:#185FA5"></div></div><span class="const-val">3/(2φ²)</span><span class="const-acc">0.3σ</span></div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;">The 600-cell connection</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.8;">
+        600-cell: 120 vertices, 600 tetrahedral cells<br>
+        Galois group of its symmetries = 2I (binary icosahedral)<br>
+        Character table: 81 entries · 15 values · 4 operations<br><br>
+        Quark mixing = projection onto one Galois orbit<br>
+        Neutrino mixing = projection onto conjugate orbit<br><br>
+        CKM and PMNS are not independent matrices.<br>
+        They are the same 600-cell seen from two angles.
+      </div>
+      <div style="margin-top:8px;font-size:11px;padding:6px 8px;border-left:2px solid var(--color-border-secondary);color:var(--color-text-secondary);">
+        Pion: 144/1001 at 4.5 ppm from character table
+      </div>
+    </div>
+  </div>
+  <div class="insight-box">
+    <strong>Analogue of the bridge line:</strong> For the Rotating family the "line" equivalent is the 600-cell projection. Both CKM and PMNS angles sit on the same geometric object — one in the primed sector (hadronic), one in the unprimed sector (leptonic). The kaon-to-pion ratio should appear at the same depth as the pion, in the primed sector.
+  </div>
+</div>
+
+<!-- ORIENTING -->
+<div class="panel" id="panel-orienting">
+  <div class="op-header">Orienting — fixes the CP phase of each sector</div>
+  <div class="op-sub">Architecture: chirality and orientation of the 600-cell · all real characters in 2I force Majorana structure</div>
+
+  <div class="grid2">
+    <div>
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;">Three CP parameters</div>
+      <div style="margin:8px 0;padding:8px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);">
+        <div style="font-size:12px;font-weight:500">θ_QCD = 0 (exact)</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px">Not a small number — the absence of orientation. QCD vacuum is the self-referential fixed point: no CP handedness possible at a stillpoint.</div>
+      </div>
+      <div style="margin:8px 0;padding:8px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);">
+        <div style="font-size:12px;font-weight:500">δ_CKM = π/φ²</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px">0.3σ match · chirality of 600-cell projected onto quark sector</div>
+      </div>
+      <div style="margin:8px 0;padding:8px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);">
+        <div style="font-size:12px;font-weight:500">δ_PMNS = π + π/(5φ²)</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px">Projected onto lepton sector · δ_PMNS = π + δ_CKM/5 · both live in ℚ(√5)</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;">Majorana theorem</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.8;">
+        2I character table: all 81 characters real<br>
+        → no complex phase available in neutrino sector<br>
+        → neutrinos must be Majorana particles<br><br>
+        This is a theorem, not a prediction.<br>
+        The character table forces it.<br><br>
+        Neutrino mass sum Σm = 74.65 meV (NO)<br>
+        <span style="color:var(--color-text-tertiary);font-size:10px">Definitive test ~5–10 years away</span>
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:var(--color-text-secondary);">
+        Relation between phases:<br>
+        δ_PMNS = π + δ_CKM/5<br>
+        Both in ℚ(√5) — not coincidence.
+      </div>
+    </div>
+  </div>
+  <div class="insight-box">
+    <strong>Analogue of the bridge line:</strong> For the Orienting family the "template" is a single number: the chirality of the 600-cell, expressed once per sector. The bridge line has four points; the Orienting template has three — one for each sector that can have a CP phase (QCD = 0 by stillpoint, EW and leptonic = nonzero projections of the same handedness).
+  </div>
+</div>
+
+</div>
+
+<script>
+function showTab(id){
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    const ids=['scaling','coupling','transitioning','weighting','rotating','orienting'];
+    t.classList.toggle('active', ids[i]===id);
+  });
+  document.querySelectorAll('.panel').forEach(p=>{
+    p.classList.toggle('active', p.id==='panel-'+id);
+  });
+}
+</script>

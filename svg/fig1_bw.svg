@@ -1,0 +1,106 @@
+<svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg" font-family="Cambria, serif">
+  <rect width="900" height="340" fill="#ffffff"/>
+  
+  <text x="450" y="28" text-anchor="middle" fill="#000000" font-size="14" font-weight="bold">Figure 1. The E₈ Particle Graph (McKay Correspondence of 2I)</text>
+  
+  <!-- Edges -->
+  <g stroke="#000000" stroke-width="1.5">
+    <line x1="80" y1="150" x2="180" y2="150"/>
+    <line x1="180" y1="150" x2="290" y2="150"/>
+    <line x1="290" y1="150" x2="400" y2="150"/>
+    <line x1="400" y1="150" x2="510" y2="150"/>
+    <line x1="510" y1="150" x2="620" y2="150"/>
+    <line x1="620" y1="150" x2="730" y2="150"/>
+    <line x1="730" y1="150" x2="830" y2="150"/>
+    <line x1="620" y1="150" x2="620" y2="265"/>
+  </g>
+  
+  <!-- Distance from ρ₂ -->
+  <text x="180" y="85" text-anchor="middle" fill="#888888" font-size="9">d = 0</text>
+  <text x="290" y="85" text-anchor="middle" fill="#888888" font-size="9">d = 1</text>
+  <text x="400" y="85" text-anchor="middle" fill="#888888" font-size="9">d = 2</text>
+  <text x="510" y="85" text-anchor="middle" fill="#888888" font-size="9">d = 3</text>
+  <text x="620" y="85" text-anchor="middle" fill="#888888" font-size="9">d = 4</text>
+  <text x="730" y="85" text-anchor="middle" fill="#888888" font-size="9">d = 5</text>
+  <text x="830" y="85" text-anchor="middle" fill="#888888" font-size="9">d = 6</text>
+  
+  <!-- NODES: boundary fermions = filled black circles -->
+  <!-- ρ₂ -->
+  <circle cx="180" cy="150" r="22" fill="#000000" stroke="#000000" stroke-width="2"/>
+  <text x="180" y="146" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">ρ₂</text>
+  <text x="180" y="160" text-anchor="middle" fill="#ffffff" font-size="9">(2)</text>
+  <text x="180" y="190" text-anchor="middle" fill="#000000" font-size="10" font-weight="bold">QUARK</text>
+  <text x="180" y="203" text-anchor="middle" fill="#666666" font-size="8">boundary fermion</text>
+  
+  <!-- ρ₃ -->
+  <circle cx="830" cy="150" r="22" fill="#000000" stroke="#000000" stroke-width="2"/>
+  <text x="830" y="146" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">ρ₃</text>
+  <text x="830" y="160" text-anchor="middle" fill="#ffffff" font-size="9">(2')</text>
+  <text x="830" y="190" text-anchor="middle" fill="#000000" font-size="10" font-weight="bold">LEPTON</text>
+  <text x="830" y="203" text-anchor="middle" fill="#666666" font-size="8">boundary fermion</text>
+  
+  <!-- Boundary bosons = filled grey -->
+  <!-- ρ₄ -->
+  <circle cx="290" cy="150" r="22" fill="#aaaaaa" stroke="#000000" stroke-width="1.5"/>
+  <text x="290" y="146" text-anchor="middle" fill="#000000" font-size="12" font-weight="bold">ρ₄</text>
+  <text x="290" y="160" text-anchor="middle" fill="#000000" font-size="9">(3)</text>
+  <text x="290" y="190" text-anchor="middle" fill="#000000" font-size="10" font-weight="bold">COLOUR</text>
+  <text x="290" y="203" text-anchor="middle" fill="#666666" font-size="8">boundary boson</text>
+  
+  <!-- ρ₅ branch -->
+  <circle cx="620" cy="265" r="22" fill="#aaaaaa" stroke="#000000" stroke-width="1.5"/>
+  <text x="620" y="261" text-anchor="middle" fill="#000000" font-size="12" font-weight="bold">ρ₅</text>
+  <text x="620" y="275" text-anchor="middle" fill="#000000" font-size="9">(3')</text>
+  <text x="620" y="305" text-anchor="middle" fill="#000000" font-size="10">ANTI-COLOUR</text>
+  <text x="620" y="318" text-anchor="middle" fill="#666666" font-size="8">boundary boson</text>
+  
+  <!-- Bulk fermions = open circles, dashed -->
+  <!-- ρ₆ -->
+  <circle cx="400" cy="150" r="22" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="400" y="146" text-anchor="middle" fill="#000000" font-size="12" font-weight="bold">ρ₆</text>
+  <text x="400" y="160" text-anchor="middle" fill="#000000" font-size="9">(4)</text>
+  <text x="400" y="190" text-anchor="middle" fill="#000000" font-size="10">confined</text>
+  <text x="400" y="203" text-anchor="middle" fill="#666666" font-size="8">bulk fermion</text>
+  
+  <!-- ρ₉ -->
+  <circle cx="620" cy="150" r="22" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="620" y="146" text-anchor="middle" fill="#000000" font-size="12" font-weight="bold">ρ₉</text>
+  <text x="620" y="160" text-anchor="middle" fill="#000000" font-size="9">(6)</text>
+  <text x="647" y="190" text-anchor="start" fill="#000000" font-size="10">confined</text>
+  <text x="647" y="203" text-anchor="start" fill="#666666" font-size="8">bulk fermion</text>
+  
+  <!-- Bulk bosons = open circles, solid -->
+  <!-- ρ₁ -->
+  <circle cx="80" cy="150" r="22" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="80" y="146" text-anchor="middle" fill="#000000" font-size="12" font-weight="bold">ρ₁</text>
+  <text x="80" y="160" text-anchor="middle" fill="#000000" font-size="9">(1)</text>
+  <text x="80" y="190" text-anchor="middle" fill="#000000" font-size="10">VACUUM</text>
+  
+  <!-- ρ₈ -->
+  <circle cx="510" cy="150" r="22" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="510" y="146" text-anchor="middle" fill="#000000" font-size="12" font-weight="bold">ρ₈</text>
+  <text x="510" y="160" text-anchor="middle" fill="#000000" font-size="9">(5)</text>
+  <text x="510" y="190" text-anchor="middle" fill="#000000" font-size="10">SCALAR</text>
+  <text x="510" y="203" text-anchor="middle" fill="#666666" font-size="8">bulk boson</text>
+  
+  <!-- ρ₇ = double circle (gauge boson, special) -->
+  <circle cx="730" cy="150" r="22" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <circle cx="730" cy="150" r="18" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+  <text x="730" y="146" text-anchor="middle" fill="#000000" font-size="12" font-weight="bold">ρ₇</text>
+  <text x="730" y="160" text-anchor="middle" fill="#000000" font-size="9">(4')</text>
+  <text x="730" y="190" text-anchor="middle" fill="#000000" font-size="10" font-weight="bold">γ W⁺W⁻Z</text>
+  <text x="730" y="203" text-anchor="middle" fill="#666666" font-size="8">gauge bosons</text>
+  
+  <!-- Legend -->
+  <circle cx="35" cy="240" r="8" fill="#000000" stroke="#000000" stroke-width="1.5"/>
+  <text x="50" y="244" fill="#000000" font-size="9">Boundary fermion</text>
+  <circle cx="35" cy="260" r="8" fill="#aaaaaa" stroke="#000000" stroke-width="1.5"/>
+  <text x="50" y="264" fill="#000000" font-size="9">Boundary boson</text>
+  <circle cx="35" cy="280" r="8" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="50" y="284" fill="#000000" font-size="9">Bulk fermion</text>
+  <circle cx="35" cy="300" r="8" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="50" y="304" fill="#000000" font-size="9">Bulk boson</text>
+  <circle cx="35" cy="320" r="8" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <circle cx="35" cy="320" r="5.5" fill="#ffffff" stroke="#000000" stroke-width="0.8"/>
+  <text x="50" y="324" fill="#000000" font-size="9">Gauge boson</text>
+</svg>

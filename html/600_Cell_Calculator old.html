@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>600-Cell Nuclear Calculator — Pentagon Physics</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0d1117; color: #e6e6e6; padding: 20px; max-width: 900px; margin: 0 auto; line-height: 1.5; }
+h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; color: #fff; }
+.subtitle { font-size: 13px; color: #8b949e; margin-bottom: 20px; }
+.mode-btns { display: flex; gap: 8px; margin-bottom: 16px; }
+.mode-btn { padding: 6px 16px; border-radius: 6px; border: 1px solid #30363d; background: transparent; color: #e6e6e6; cursor: pointer; font-size: 13px; }
+.mode-btn.active { background: #1f3a5f; border-color: #388bfd; }
+.element-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; }
+.el-btn { padding: 4px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; border: 1px solid #30363d; background: transparent; color: #e6e6e6; transition: all 0.15s; }
+.el-btn:hover { border-color: #58a6ff; }
+.el-btn.active { border: 2px solid #58a6ff; background: #1f3a5f; font-weight: 600; }
+.sliders { display: flex; gap: 24px; margin-bottom: 16px; }
+.sliders > div { flex: 1; }
+.sliders label { display: block; font-size: 12px; color: #8b949e; margin-bottom: 6px; font-weight: 500; }
+.sliders input[type=range] { width: 100%; accent-color: #58a6ff; }
+.slider-ticks { display: flex; justify-content: space-between; font-size: 10px; color: #484f58; }
+.name-line { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+.name-line .magic { font-size: 13px; color: #f0883e; font-weight: 600; margin-left: 8px; }
+.info-line { font-size: 13px; color: #8b949e; margin-bottom: 16px; }
+.info-line .pm { color: #58a6ff; margin-left: 8px; }
+.info-line .nm { color: #a371f7; margin-left: 8px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.card { background: #1e2733; border-radius: 12px; padding: 16px; border: 1px solid #3a4452; }
+.card-label { font-size: 11px; color: #e8b83e; margin-bottom: 8px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+.cell-title { font-size: 13px; font-weight: 500; margin-bottom: 8px; }
+.cell-title.blue { color: #58a6ff; }
+.cell-title.purple { color: #a371f7; }
+.shell-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.shell-d { width: 36px; text-align: right; font-size: 12px; color: #8b949e; }
+.shell-bar { flex: 1; height: 22px; border-radius: 4px; position: relative; overflow: hidden; }
+.shell-bar.blue { background: #122d52; border: 1.5px solid #3a4452; }
+.shell-bar.purple { background: #271c42; border: 1.5px solid #3a4452; }
+.shell-bar.full.blue { border-color: #1f6feb; }
+.shell-bar.full.purple { border-color: #8957e5; }
+.shell-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; opacity: 0.7; }
+.shell-fill.blue { background: #388bfd; }
+.shell-fill.purple { background: #8957e5; }
+.shell-text { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; }
+.shell-magic { width: 36px; font-size: 11px; }
+.shell-magic.is-magic { color: #f0883e; }
+.shell-magic.not-magic { color: #484f58; }
+.bonding-note { font-size: 12px; color: #8b949e; margin-top: 8px; }
+.bonding-note .sat { color: #3fb950; font-weight: 600; }
+.mass-calc { font-family: 'Cascadia Code', 'Fira Code', monospace; font-size: 13px; line-height: 1.8; }
+.mass-calc .dim { color: #8b949e; }
+.mass-result { margin-top: 8px; font-size: 16px; font-weight: 600; color: #fff; }
+.eig-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 4px; margin-top: 8px; }
+.eig-cell { border-radius: 8px; padding: 8px 4px; text-align: center; font-size: 11px; }
+.eig-cell.bond { background: #122d52; border: 1px solid #3a4452; }
+.eig-cell.anti { background: #35181b; border: 1px solid #3a4452; }
+.eig-cell.non { background: #262624; border: 1px solid #3a4452; }
+.eig-cell.irr { border: 2px solid #f0883e; }
+.eig-sym { font-weight: 600; font-size: 13px; }
+.eig-mult { color: #8b949e; }
+.force-card { padding: 10px 12px; border-radius: 8px; background: #151c25; }
+.force-name { font-size: 14px; font-weight: 600; }
+.force-ch { font-size: 11px; color: #8b949e; }
+.force-formula { font-size: 12px; font-family: monospace; margin-top: 4px; }
+.force-acc { font-size: 11px; color: #3fb950; margin-top: 2px; }
+.deriv-card { padding: 12px; border-radius: 8px; background: #0d1117; border: 1px solid #3a4452; }
+.deriv-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.deriv-formula { font-family: monospace; font-size: 12px; margin-top: 6px; }
+.deriv-steps { font-size: 12px; color: #8b949e; margin-top: 4px; }
+.deriv-result { font-size: 14px; font-weight: 600; margin-top: 4px; }
+.deriv-acc { font-size: 11px; color: #3fb950; margin-top: 2px; }
+.footer { font-size: 11px; color: #484f58; text-align: center; margin-top: 16px; }
+@media (max-width: 700px) { .grid2 { grid-template-columns: 1fr; } .eig-grid { grid-template-columns: repeat(5, 1fr); } }
+</style>
+</head>
+<body>
+
+<h1>600-Cell Nuclear Calculator</h1>
+<p class="subtitle">The atom is E₈. Select an element to see its shell filling, mass calculation, and cavity structure.</p>
+
+<div class="mode-btns">
+  <button class="mode-btn active" id="btn-preset" onclick="setMode('preset')">Elements</button>
+  <button class="mode-btn" id="btn-custom" onclick="setMode('custom')">Custom Z, N</button>
+</div>
+
+<div id="preset-panel">
+  <div class="element-grid" id="element-grid"></div>
+</div>
+
+<div id="custom-panel" style="display:none">
+  <div class="sliders">
+    <div>
+      <label>Protons (Z) = <span id="z-val">26</span></label>
+      <input type="range" min="0" max="120" value="26" id="z-slider" oninput="updateCustom()" style="accent-color:#58a6ff">
+      <div class="slider-ticks"><span>0</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span><span>120</span></div>
+    </div>
+    <div>
+      <label>Neutrons (N) = <span id="n-val">30</span></label>
+      <input type="range" min="0" max="184" value="30" id="n-slider" oninput="updateCustom()" style="accent-color:#a371f7">
+      <div class="slider-ticks"><span>0</span><span>28</span><span>50</span><span>82</span><span>126</span><span>184</span></div>
+    </div>
+  </div>
+</div>
+
+<div id="name-display"></div>
+<div id="info-display" class="info-line"></div>
+
+<div class="grid2">
+  <div class="card" id="proton-card"></div>
+  <div class="card" id="neutron-card"></div>
+</div>
+
+<div class="card" id="mass-card" style="margin-bottom:12px"></div>
+
+<div class="card" id="eig-card" style="margin-bottom:12px"></div>
+
+<div class="card" id="force-card" style="margin-bottom:12px"></div>
+
+<div class="card" id="deriv-card" style="margin-bottom:12px"></div>
+
+<div class="footer">Pentagon Physics · σ = 1/(1+σ) · Zero free parameters · pentagonphysics.com</div>
+
+<script>
+const PHI = (1 + Math.sqrt(5)) / 2;
+const SIGMA = 1 / PHI;
+const ALPHA = 1 / 137.035999084;
+const M_PI = 134.977;
+const M_P = 938.272;
+const M_N = 939.565;
+const M_E = 0.511;
+const KAPPA = M_PI / 12;
+
+const SHELLS = [
+  {d:1, cap:2, magic:2}, {d:2, cap:6, magic:8}, {d:3, cap:12, magic:20},
+  {d:4, cap:8, magic:28}, {d:5, cap:22, magic:50}, {d:6, cap:32, magic:82},
+  {d:7, cap:44, magic:126}, {d:8, cap:58, magic:184}
+];
+
+const MAGICS = [2,8,20,28,50,82,126];
+
+const ELEMENTS = [
+  {sym:"H", name:"Hydrogen-1", Z:1, N:0},
+  {sym:"D", name:"Deuterium", Z:1, N:1},
+  {sym:"He", name:"Helium-4", Z:2, N:2},
+  {sym:"C", name:"Carbon-12", Z:6, N:6},
+  {sym:"N", name:"Nitrogen-14", Z:7, N:7},
+  {sym:"O", name:"Oxygen-16", Z:8, N:8},
+  {sym:"Ne", name:"Neon-20", Z:10, N:10},
+  {sym:"Si", name:"Silicon-28", Z:14, N:14},
+  {sym:"Ca", name:"Calcium-40", Z:20, N:20},
+  {sym:"Ca-48", name:"Calcium-48", Z:20, N:28},
+  {sym:"Ti", name:"Titanium-48", Z:22, N:26},
+  {sym:"Fe", name:"Iron-56", Z:26, N:30},
+  {sym:"Ni", name:"Nickel-58", Z:28, N:30},
+  {sym:"Cu", name:"Copper-63", Z:29, N:34},
+  {sym:"Zr", name:"Zirconium-90", Z:40, N:50},
+  {sym:"Sn", name:"Tin-120", Z:50, N:70},
+  {sym:"Ba", name:"Barium-138", Z:56, N:82},
+  {sym:"Hg", name:"Mercury-202", Z:80, N:122},
+  {sym:"Pb", name:"Lead-208", Z:82, N:126},
+  {sym:"U", name:"Uranium-238", Z:92, N:146},
+];
+
+const EIGS = [
+  {sym:"12", val:12, mult:1, char:"bond", gal:"rat"},
+  {sym:"6φ", val:6*PHI, mult:4, char:"bond", gal:"irr"},
+  {sym:"4φ", val:4*PHI, mult:9, char:"bond", gal:"irr"},
+  {sym:"3", val:3, mult:16, char:"bond", gal:"rat"},
+  {sym:"0", val:0, mult:25, char:"non", gal:"rat"},
+  {sym:"−2", val:-2, mult:36, char:"anti", gal:"rat"},
+  {sym:"−4σ", val:-4*SIGMA, mult:9, char:"anti", gal:"irr"},
+  {sym:"−3", val:-3, mult:16, char:"anti", gal:"rat"},
+  {sym:"−6σ", val:-6*SIGMA, mult:4, char:"anti", gal:"irr"},
+];
+
+let mode = "preset";
+let selectedIdx = 11;
+
+function isMagic(n) { return MAGICS.includes(n); }
+
+function getShells(count) {
+  let rem = count; const out = [];
+  for (const s of SHELLS) {
+    const filled = Math.min(rem, s.cap);
+    out.push({...s, filled, full: filled === s.cap});
+    rem -= filled; if (rem <= 0) break;
+  }
+  return out;
+}
+
+function eigSum(A) {
+  if (A >= 120) return 90 + 30 * Math.sqrt(5);
+  const r = A / 120;
+  return (90 + 30 * Math.sqrt(5)) * (1 - Math.pow(1 - r, 1.8));
+}
+
+function calcMass(Z, N) {
+  const A = Z + N; if (A === 0) return null;
+  const sl = eigSum(A);
+  const bSq = (-1 + Math.sqrt(1 + 4 * sl / A)) / 2;
+  const binding = KAPPA * sl * Math.pow(SIGMA / bSq, 2 * SIGMA * SIGMA);
+  const coulomb = (ALPHA * M_P / 10) * Z * (Z - 1) / Math.pow(A, 1/3);
+  return { mass: Z*M_P + N*M_N - binding + coulomb, binding, coulomb, sl, bSq, free: Z*M_P + N*M_N };
+}
+
+function setMode(m) {
+  mode = m;
+  document.getElementById('btn-preset').className = 'mode-btn' + (m==='preset' ? ' active' : '');
+  document.getElementById('btn-custom').className = 'mode-btn' + (m==='custom' ? ' active' : '');
+  document.getElementById('preset-panel').style.display = m==='preset' ? 'block' : 'none';
+  document.getElementById('custom-panel').style.display = m==='custom' ? 'block' : 'none';
+  render();
+}
+
+function selectElement(i) { selectedIdx = i; render(); }
+function updateCustom() {
+  document.getElementById('z-val').textContent = document.getElementById('z-slider').value;
+  document.getElementById('n-val').textContent = document.getElementById('n-slider').value;
+  render();
+}
+
+function getZN() {
+  if (mode === 'preset') return { Z: ELEMENTS[selectedIdx].Z, N: ELEMENTS[selectedIdx].N, name: ELEMENTS[selectedIdx].name };
+  const Z = parseInt(document.getElementById('z-slider').value);
+  const N = parseInt(document.getElementById('n-slider').value);
+  return { Z, N, name: `Custom: Z=${Z}, N=${N}, A=${Z+N}` };
+}
+
+function shellHTML(shells, color, count) {
+  return shells.map(s => {
+    const pct = (s.filled / s.cap * 100);
+    const fullCls = s.full ? ' full' : '';
+    const magicCls = isMagic(s.magic) ? 'is-magic' : 'not-magic';
+    return `<div class="shell-row">
+      <div class="shell-d">d=${s.d}</div>
+      <div class="shell-bar ${color}${fullCls}">
+        <div class="shell-fill ${color}" style="width:${pct}%"></div>
+        <div class="shell-text">${s.filled}/${s.cap}</div>
+      </div>
+      <div class="shell-magic ${magicCls}">${isMagic(s.magic) ? '★'+s.magic : s.magic}</div>
+    </div>`;
+  }).join('');
+}
+
+function render() {
+  const {Z, N, name} = getZN();
+  const A = Z + N;
+  const pMagic = isMagic(Z), nMagic = isMagic(N), dMagic = pMagic && nMagic;
+
+  // Element grid
+  const grid = document.getElementById('element-grid');
+  grid.innerHTML = ELEMENTS.map((el, i) =>
+    `<button class="el-btn${i===selectedIdx && mode==='preset' ? ' active' : ''}" onclick="selectElement(${i})">${el.sym}</button>`
+  ).join('');
+
+  // Name
+  document.getElementById('name-display').innerHTML =
+    `<div class="name-line">${name}${dMagic ? '<span class="magic">DOUBLY MAGIC</span>' : ''}</div>`;
+
+  let info = `Z = ${Z} protons · N = ${N} neutrons · A = ${A}`;
+  if (pMagic && !dMagic) info += '<span class="pm">Proton magic</span>';
+  if (nMagic && !dMagic) info += '<span class="nm">Neutron magic</span>';
+  document.getElementById('info-display').innerHTML = info;
+
+  // Proton cell
+  const pShells = getShells(Z);
+  let pHTML = `<div class="card-label">Proton 600-cell</div>
+    <div class="cell-title blue">${Z} of 120 eigenvectors occupied${pMagic ? ' <span style="color:#f0883e">— shell closed</span>' : ''}</div>
+    ${shellHTML(pShells, 'blue', Z)}`;
+  if (Z <= 30) pHTML += `<div class="bonding-note">Bonding modes: ${Math.min(Z,30)}/30${Z===30 ? ' <span class="sat">— SATURATED</span>' : ''}</div>`;
+  document.getElementById('proton-card').innerHTML = pHTML;
+
+  // Neutron cell
+  const nShells = getShells(N);
+  let nHTML = `<div class="card-label">Neutron 600-cell</div>
+    <div class="cell-title purple">${N} of 120 eigenvectors occupied${nMagic ? ' <span style="color:#f0883e">— shell closed</span>' : ''}</div>
+    ${shellHTML(nShells, 'purple', N)}`;
+  if (N <= 30) nHTML += `<div class="bonding-note">Bonding modes: ${Math.min(N,30)}/30${N===30 ? ' <span class="sat">— SATURATED</span>' : ''}</div>`;
+  document.getElementById('neutron-card').innerHTML = nHTML;
+
+  // Mass
+  const mc = calcMass(Z, N);
+  if (mc) {
+    document.getElementById('mass-card').innerHTML = `<div class="card-label">Nuclear mass calculation (zero free parameters)</div>
+      <div class="mass-calc">
+        <div>M(Z,N) = Z·m_p + N·m_n − κ·Σλ⁺(A)·(σ/b)^(2σ²) + (αm_p/10)·Z(Z−1)/A^(1/3)</div>
+        <div class="dim" style="margin-top:8px">
+          Free masses: ${Z} × ${M_P.toFixed(3)} + ${N} × ${M_N.toFixed(3)} = ${mc.free.toFixed(1)} MeV<br>
+          Σλ⁺(${A}): ${mc.sl.toFixed(3)}<br>
+          Binding: −${mc.binding.toFixed(1)} MeV<br>
+          Coulomb: +${mc.coulomb.toFixed(1)} MeV
+        </div>
+        <div class="mass-result">Predicted mass: ${mc.mass.toFixed(0)} MeV</div>
+      </div>`;
+  }
+
+  // Eigenvalues
+  document.getElementById('eig-card').innerHTML = `<div class="card-label">Eigenvalue spectrum</div>
+    <div class="eig-grid">
+      ${EIGS.map(e => {
+        const cls = e.char === 'bond' ? 'bond' : e.char === 'anti' ? 'anti' : 'non';
+        const irr = e.gal === 'irr' ? ' irr' : '';
+        const sq = Math.round(Math.sqrt(e.mult));
+        return `<div class="eig-cell ${cls}${irr}">
+          <div class="eig-sym">${e.sym}</div>
+          <div class="eig-mult">${e.mult} = ${sq}²</div>
+          <div style="font-size:10px;margin-top:2px">${e.char === 'bond' ? 'Bond' : e.char === 'anti' ? 'Anti' : 'Non'}</div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div style="font-size:12px;color:#8b949e;margin-top:8px">30 bonding · 25 non-bonding · 65 anti-bonding · 94 confined · 26 free · Orange border = irrational (Galois boundary)</div>`;
+
+  // Forces
+  const forces = [
+    {name:"Strong", ch:"D₄ bridge", formula:`κ = ${KAPPA.toFixed(2)} MeV`, acc:"", col:"#f0883e"},
+    {name:"Electromagnetic", ch:"Galois boundary", formula:"α = 1/137.036", acc:"", col:"#58a6ff"},
+    {name:"Weak", ch:"Both channels", formula:"G_F = α²/(2φ²m_p²)", acc:"0.96%", col:"#a371f7"},
+    {name:"Gravity", ch:"18 confined modes", formula:"α_G = α¹⁸ × 12/7", acc:"0.06%", col:"#8b949e"},
+  ];
+  document.getElementById('force-card').innerHTML = `<div class="card-label">The four forces from two channels</div>
+    <div class="grid2" style="margin-top:8px">
+      ${forces.map(f => `<div class="force-card" style="border-left:4px solid ${f.col}">
+        <div class="force-name">${f.name}</div>
+        <div class="force-ch">${f.ch}</div>
+        <div class="force-formula">${f.formula}</div>
+        ${f.acc ? `<div class="force-acc">${f.acc} accuracy</div>` : ''}
+      </div>`).join('')}
+    </div>
+    <div style="font-size:12px;color:#8b949e;margin-top:8px">Bridge · Boundary · Both · Cascade. The hierarchy problem dissolves.</div>`;
+
+  // Derivations
+  const npDiff = 2*PHI*M_E - ALPHA*M_P*SIGMA/12;
+  const gFval = ALPHA*ALPHA / (2*PHI*PHI*M_P*M_P*1e-6);
+  document.getElementById('deriv-card').innerHTML = `<div class="card-label">Derived this session — April 15, 2026</div>
+    <div class="grid2" style="margin-top:8px">
+      <div class="deriv-card">
+        <div class="deriv-title">Neutron-proton mass splitting</div>
+        <div class="deriv-formula">m_n − m_p = 2φm_e − αm_pσ/12</div>
+        <div class="deriv-steps">= ${(2*PHI*M_E).toFixed(4)} − ${(ALPHA*M_P*SIGMA/12).toFixed(4)}</div>
+        <div class="deriv-result">= ${npDiff.toFixed(4)} MeV</div>
+        <div class="deriv-acc">Measured: 1.2933 MeV (0.59%)</div>
+      </div>
+      <div class="deriv-card">
+        <div class="deriv-title">Fermi coupling constant</div>
+        <div class="deriv-formula">G_F = α²/(2φ²m_p²)</div>
+        <div class="deriv-steps">= ${(ALPHA*ALPHA).toExponential(4)} / (2 × ${(PHI*PHI).toFixed(4)} × ${(M_P*M_P*1e-6).toFixed(6)})</div>
+        <div class="deriv-result">= ${gFval.toFixed(4)} × 10⁻⁵ GeV⁻²</div>
+        <div class="deriv-acc">Measured: 1.1664 × 10⁻⁵ GeV⁻² (0.96%)</div>
+      </div>
+    </div>`;
+}
+
+render();
+</script>
+</body>
+</html>

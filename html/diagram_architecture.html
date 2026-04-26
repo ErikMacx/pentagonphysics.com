@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Architecture — Pentagon Physics</title>
+<style>
+  @page { size: A4; margin: 12mm 14mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #111;
+    padding: 40px;
+    max-width: 820px;
+    margin: 0 auto;
+    line-height: 1.5;
+    font-size: 11pt;
+  }
+
+  .rule { height: 1px; background: #d8d8d8; margin: 0; }
+  .connector { display: flex; justify-content: center; height: 18px; }
+  .connector-line { width: 1px; height: 100%; background: #d8d8d8; }
+
+  .section-label {
+    font-size: 8pt; letter-spacing: 0.18em; text-transform: uppercase;
+    color: #888; text-align: center; margin-bottom: 10px;
+  }
+
+  /* TITLE */
+  .title-block { text-align: center; margin-bottom: 24px; }
+  .title-super { font-size: 9pt; letter-spacing: 0.3em; text-transform: uppercase; color: #888; margin-bottom: 8px; }
+  h1 { font-size: 22pt; font-weight: 400; color: #111; letter-spacing: -0.01em; margin-bottom: 4px; }
+  .title-sub { font-size: 11pt; color: #555; font-style: italic; }
+
+  /* AXIOM */
+  .axiom-wrap { display: flex; justify-content: center; margin-bottom: 0; }
+  .axiom-box {
+    border: 1.5px solid #111; padding: 16px 40px;
+    text-align: center; background: #f7f7f5; min-width: 420px;
+  }
+  .axiom-label { font-size: 8pt; letter-spacing: 0.2em; text-transform: uppercase; color: #888; margin-bottom: 8px; }
+  .axiom-eq { font-size: 20pt; color: #111; font-style: italic; letter-spacing: 0.02em; }
+  .axiom-sub { font-size: 9.5pt; color: #555; margin-top: 8px; line-height: 1.8; }
+
+  /* PHI LINE */
+  .phi-line {
+    text-align: center; padding: 8px 0;
+    border-top: 1px solid #d8d8d8; border-bottom: 1px solid #d8d8d8;
+    background: #f7f7f5;
+  }
+  .phi-line em { font-size: 12pt; color: #111; }
+  .phi-note { font-size: 10pt; color: #888; margin-left: 14px; font-style: italic; }
+
+  /* THREE LEVELS */
+  .three-levels { border: 1px solid #d8d8d8; margin-bottom: 0; }
+  .three-levels-head { padding: 8px 14px; border-bottom: 1px solid #d8d8d8; background: #f7f7f5; }
+  .three-levels table { width: 100%; border-collapse: collapse; font-size: 10pt; }
+  .three-levels th {
+    padding: 5px 10px; text-align: center;
+    font-size: 8pt; color: #888; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    border-bottom: 1px solid #d8d8d8; background: #fafafa;
+  }
+  .three-levels td { padding: 6px 10px; text-align: center; border-bottom: 1px solid #eee; }
+  .three-levels tr:last-child td { border-bottom: none; }
+  .three-levels .footer-note {
+    text-align: center; font-size: 9pt; color: #888; padding: 5px 10px 8px;
+    font-style: italic; border-top: 1px solid #eee;
+  }
+
+  /* DOMAIN BLOCKS */
+  .domain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 0; }
+  .domain-block { border: 1px solid #d8d8d8; }
+  .domain-head { padding: 8px 12px 6px; border-bottom: 1px solid #d8d8d8; }
+  .domain-letter { font-size: 9.5pt; font-weight: 700; font-style: italic; margin-right: 6px; }
+  .domain-title { font-size: 11.5pt; font-weight: 700; display: inline; }
+  .domain-subtitle { font-size: 9pt; color: #888; font-style: italic; margin-top: 1px; }
+  .domain-block table { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+  .domain-block td { padding: 3px 10px; vertical-align: top; }
+  .domain-block tr { border-bottom: 1px solid #eee; }
+  .domain-block tr:last-child { border-bottom: none; }
+  .td-name { font-weight: 600; width: 30%; color: #111; font-size: 9.5pt; }
+  .td-formula { font-style: italic; color: #333; font-size: 10pt; }
+  .td-acc { text-align: right; font-family: 'Courier New', monospace; font-size: 9pt; color: #888; white-space: nowrap; }
+  .domain-note { padding: 4px 10px 6px; font-size: 9pt; color: #888; font-style: italic; border-top: 1px solid #eee; }
+
+  /* GOLD */
+  .col-gold { color: #7a5210; }
+  .border-gold { border-top: 2.5px solid #7a5210 !important; }
+  /* BLUE */
+  .col-blue { color: #1e4d80; }
+  .border-blue { border-top: 2.5px solid #1e4d80 !important; }
+  /* ROSE */
+  .col-rose { color: #7a1e4d; }
+  .border-rose { border-top: 2.5px solid #7a1e4d !important; }
+  /* GREEN */
+  .col-green { color: #1e6640; }
+  .border-green { border-top: 2.5px solid #1e6640 !important; }
+
+  /* SPIRAL ENGINE */
+  .spiral-box { border: 1px solid #d8d8d8; padding: 12px 16px; }
+  .projections { display: flex; justify-content: center; gap: 48px; margin-bottom: 8px; }
+  .proj-item { text-align: center; }
+  .proj-name { font-weight: 700; font-size: 11.5pt; }
+  .proj-desc { font-size: 9.5pt; color: #888; }
+  .spiral-formula { text-align: center; font-size: 9.5pt; color: #888; font-style: italic; }
+
+  /* SCORE BOXES */
+  .score-row { display: flex; gap: 12px; justify-content: center; }
+  .score-box { border: 1px solid #d8d8d8; padding: 8px 28px; text-align: center; min-width: 80px; }
+  .score-n { font-size: 20pt; font-weight: 400; color: #111; }
+  .score-label { font-size: 8pt; color: #888; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 2px; }
+
+  /* KILL */
+  .kill-box { border: 1px solid #d8d8d8; padding: 10px 16px; text-align: center; }
+  .kill-label { font-size: 8pt; letter-spacing: 0.18em; text-transform: uppercase; color: #888; margin-bottom: 5px; }
+  .kill-text { font-size: 10pt; color: #555; line-height: 1.8; }
+
+  /* FOOTER */
+  .footer { text-align: center; padding-top: 14px; }
+  .footer-main { font-size: 11pt; color: #555; font-style: italic; margin-bottom: 5px; }
+  .footer-meta { font-size: 9pt; color: #888; }
+</style>
+</head>
+<body>
+
+<!-- TITLE -->
+<div class="title-block">
+  <div class="title-super">Pentagon Physics</div>
+  <h1>The Architecture</h1>
+  <div class="title-sub">One axiom &middot; Two arms &middot; Every constant</div>
+</div>
+
+<div class="rule"></div>
+<div class="connector"><div class="connector-line"></div></div>
+
+<!-- AXIOM -->
+<div class="axiom-wrap">
+  <div class="axiom-box">
+    <div class="axiom-label">The Axiom</div>
+    <div class="axiom-eq">σ = 1/(1 + σ)</div>
+    <div class="axiom-sub">
+      φ = (1+√5)/2&emsp;&middot;&emsp;Discriminant: 5&emsp;&middot;&emsp;Field: ℚ(√5)&emsp;&middot;&emsp;Class number: 1
+    </div>
+  </div>
+</div>
+
+<div class="connector"><div class="connector-line"></div></div>
+
+<!-- φ = 2cos(π/5) -->
+<div class="phi-line">
+  <em>φ = 2cos(π/5)</em>
+  <span class="phi-note">— every φ–π relation passes through 5</span>
+</div>
+
+<div class="connector"><div class="connector-line"></div></div>
+
+<!-- THREE LEVELS -->
+<div class="three-levels">
+  <div class="three-levels-head">
+    <div class="section-label" style="margin-bottom:0;">Three Levels of Self-Reference</div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Level</th><th>Shape</th><th>Dimension</th>
+        <th>Minimal Polynomial</th><th>Δₙ</th><th>√5 coefficient</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="color:#7a5210;">1</td><td><strong>Pentagon</strong></td><td>2D</td>
+        <td><em>x² + x − 1 = 0</em></td><td>5 = 1² × 5</td><td>1</td>
+      </tr>
+      <tr>
+        <td style="color:#7a5210;">2</td><td><strong>Icosahedron</strong></td><td>3D</td>
+        <td><em>45x² − 30x + 1 = 0</em></td><td>720 = 12² × 5</td><td>2</td>
+      </tr>
+      <tr>
+        <td style="color:#7a5210;">3</td><td><strong>600-cell</strong></td><td>4D</td>
+        <td><em>64x² − 56x + 1 = 0</em></td><td>2880 = 24² × 5</td><td>3</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="three-levels footer-note">
+    All live in ℚ(√5). Discriminant identity: Δₙ = |Gₙ|²/5 at every level.
+  </div>
+</div>
+
+<div class="connector"><div class="connector-line"></div></div>
+
+<!-- FOUR DOMAINS -->
+<div class="domain-grid">
+
+  <div class="domain-block border-gold">
+    <div class="domain-head">
+      <span class="domain-letter col-gold">A.</span>
+      <span class="domain-title col-gold">Spectral Domain</span>
+      <div class="domain-subtitle">Coupling strengths via bridge algebra</div>
+    </div>
+    <table>
+      <tr><td class="td-name">α⁻¹</td><td class="td-formula">360/φ² − 2/φ³ + Σ C<sub>k</sub>ζ(2k+1)w<sup>k</sup></td><td class="td-acc">0.05σ</td></tr>
+      <tr><td class="td-name">Λ</td><td class="td-formula">log₁₀ρ<sub>Λ</sub> = −(α⁻¹·2/√5 + φ⁻²)</td><td class="td-acc">0.005%</td></tr>
+      <tr><td class="td-name">G</td><td class="td-formula">bridge R = 1/(φ√5)</td><td class="td-acc">0.021%</td></tr>
+      <tr><td class="td-name">H₀</td><td class="td-formula">bridge R = 1/√5</td><td class="td-acc">tension band</td></tr>
+      <tr><td class="td-name">α<sub>s</sub>(M<sub>Z</sub>)</td><td class="td-formula">φ⁻³/2</td><td class="td-acc">0.11%</td></tr>
+      <tr><td class="td-name">sin²θ<sub>W</sub></td><td class="td-formula">φ⁻³ at Higgs VEV</td><td class="td-acc">0.03%</td></tr>
+      <tr><td class="td-name">θ<sub>QCD</sub></td><td class="td-formula">= 0 (stillpoint, no axion)</td><td class="td-acc">exact</td></tr>
+    </table>
+    <div class="domain-note">Bridge: R<sub>Λ</sub> − R<sub>G</sub> = 1/φ exactly. R<sub>Λ</sub> = 2R<sub>H</sub>. 1 = φ⁻¹ + φ⁻².</div>
+  </div>
+
+  <div class="domain-block border-blue">
+    <div class="domain-head">
+      <span class="domain-letter col-blue">B.</span>
+      <span class="domain-title col-blue">Geometric Domain</span>
+      <div class="domain-subtitle">Mass spectrum via φ–π geometry</div>
+    </div>
+    <table>
+      <tr><td class="td-name">Koide phase</td><td class="td-formula">cos(δ) = −19/28 from 600-cell</td><td class="td-acc">derived</td></tr>
+      <tr><td class="td-name">Lepton ratios</td><td class="td-formula">Q = 2/3, N = 3 unique</td><td class="td-acc">τ: 0.03%</td></tr>
+      <tr><td class="td-name">m<sub>p</sub>/m<sub>e</sub></td><td class="td-formula">6π⁵ + π⁵/[φ⁷(π⁵−1)]</td><td class="td-acc">0.005 ppm</td></tr>
+      <tr><td class="td-name">m<sub>e</sub>/m<sub>Pl</sub></td><td class="td-formula">closed chain via Rydberg → α<sub>G</sub></td><td class="td-acc">0.01%</td></tr>
+      <tr><td class="td-name">Proton spin</td><td class="td-formula">golden partition of J</td><td class="td-acc">cascade</td></tr>
+      <tr><td class="td-name">3 generations</td><td class="td-formula">circulant N = 3 theorem</td><td class="td-acc">derived</td></tr>
+    </table>
+    <div class="domain-note">Koide phase: Fibonacci-Lucas arithmetic + binary icosahedral 2I/D₄.</div>
+  </div>
+
+  <div class="domain-block border-rose">
+    <div class="domain-head">
+      <span class="domain-letter col-rose">C.</span>
+      <span class="domain-title col-rose">Mixing Domain</span>
+      <div class="domain-subtitle">Angles from circulant mismatch geometry</div>
+    </div>
+    <table>
+      <tr><td class="td-name">sin²θ₁₂ PMNS</td><td class="td-formula">2φ⁴/45</td><td class="td-acc">&lt;1σ</td></tr>
+      <tr><td class="td-name">sin²θ₂₃ PMNS</td><td class="td-formula">3/(2φ²)</td><td class="td-acc">&lt;1σ</td></tr>
+      <tr><td class="td-name">sin²θ₁₃ PMNS</td><td class="td-formula">1/45</td><td class="td-acc">0.05σ</td></tr>
+      <tr><td class="td-name">δ<sub>PMNS</sub></td><td class="td-formula">π + π/(5φ²)</td><td class="td-acc">predicted</td></tr>
+      <tr><td class="td-name">CKM |V<sub>us</sub>|</td><td class="td-formula">φ-geometric</td><td class="td-acc">&lt;1%</td></tr>
+      <tr><td class="td-name">CKM δ</td><td class="td-formula">CP phase from geometry</td><td class="td-acc">predicted</td></tr>
+    </table>
+    <div class="domain-note">All four PMNS parameters within 0.4σ. CKM from same φ-geometry.</div>
+  </div>
+
+  <div class="domain-block border-green">
+    <div class="domain-head">
+      <span class="domain-letter col-green">D.</span>
+      <span class="domain-title col-green">Higgs Sector</span>
+      <div class="domain-subtitle">Symmetry breaking from axiom</div>
+    </div>
+    <table>
+      <tr><td class="td-name">λ (quartic)</td><td class="td-formula">2φ/25</td><td class="td-acc">0.045%</td></tr>
+      <tr><td class="td-name">m<sub>H</sub></td><td class="td-formula">2v√(φ/5)</td><td class="td-acc">0.17σ</td></tr>
+      <tr><td class="td-name">M<sub>Z</sub></td><td class="td-formula">91.16 GeV</td><td class="td-acc">0.028%</td></tr>
+      <tr><td class="td-name">g₂ (SU(2))</td><td class="td-formula">2φ/5</td><td class="td-acc">0.08%</td></tr>
+      <tr><td class="td-name">g₁ (U(1))</td><td class="td-formula">√(2φ/25) = √λ</td><td class="td-acc">0.6%</td></tr>
+    </table>
+    <div class="domain-note">V″(φ⁻¹) = √5 proved. μ² &lt; 0 IS the axiom. g₁² = λ (identity).</div>
+  </div>
+
+</div>
+
+<div class="connector"><div class="connector-line"></div></div>
+
+<!-- SPIRAL ENGINE -->
+<div class="spiral-box">
+  <div class="section-label">The Spiral Engine — Three Projections of One Object</div>
+  <div class="projections">
+    <div class="proj-item">
+      <div class="proj-name col-gold">Radial</div>
+      <div class="proj-desc">Coupling strengths</div>
+    </div>
+    <div class="proj-item">
+      <div class="proj-name col-rose">Angular</div>
+      <div class="proj-desc">Mixing angles</div>
+    </div>
+    <div class="proj-item">
+      <div class="proj-name col-blue">Axial</div>
+      <div class="proj-desc">Mass hierarchy</div>
+    </div>
+  </div>
+  <div class="spiral-formula">
+    r(k) = φ⁻ᵏ,&ensp;θ(k) = 120°k,&ensp;z(k) = 1 + √2 cos(δ + 120°k)&ensp;&middot;&ensp;Closes on S³
+  </div>
+</div>
+
+<div class="connector"><div class="connector-line"></div></div>
+
+<!-- SCORE BOXES -->
+<div class="score-row">
+  <div class="score-box"><div class="score-n">30</div><div class="score-label">Derived</div></div>
+  <div class="score-box"><div class="score-n">6</div><div class="score-label">Framework</div></div>
+  <div class="score-box"><div class="score-n">0</div><div class="score-label">Open</div></div>
+</div>
+
+<div class="connector"><div class="connector-line"></div></div>
+
+<!-- KILL CONDITIONS -->
+<div class="kill-box">
+  <div class="kill-label">Kill Conditions</div>
+  <div class="kill-text">
+    α outside 137.035999207 ± 0.000000025&emsp;&middot;&emsp;Koide Q ≠ 2/3&emsp;&middot;&emsp;Λ residual outside 0.01 log₁₀<br>
+    fewer than 3 of 5 predictions confirmed by 2030 → abandon
+  </div>
+</div>
+
+<div class="connector"><div class="connector-line"></div></div>
+<div class="rule"></div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-main">Every constant a theorem. Every theorem falsifiable.</div>
+  <div class="footer-meta">
+    Eric McLean&ensp;&middot;&ensp;Pentagon Physics&ensp;&middot;&ensp;ORCID 0009-0009-6175-4408&ensp;&middot;&ensp;March 2026
+  </div>
+  <div class="footer-meta" style="margin-top:3px;">doi.org/10.5281/zenodo.18852119</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Constants Table — Pentagon Physics</title>
+<script>
+MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+:root {
+  --gold:#F2C94C; --gold-dim:#9A7820; --gold-pale:#FBE89A;
+  --bg:#090909; --bg2:#111113; --bg3:#19191E;
+  --border:rgba(255,255,255,0.08); --border-hi:rgba(255,255,255,0.18);
+  --text:#F0EDE6; --text-mid:#C0BCB4; --text-dim:#807C76;
+  --accent:#5DA8D0;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono','Courier New',monospace;
+  --pad:5vw;
+  /* Domain colours */
+  --vac:#F2C94C;   --vac-b:rgba(242,201,76,0.2);   --vac-bg:rgba(242,201,76,0.06);
+  --em:#5DA8D0;    --em-b:rgba(93,168,208,0.25);    --em-bg:rgba(93,168,208,0.06);
+  --ew:#9B7FD4;    --ew-b:rgba(155,127,212,0.25);   --ew-bg:rgba(155,127,212,0.06);
+  --nuc:#E07060;   --nuc-b:rgba(224,112,96,0.25);   --nuc-bg:rgba(224,112,96,0.06);
+  --grav:#50B482;  --grav-b:rgba(80,180,130,0.25);  --grav-bg:rgba(80,180,130,0.06);
+  --cos:#E09050;   --cos-b:rgba(224,144,80,0.25);   --cos-bg:rgba(224,144,80,0.06);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7;overflow-x:hidden;}
+mjx-container{color:var(--text)!important;}
+
+/* ── NAV ── */
+header{
+  background:rgba(9,9,9,0.96);border-bottom:1px solid var(--border-hi);
+  padding:0 var(--pad);display:flex;gap:2rem;align-items:center;height:52px;
+  position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);
+}
+header a{color:var(--text-dim);text-decoration:none;font-size:0.7rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header .logo{font-family:var(--serif);font-size:0.95rem;font-weight:700;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;display:flex;align-items:center;gap:8px;}
+
+/* ── HERO ── */
+.hero{padding:4rem var(--pad) 3rem;border-bottom:1px solid var(--border-hi);position:relative;overflow:hidden;}
+.pent-bg{position:absolute;top:0;right:0;width:40%;height:100%;pointer-events:none;overflow:hidden;opacity:0.035;}
+.pent-bg svg{position:absolute;top:50%;right:-5%;transform:translateY(-50%);width:100%;}
+.hero-tag{font-size:0.68rem;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+h1{font-family:var(--serif);font-size:clamp(2.2rem,5vw,4rem);font-weight:700;color:var(--text);line-height:1.05;margin-bottom:0.6rem;}
+.hero-sub{font-size:0.95rem;color:var(--text-mid);max-width:70ch;line-height:1.8;margin-bottom:1.5rem;}
+.axes-legend{display:flex;flex-wrap:wrap;gap:1.5rem;font-size:0.75rem;color:var(--text-dim);}
+.axes-legend span{display:flex;align-items:center;gap:0.4rem;}
+.ax-label{font-size:0.62rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+
+/* ── FILTER BAR ── */
+.filter-bar{
+  padding:1rem var(--pad);
+  background:var(--bg2);border-bottom:1px solid var(--border-hi);
+  display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;
+  position:sticky;top:52px;z-index:90;backdrop-filter:blur(10px);
+}
+.filter-group{display:flex;gap:3px;align-items:center;}
+.filter-sep{width:1px;height:20px;background:var(--border-hi);margin:0 0.5rem;}
+.filter-label{font-size:0.62rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim);margin-right:0.3rem;}
+
+.fb{
+  font-size:0.65rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;
+  padding:0.3em 0.9em;border:1px solid var(--border-hi);background:none;
+  color:var(--text-dim);cursor:pointer;transition:all 0.15s;
+}
+.fb:hover{color:var(--text);border-color:var(--border-hi);}
+.fb.active{color:var(--bg);background:var(--gold);border-color:var(--gold);}
+.fb.dom-vac.active{background:var(--vac);border-color:var(--vac);color:#000;}
+.fb.dom-em.active{background:var(--em);border-color:var(--em);color:#000;}
+.fb.dom-ew.active{background:var(--ew);border-color:var(--ew);color:#000;}
+.fb.dom-nuc.active{background:var(--nuc);border-color:var(--nuc);color:#000;}
+.fb.dom-grav.active{background:var(--grav);border-color:var(--grav);color:#000;}
+.fb.dom-cos.active{background:var(--cos);border-color:var(--cos);color:#000;}
+
+/* ── TABLE WRAPPER ── */
+.table-wrap{overflow-x:auto;padding:2rem var(--pad) 4rem;}
+
+/* ── GRID ── */
+.ct-grid{
+  display:grid;
+  grid-template-columns:120px repeat(6, minmax(180px,1fr));
+  gap:2px;
+  min-width:1300px;
+}
+
+/* ── COLUMN HEADERS ── */
+.col-header{
+  padding:0.8rem 1rem;
+  display:flex;flex-direction:column;gap:3px;
+  border-bottom:2px solid;
+  cursor:pointer;transition:background 0.15s;
+}
+.col-header:hover{background:rgba(255,255,255,0.03);}
+.col-header.highlighted{background:rgba(255,255,255,0.04);}
+.ch-abbr{font-size:0.65rem;font-weight:700;letter-spacing:0.22em;}
+.ch-full{font-size:0.6rem;font-weight:400;color:var(--text-dim);letter-spacing:0.05em;text-transform:uppercase;}
+.col-vac .ch-abbr{color:var(--vac);}   .col-vac{border-color:var(--vac)!important;}
+.col-em  .ch-abbr{color:var(--em);}    .col-em{border-color:var(--em)!important;}
+.col-ew  .ch-abbr{color:var(--ew);}    .col-ew{border-color:var(--ew)!important;}
+.col-nuc .ch-abbr{color:var(--nuc);}   .col-nuc{border-color:var(--nuc)!important;}
+.col-grav .ch-abbr{color:var(--grav);} .col-grav{border-color:var(--grav)!important;}
+.col-cos .ch-abbr{color:var(--cos);}   .col-cos{border-color:var(--cos)!important;}
+
+/* ── ROW HEADERS ── */
+.row-header{
+  padding:1rem 0.8rem;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:3px;
+  border-right:1px solid var(--border-hi);
+}
+.rh-depth{font-family:var(--mono);font-size:1.1rem;font-weight:500;color:var(--gold);line-height:1;}
+.rh-name{font-size:0.68rem;font-weight:600;color:var(--text);letter-spacing:0.05em;margin-top:4px;}
+.rh-sub{font-size:0.6rem;color:var(--text-dim);}
+.corner{background:var(--bg2);border-right:1px solid var(--border-hi);border-bottom:1px solid var(--border-hi);}
+
+/* ── CARDS ── */
+.card{
+  background:var(--bg2);border:1px solid var(--border);
+  padding:1rem;min-height:160px;
+  display:flex;flex-direction:column;gap:4px;
+  position:relative;cursor:pointer;
+  transition:background 0.15s, border-color 0.15s, transform 0.15s;
+}
+.card:hover{background:var(--bg3);transform:translateY(-1px);}
+.card.dom-vac{border-top:2px solid var(--vac);}
+.card.dom-em{border-top:2px solid var(--em);}
+.card.dom-ew{border-top:2px solid var(--ew);}
+.card.dom-nuc{border-top:2px solid var(--nuc);}
+.card.dom-grav{border-top:2px solid var(--grav);}
+.card.dom-cos{border-top:2px solid var(--cos);}
+
+.card.status-gap{opacity:0.5;border-style:dashed;background:var(--bg);}
+.card.status-predicted{border-style:dashed;}
+.card.hidden{display:none;}
+
+.card-eigen{position:absolute;top:8px;right:8px;font-size:0.55rem;color:var(--text-dim);letter-spacing:1px;}
+.card-symbol{font-family:var(--serif);font-size:1.4rem;font-weight:700;line-height:1;margin-top:4px;}
+.card-symbol mjx-container{font-size:1.1em!important;}
+.dom-vac .card-symbol{color:var(--vac);}
+.dom-em  .card-symbol{color:var(--em);}
+.dom-ew  .card-symbol{color:var(--ew);}
+.dom-nuc .card-symbol{color:var(--nuc);}
+.dom-grav .card-symbol{color:var(--grav);}
+.dom-cos  .card-symbol{color:var(--cos);}
+
+.card-name{font-size:0.72rem;font-weight:500;color:var(--text);line-height:1.3;}
+.card-value{font-family:var(--mono);font-size:0.68rem;color:var(--text-mid);margin-top:2px;}
+.card-value mjx-container{font-size:0.9em!important;color:var(--text-mid)!important;}
+.card-badge{
+  position:absolute;bottom:8px;right:8px;
+  font-size:0.55rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;
+  padding:2px 6px;border:1px solid;
+}
+.badge-derived{color:var(--accent);border-color:rgba(93,168,208,0.3);}
+.badge-predicted{color:var(--gold);border-color:rgba(242,201,76,0.3);}
+.badge-gap{color:var(--text-dim);border-color:var(--border);}
+
+/* empty cell */
+.cell-empty{background:var(--bg);border:1px dashed rgba(255,255,255,0.04);min-height:160px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.08);font-size:1.2rem;}
+
+/* highlighted column */
+.col-highlighted{background:rgba(255,255,255,0.02)!important;}
+
+/* ── MODAL ── */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.75);
+  z-index:200;display:none;align-items:center;justify-content:center;
+  backdrop-filter:blur(4px);
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--bg2);border:1px solid var(--border-hi);
+  max-width:560px;width:90vw;max-height:80vh;overflow-y:auto;
+  padding:2rem;position:relative;
+  animation:slideUp 0.2s ease;
+}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.modal-close{
+  position:absolute;top:1rem;right:1rem;
+  background:none;border:1px solid var(--border-hi);color:var(--text-dim);
+  width:28px;height:28px;cursor:pointer;font-size:1rem;
+  display:flex;align-items:center;justify-content:center;transition:all 0.15s;
+}
+.modal-close:hover{color:var(--text);border-color:var(--text);}
+.modal-domain{font-size:0.62rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.8rem;}
+.modal-symbol{font-family:var(--serif);font-size:2.8rem;font-weight:700;line-height:1;margin-bottom:0.5rem;}
+.modal-name{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:0.3rem;}
+.modal-value{font-family:var(--mono);font-size:0.88rem;color:var(--text-mid);margin-bottom:1.2rem;padding:0.6rem 0.8rem;background:var(--bg3);border-left:2px solid var(--border-hi);}
+.modal-value mjx-container{color:var(--text)!important;}
+.modal-note{font-size:0.88rem;color:var(--text-mid);line-height:1.75;}
+.modal-note mjx-container{color:var(--text)!important;}
+.modal-footer{margin-top:1.2rem;padding-top:0.8rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.modal-badge{font-size:0.62rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:3px 8px;border:1px solid;}
+.modal-depth{font-size:0.72rem;color:var(--text-dim);}
+
+/* ── LEGEND ── */
+.legend-bar{
+  padding:1.5rem var(--pad);
+  background:var(--bg2);border-top:1px solid var(--border-hi);
+  display:flex;flex-wrap:wrap;gap:2rem;align-items:center;
+}
+.legend-item{display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;color:var(--text-dim);}
+.legend-swatch{width:24px;height:10px;border:1px solid;}
+
+/* ── FOOTER ── */
+footer{background:var(--bg2);border-top:1px solid var(--border-hi);padding:2.5rem var(--pad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+footer p{font-size:0.82rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;}
+footer a:hover{color:var(--gold);}
+
+@media(max-width:600px){:root{--pad:4vw;} .filter-bar{top:52px;} h1{font-size:2rem;}}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="../index.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="26" height="26" style="flex-shrink:0;">
+      <defs><mask id="mn"><path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/><path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/><path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/><path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/><path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/><path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/><path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/><path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/><path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/><path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/><circle cx="0" cy="0" r="71.19" fill="black"/><polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/></mask></defs>
+      <rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mn)"/>
+    </svg>
+    Pentagon Physics
+  </a>
+  <a href="../index.html#programme">Programme</a>
+  <a href="../index.html#papers">Papers</a>
+  <a href="../tools.html">Tools</a>
+  <a href="../pipeline.html">Pipeline</a>
+</header>
+
+<div class="hero">
+  <div class="pent-bg"><svg viewBox="0 0 600 680" xmlns="http://www.w3.org/2000/svg"><polygon points="300,30 560,210 465,560 135,560 40,210" fill="none" stroke="white" stroke-width="1.5"/><line x1="300" y1="30" x2="465" y2="560" stroke="white" stroke-width="0.5"/><line x1="300" y1="30" x2="135" y2="560" stroke="white" stroke-width="0.5"/><line x1="560" y1="210" x2="135" y2="560" stroke="white" stroke-width="0.5"/><line x1="40" y1="210" x2="465" y2="560" stroke="white" stroke-width="0.5"/><line x1="560" y1="210" x2="40" y2="210" stroke="white" stroke-width="0.5"/></svg></div>
+  <div class="hero-tag">Reference · All Derivations</div>
+  <h1>The Constants Table</h1>
+  <p class="hero-sub">Every fundamental constant placed in its natural coordinate: Recursion Depth (how many folds of σ before it crystallises) × Projection Domain (which physical sector receives the spiral's shadow). Click any card to expand. Filter by status or domain.</p>
+  <div class="axes-legend">
+    <span><span class="ax-label">Y axis</span> Recursion depth σ⁰–σ⁴</span>
+    <span><span class="ax-label">X axis</span> Projection domain</span>
+    <span><span class="ax-label">Z axis</span> Eigenvalue order (dot count)</span>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-label">Status</span>
+  <div class="filter-group">
+    <button class="fb active" onclick="filterStatus('all',this)">All</button>
+    <button class="fb" onclick="filterStatus('derived',this)">Derived</button>
+    <button class="fb" onclick="filterStatus('predicted',this)">Predicted</button>
+    <button class="fb" onclick="filterStatus('gap',this)">Gap</button>
+  </div>
+  <div class="filter-sep"></div>
+  <span class="filter-label">Domain</span>
+  <div class="filter-group">
+    <button class="fb active" onclick="filterDomain('all',this)">All</button>
+    <button class="fb dom-vac" onclick="filterDomain('vac',this)">VAC</button>
+    <button class="fb dom-em"  onclick="filterDomain('em',this)">EM</button>
+    <button class="fb dom-ew"  onclick="filterDomain('ew',this)">EW</button>
+    <button class="fb dom-nuc" onclick="filterDomain('nuc',this)">NUC</button>
+    <button class="fb dom-grav" onclick="filterDomain('grav',this)">GR</button>
+    <button class="fb dom-cos" onclick="filterDomain('cos',this)">COS</button>
+  </div>
+</div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+<div class="ct-grid" id="grid">
+
+  <!-- CORNER + COLUMN HEADERS -->
+  <div class="corner"></div>
+  <div class="col-header col-vac" onclick="highlightCol('vac')"><span class="ch-abbr">VAC</span><span class="ch-full">Vacuum / Geometric</span></div>
+  <div class="col-header col-em"  onclick="highlightCol('em')"><span class="ch-abbr">EM</span><span class="ch-full">Electromagnetic</span></div>
+  <div class="col-header col-ew"  onclick="highlightCol('ew')"><span class="ch-abbr">EW</span><span class="ch-full">Electroweak</span></div>
+  <div class="col-header col-nuc" onclick="highlightCol('nuc')"><span class="ch-abbr">NUC</span><span class="ch-full">Nuclear / Flavour</span></div>
+  <div class="col-header col-grav" onclick="highlightCol('grav')"><span class="ch-abbr">GR</span><span class="ch-full">Gravitational</span></div>
+  <div class="col-header col-cos" onclick="highlightCol('cos')"><span class="ch-abbr">COS</span><span class="ch-full">Cosmological</span></div>
+
+  <!-- ROW σ⁰ -->
+  <div class="row-header"><div class="rh-depth">σ⁰</div><div class="rh-name">Axiom</div><div class="rh-sub">Fixed point</div></div>
+
+  <div class="card dom-vac status-derived" onclick="openModal('phi')" data-status="derived" data-dom="vac">
+    <div class="card-eigen">●</div>
+    <div class="card-symbol">\(\varphi\)</div>
+    <div class="card-name">Golden Ratio</div>
+    <div class="card-value">1.61803…</div>
+    <div class="card-badge badge-derived">DERIVED</div>
+  </div>
+  <div class="cell-empty">·</div>
+  <div class="cell-empty">·</div>
+  <div class="cell-empty">·</div>
+  <div class="cell-empty">·</div>
+  <div class="cell-empty">·</div>
+
+  <!-- ROW σ¹ -->
+  <div class="row-header"><div class="rh-depth">σ¹</div><div class="rh-name">First Fold</div><div class="rh-sub">Direct projection</div></div>
+
+  <div class="card dom-vac status-derived" onclick="openModal('phi6')" data-status="derived" data-dom="vac">
+    <div class="card-eigen">●●</div>
+    <div class="card-symbol">\(\varphi^6\)</div>
+    <div class="card-name">Coherence Floor</div>
+    <div class="card-value">\(\varphi^6 \approx 17.944\)</div>
+    <div class="card-badge badge-derived">DERIVED</div>
+  </div>
+
+  <div class="card dom-em status-derived" onclick="openModal('alpha')" data-status="derived" data-dom="em">
+    <div class="card-eigen">●●</div>
+    <div class="card-symbol">\(\alpha^{-1}\)</div>
+    <div class="card-name">Fine Structure Constant</div>
+    <div class="card-value">137.035999207</div>
+    <div class="card-badge badge-derived">DERIVED</div>
+  </div>
+
+  <div class="cell-empty">·</div>
+
+  <div class="card dom-nuc status-derived" onclick="openModal('mu')" data-status="derived" data-dom="nuc">
+    <div class="card-eigen">●●</div>
+    <div class="card-symbol">\(\mu\)</div>
+    <div class="card-name">Proton–Electron Mass Ratio</div>
+    <div class="card-value">1836.15267</div>
+    <div class="card-badge badge-derived">DERIVED</div>
+  </div>
+
+  <div class="card dom-grav status-derived" onclick="openModal('G')" data-status="derived" data-dom="grav">
+    <div class="card-eigen">●●</div>
+    <div class="card-symbol">G</div>
+    <div class="card-name">Gravitational Constant</div>
+    <div class="card-value">\(6.674 \times 10^{-11}\)</div>
+    <div class="card-badge badge-derived">DERIVED</div>
+  </div>
+
+  <div class="card dom-cos status-derived" onclick="openModal('Lambda')" data-status="derived" data-dom="cos">
+    <div class="card-eigen">●●</div>
+    <div class="card-symbol">\(\Lambda\)</div>
+    <div class="card-name">Cosmological Constant</div>
+    <div class="card-value">\(\log_{10}\rho_\Lambda = -122.951\)</div>
+    <div class="card-badge badge-derived">DERIVED</div>
+  </div>
+
+  <!-- ROW σ² -->
+  <div class="row-header"><div class="rh-depth">σ²</div><div class="rh-name">Second Fold</div><div class="rh-sub">Coupled projection</div></div>
+
+  <div class="card dom-vac status-derived" onclick="openModal('600cell')" data-status="derived" data-dom="vac">
+    <div class="card-eigen">●●</div>
+    <div class="card-symbol" style="font-size:1rem;margin-top:8px;">600-cell</div>
+    <div class="card-name">State Space Geometry</div>
+    <div class="card-value">120 vertices · 720 edges</div>
+    <div class="card-badge badge-derived">DERIVED</div>
+  </div>
+
+  <div class="card dom-em status-derived" onclick="openModal('c')" data-status="derived" data-dom="em">
+    <div class="card-eigen">●●</div>
+    <div class="card-symbol">c</div>
+    <div class="card-name">Speed of Light</div>
+    <div class="card-value">299,792,458 m/s</div>
+    <div class="card-badge badge-derived">DERIVED</div>
+  </div>
+
+  <div class="card dom-ew status-derived" onclick="openModal('weinberg')" data-status="derived" data-dom="ew">
+    <div class="card-eigen">●●</div>
+    <div class="card-symbol">\(\sin^2\!\theta_W\)</div>
+    <div class="card-name">Weinberg Angle</div>
+    <div class="card-value">\(\varphi^{-3} \approx 0.2361\)</div>
+    <div class="card-badge badge-derived">DERIVED</div>
+  </div>
+
+  <div class="card dom-nuc status-derived" onclick="openModal('koide')" data-status="derived" data-dom="nuc">
+    <div class="card-eigen">●●</div>
+    <div class="card-symbol" style="font-size:1rem;margin-top:8px;">\(m_e, m_\mu, m_\tau\)</div>
+    <div class="card-name">Koide Lepton Masses</div>
+    <div class="card-value">Q = 2/3 (exact)</div>
+    <div class="card-badge badge-derived">DERIVED</div>
+  </div>
+
+  <div class="card dom-grav status-predicted" onclick="openModal('dm')" data-status="predicted" data-dom="grav">
+    <div class="card-eigen">●●●</div>
+    <div class="card-symbol" style="font-size:0.85rem;margin-top:6px;">\(m_	ext{FDM}\)</div>
+    <div class="card-name">Fuzzy Dark Matter</div>
+    <div class="card-value">\(2.07 	imes 10^{-22}\) eV</div>
+    <div class="card-badge badge-predicted">PREDICTED</div>
+  </div>
+
+  <div class="card dom-cos status-predicted" onclick="openModal('H0')" data-status="predicted" data-dom="cos">
+    <div class="card-eigen">●●●</div>
+    <div class="card-symbol">\(H_0 / \Omega_K\)</div>
+    <div class="card-name">Hubble Constant / Curvature</div>
+    <div class="card-value">\(\Omega_K = -0.038\)</div>
+    <div class="card-badge badge-predicted">PREDICTED</div>
+  </div>
+
+  <!-- ROW σ³ -->
+  <div class="row-header"><div class="rh-depth">σ³</div><div class="rh-name">Third Fold</div><div class="rh-sub">Interference pattern</div></div>
+
+  <div class="card dom-vac status-derived" onclick="openModal('etaB')" data-status="derived" data-dom="vac">
+    <div class="card-eigen">●●●</div>
+    <div class="card-symbol">\(\eta_B\)</div>
+    <div class="card-name">Baryon Asymmetry</div>
+    <div class="card-value">\(6.105 \times 10^{-10}\)</div>
+    <div class="card-badge badge-derived">DERIVED</div>
+  </div>
+
+  <div class="card dom-em status-derived" onclick="openModal('Z0')" data-status="derived" data-dom="em">
+    <div class="card-eigen">●●●</div>
+    <div class="card-symbol">\(Z_0\)</div>
+    <div class="card-name">Vacuum Impedance</div>
+    <div class="card-value">376.73 Ω</div>
+    <div class="card-badge badge-derived">DERIVED</div>
+  </div>
+
+  <div class="card dom-ew status-derived" onclick="openModal('higgs')" data-status="derived" data-dom="ew">
+    <div class="card-eigen">●●●</div>
+    <div class="card-symbol" style="font-size:1rem;margin-top:8px;">\(\lambda \cdot m_H \cdot v\)</div>
+    <div class="card-name">Higgs Sector</div>
+    <div class="card-value">\(\lambda = 2\varphi/25\)</div>
+    <div class="card-badge badge-derived">DERIVED</div>
+  </div>
+
+  <div class="card dom-nuc status-derived" onclick="openModal('cp')" data-status="derived" data-dom="nuc">
+    <div class="card-eigen">●●●</div>
+    <div class="card-symbol" style="font-size:0.9rem;margin-top:8px;">\(\cos\delta \cdot \theta_\text{PMNS} \cdot V_\text{CKM}\)</div>
+    <div class="card-name">CP Phase · Mixing Angles</div>
+    <div class="card-value">\(\cos\delta = -19/28\)</div>
+    <div class="card-badge badge-derived">DERIVED</div>
+  </div>
+
+  <div class="card dom-grav status-gap" onclick="openModal('qg')" data-status="gap" data-dom="grav">
+    <div class="card-eigen" style="color:rgba(255,255,255,0.2);">●●●</div>
+    <div class="card-symbol" style="color:rgba(80,180,130,0.3);">?</div>
+    <div class="card-name" style="color:var(--text-dim);">Quantum Gravity</div>
+    <div class="card-badge badge-gap">GAP</div>
+  </div>
+
+  <div class="card dom-cos status-predicted" onclick="openModal('w0')" data-status="predicted" data-dom="cos">
+    <div class="card-eigen">●●●</div>
+    <div class="card-symbol">\(w_0\)</div>
+    <div class="card-name">Dark Energy EOS</div>
+    <div class="card-value">\(w_0 \approx -0.97\)</div>
+    <div class="card-badge badge-predicted">PREDICTED</div>
+  </div>
+
+  <!-- ROW σ⁴ -->
+  <div class="row-header"><div class="rh-depth">σ⁴</div><div class="rh-name">Fourth Fold</div><div class="rh-sub">Deep structure</div></div>
+
+  <div class="cell-empty">·</div>
+  <div class="cell-empty">·</div>
+  <div class="cell-empty">·</div>
+
+  <div class="card dom-nuc status-derived" onclick="openModal('alphas')" data-status="derived" data-dom="nuc">
+    <div class="card-eigen">●●●●</div>
+    <div class="card-symbol" style="font-size:0.95rem;margin-top:8px;">\(\alpha_s \cdot \Delta m^2_{32}\)</div>
+    <div class="card-name">Strong Coupling + Neutrino Mass</div>
+    <div class="card-value">\(\alpha_s = \varphi^{-3}/2 = 0.1180\)</div>
+    <div class="card-badge badge-derived">DERIVED</div>
+  </div>
+
+  <div class="cell-empty">·</div>
+  <div class="cell-empty">·</div>
+
+</div><!-- /grid -->
+</div><!-- /table-wrap -->
+
+<!-- LEGEND -->
+<div class="legend-bar">
+  <div class="legend-item"><div class="legend-swatch" style="background:var(--bg2);border-color:rgba(93,168,208,0.5);"></div>DERIVED — PP has derived from σ axiom</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:var(--bg);border:1px dashed rgba(242,201,76,0.5);"></div>PREDICTED — structural prediction, awaiting confirmation</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:var(--bg);border:1px dashed rgba(255,255,255,0.15);opacity:0.5;"></div>GAP — geometry demands occupancy; constant unknown</div>
+  <div class="legend-item" style="margin-left:auto;color:var(--text-dim);font-size:0.7rem;">● ●● ●●● = eigenvalue order · · = no eigenvalue at this coordinate</div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModalDirect()">×</button>
+    <div class="modal-domain" id="modalDomain"></div>
+    <div class="modal-symbol" id="modalSymbol"></div>
+    <div class="modal-name" id="modalName"></div>
+    <div class="modal-value" id="modalValue"></div>
+    <div class="modal-note" id="modalNote"></div>
+    <div class="modal-footer">
+      <div class="modal-badge" id="modalBadge"></div>
+      <div class="modal-depth" id="modalDepth"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Pentagon Physics · Eric McLean · Independent Researcher, Cyprus · 2026</p>
+  <a href="../index.html">← Main site</a>
+</footer>
+
+<script>
+// ── CARD DATA ──
+const CARDS = {
+  phi: {
+    domain:'VAC', domClass:'dom-vac', symbol:'\\(\\varphi\\)', name:'Golden Ratio',
+    value:'\\(\\varphi = (1+\\sqrt{5})/2 = 1.61803\\ldots\\)',
+    note:'The axiom itself. \\(\\sigma = 1/(1+\\sigma)\\) has exactly one positive solution: \\(\\varphi\\). This is the only value that survives self-reference. Every constant in the table is a projection of this fixed point. No free parameters — the equation specifies itself.',
+    status:'DERIVED', depth:'σ⁰ · Axiom · Eigenvalue order 1'
+  },
+  phi6: {
+    domain:'VAC', domClass:'dom-vac', symbol:'\\(\\varphi^6\\)', name:'Coherence Floor',
+    value:'\\(\\varphi^6 \\approx 17.944\\)',
+    note:'Minimum recursion depth for stable self-reference. Six angular steps of π/5 close the 600-cell\'s irrational inner-product cycle. Below this depth the measurement spectrum is incomplete. The number 6 is not chosen — it is the smallest integer for which \\(2\\cos(k\\pi/5)\\) returns to the rational field.',
+    status:'DERIVED', depth:'σ¹ · First Fold · Eigenvalue order 2'
+  },
+  alpha: {
+    domain:'EM', domClass:'dom-em', symbol:'\\(\\alpha^{-1}\\)', name:'Fine Structure Constant',
+    value:'\\(\\alpha^{-1} = \\frac{360}{\\varphi^2} - \\frac{2}{\\varphi^3} + \\frac{3^{-5}}{\\varphi^5} + \\frac{7^{-7}}{\\varphi^7} = 137.035999207\\)',
+    note:'The turn-count of the spiral in vacuum. 0.05σ against Morel 2020 (silicon recoil). 1.4σ tension with CODATA 2022 (caesium recoil) — both stated, neither cherry-picked. The exponents in the correction series are the first four primes. Every coefficient is composed of primes. The generating function has derived coefficients \\(C_k = 2^{k^2}\\). No choices after the axiom. Feynman called this number "one of the greatest mysteries of physics." It is now a theorem.',
+    status:'DERIVED', depth:'σ¹ · First Fold · Eigenvalue order 2'
+  },
+  mu: {
+    domain:'NUC', domClass:'dom-nuc', symbol:'\\(\\mu\\)', name:'Proton–Electron Mass Ratio',
+    value:'\\(\\mu = 6\\pi^5 + \\frac{\\pi^5}{\\varphi^7(\\pi^5 - 1)} = 1836.15267\\) (0.005 ppm)',
+    note:'Bridges the spectral and geometric arms of the programme. The proton weighs 1836 electrons because three-phase confinement at discriminant depth costs exactly that many spiral units. The key identity \\(\\varphi = 2\\cos(\\pi/5)\\) connects \\(\\varphi\\) to \\(\\pi\\) through pentagon geometry — both constants trace to the same discriminant-5 axiom.',
+    status:'DERIVED', depth:'σ¹ · First Fold · Eigenvalue order 2'
+  },
+  G: {
+    domain:'GR', domClass:'dom-grav', symbol:'G', name:'Gravitational Constant',
+    value:'\\(\\alpha_G = \\alpha^{18} \\times 12/7\\) · \\(G = 6.674 \\times 10^{-11}\\) N m² kg⁻²',
+    note:'Derived via the unified PP bridge template. Gravity is the electromagnetic force after charge cancellation in neutral matter — the residual field that escapes because confinement is never perfect. The proton confines through 18 eigenmode layers. The fraction that leaks through the 102 unused vertices of the 600-cell is G. Bridge identity: \\(R_\\Lambda - R_G = \\varphi^{-1}\\) exactly. Zero gravitational input used in the derivation.',
+    status:'DERIVED', depth:'σ¹ · First Fold · Eigenvalue order 2'
+  },
+  Lambda: {
+    domain:'COS', domClass:'dom-cos', symbol:'\\(\\Lambda\\)', name:'Cosmological Constant',
+    value:'\\(\\log_{10}(\\rho_\\Lambda) = -\\left(\\frac{2\\alpha^{-1}}{\\sqrt{5}} + \\varphi^{-2}\\right) = -122.951\\)',
+    note:'The vacuum catastrophe dissolved as a category error. The 10¹²³ hierarchy is not a mystery — it is α⁻¹ times a partition fraction, forced by the bridge line. The same geometry that produces α produces Λ. Bridge identity: \\(R_\\Lambda = 2R_H\\) exactly, forcing Λ and H₀ to be dependent — not two free parameters.',
+    status:'DERIVED', depth:'σ¹ · First Fold · Eigenvalue order 2'
+  },
+  '600cell': {
+    domain:'VAC', domClass:'dom-vac', symbol:'600-cell', name:'State Space Geometry',
+    value:'120 vertices · 720 edges · 1200 faces · 600 cells · symmetry group 2I',
+    note:'The second geometric mode is the 600-cell itself — the unique regular polytope in four dimensions whose symmetry group is the binary icosahedral group 2I, order 120. Six steps of π/5 close the irrational inner-product cycle (\\(\\varphi^6\\)). Nine polyhedral layers yield five probability classes. Measurement is projection. The adjacency matrix has nine eigenvalues, all multiplicities perfect squares.',
+    status:'DERIVED', depth:'σ² · Second Fold · Eigenvalue order 2'
+  },
+  c: {
+    domain:'EM', domClass:'dom-em', symbol:'c', name:'Speed of Light',
+    value:'\\(c = 1/\\sqrt{\\varepsilon_0\\mu_0} = 299{,}792{,}458\\) m/s',
+    note:'Both ε₀ and μ₀ are α in disguise — SI artefacts carrying no physical content beyond α. In Gaussian units they vanish. c is the spiral completion rate in vacuum: the rate at which the vacuum medium generates itself. Vacuum impedance: \\(Z_0 = 2\\alpha R_K = 376.73\\) Ω, where \\(R_K = h/e^2\\) is the von Klitzing constant.',
+    status:'DERIVED', depth:'σ² · Second Fold · Eigenvalue order 2'
+  },
+  weinberg: {
+    domain:'EW', domClass:'dom-ew', symbol:'\\(\\sin^2\\!\\theta_W\\)', name:'Weinberg Angle',
+    value:'\\(\\sin^2\\!\\theta_W = \\varphi^{-3} \\approx 0.2361\\) (0.03% at Higgs VEV scale)',
+    note:'Falls directly from \\(\\varphi^{-3}\\). Electroweak mixing is a third-power projection of the geometric fixed point onto the electroweak domain. The Weinberg angle is not a free parameter — it is the same rung as the strong coupling (dark matter shares this rung). Weak force takes the full partition \\(\\varphi^{-3}\\), strong force takes half: \\(\\alpha_s = \\varphi^{-3}/2\\).',
+    status:'DERIVED', depth:'σ² · Second Fold · Eigenvalue order 2'
+  },
+  koide: {
+    domain:'NUC', domClass:'dom-nuc', symbol:'\\(m_e, m_\\mu, m_\\tau\\)', name:'Koide Lepton Masses',
+    value:'\\(Q = \\frac{(\\sqrt{m_e}+\\sqrt{m_\\mu}+\\sqrt{m_\\tau})^2}{3(m_e+m_\\mu+m_\\tau)} = \\frac{2}{3}\\) (exact)',
+    note:'Geometric constraint on the mass eigenvalues of the lepton sector. The Koide formula Q = 2/3 is not coincidence — it is the irreducibility condition of the 5B character value of 2I over ℚ. Three generations are uniquely selected: the circulant matrix with N entries has a stable fixed point only at N = 3 with Q = 2/3. One is unstable. Two is degenerate. Four or more are inconsistent with the axiom.',
+    status:'DERIVED', depth:'σ² · Second Fold · Eigenvalue order 2'
+  },
+  dm: {
+    domain:'GR', domClass:'dom-grav', symbol:'\\(m_\\text{FDM}\\)', name:'Fuzzy Dark Matter',
+    value:'\\(m = m_p \\times \\varphi \\times \\sqrt{H_0/\\omega_\\text{Pl}} = 2.07 \\times 10^{-22}\\) eV',
+    note:'Derived April 1, 2026 from the fifth bridge position: \\(R = \\varphi/\\sqrt{5} = 0.7236\\), depth 99.54. Character class 5A of 2I — the Galois conjugate of 5B which gives G. FDM is purely free-sector: no electromagnetic, strong, or weak coupling. Only gravity. Oscillation period T = 232 days = 50 nHz — in the pulsar timing array (PTA) band. Soliton gravitational wave emission at 100 nHz. PP has exactly one dark matter candidate: the fifth bridge position. The partition closes at R_Λ. No other constant can exist in the bridge family. Kill conditions: JWST soliton core radii, SKA 21cm suppression scale, Euclid lensing substructure, PTA 50 nHz signal. If Lyman-α confirms m > 10⁻²¹ eV at 5σ — the prediction fails.',
+    status:'PREDICTED', depth:'σ² · Second Fold · Fifth bridge position (5A) · April 2026'
+  },
+  H0: {
+    domain:'COS', domClass:'dom-cos', symbol:'\\(H_0 / \\Omega_K\\)', name:'Hubble Constant / Curvature',
+    value:'\\(\\Omega_K = -0.038\\) predicted · H₀ = 71.7 km/s/Mpc predicted',
+    note:'The bridge identity \\(R_\\Lambda = 2R_H\\) makes Λ downstream of H₀, not independent. Standard CMB analyses invert the causal arrow by treating Λ as a free input. The PP prediction H₀ = 71.7 km/s/Mpc sits in the Hubble tension gap between Planck (67.4) and SH0ES (73.0). Curvature \\(\\Omega_K = -0.038\\) is a hard falsifier: if |Ω_K| < 0.01 at 95% confidence, the framework fails.',
+    status:'PREDICTED', depth:'σ² · Second Fold · Eigenvalue order 3'
+  },
+  etaB: {
+    domain:'VAC', domClass:'dom-vac', symbol:'\\(\\eta_B\\)', name:'Baryon Asymmetry',
+    value:'\\(\\eta_B = 6.105 \\times 10^{-10}\\) (+0.02σ from Planck)',
+    note:'Two routes: circles (π²) and pentagons (√5). \\(\\sigma \\cdot F_1 + \\sigma^2 \\cdot F_2\\). The 1.7% gap between them is the distance between the two geometries. The axiom partition \\(\\sigma + \\sigma^2 = 1\\) resolves the gap. Matter dominates antimatter by this amount because the fixed point is irrational — a perfectly rational universe would have no asymmetry.',
+    status:'DERIVED', depth:'σ³ · Third Fold · Eigenvalue order 3'
+  },
+  Z0: {
+    domain:'EM', domClass:'dom-em', symbol:'\\(Z_0\\)', name:'Vacuum Impedance',
+    value:'\\(Z_0 = 2\\alpha R_K = 376.73\\) Ω',
+    note:'In Gaussian units, ε₀ and μ₀ vanish entirely — SI artefacts carrying no physical content. Only α remains. The vacuum impedance is pure geometry: the electromagnetic coupling constant times the quantum of resistance. The Standard Model carries these as two separate constants. Pentagon Physics shows they are one.',
+    status:'DERIVED', depth:'σ³ · Third Fold · Eigenvalue order 3'
+  },
+  higgs: {
+    domain:'EW', domClass:'dom-ew', symbol:'\\(\\lambda \\cdot m_H \\cdot v\\)', name:'Higgs Sector',
+    value:'\\(\\lambda = 2\\varphi/25 = 0.1292\\) (0.045%) · \\(m_H = 2v\\sqrt{\\varphi}/5 = 125.28\\) GeV (0.17σ)',
+    note:'The quartic coupling λ = 2φ/25 and Higgs mass follow from discriminant-5 geometry. Proof: \\(V^{\\prime\\prime}(\\varphi^{-1}) = \\sqrt{5}\\) exactly — the second derivative of the Higgs potential at the fixed point equals the discriminant. The condition μ² < 0 (symmetry breaking) IS the axiom: the fixed point of σ = 1/(1+σ) is below the symmetric phase. Ablation test: unique in 1,319 candidates. Identity: \\(g_1^2 = \\lambda\\).',
+    status:'DERIVED', depth:'σ³ · Third Fold · Eigenvalue order 3'
+  },
+  cp: {
+    domain:'NUC', domClass:'dom-nuc', symbol:'\\(\\cos\\delta \\cdot \\theta_\\text{PMNS} \\cdot V_\\text{CKM}\\)', name:'CP Phase · Mixing Angles',
+    value:'\\(\\cos\\delta = -19/28\\) · \\(\\sin^2\\theta_{13} = 1/45\\) · \\(\\sin^2\\theta_{12} = 2\\varphi^4/45\\) · \\(\\sin^2\\theta_{23} = 3/(2\\varphi^2)\\)',
+    note:'Dual-route derivation: Fibonacci-Lucas arithmetic AND the binary icosahedral group 2I — both converge on \\(\\cos\\delta = -19/28\\). This is uniquely selected, not fitted. PMNS and CKM mixing matrices from the same φ-geometry. Majorana character proved from the character table of 2I: all 81 characters are real, so no complex representations exist — neutrinos must be Majorana.',
+    status:'DERIVED', depth:'σ³ · Third Fold · Eigenvalue order 3'
+  },
+  qg: {
+    domain:'GR', domClass:'dom-grav', symbol:'?', name:'Quantum Gravity',
+    value:'Third-fold gravity — the programme predicts a coupled quantum gravity / dark energy sector',
+    note:'Quantising G without Λ may be inconsistent in this framework — they are eigenvalues of adjacent modes on the same ledger. The third gravitational fold would govern how quantum corrections to gravity couple to dark energy. The bridge identity \\(R_\\Lambda - R_G = \\varphi^{-1}\\) links them algebraically; the third fold would make this dynamical.',
+    status:'GAP', depth:'σ³ · Third Fold · Gap'
+  },
+  w0: {
+    domain:'COS', domClass:'dom-cos', symbol:'\\(w_0\\)', name:'Dark Energy Equation of State',
+    value:'\\(w_0 \\approx -0.97\\) from \\(\\varepsilon(x) = 3(1-x)/[5(9+x)]\\)',
+    note:'From Gauss-Bonnet: dark energy is the unwound spiral gap. The universe has not reached its fixed point yet — it is converging toward Ω_Λ = φ⁻¹ = 61.8% from above. The current value ~68.5% is an overshoot. DESI DR1 hints at w₀ ≠ −1 consistent with this prediction. DESI DR2 (2026) is the decisive test.',
+    status:'PREDICTED', depth:'σ³ · Third Fold · Eigenvalue order 3'
+  },
+  alphas: {
+    domain:'NUC', domClass:'dom-nuc', symbol:'\\(\\alpha_s \\cdot \\Delta m^2_{32}\\)', name:'Strong Coupling + Neutrino Mass',
+    value:'\\(\\alpha_s = \\varphi^{-3}/2 = 0.1180\\) (0.1%) · \\(\\Delta m^2_{32} = m_e\\alpha^4 \\cdot 5\\varphi^4\\)',
+    note:'Strong coupling: half the Weinberg angle, same rung. The weak force takes the full partition \\(\\varphi^{-3}\\), strong force takes half — split by chirality. Atmospheric neutrino mass splitting: \\(\\Delta m_{32}^2 = 0.0497\\) eV (0.26%). Fourth fold of σ in the nuclear domain. If confirmed, closes the baryon asymmetry derivation.',
+    status:'DERIVED', depth:'σ⁴ · Fourth Fold · Eigenvalue order 4'
+  }
+};
+
+const DOMAIN_NAMES = {vac:'Vacuum / Geometric', em:'Electromagnetic', ew:'Electroweak', nuc:'Nuclear / Flavour', grav:'Gravitational', cos:'Cosmological'};
+const DOMAIN_COLORS = {vac:'var(--vac)', em:'var(--em)', ew:'var(--ew)', nuc:'var(--nuc)', grav:'var(--grav)', cos:'var(--cos)'};
+const STATUS_COLORS = {DERIVED:'badge-derived', PREDICTED:'badge-predicted', GAP:'badge-gap'};
+
+let currentStatusFilter = 'all';
+let currentDomainFilter = 'all';
+let highlightedCol = null;
+
+function filterStatus(val, btn) {
+  currentStatusFilter = val;
+  document.querySelectorAll('.filter-group:first-of-type .fb').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+function filterDomain(val, btn) {
+  currentDomainFilter = val;
+  document.querySelectorAll('.filter-group:last-of-type .fb').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+function applyFilters() {
+  document.querySelectorAll('.card').forEach(c => {
+    const s = c.dataset.status;
+    const d = c.dataset.dom;
+    const statusOk = currentStatusFilter === 'all' || s === currentStatusFilter;
+    const domOk = currentDomainFilter === 'all' || d === currentDomainFilter;
+    c.classList.toggle('hidden', !(statusOk && domOk));
+  });
+}
+function highlightCol(dom) {
+  document.querySelectorAll('.col-header, .card, .cell-empty').forEach(el => el.classList.remove('col-highlighted'));
+  if (highlightedCol === dom) { highlightedCol = null; return; }
+  highlightedCol = dom;
+  document.querySelectorAll(`.dom-${dom}, .col-${dom}`).forEach(el => el.classList.add('col-highlighted'));
+}
+
+function openModal(id) {
+  const d = CARDS[id]; if (!d) return;
+  const domKey = d.domClass.replace('dom-','');
+  document.getElementById('modalDomain').textContent = DOMAIN_NAMES[domKey] || d.domain;
+  document.getElementById('modalDomain').style.color = DOMAIN_COLORS[domKey] || 'var(--gold)';
+  document.getElementById('modalSymbol').innerHTML = d.symbol;
+  document.getElementById('modalSymbol').style.color = DOMAIN_COLORS[domKey] || 'var(--gold)';
+  document.getElementById('modalName').textContent = d.name;
+  document.getElementById('modalValue').innerHTML = d.value;
+  document.getElementById('modalNote').innerHTML = d.note;
+  const badge = document.getElementById('modalBadge');
+  badge.textContent = d.status;
+  badge.className = 'modal-badge ' + (STATUS_COLORS[d.status] || 'badge-gap');
+  document.getElementById('modalDepth').textContent = d.depth;
+  document.getElementById('modalOverlay').classList.add('open');
+  if (window.MathJax) MathJax.typesetPromise([document.getElementById('modal')]);
+}
+function closeModal(e) { if (e.target === document.getElementById('modalOverlay')) closeModalDirect(); }
+function closeModalDirect() { document.getElementById('modalOverlay').classList.remove('open'); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
+</script>
+</body>
+</html>

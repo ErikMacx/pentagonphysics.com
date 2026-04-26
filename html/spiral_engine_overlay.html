@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { background:#fff; color:#111; font-family:Georgia,serif; padding:36px; margin:0 auto; max-width:1100px; }
+  .pp { text-align:center; font-size:11px; letter-spacing:0.3em; color:#b07800; margin-bottom:8px; text-transform:uppercase; font-weight:bold; }
+  h1 { text-align:center; font-size:22px; font-weight:normal; margin-bottom:6px; }
+  .sub { text-align:center; font-size:11px; color:#666; margin-bottom:24px; }
+
+  .grid-wrap { position:relative; margin:0 auto; }
+
+  table { width:100%; border-collapse:collapse; }
+  th { font-size:9px; letter-spacing:0.12em; text-transform:uppercase; padding:8px 4px; border-bottom:2px solid #ccc; text-align:center; color:#666; background:#fafafa; }
+  td { width:14.2%; height:110px; vertical-align:top; padding:4px; border:1px solid #eee; position:relative; }
+  td.rl { width:80px; border:none; border-right:2px solid #ddd; vertical-align:middle; text-align:right; padding-right:10px; }
+  .rl .dnum { font-size:11px; font-weight:bold; color:#b07800; }
+  .rl .dname { font-size:8px; color:#999; }
+
+  .card {
+    border-radius:5px; padding:6px 8px; font-size:10px; line-height:1.35;
+    position:relative; z-index:2;
+  }
+  .card .sym { font-size:15px; font-weight:bold; font-style:italic; }
+  .card .detail { font-size:8px; color:#666; margin-top:2px; }
+
+  /* Domain colours */
+  .vac { background:#fff8e0; border:1.5px solid #d4a020; color:#8a6000; }
+  .em  { background:#e8f3ff; border:1.5px solid #2a7abf; color:#0a4a80; }
+  .ew  { background:#f3eeff; border:1.5px solid #9050d0; color:#5a2090; }
+  .nuc { background:#fff0f0; border:1.5px solid #d06060; color:#a03030; }
+  .grv { background:#e8fff2; border:1.5px solid #20a060; color:#0a6030; }
+  .cos { background:#fff5ee; border:1.5px solid #d4a06a; color:#8a5020; }
+
+  .empty-cell { background:#f8f8f8; border-radius:5px; height:100%; border:1px dashed #ddd; }
+
+  /* SVG overlay */
+  svg.overlay {
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    pointer-events:none; z-index:10;
+  }
+
+  /* Legend */
+  .legend { display:flex; justify-content:center; gap:24px; margin-top:20px; flex-wrap:wrap; }
+  .leg { display:flex; align-items:center; gap:6px; font-size:11px; }
+  .leg-line { width:28px; height:3px; border-radius:2px; }
+  .leg-circ { width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:bold; color:#fff; }
+
+  .foot { text-align:center; margin-top:24px; font-size:9px; color:#aaa; letter-spacing:0.12em; }
+</style>
+</head>
+<body>
+
+<div class="pp">Pentagon Physics</div>
+<h1>Spiral Engine Overlay on the Constants Table</h1>
+<div class="sub">Numbered circles show the engine's causal sequence. Arrows show the path. The engine descends, produces, and returns.</div>
+
+<div class="grid-wrap" id="gridWrap">
+<table id="mainTable">
+<thead>
+  <tr>
+    <th class="rl"></th>
+    <th>VAC</th>
+    <th>EM / STRONG</th>
+    <th>EW</th>
+    <th>NUC / FLAVOUR</th>
+    <th>GRAV</th>
+    <th>COSMO</th>
+  </tr>
+</thead>
+<tbody>
+
+<!-- σ⁰ -->
+<tr>
+  <td class="rl"><div class="dnum">σ⁰</div><div class="dname">Axiom</div></td>
+  <td id="c00"><div class="card vac"><div class="sym">φ</div><div class="detail">The axiom itself</div></div></td>
+  <td id="c01"><div class="empty-cell"></div></td>
+  <td id="c02"><div class="empty-cell"></div></td>
+  <td id="c03"><div class="empty-cell"></div></td>
+  <td id="c04"><div class="empty-cell"></div></td>
+  <td id="c05"><div class="empty-cell"></div></td>
+</tr>
+
+<!-- σ¹ -->
+<tr>
+  <td class="rl"><div class="dnum">σ¹</div><div class="dname">First Fold</div></td>
+  <td id="c10"><div class="empty-cell"></div></td>
+  <td id="c11"><div class="card em"><div class="sym">α⁻¹</div><div class="detail">137.036</div></div></td>
+  <td id="c12"><div class="empty-cell"></div></td>
+  <td id="c13"><div class="card nuc"><div class="sym">μ</div><div class="detail">6π⁵ + correction</div></div></td>
+  <td id="c14"><div class="card grv"><div class="sym">G</div><div class="detail">0.021%</div></div></td>
+  <td id="c15"><div class="card cos"><div class="sym">Λ</div><div class="detail">0.005 residual</div></div></td>
+</tr>
+
+<!-- σ² -->
+<tr>
+  <td class="rl"><div class="dnum">σ²</div><div class="dname">Second Fold</div></td>
+  <td id="c20"><div class="card vac"><div class="sym">600-cell</div><div class="detail">State space</div></div></td>
+  <td id="c21"><div class="card em"><div class="sym">c · α_s</div><div class="detail">φ⁻³/2</div></div></td>
+  <td id="c22"><div class="card ew"><div class="sym">sin²θ_W</div><div class="detail">φ⁻³ = 0.2361</div></div></td>
+  <td id="c23"><div class="card nuc"><div class="sym">Koide</div><div class="detail">Q = 2/3, cos δ</div></div></td>
+  <td id="c24"><div class="empty-cell"></div></td>
+  <td id="c25"><div class="card cos"><div class="sym">H₀</div><div class="detail">Tension band</div></div></td>
+</tr>
+
+<!-- σ³ -->
+<tr>
+  <td class="rl"><div class="dnum">σ³</div><div class="dname">Third Fold</div></td>
+  <td id="c30"><div class="card vac"><div class="sym">η_B</div><div class="detail">+0.02σ</div></div></td>
+  <td id="c31"><div class="card em"><div class="sym">Z₀</div><div class="detail">376.73 Ω</div></div></td>
+  <td id="c32"><div class="card ew"><div class="sym">λ · v · m_H</div><div class="detail">Higgs sector</div></div></td>
+  <td id="c33"><div class="card nuc"><div class="sym">PMNS · CKM</div><div class="detail">sin²θ₁₃ = 1/45</div></div></td>
+  <td id="c34"><div class="empty-cell"></div></td>
+  <td id="c35"><div class="card cos"><div class="sym">w₀</div><div class="detail">≈ −0.97</div></div></td>
+</tr>
+
+<!-- σ⁴ -->
+<tr>
+  <td class="rl"><div class="dnum">σ⁴</div><div class="dname">Fourth Fold</div></td>
+  <td id="c40"><div class="empty-cell"></div></td>
+  <td id="c41"><div class="empty-cell"></div></td>
+  <td id="c42"><div class="card ew"><div class="sym">Δm₃₂ · M₁</div><div class="detail">Seesaw scale</div></div></td>
+  <td id="c43"><div class="empty-cell"></div></td>
+  <td id="c44"><div class="empty-cell"></div></td>
+  <td id="c45"><div class="empty-cell"></div></td>
+</tr>
+
+</tbody>
+</table>
+
+<svg class="overlay" id="overlaySvg"></svg>
+</div>
+
+<div class="legend">
+  <div class="leg"><div class="leg-circ" style="background:#c04000;">1</div> Engine step number</div>
+  <div class="leg"><div class="leg-line" style="background:#c04000;"></div> Engine path (forward)</div>
+  <div class="leg"><div class="leg-line" style="background:#c04000; border-top:2px dashed #c04000; height:0;"></div> Return / transmission</div>
+</div>
+
+<div class="foot">PENTAGON PHYSICS · SPIRAL ENGINE SEQUENCE MAPPED TO CONSTANTS TABLE · MARCH 2026</div>
+
+<script>
+// Engine sequence: [row, col, section label]
+const steps = [
+  [0, 0, "§2 Axiom"],           // 1: φ
+  [1, 1, "§3 Radial"],          // 2: α
+  [2, 2, "§3 Weinberg"],        // 3: sin²θ_W (radius after one turn)
+  [2, 3, "§4 Height"],          // 4: Koide masses
+  [3, 3, "§5 Confinement"],     // 5: PMNS/CKM (3 gens forced)
+  [3, 2, "§5 Higgs"],           // 6: λ, v, m_H
+  [4, 2, "§5 Oscillation"],     // 7: Δm₃₂, M₁
+  [1, 3, "§6 Terminal"],        // 8: μ, hydrogen (RETURN UP)
+  [3, 0, "§7 Account"],         // 9: η_B (matter survives)
+  [2, 0, "§8 Closure"],         // 10: 600-cell
+];
+
+function getCenter(cellId) {
+  const cell = document.getElementById(cellId);
+  const wrap = document.getElementById('gridWrap');
+  const wrapRect = wrap.getBoundingClientRect();
+  const cellRect = cell.getBoundingClientRect();
+  return {
+    x: cellRect.left - wrapRect.left + cellRect.width / 2,
+    y: cellRect.top - wrapRect.top + cellRect.height / 2
+  };
+}
+
+function cellId(row, col) {
+  return `c${row}${col}`;
+}
+
+window.addEventListener('load', () => {
+  const svg = document.getElementById('overlaySvg');
+  const wrap = document.getElementById('gridWrap');
+  svg.setAttribute('width', wrap.offsetWidth);
+  svg.setAttribute('height', wrap.offsetHeight);
+  svg.setAttribute('viewBox', `0 0 ${wrap.offsetWidth} ${wrap.offsetHeight}`);
+
+  // Arrowhead marker
+  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+  marker.setAttribute('id', 'arrowhead');
+  marker.setAttribute('markerWidth', '8');
+  marker.setAttribute('markerHeight', '6');
+  marker.setAttribute('refX', '8');
+  marker.setAttribute('refY', '3');
+  marker.setAttribute('orient', 'auto');
+  const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+  poly.setAttribute('points', '0 0, 8 3, 0 6');
+  poly.setAttribute('fill', '#c04000');
+  marker.appendChild(poly);
+  defs.appendChild(marker);
+
+  const marker2 = marker.cloneNode(true);
+  marker2.setAttribute('id', 'arrowhead-dash');
+  marker2.querySelector('polygon').setAttribute('fill', '#c04000');
+  defs.appendChild(marker2);
+
+  svg.appendChild(defs);
+
+  const points = steps.map(s => getCenter(cellId(s[0], s[1])));
+
+  // Draw connecting lines
+  for (let i = 0; i < points.length - 1; i++) {
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', points[i].x);
+    line.setAttribute('y1', points[i].y);
+    line.setAttribute('x2', points[i+1].x);
+    line.setAttribute('y2', points[i+1].y);
+    line.setAttribute('stroke', '#c04000');
+    line.setAttribute('stroke-width', '2.5');
+    line.setAttribute('stroke-opacity', '0.6');
+    line.setAttribute('marker-end', 'url(#arrowhead)');
+
+    // Steps 7→8 (return up) and 8→9 (cross to η_B) are dashed
+    if (i === 7 || i === 6) {
+      line.setAttribute('stroke-dasharray', '6,4');
+      line.setAttribute('stroke-opacity', '0.5');
+    }
+
+    svg.appendChild(line);
+  }
+
+  // Draw numbered circles
+  for (let i = 0; i < points.length; i++) {
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', points[i].x - 20);
+    circle.setAttribute('cy', points[i].y - 20);
+    circle.setAttribute('r', '11');
+    circle.setAttribute('fill', '#c04000');
+    circle.setAttribute('stroke', '#fff');
+    circle.setAttribute('stroke-width', '2');
+    g.appendChild(circle);
+
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', points[i].x - 20);
+    text.setAttribute('y', points[i].y - 16);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('fill', '#fff');
+    text.setAttribute('font-size', '10');
+    text.setAttribute('font-weight', 'bold');
+    text.setAttribute('font-family', 'Georgia, serif');
+    text.textContent = (i + 1).toString();
+    g.appendChild(text);
+
+    // Section label
+    const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    label.setAttribute('x', points[i].x - 20);
+    label.setAttribute('y', points[i].y - 34);
+    label.setAttribute('text-anchor', 'middle');
+    label.setAttribute('fill', '#c04000');
+    label.setAttribute('font-size', '7');
+    label.setAttribute('font-family', 'Georgia, serif');
+    label.textContent = steps[i][2];
+    g.appendChild(label);
+
+    svg.appendChild(g);
+  }
+});
+</script>
+
+</body>
+</html>

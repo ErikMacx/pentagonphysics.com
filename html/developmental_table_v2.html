@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { background: #111118; color: #f0ece0; font-family: Georgia, serif; padding: 32px; margin: 0; }
+  h1 { text-align: center; font-size: 22px; font-weight: normal; color: #ffffff; margin-bottom: 6px; }
+  .sub { text-align: center; font-size: 12px; color: #9a9080; margin-bottom: 24px; line-height: 1.7; }
+  .pp { text-align:center; font-size:11px; letter-spacing:0.3em; color:#f0b840; margin-bottom:8px; text-transform:uppercase; font-weight:bold; }
+  .legend { display:flex; justify-content:center; gap:20px; margin-bottom:24px; flex-wrap:wrap; }
+  .leg { display:flex; align-items:center; gap:8px; font-size:11px; letter-spacing:0.08em; font-weight:bold; }
+  .dot { width:11px; height:11px; border-radius:50%; }
+  table { width:100%; border-collapse:collapse; }
+  th { font-size:10px; letter-spacing:0.15em; color:#aaa090; text-transform:uppercase; padding:10px 6px; border-bottom:2px solid #2e2c24; text-align:center; font-weight:bold; }
+  td { padding:6px; vertical-align:top; }
+  .rl { width:120px; padding-right:12px; }
+  .dnum { font-size:11px; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:4px; font-weight:bold; }
+  .dname { font-size:10px; color:#888070; line-height:1.4; }
+  .dbar { height:3px; margin-top:8px; border-radius:2px; }
+  .empty { background:#161620; border:1px solid #222228; border-radius:6px; min-height:68px; }
+  .c { border-radius:6px; padding:10px 11px; border:2px solid; margin-bottom:5px; }
+  .c:last-child { margin-bottom:0; }
+  .sym { font-size:17px; font-style:italic; line-height:1; margin-bottom:4px; font-weight:bold; }
+  .form { font-size:10px; font-style:italic; margin-top:3px; }
+  .acc { font-size:9px; margin-top:3px; opacity:0.75; }
+
+  .d1c { color:#f5c842; border-color:#f5c842; background:#2a2210; }
+  .d1c .form { color:#c8a030; }
+  .d1c .acc { color:#a08020; }
+
+  .d2c { color:#5bbfee; border-color:#5bbfee; background:#0e1e2e; }
+  .d2c .form { color:#4090b8; }
+  .d2c .acc { color:#305878; }
+
+  .d3c { color:#c090f8; border-color:#c090f8; background:#1a1030; }
+  .d3c .form { color:#9060c0; }
+  .d3c .acc { color:#604090; }
+
+  .d4c { color:#60dd98; border-color:#60dd98; background:#0a2018; }
+  .d4c .form { color:#40a868; }
+  .d4c .acc { color:#207048; }
+
+  .rels { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:32px; }
+  .rel { border-radius:10px; padding:16px 18px; }
+  .rtag { font-size:10px; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:5px; font-weight:bold; }
+  .rtitle { font-size:14px; font-weight:bold; color:#ffffff; margin-bottom:7px; }
+  .rform { font-family:monospace; font-size:13px; padding:4px 10px; border-radius:4px; display:inline-block; margin-bottom:10px; font-weight:bold; }
+  .rbody { font-size:11px; color:#9a9080; line-height:1.65; }
+
+  .rel1 { border:2px solid #f5c842; background:#1e1808; }
+  .rel1 .rtag,.rel1 .rform { color:#f5c842; }
+  .rel1 .rform { background:#2a2210; }
+
+  .rel2 { border:2px solid #5bbfee; background:#08141e; }
+  .rel2 .rtag,.rel2 .rform { color:#5bbfee; }
+  .rel2 .rform { background:#0e1e2e; }
+
+  .rel3 { border:2px solid #c090f8; background:#120c20; }
+  .rel3 .rtag,.rel3 .rform { color:#c090f8; }
+  .rel3 .rform { background:#1a1030; }
+
+  .rel4 { border:2px solid #60dd98; background:#081810; }
+  .rel4 .rtag,.rel4 .rform { color:#60dd98; }
+  .rel4 .rform { background:#0a2018; }
+
+  .foot { text-align:center; margin-top:28px; font-size:10px; color:#444438; letter-spacing:0.15em; }
+  .urgent { color:#ff8844; font-weight:bold; }
+</style>
+</head>
+<body>
+
+<div class="pp">Pentagon Physics</div>
+<h1>The Developmental Table of Constants</h1>
+<div class="sub">
+  Constants organised by derivation depth from σ = 1/(1+σ).<br>
+  Constants on the same diagonal are the <strong style="color:#f0ece0">same theorem</strong> expressed in different physical domains.
+</div>
+
+<div class="legend">
+  <div class="leg"><div class="dot" style="background:#f5c842"></div><span style="color:#f5c842">D1 — Axiom Output</span></div>
+  <div class="leg"><div class="dot" style="background:#5bbfee"></div><span style="color:#5bbfee">D2 — First Geometry</span></div>
+  <div class="leg"><div class="dot" style="background:#c090f8"></div><span style="color:#c090f8">D3 — Polytope Structure</span></div>
+  <div class="leg"><div class="dot" style="background:#60dd98"></div><span style="color:#60dd98">D4 — Eigenvalue Depth</span></div>
+</div>
+
+<table>
+<thead>
+  <tr>
+    <th></th>
+    <th>COSMO</th>
+    <th>GRAV</th>
+    <th>EM</th>
+    <th>ELECTROWEAK</th>
+    <th>MASS</th>
+    <th>MIXING / CP</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr>
+  <td class="rl">
+    <div class="dnum" style="color:#f5c842">D1</div>
+    <div class="dname">Axiom Output</div>
+    <div class="dbar" style="background:linear-gradient(90deg,#f5c842,transparent)"></div>
+  </td>
+  <td><div class="c d1c"><div class="sym">Λ</div><div class="form">−(α⁻¹ × 2/√5 + φ⁻²)</div><div class="acc">0.005 residual</div></div></td>
+  <td><div class="empty"></div></td>
+  <td><div class="c d1c"><div class="sym">α</div><div class="form">360/φ² − 2/φ³ + ...</div><div class="acc">0.05σ</div></div></td>
+  <td><div class="empty"></div></td>
+  <td><div class="empty"></div></td>
+  <td><div class="empty"></div></td>
+</tr>
+
+<tr>
+  <td class="rl">
+    <div class="dnum" style="color:#5bbfee">D2</div>
+    <div class="dname">First Geometry</div>
+    <div class="dbar" style="background:linear-gradient(90deg,#5bbfee,transparent)"></div>
+  </td>
+  <td><div class="empty"></div></td>
+  <td><div class="c d2c"><div class="sym">G</div><div class="form">αG · ℏc / mₚ²</div><div class="acc">0.021%</div></div></td>
+  <td><div class="empty"></div></td>
+  <td>
+    <div class="c d2c"><div class="sym">sin²θW</div><div class="form">φ⁻³</div><div class="acc">0.03%</div></div>
+    <div class="c d2c"><div class="sym">λH</div><div class="form">2φ / 5²</div><div class="acc">0.045%</div></div>
+  </td>
+  <td><div class="c d2c"><div class="sym">mH</div><div class="form">2v√φ / 5</div><div class="acc">0.17σ</div></div></td>
+  <td><div class="empty"></div></td>
+</tr>
+
+<tr>
+  <td class="rl">
+    <div class="dnum" style="color:#c090f8">D3</div>
+    <div class="dname">Polytope Structure</div>
+    <div class="dbar" style="background:linear-gradient(90deg,#c090f8,transparent)"></div>
+  </td>
+  <td><div class="empty"></div></td>
+  <td><div class="empty"></div></td>
+  <td><div class="empty"></div></td>
+  <td><div class="c d3c"><div class="sym">θQCD</div><div class="form">0 (stillpoint)</div><div class="acc">Exact</div></div></td>
+  <td><div class="empty"></div></td>
+  <td>
+    <div class="c d3c"><div class="sym">δK</div><div class="form">cos(δ) = −19/28</div><div class="acc">0.021%</div></div>
+    <div class="c d3c"><div class="sym">θ₁₃ PMNS</div><div class="form">1/45</div><div class="acc">0.05σ</div></div>
+    <div class="c d3c"><div class="sym">θ₁₂ PMNS</div><div class="form">2φ⁴/45</div><div class="acc">0.16σ</div></div>
+    <div class="c d3c"><div class="sym">θ₁₂ CKM</div><div class="form">Golden partition</div><div class="acc">0.3σ</div></div>
+  </td>
+</tr>
+
+<tr>
+  <td class="rl">
+    <div class="dnum" style="color:#60dd98">D4</div>
+    <div class="dname">Eigenvalue Depth</div>
+    <div class="dbar" style="background:linear-gradient(90deg,#60dd98,transparent)"></div>
+  </td>
+  <td><div class="empty"></div></td>
+  <td><div class="empty"></div></td>
+  <td><div class="empty"></div></td>
+  <td><div class="empty"></div></td>
+  <td>
+    <div class="c d4c"><div class="sym">mₑ</div><div class="form">Rydberg closure</div><div class="acc">0.005 ppm</div></div>
+    <div class="c d4c"><div class="sym">mₚ/mₑ</div><div class="form">6π⁵ + π⁵/[φ⁷(π⁵−1)]</div><div class="acc">0.005 ppm</div></div>
+    <div class="c d4c"><div class="sym">mμ/mₑ</div><div class="form">Koide chain</div><div class="acc">0.021%</div></div>
+  </td>
+  <td>
+    <div class="c d4c"><div class="sym">δCKM</div><div class="form">π/φ²</div><div class="acc">0.3σ</div></div>
+  </td>
+</tr>
+
+</tbody>
+</table>
+
+<div class="rels">
+  <div class="rel rel1">
+    <div class="rtag">D1 Relation — Proven</div>
+    <div class="rtitle">Bridge Identity</div>
+    <div class="rform">R_Λ − R_G = 1/φ</div>
+    <div class="rbody">α and Λ are connected by exact algebra. Same derivation depth, two domains. This is what diagonal equivalence looks like when the relation is already found.</div>
+  </div>
+  <div class="rel rel2">
+    <div class="rtag">D2 Relation — <span class="urgent">⚑ URGENT / OPEN</span></div>
+    <div class="rtitle">The Next Target</div>
+    <div class="rform">sin²θW · λH ↔ G = ?</div>
+    <div class="rbody">sin²θW = φ⁻³ and λH = 2φ/5² are both proven. G sits on the same diagonal. An exact algebraic relation connecting all three must exist. This is the immediate next calculation the table demands.</div>
+  </div>
+  <div class="rel rel3">
+    <div class="rtag">D3 Relation</div>
+    <div class="rtitle">Koide – PMNS – CKM</div>
+    <div class="rform">600-cell phase θ</div>
+    <div class="rbody">All D3 constants emerge from the same 600-cell polytope structure. Their mutual algebraic relations are geometrically fixed — not fitted — and are fully derivable.</div>
+  </div>
+  <div class="rel rel4">
+    <div class="rtag">D4 Relation</div>
+    <div class="rtitle">Mass Eigenvalue Closure</div>
+    <div class="rform">mₚ/mₑ = 6π⁵ + π⁵/[φ⁷(π⁵−1)]</div>
+    <div class="rbody">All D4 mass constants are expressions of the same eigenvalue theorem from the 600-cell Hamiltonian. Accuracy 0.005 ppm. Zero free parameters.</div>
+  </div>
+</div>
+
+<div class="foot">PENTAGON PHYSICS · σ = 1/(1+σ) · ZERO FREE PARAMETERS · 26 CONSTANTS DERIVED</div>
+</body>
+</html>

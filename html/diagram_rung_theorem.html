@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Rung Theorem — Pentagon Physics</title>
+<style>
+  @page { size: A4; margin: 12mm 14mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: #fff;
+    color: #111;
+    padding: 40px;
+    max-width: 820px;
+    margin: 0 auto;
+    line-height: 1.5;
+    font-size: 11pt;
+  }
+
+  .rule { height: 1px; background: #d8d8d8; }
+  .section-label {
+    font-size: 8pt; letter-spacing: 0.18em; text-transform: uppercase;
+    color: #888; text-align: center; margin-bottom: 8px;
+  }
+
+  /* TITLE */
+  h1 { font-size: 22pt; font-weight: 400; text-align: center; margin-bottom: 4px; }
+  .title-sub { font-size: 11pt; font-style: italic; color: #555; text-align: center; }
+
+  /* AXIOM ROW */
+  .axiom-row {
+    display: flex; align-items: center; gap: 24px;
+    padding: 16px 0; justify-content: center;
+  }
+  .axiom-chip {
+    background: #111; color: #fff;
+    padding: 8px 20px; font-size: 13pt;
+    font-style: italic; letter-spacing: 0.04em;
+  }
+  .axiom-result { font-size: 12pt; color: #555; }
+  .axiom-result em { color: #111; }
+
+  /* SIGN FLIP */
+  .sign-flip { padding: 14px 0 10px; text-align: center; }
+  .sign-flip-eq {
+    font-size: 14pt; font-style: italic; color: #111;
+    font-family: Georgia, serif; margin-bottom: 10px;
+  }
+  .sign-row {
+    display: flex; justify-content: center;
+    border: 1px solid #d8d8d8; font-size: 10.5pt;
+    max-width: 600px; margin: 0 auto;
+  }
+  .sign-cell {
+    flex: 1; padding: 6px 16px;
+  }
+  .sign-cell:first-child { border-right: 1px solid #d8d8d8; }
+
+  /* RUNGS */
+  .rungs { display: flex; flex-direction: column; gap: 5px; margin: 10px 0 8px; }
+
+  .rung {
+    border: 1px solid #c8e8d0;
+    border-left: 3px solid #1a5c30;
+    background: #f7fcf9;
+    padding: 10px 14px;
+  }
+  .rung.even {
+    border-color: #f0dfa8;
+    border-left-color: #7a5210;
+    background: #fdfaf0;
+  }
+  .rung.terminal {
+    border-color: #f0c8c8;
+    border-left-color: #7a1a1a;
+    background: #fdf7f7;
+  }
+  .rung.silent {
+    border-color: #e8e8e8;
+    border-left-color: #aaa;
+    background: #fafafa;
+    opacity: 0.6;
+  }
+  .rung.origin {
+    border-color: #e8e8e8;
+    border-left-color: #888;
+    background: #f7f7f5;
+  }
+
+  .rung-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; margin-bottom: 3px;
+  }
+  .rung-left { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .rung-k { font-size: 9.5pt; color: #888; font-family: 'Courier New', monospace; min-width: 30px; }
+  .rung-sector { font-size: 14pt; font-weight: 700; color: #111; }
+  .rung-percent { font-size: 17pt; font-weight: 400; color: #111; min-width: 52px; text-align: right; }
+
+  .badge {
+    font-size: 7.5pt; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 2px 7px;
+    border: 1px solid;
+  }
+  .badge-active   { background: #e8f5ec; color: #1a5c30; border-color: #a8d5b5; }
+  .badge-budget   { background: #fdf4e3; color: #7a5210; border-color: #e0c870; }
+  .badge-terminal { background: #fde8e8; color: #7a1a1a; border-color: #d4a0a0; }
+  .badge-silent   { background: #f2f2f2; color: #888;    border-color: #d8d8d8; }
+  .badge-origin   { background: #f2f2f2; color: #888;    border-color: #d8d8d8; }
+  .badge-odd      { background: #e8f5ec; color: #1a5c30; border-color: #a8d5b5; margin-left: 4px; font-size: 7pt; }
+  .badge-even     { background: #fdf4e3; color: #7a5210; border-color: #e0c870; margin-left: 4px; font-size: 7pt; }
+
+  .rung-meta {
+    font-size: 9.5pt; color: #888; margin: 3px 0 5px;
+    font-family: 'Courier New', monospace;
+  }
+  .rung-desc { font-size: 10.5pt; color: #555; line-height: 1.55; margin-bottom: 3px; }
+  .rung-physics { font-size: 10pt; font-style: italic; color: #888; line-height: 1.45; }
+
+  /* ALPHA SERIES */
+  .alpha-section { padding: 14px 0 10px; }
+  .alpha-chip {
+    background: #111; color: #fff;
+    padding: 12px 20px;
+    font-family: 'Courier New', monospace; font-size: 10.5pt;
+    line-height: 1.9; margin: 10px 0 12px;
+  }
+  .alpha-result { font-size: 10.5pt; color: #555; line-height: 1.7; }
+  .alpha-result strong { color: #111; }
+
+  /* FALSIFICATION */
+  .falsification { padding: 14px 0; }
+  .falsifiers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 20px; margin-bottom: 10px; }
+  .falsifier-item { display: flex; align-items: baseline; gap: 7px; font-size: 10pt; color: #555; padding: 2px 0; }
+  .falsifier-x { color: #7a1a1a; font-weight: 700; font-size: 9.5pt; }
+  .abandon { font-size: 11pt; font-weight: 700; color: #111; margin-top: 8px; }
+
+  /* FOOTER */
+  .footer { text-align: center; padding-top: 14px; }
+  .footer-meta { font-size: 9pt; color: #888; }
+</style>
+</head>
+<body>
+
+<!-- TITLE -->
+<h1>The Rung Theorem</h1>
+<div class="title-sub">A Discrete Spectrum of Self-Referential Coupling</div>
+
+<br>
+<div class="rule"></div>
+
+<!-- AXIOM ROW -->
+<div class="axiom-row">
+  <div class="axiom-chip">σ = 1/(1+σ)</div>
+  <div class="axiom-result">
+    &rarr;&ensp;<em>φ</em> = (1+√5)/2 &asymp; 1.618
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- SIGN FLIP -->
+<div class="sign-flip">
+  <div class="section-label">The Sign-Flip Identity</div>
+  <div class="sign-flip-eq">
+    φ<sup>k</sup> &minus; L<sub>k</sub> = (&minus;1)<sup>k+1</sup> &middot; φ<sup>&minus;k</sup>
+  </div>
+  <div class="sign-row">
+    <div class="sign-cell">
+      <strong style="color:#1a5c30;">Odd k</strong>
+      <span style="color:#555;"> &rarr; return leg adds &rarr; loop closes &rarr; </span>
+      <strong style="color:#1a5c30;">Active</strong>
+    </div>
+    <div class="sign-cell">
+      <strong style="color:#7a5210;">Even k</strong>
+      <span style="color:#555;"> &rarr; return leg subtracts &rarr; loop jams &rarr; </span>
+      <strong style="color:#7a5210;">Budget</strong>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div style="padding: 8px 0 4px;">
+  <div class="section-label">The Recursive Partition of Unity</div>
+</div>
+
+<!-- RUNGS -->
+<div class="rungs">
+
+  <!-- k=0 Unity -->
+  <div class="rung origin">
+    <div class="rung-header">
+      <div class="rung-left">
+        <span class="rung-k">k = 0</span>
+        <span class="rung-sector">Unity</span>
+        <span class="badge badge-origin">Origin</span>
+      </div>
+      <div class="rung-percent">100%</div>
+    </div>
+    <div class="rung-meta">φ⁰ = 1.000 &ensp;&middot;&ensp; L₀ = 2 &ensp;&middot;&ensp; Gap: 0 (—)</div>
+    <div class="rung-desc">The undifferentiated whole. Observer and observed are identical. The starting point.</div>
+  </div>
+
+  <div style="text-align:center; font-size:9pt; color:#bbb; font-style:italic; font-family:'Courier New',monospace; padding:1px 0;">
+    1 = φ⁻¹ + φ⁻²
+  </div>
+
+  <!-- k=1 Dark Energy -->
+  <div class="rung">
+    <div class="rung-header">
+      <div class="rung-left">
+        <span class="rung-k">k = 1</span>
+        <span class="rung-sector">Dark Energy</span>
+        <span class="badge badge-active">Active</span>
+        <span class="badge badge-odd">Odd</span>
+      </div>
+      <div class="rung-percent">61.8%</div>
+    </div>
+    <div class="rung-meta">φ⁻¹ = 0.618 &ensp;&middot;&ensp; L₁ = 1 &ensp;&middot;&ensp; Gap: 1 (Integer)</div>
+    <div class="rung-desc">The first stable self-reference. Vacuum energy driving cosmic expansion. Current observation &asymp;68.5%, converging toward this attractor.</div>
+    <div class="rung-physics">Ω<sub>Λ</sub> &rarr; φ⁻¹ = 61.8%.</div>
+  </div>
+
+  <!-- k=2 Total Matter -->
+  <div class="rung even">
+    <div class="rung-header">
+      <div class="rung-left">
+        <span class="rung-k">k = 2</span>
+        <span class="rung-sector">Total Matter</span>
+        <span class="badge badge-budget">Budget</span>
+        <span class="badge badge-even">Even</span>
+      </div>
+      <div class="rung-percent">38.2%</div>
+    </div>
+    <div class="rung-meta">φ⁻² = 0.382 &ensp;&middot;&ensp; L₂ = 3 &ensp;&middot;&ensp; Gap: √5 (Irrational)</div>
+    <div class="rung-desc">Everything that is not dark energy. Unstable &mdash; must split further. L₂ = 3 is the onset of chaos in the logistic map.</div>
+    <div class="rung-physics">Ω<sub>m</sub> total, observed &asymp;31.5%, converging to φ⁻².</div>
+  </div>
+
+  <!-- k=3 Dark Matter -->
+  <div class="rung">
+    <div class="rung-header">
+      <div class="rung-left">
+        <span class="rung-k">k = 3</span>
+        <span class="rung-sector">Dark Matter</span>
+        <span class="badge badge-active">Active</span>
+        <span class="badge badge-odd">Odd</span>
+      </div>
+      <div class="rung-percent">23.6%</div>
+    </div>
+    <div class="rung-meta">φ⁻³ = 0.236 &ensp;&middot;&ensp; L₃ = 4 &ensp;&middot;&ensp; Gap: 4 (Integer)</div>
+    <div class="rung-desc">Gravitational coupling without electromagnetic expression. Observed &asymp;26.1%, converging.</div>
+    <div class="rung-physics">Nuclear forces share this rung. Weak: full partition (sin²θ<sub>W</sub> &asymp; 0.236). Strong: half partition (α<sub>s</sub> &asymp; 0.118). Split by chirality.</div>
+  </div>
+
+  <!-- k=4 Sub-Matter -->
+  <div class="rung even">
+    <div class="rung-header">
+      <div class="rung-left">
+        <span class="rung-k">k = 4</span>
+        <span class="rung-sector">Sub-Matter</span>
+        <span class="badge badge-budget">Budget</span>
+        <span class="badge badge-even">Even</span>
+      </div>
+      <div class="rung-percent">14.6%</div>
+    </div>
+    <div class="rung-meta">φ⁻⁴ = 0.146 &ensp;&middot;&ensp; L₄ = 7 &ensp;&middot;&ensp; Gap: 3√5 (Irrational)</div>
+    <div class="rung-desc">Remainder after dark matter. The hinge between cosmic-scale and local-scale sectors. Must split further.</div>
+    <div class="rung-physics">G corrects here: G = 1/(5φ⁴). The dark matter environment in which gravity operates.</div>
+  </div>
+
+  <!-- k=5 WHIM -->
+  <div class="rung">
+    <div class="rung-header">
+      <div class="rung-left">
+        <span class="rung-k">k = 5</span>
+        <span class="rung-sector">Transition (WHIM)</span>
+        <span class="badge badge-active">Active</span>
+        <span class="badge badge-odd">Odd</span>
+      </div>
+      <div class="rung-percent">9.0%</div>
+    </div>
+    <div class="rung-meta">φ⁻⁵ = 0.090 &ensp;&middot;&ensp; L₅ = 11 &ensp;&middot;&ensp; Gap: 11 (Integer)</div>
+    <div class="rung-desc">Warm-hot intergalactic medium. Bridge between structure and form. Only recently measured by standard cosmology.</div>
+    <div class="rung-physics">Hardy&rsquo;s quantum entanglement probability (1993): φ⁻⁵ &asymp; 0.09. Same level, different domain.</div>
+  </div>
+
+  <!-- k=6 Baryonic -->
+  <div class="rung terminal">
+    <div class="rung-header">
+      <div class="rung-left">
+        <span class="rung-k">k = 6</span>
+        <span class="rung-sector">Baryonic Matter</span>
+        <span class="badge badge-terminal">Terminal</span>
+        <span class="badge badge-even">Even</span>
+      </div>
+      <div class="rung-percent">5.6%</div>
+    </div>
+    <div class="rung-meta">φ⁻⁶ = 0.056 &ensp;&middot;&ensp; L₆ = 18 &ensp;&middot;&ensp; Gap: 8√5 (Irrational)</div>
+    <div class="rung-desc">The coherence floor. Observed &asymp;4.9%. L₆ = 18 cycles is the minimum depth for self-referential closure.</div>
+    <div class="rung-physics">Photosynthetic energy transfer operates at exactly this depth. Matter is where coherence freezes into visible form.</div>
+  </div>
+
+  <!-- k=7 Below Floor -->
+  <div class="rung silent">
+    <div class="rung-header">
+      <div class="rung-left">
+        <span class="rung-k">k = 7</span>
+        <span class="rung-sector">Below Floor</span>
+        <span class="badge badge-silent">Silent</span>
+        <span class="badge badge-odd">Odd</span>
+      </div>
+      <div class="rung-percent" style="color:#aaa;">3.4%</div>
+    </div>
+    <div class="rung-meta">φ⁻⁷ = 0.034 &ensp;&middot;&ensp; L₇ = 29 &ensp;&middot;&ensp; Gap: 29 (Integer)</div>
+    <div class="rung-desc">Algebraically valid, physically silent. Wigner 3j symbol (1 1 3 / 0 0 0) = 0. Angular momentum coupling is forbidden. The cascade does not fade &mdash; it is cut.</div>
+  </div>
+
+</div>
+
+<div class="rule"></div>
+
+<!-- ALPHA SERIES -->
+<div class="alpha-section">
+  <div class="section-label">The &alpha; Series</div>
+  <div style="font-size:10.5pt; color:#555; margin-bottom:10px; line-height:1.6;">
+    The fine structure constant is the Rung Theorem made quantitative. Its corrections live on odd rungs only:
+  </div>
+  <div class="alpha-chip">
+    &alpha;<sup>&minus;1</sup> = 360/&phi;<sup>2</sup> &minus; 2/&phi;<sup>3</sup><br>
+    &emsp;&ensp;+ (1/&phi;<sup>2</sup>) &Sigma; (&minus;1)<sup>k+1</sup> &middot; 2<sup>k&sup2;</sup> &middot; &zeta;(2k+1) &middot; w<sup>k</sup>
+  </div>
+  <div class="alpha-result">
+    &zeta;(3) at rung 3,&ensp;&zeta;(5) at rung 5,&ensp;&zeta;(7) at rung 7.<br>
+    Even rungs absent &mdash; return leg subtracts.<br>
+    <strong>Result: 137.035999207</strong>
+    <span style="color:#888;">&ensp;(1.6&sigma; match to Morel 2020)</span>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- FALSIFICATION -->
+<div class="falsification">
+  <div class="section-label">Falsification &middot; Sunset 2035</div>
+  <div class="falsifiers-grid">
+    <div class="falsifier-item"><span class="falsifier-x">&#x2715;</span> P1: Dark energy stabilises above 65%</div>
+    <div class="falsifier-item"><span class="falsifier-x">&#x2715;</span> P2: Baryonic fraction pinned below 5.0%</div>
+    <div class="falsifier-item"><span class="falsifier-x">&#x2715;</span> P3: WHIM census less than 5%</div>
+    <div class="falsifier-item"><span class="falsifier-x">&#x2715;</span> P4: &alpha;<sub>s</sub> outside 0.1175&ndash;0.1185</div>
+    <div class="falsifier-item"><span class="falsifier-x">&#x2715;</span> P5: Weinberg angle crossing arbitrary</div>
+    <div class="falsifier-item"><span class="falsifier-x">&#x2715;</span> P6: Zeta split explained without &phi;</div>
+    <div class="falsifier-item"><span class="falsifier-x">&#x2715;</span> P7: Constant found on even rung</div>
+  </div>
+  <div class="abandon">If fewer than four survive, abandon.</div>
+</div>
+
+<div class="rule"></div>
+
+<!-- FOOTER -->
+<div class="footer" style="padding-top:14px;">
+  <div class="footer-meta">
+    Eric McLean&ensp;&middot;&ensp;Pentagon Physics&ensp;&middot;&ensp;March 2026
+  </div>
+</div>
+
+</body>
+</html>

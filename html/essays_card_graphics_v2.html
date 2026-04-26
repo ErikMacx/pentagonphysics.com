@@ -1,0 +1,170 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap');
+:root {
+  --gold:#D4A843;--gold-dim:#8A6E2A;--gold-bright:#F0C860;
+  --bg:#0A0A0B;--bg2:#111113;--bg3:#181820;
+  --border:#2A2A35;--border-bright:#3A3A48;
+  --text:#E8E4DC;--text-mid:#B8B4AC;--text-dim:#787470;
+  --accent:#5B9BC4;--red:#C44B4B;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Outfit',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--serif);}
+.wrap{padding:2rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:3px;overflow:hidden;display:flex;flex-direction:column;}
+.card:hover{border-color:var(--border-bright);}
+.g{height:210px;background:var(--bg3);border-bottom:1px solid var(--border);overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.g svg{width:100%;height:100%;}
+.cb{padding:1.4rem 1.3rem 1.2rem;flex:1;display:flex;flex-direction:column;}
+.ct{font-family:var(--sans);font-size:.6rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:.5rem;}
+.ch{font-size:1.3rem;font-weight:600;line-height:1.2;color:var(--text);margin-bottom:.6rem;}
+.cs{font-size:.8rem;font-style:italic;color:var(--text-dim);margin-bottom:.9rem;line-height:1.5;}
+.cd{font-family:var(--sans);font-size:.74rem;color:var(--text-mid);line-height:1.65;flex:1;margin-bottom:1.1rem;}
+.cf{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:.75rem;}
+.ctime{font-family:var(--sans);font-size:.6rem;letter-spacing:.1em;color:var(--text-dim);}
+.ccta{font-family:var(--sans);font-size:.64rem;font-weight:500;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;}
+</style>
+
+<div class="wrap">
+
+<!-- CARD 1: Constants — The Tailor -->
+<!-- Concept: two columns. Left = "the clothes" (equations stacked, fading).
+     Right = "the body" (axiom, clean, gold). A single vertical seam divides them. -->
+<div class="card">
+<div class="g">
+<svg viewBox="0 0 360 210" xmlns="http://www.w3.org/2000/svg">
+<rect width="360" height="210" fill="#0D0D0F"/>
+<line x1="180" y1="0" x2="180" y2="210" stroke="#2A2A35" stroke-width="1"/>
+<!-- Left side: the clothes. Equations stacked, desaturated, receding -->
+<text x="168" y="42" text-anchor="end" font-family="Georgia,serif" font-size="13" fill="#505060" fill-opacity="0.9" font-style="italic">F = ma</text>
+<text x="168" y="68" text-anchor="end" font-family="Georgia,serif" font-size="11" fill="#404050" fill-opacity="0.75" font-style="italic">E = mc²</text>
+<text x="168" y="92" text-anchor="end" font-family="Georgia,serif" font-size="10" fill="#343444" fill-opacity="0.6" font-style="italic">∇·E = ρ/ε₀</text>
+<text x="168" y="114" text-anchor="end" font-family="Georgia,serif" font-size="9" fill="#2C2C3C" fill-opacity="0.5" font-style="italic">SU(3)×SU(2)×U(1)</text>
+<text x="168" y="134" text-anchor="end" font-family="Georgia,serif" font-size="8" fill="#242434" fill-opacity="0.4" font-style="italic">26 free parameters</text>
+<text x="168" y="152" text-anchor="end" font-family="Georgia,serif" font-size="7.5" fill="#1E1E2E" fill-opacity="0.3" font-style="italic">α = 1/137.036 ?</text>
+<text x="168" y="168" text-anchor="end" font-family="Georgia,serif" font-size="7" fill="#18182A" fill-opacity="0.25" font-style="italic">Λ = 10⁻¹²² ?</text>
+<text x="32" y="196" font-family="'Outfit',sans-serif" font-size="6.5" fill="#505060" fill-opacity="0.6" letter-spacing="0.14em">THE CLOTHES</text>
+<!-- Right side: the body. One equation, gold, certain. -->
+<text x="192" y="88" font-family="Georgia,serif" font-size="11" fill="#787480" fill-opacity="0.5" font-style="italic">one equation</text>
+<text x="192" y="120" font-family="Georgia,serif" font-size="18" fill="#D4A843" fill-opacity="0.95" font-style="italic">σ = 1/(1+σ)</text>
+<text x="192" y="148" font-family="'Outfit',sans-serif" font-size="9" fill="#8A6E2A" letter-spacing="0.05em">zero free parameters</text>
+<text x="192" y="196" font-family="'Outfit',sans-serif" font-size="6.5" fill="#8A6E2A" fill-opacity="0.7" letter-spacing="0.14em">THE BODY</text>
+</svg>
+</div>
+<div class="cb">
+<div class="ct">Essay I · The positive case</div>
+<h2 class="ch">The Emperor's New Constants</h2>
+<div class="cs">Why E = mc² and 1/137 are models, and what lies beneath them</div>
+<p class="cd">Physics has spent a century borrowing mathematics from a cupboard and declaring it fits. This essay strips the clothes from the two most famous results in physics.</p>
+<div class="cf"><span class="ctime">~25 min read</span><span class="ccta">Read essay →</span></div>
+</div>
+</div>
+
+<!-- CARD 2: Benchmark — The pre-registration record -->
+<!-- Concept: vertical timeline of 7 derivations.
+     Gold filled circles = confirmed. Open grey circles = pending.
+     The key number 74.65 meV floats large on the right. Clean, data-editorial. -->
+<div class="card">
+<div class="g">
+<svg viewBox="0 0 360 210" xmlns="http://www.w3.org/2000/svg">
+<rect width="360" height="210" fill="#0D0D0F"/>
+<!-- Left: timeline spine -->
+<line x1="56" y1="22" x2="56" y2="188" stroke="#2A2A35" stroke-width="1"/>
+<!-- Row 1: confirmed -->
+<circle cx="56" cy="34" r="6" fill="#D4A843" fill-opacity="0.9"/>
+<text x="72" y="38" font-family="Georgia,serif" font-size="9.5" fill="#D4A843" fill-opacity="0.9" font-style="italic">α⁻¹ = 137.035999207</text>
+<text x="72" y="50" font-family="'Outfit',sans-serif" font-size="7" fill="#505060" letter-spacing="0.06em">confirmed · 0.05σ</text>
+<!-- Row 2: confirmed -->
+<circle cx="56" cy="72" r="6" fill="#D4A843" fill-opacity="0.9"/>
+<text x="72" y="76" font-family="Georgia,serif" font-size="9.5" fill="#D4A843" fill-opacity="0.9" font-style="italic">sin²θ_W = φ⁻³</text>
+<text x="72" y="88" font-family="'Outfit',sans-serif" font-size="7" fill="#505060" letter-spacing="0.06em">confirmed · 0.03%</text>
+<!-- Row 3: confirmed -->
+<circle cx="56" cy="110" r="6" fill="#D4A843" fill-opacity="0.9"/>
+<text x="72" y="114" font-family="Georgia,serif" font-size="9.5" fill="#D4A843" fill-opacity="0.9" font-style="italic">m_H = 2v√φ/5</text>
+<text x="72" y="126" font-family="'Outfit',sans-serif" font-size="7" fill="#505060" letter-spacing="0.06em">confirmed · 0.17σ</text>
+<!-- Row 4: confirmed -->
+<circle cx="56" cy="148" r="6" fill="#D4A843" fill-opacity="0.9"/>
+<text x="72" y="152" font-family="Georgia,serif" font-size="9.5" fill="#D4A843" fill-opacity="0.9" font-style="italic">log₁₀(ρΛ) = −122.951</text>
+<text x="72" y="164" font-family="'Outfit',sans-serif" font-size="7" fill="#505060" letter-spacing="0.06em">confirmed · 0.005%</text>
+<!-- Divider -->
+<line x1="40" y1="176" x2="230" y2="176" stroke="#2A2A35" stroke-width="0.5" stroke-dasharray="3,3"/>
+<!-- Row 5-7: pending - smaller, muted -->
+<circle cx="56" cy="188" r="5" fill="none" stroke="#5B9BC4" stroke-width="1.2" stroke-opacity="0.7"/>
+<text x="70" y="192" font-family="Georgia,serif" font-size="8.5" fill="#5B9BC4" fill-opacity="0.6" font-style="italic">Σmν = 74.65 meV</text>
+<text x="220" y="192" font-family="'Outfit',sans-serif" font-size="6.5" fill="#3A4A5A" letter-spacing="0.06em">pending</text>
+<!-- Large number right side -->
+<text x="350" y="110" text-anchor="end" font-family="Georgia,serif" font-size="11" fill="#5B9BC4" fill-opacity="0.3" font-style="italic">74.65</text>
+<text x="350" y="130" text-anchor="end" font-family="'Outfit',sans-serif" font-size="7.5" fill="#3A4A5A" letter-spacing="0.1em">meV</text>
+<text x="350" y="148" text-anchor="end" font-family="'Outfit',sans-serif" font-size="6" fill="#2A3A4A" letter-spacing="0.08em">the live test</text>
+</svg>
+</div>
+<div class="cb">
+<div class="ct">Essay II · The methodological case</div>
+<h2 class="ch">The Emperor's New Benchmark</h2>
+<div class="cs">A note to be read before evaluating any paper in the programme</div>
+<p class="cd">Four confirmed. Three pending. One live test this decade. This essay is about what the benchmark should actually measure.</p>
+<div class="cf"><span class="ctime">~18 min read</span><span class="ccta">Read essay →</span></div>
+</div>
+</div>
+
+<!-- CARD 3: Hostile Referee — The 18 tests -->
+<!-- Concept: a clean 3×6 grid of coloured squares.
+     Gold = passed. Warm grey = open. Dull red = kill condition.
+     Large number "18" top right. Minimal, forensic, confident. -->
+<div class="card">
+<div class="g">
+<svg viewBox="0 0 360 210" xmlns="http://www.w3.org/2000/svg">
+<rect width="360" height="210" fill="#0D0D0F"/>
+<!-- 18 squares: 6 columns × 3 rows, left-weighted -->
+<!-- Status: T1=open T2=open T3=pass T4=open T5=open T6=kill
+             T7=open T8=open T9=pass T10=kill T11=open T12=open
+             T13=open T14=open T15=open T16=open T17=pass T18=open -->
+<!-- Row 1 -->
+<rect x="28" y="30" width="28" height="28" rx="3" fill="#252535"/>
+<rect x="64" y="30" width="28" height="28" rx="3" fill="#252535"/>
+<rect x="100" y="30" width="28" height="28" rx="3" fill="#3D3010"/>
+<line x1="100" y1="30" x2="128" y2="58" stroke="#D4A843" stroke-width="0" fill="none"/>
+<rect x="100" y="30" width="28" height="28" rx="3" fill="#3D3010" stroke="#D4A843" stroke-width="1" stroke-opacity="0.6"/>
+<rect x="136" y="30" width="28" height="28" rx="3" fill="#252535"/>
+<rect x="172" y="30" width="28" height="28" rx="3" fill="#252535"/>
+<rect x="208" y="30" width="28" height="28" rx="3" fill="#3A1010" stroke="#C44B4B" stroke-width="1" stroke-opacity="0.7"/>
+<!-- Row 2 -->
+<rect x="28" y="66" width="28" height="28" rx="3" fill="#252535"/>
+<rect x="64" y="66" width="28" height="28" rx="3" fill="#252535"/>
+<rect x="100" y="66" width="28" height="28" rx="3" fill="#3D3010" stroke="#D4A843" stroke-width="1" stroke-opacity="0.6"/>
+<rect x="136" y="66" width="28" height="28" rx="3" fill="#3A1010" stroke="#C44B4B" stroke-width="1" stroke-opacity="0.7"/>
+<rect x="172" y="66" width="28" height="28" rx="3" fill="#252535"/>
+<rect x="208" y="66" width="28" height="28" rx="3" fill="#252535"/>
+<!-- Row 3 -->
+<rect x="28" y="102" width="28" height="28" rx="3" fill="#252535"/>
+<rect x="64" y="102" width="28" height="28" rx="3" fill="#252535"/>
+<rect x="100" y="102" width="28" height="28" rx="3" fill="#252535"/>
+<rect x="136" y="102" width="28" height="28" rx="3" fill="#252535"/>
+<rect x="172" y="102" width="28" height="28" rx="3" fill="#3D3010" stroke="#D4A843" stroke-width="1" stroke-opacity="0.6"/>
+<rect x="208" y="102" width="28" height="28" rx="3" fill="#252535"/>
+<!-- Big number -->
+<text x="340" y="95" text-anchor="end" font-family="Georgia,serif" font-size="72" fill="#1E1E28" font-weight="600">18</text>
+<text x="340" y="115" text-anchor="end" font-family="'Outfit',sans-serif" font-size="8" fill="#3A3A50" letter-spacing="0.18em">TESTS</text>
+<!-- Legend -->
+<rect x="28" y="152" width="10" height="10" rx="2" fill="#3D3010" stroke="#D4A843" stroke-width="0.8" stroke-opacity="0.6"/>
+<text x="44" y="161" font-family="'Outfit',sans-serif" font-size="7.5" fill="#8A6E2A" letter-spacing="0.06em">passed</text>
+<rect x="100" y="152" width="10" height="10" rx="2" fill="#3A1010" stroke="#C44B4B" stroke-width="0.8" stroke-opacity="0.7"/>
+<text x="116" y="161" font-family="'Outfit',sans-serif" font-size="7.5" fill="#8A3A3A" letter-spacing="0.06em">kill condition</text>
+<rect x="198" y="152" width="10" height="10" rx="2" fill="#252535"/>
+<text x="214" y="161" font-family="'Outfit',sans-serif" font-size="7.5" fill="#505060" letter-spacing="0.06em">open</text>
+<!-- Subtext -->
+<text x="28" y="186" font-family="'Outfit',sans-serif" font-size="7" fill="#303040" letter-spacing="0.1em">7 pre-registered predictions · clock running</text>
+</svg>
+</div>
+<div class="cb">
+<div class="ct">Essay III · The adversarial case</div>
+<h2 class="ch">The Hostile Referee</h2>
+<div class="cs">A systematic stress test of Pentagon Physics</div>
+<p class="cd">What would a skilled, hostile referee actually do with this programme? Eighteen tests, honestly scored. The programme survives. But not without an agenda.</p>
+<div class="cf"><span class="ctime">~30 min read</span><span class="ccta">Read essay →</span></div>
+</div>
+</div>
+
+</div>

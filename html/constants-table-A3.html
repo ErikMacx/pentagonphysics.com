@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Constants Table — PCT · TCEL · Eric McLean</title>
+<style>
+  @page {
+    size: A3 landscape;
+    margin: 12mm 14mm;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Arial', sans-serif;
+    background: #f8f5ee;
+    color: #111;
+    width: 277mm;
+    padding: 0;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid #8a6a1a;
+    padding-bottom: 5mm;
+    margin-bottom: 5mm;
+  }
+  .title-block h1 {
+    font-size: 18pt;
+    font-weight: 700;
+    color: #8a6a1a;
+    letter-spacing: 1px;
+  }
+  .title-block .subtitle {
+    font-size: 8pt;
+    color: #333;
+    margin-top: 2px;
+    letter-spacing: 0.5px;
+  }
+  .meta {
+    text-align: right;
+    font-size: 7.5pt;
+    color: #333;
+    line-height: 1.6;
+  }
+
+  /* Axes legend */
+  .axes {
+    display: flex;
+    gap: 20mm;
+    margin-bottom: 4mm;
+    font-size: 7.5pt;
+    color: #111;
+  }
+  .axis-label { font-weight: 700; color: #8a6a1a; }
+
+  /* Main table */
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 2.5px;
+    table-layout: fixed;
+  }
+
+  /* Row label column */
+  .row-label {
+    width: 22mm;
+    vertical-align: top;
+    padding: 3px 5px 0 0;
+  }
+  .depth-num { font-size: 8.5pt; font-weight: 700; color: #8a6a1a; }
+  .depth-name { font-size: 7pt; color: #111; font-weight: 600; }
+  .depth-sub { font-size: 6.5pt; color: #444; margin-top: 1px; }
+
+  /* Domain header */
+  th.domain-head {
+    text-align: center;
+    padding: 4px 2px;
+    border-bottom: 2px solid currentColor;
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  th.domain-head .domain-full {
+    display: block;
+    font-size: 6pt;
+    font-weight: 400;
+    color: #111;
+    margin-top: 1px;
+    letter-spacing: 0;
+  }
+
+  /* Cell */
+  td.cell {
+    vertical-align: top;
+    padding: 1px;
+  }
+
+  .card {
+    border-radius: 2px;
+    padding: 4px 5px 16px 5px;
+    min-height: 28mm;
+    position: relative;
+    background: #ffffff;
+  }
+  .card.gap {
+    background: #ede9e0;
+    border-style: dashed !important;
+    opacity: 0.55;
+  }
+  .card.predicted {
+    border-style: dashed !important;
+  }
+
+  .card-symbol {
+    font-size: 12pt;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 2px;
+  }
+  .card-name {
+    font-size: 6.5pt;
+    color: #111;
+    line-height: 1.3;
+    font-weight: 500;
+  }
+  .card-value {
+    font-size: 6pt;
+    color: #222;
+    margin-top: 3px;
+    font-family: 'Courier New', monospace;
+  }
+  .card-note {
+    font-size: 5.5pt;
+    color: #333;
+    margin-top: 3px;
+    line-height: 1.35;
+  }
+  .card-badge {
+    position: absolute;
+    bottom: 3px;
+    right: 4px;
+    font-size: 5pt;
+    letter-spacing: 0.8px;
+    font-weight: 700;
+    opacity: 0.9;
+  }
+  .card-eigen {
+    position: absolute;
+    top: 3px;
+    right: 4px;
+    font-size: 6pt;
+    color: #888;
+  }
+
+  .empty-cell {
+    border: 1px dashed #ccc;
+    border-radius: 2px;
+    min-height: 28mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    font-size: 14pt;
+  }
+
+  /* Domain colours */
+  .vac  { color: #8a6a1a; border: 1.5px solid #c9a84c; }
+  .em   { color: #2a7ab8; border: 1.5px solid #4a9eda; }
+  .ew   { color: #5a4fb8; border: 1.5px solid #7b6fd4; }
+  .nuc  { color: #b84040; border: 1.5px solid #d4706a; }
+  .grav { color: #2a8a4a; border: 1.5px solid #5ab87a; }
+  .cos  { color: #8a6020; border: 1.5px solid #d4a76a; }
+
+  .badge-derived   { color: #2a7ab8; }
+  .badge-predicted { color: #c07820; }
+  .badge-gap       { color: #888; }
+
+  /* Footer */
+  .footer {
+    margin-top: 4mm;
+    border-top: 1px solid #ccc;
+    padding-top: 3mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .legend { display: flex; gap: 8mm; align-items: center; }
+  .legend-item { display: flex; align-items: center; gap: 3px; font-size: 6.5pt; color: #111; }
+  .legend-box { width: 8px; height: 8px; border-radius: 1px; }
+  .footer-note { font-size: 6pt; color: #555; text-align: right; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="title-block">
+    <h1>THE CONSTANTS TABLE</h1>
+    <div class="subtitle">Eigenspectrum of Reality — Pentagon Cosmology Theory &nbsp;·&nbsp; Organised by Recursion Depth × Projection Domain · z-axis: Eigenvalue Order</div>
+  </div>
+  <div class="meta">
+    Eric McLean &nbsp;·&nbsp; TCEL &nbsp;·&nbsp; PCT Programme<br>
+    First Draft &nbsp;·&nbsp; March 2026<br>
+    σ = 1/(1+σ) &nbsp;·&nbsp; φ = 1.61803…
+  </div>
+</div>
+
+<div class="axes">
+  <span><span class="axis-label">X AXIS</span> &nbsp;Projection Domain — which physical sector receives the spiral's shadow</span>
+  <span><span class="axis-label">Y AXIS</span> &nbsp;Recursion Depth — how many folds of σ before the constant crystallises</span>
+  <span><span class="axis-label">Z AXIS</span> &nbsp;Eigenvalue Order — which harmonic mode (encoded in border weight)</span>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:4mm; background:#111;"></th>
+      <th style="width:22mm"></th>
+      <th class="domain-head vac" style="color:#8a6a1a; border-bottom-color:#c9a84c;">VAC<span class="domain-full">VACUUM / GEOMETRIC</span></th>
+      <th class="domain-head em"  style="color:#2a7ab8; border-bottom-color:#4a9eda;">EM<span class="domain-full">ELECTROMAGNETIC</span></th>
+      <th class="domain-head ew"  style="color:#5a4fb8; border-bottom-color:#7b6fd4;">EW<span class="domain-full">ELECTROWEAK</span></th>
+      <th class="domain-head nuc" style="color:#b84040; border-bottom-color:#d4706a;">NUC<span class="domain-full">NUCLEAR / FLAVOUR</span></th>
+      <th class="domain-head grav" style="color:#2a8a4a; border-bottom-color:#5ab87a;">GR<span class="domain-full">GRAVITATIONAL</span></th>
+      <th class="domain-head cos" style="color:#8a6020; border-bottom-color:#d4a76a;">COS<span class="domain-full">COSMOLOGICAL</span></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- DEPTH 0 -->
+    <tr>
+      <td style="background:#888; width:4mm; padding:0;"></td>
+      <td class="row-label">
+        <div class="depth-num">σ⁰</div>
+        <div class="depth-name">Axiom</div>
+        <div class="depth-sub">Fixed point of σ</div>
+      </td>
+      <!-- VAC -->
+      <td class="cell"><div class="card vac">
+        <div class="card-eigen">●</div>
+        <div class="card-symbol" style="color:#8a6a1a;">φ</div>
+        <div class="card-name">Golden Ratio</div>
+        <div class="card-value">1.61803…</div>
+        <div class="card-note">The axiom itself. σ = 1/(1+σ). Only value that survives self-reference. The fixed point from which all constants project.</div>
+        <div class="card-badge badge-derived">DERIVED</div>
+      </div></td>
+      <!-- EM -->
+      <td class="cell"><div class="empty-cell">·</div></td>
+      <!-- EW -->
+      <td class="cell"><div class="empty-cell">·</div></td>
+      <!-- NUC -->
+      <td class="cell"><div class="empty-cell">·</div></td>
+      <!-- GRAV -->
+      <td class="cell"><div class="empty-cell">·</div></td>
+      <!-- COS -->
+      <td class="cell"><div class="empty-cell">·</div></td>
+    </tr>
+
+    <!-- DEPTH 1 -->
+    <tr>
+      <td style="background:#888; width:4mm; padding:0;"></td>
+      <td class="row-label">
+        <div class="depth-num">σ¹</div>
+        <div class="depth-name">First Fold</div>
+        <div class="depth-sub">Direct projection</div>
+      </td>
+      <!-- VAC -->
+      <td class="cell"><div class="card vac">
+        <div class="card-eigen">●●</div>
+        <div class="card-symbol" style="color:#8a6a1a;">φ⁶</div>
+        <div class="card-name">Coherence Floor</div>
+        <div class="card-value">φ⁶ ≈ 17.944</div>
+        <div class="card-note">Minimum recursion depth for stable self-reference. Below this threshold the spiral cannot sustain a coherent eigenvalue.</div>
+        <div class="card-badge badge-derived">DERIVED</div>
+      </div></td>
+      <!-- EM -->
+      <td class="cell"><div class="card em">
+        <div class="card-eigen">●●</div>
+        <div class="card-symbol" style="color:#2a7ab8;">α⁻¹</div>
+        <div class="card-name">Fine Structure Constant</div>
+        <div class="card-value">137.036</div>
+        <div class="card-note">360/φ² − 2/φ³ + 3⁻⁵/φ⁵ + 7⁻⁷/φ⁷. Accurate to 0.008 ppm. The turn-count of the spiral in vacuum. No free parameters.</div>
+        <div class="card-badge badge-derived">DERIVED</div>
+      </div></td>
+      <!-- EW -->
+      <td class="cell"><div class="empty-cell">·</div></td>
+      <!-- NUC -->
+      <td class="cell"><div class="empty-cell">·</div></td>
+      <!-- GRAV -->
+      <td class="cell"><div class="card grav">
+        <div class="card-eigen">●●</div>
+        <div class="card-symbol" style="color:#2a8a4a;">G</div>
+        <div class="card-name">Gravitational Constant</div>
+        <div class="card-value">6.674×10⁻¹¹</div>
+        <div class="card-note">Derived via unified PCT template. R_Λ − R_G = 1/φ. G and Λ are eigenvalues of adjacent modes — on the same ledger.</div>
+        <div class="card-badge badge-derived">DERIVED</div>
+      </div></td>
+      <!-- COS -->
+      <td class="cell"><div class="card cos">
+        <div class="card-eigen">●●</div>
+        <div class="card-symbol" style="color:#8a6020;">Λ</div>
+        <div class="card-name">Cosmological Constant</div>
+        <div class="card-value">1.11×10⁻⁵²m⁻²</div>
+        <div class="card-note">log₁₀(ρ_Λ) = −[α⁻¹ × 2/√5] ≈ −122.5. Vacuum catastrophe dissolved as category error. R_Λ − R_G = 1/φ.</div>
+        <div class="card-badge badge-derived">DERIVED</div>
+      </div></td>
+    </tr>
+
+    <!-- DEPTH 2 -->
+    <tr>
+      <td style="background:#888; width:4mm; padding:0;"></td>
+      <td class="row-label">
+        <div class="depth-num">σ²</div>
+        <div class="depth-name">Second Fold</div>
+        <div class="depth-sub">Coupled projection</div>
+      </td>
+      <!-- VAC -->
+      <td class="cell"><div class="card gap vac">
+        <div class="card-eigen" style="color:#bbb;">●●</div>
+        <div class="card-symbol" style="color:#ccc;">?</div>
+        <div class="card-name" style="color:#999;">Second Geometric Mode</div>
+        <div class="card-note" style="color:#aaa;">Structural gap. Second fold of pure geometric structure. Higher-order self-similarity constraint. Awaits identification.</div>
+        <div class="card-badge badge-gap">GAP</div>
+      </div></td>
+      <!-- EM -->
+      <td class="cell"><div class="card em">
+        <div class="card-eigen">●●</div>
+        <div class="card-symbol" style="color:#2a7ab8;">c</div>
+        <div class="card-name">Speed of Light</div>
+        <div class="card-value">299,792,458 m/s</div>
+        <div class="card-note">1/√(ε₀μ₀). Both ε₀, μ₀ are α in disguise (SI artefacts). c is the spiral completion rate in vacuum. Z₀ = 2α × R_K = 376.73 Ω.</div>
+        <div class="card-badge badge-derived">DERIVED</div>
+      </div></td>
+      <!-- EW -->
+      <td class="cell"><div class="card ew">
+        <div class="card-eigen">●●</div>
+        <div class="card-symbol" style="color:#5a4fb8;">sin²θ_W</div>
+        <div class="card-name">Weinberg Angle</div>
+        <div class="card-value">φ⁻³ ≈ 0.2361</div>
+        <div class="card-note">Falls directly from φ⁻³. Electroweak mixing is a third-power projection of the geometric fixed point onto the electroweak domain.</div>
+        <div class="card-badge badge-derived">DERIVED</div>
+      </div></td>
+      <!-- NUC -->
+      <td class="cell"><div class="card nuc">
+        <div class="card-eigen">●●</div>
+        <div class="card-symbol" style="color:#b84040; font-size:9pt;">m_e,m_μ,m_τ</div>
+        <div class="card-name">Koide Lepton Masses</div>
+        <div class="card-value">Q = 2/3 (exact)</div>
+        <div class="card-note">Koide formula Q = (Σmᵢ)/(√Σmᵢ)² = 2/3 exactly. Geometric constraint on the mass eigenvalues of the lepton sector. Not coincidence.</div>
+        <div class="card-badge badge-derived">DERIVED</div>
+      </div></td>
+      <!-- GRAV -->
+      <td class="cell"><div class="card gap grav">
+        <div class="card-eigen" style="color:#bbb;">●●●</div>
+        <div class="card-symbol" style="color:#ccc;">?</div>
+        <div class="card-name" style="color:#999;">Dark Matter</div>
+        <div class="card-note" style="color:#aaa;">Best candidate: second gravitational eigenvalue. Gravity acting on its own field. Eigenvalue λ_DM ~ φ² at current epoch. No EM coupling by construction.</div>
+        <div class="card-badge badge-gap">GAP / DARK MATTER</div>
+      </div></td>
+      <!-- COS -->
+      <td class="cell"><div class="card cos predicted">
+        <div class="card-eigen">●●●</div>
+        <div class="card-symbol" style="color:#8a6020;">H₀ / Ω_K</div>
+        <div class="card-name">Hubble Constant / Curvature</div>
+        <div class="card-value">Ω_K = −0.038</div>
+        <div class="card-note">H₀ prediction sits in Hubble tension gap. Ω_K = −0.038 predicted. Falsifiable: if |Ω_K| &lt; 0.01 at 95% confidence, PCT fails.</div>
+        <div class="card-badge badge-predicted">PREDICTED</div>
+      </div></td>
+    </tr>
+
+    <!-- DEPTH 3 -->
+    <tr>
+      <td style="background:#888; width:4mm; padding:0;"></td>
+      <td class="row-label">
+        <div class="depth-num">σ³</div>
+        <div class="depth-name">Third Fold</div>
+        <div class="depth-sub">Interference pattern</div>
+      </td>
+      <!-- VAC -->
+      <td class="cell"><div class="empty-cell">·</div></td>
+      <!-- EM -->
+      <td class="cell"><div class="card em">
+        <div class="card-eigen">●●●</div>
+        <div class="card-symbol" style="color:#2a7ab8;">Z₀</div>
+        <div class="card-name">Vacuum Impedance</div>
+        <div class="card-value">376.73 Ω</div>
+        <div class="card-note">2α × R_K. In Gaussian units ε₀ and μ₀ vanish entirely — SI artefacts. Only α remains. Pure geometry.</div>
+        <div class="card-badge badge-derived">DERIVED</div>
+      </div></td>
+      <!-- EW -->
+      <td class="cell"><div class="card gap ew">
+        <div class="card-eigen" style="color:#bbb;">●●●</div>
+        <div class="card-symbol" style="color:#ccc;">?</div>
+        <div class="card-name" style="color:#999;">EW Deep Mode</div>
+        <div class="card-note" style="color:#aaa;">Structural gap. Third-fold electroweak eigenvalue. PCT geometry demands an eigenvalue here. Possibly W/Z mass corrections.</div>
+        <div class="card-badge badge-gap">GAP</div>
+      </div></td>
+      <!-- NUC -->
+      <td class="cell"><div class="card nuc">
+        <div class="card-eigen">●●●</div>
+        <div class="card-symbol" style="color:#b84040; font-size:9pt;">cos δ · θ_PMNS · V_CKM</div>
+        <div class="card-name">CP Phase · Mixing Angles</div>
+        <div class="card-value">cos δ = −19/28</div>
+        <div class="card-note">Dual-route derivation: Fibonacci-Lucas arithmetic AND binary icosahedral group (600-cell) — both converge. PMNS and CKM from same φ-geometry.</div>
+        <div class="card-badge badge-derived">DERIVED</div>
+      </div></td>
+      <!-- GRAV -->
+      <td class="cell"><div class="card gap grav">
+        <div class="card-eigen" style="color:#bbb;">●●●</div>
+        <div class="card-symbol" style="color:#ccc;">?</div>
+        <div class="card-name" style="color:#999;">Quantum Gravity</div>
+        <div class="card-note" style="color:#aaa;">Third-fold gravity. PCT predicts coupled quantum gravity / dark energy sector. Quantising G without Λ may be inconsistent.</div>
+        <div class="card-badge badge-gap">GAP</div>
+      </div></td>
+      <!-- COS -->
+      <td class="cell"><div class="card cos predicted">
+        <div class="card-eigen">●●●</div>
+        <div class="card-symbol" style="color:#8a6020;">w₀</div>
+        <div class="card-name">Dark Energy EOS</div>
+        <div class="card-value">w₀ ≈ −0.97</div>
+        <div class="card-note">From Gauss-Bonnet: ε(x) = 3(1−x)/[5(9+x)]. Dark energy is the unwound spiral gap. DESI hints at w₀ ≠ −1 consistent with prediction.</div>
+        <div class="card-badge badge-predicted">PREDICTED</div>
+      </div></td>
+    </tr>
+
+    <!-- DEPTH 4 -->
+    <tr>
+      <td style="background:#888; width:4mm; padding:0;"></td>
+      <td class="row-label">
+        <div class="depth-num">σ⁴</div>
+        <div class="depth-name">Fourth Fold</div>
+        <div class="depth-sub">Deep structure</div>
+      </td>
+      <!-- VAC -->
+      <td class="cell"><div class="empty-cell">·</div></td>
+      <!-- EM -->
+      <td class="cell"><div class="empty-cell">·</div></td>
+      <!-- EW -->
+      <td class="cell"><div class="empty-cell">·</div></td>
+      <!-- NUC -->
+      <td class="cell"><div class="card gap nuc">
+        <div class="card-eigen" style="color:#bbb;">●●●</div>
+        <div class="card-symbol" style="color:#ccc;">αs / ?</div>
+        <div class="card-name" style="color:#999;">Strong Force / Confinement</div>
+        <div class="card-note" style="color:#aaa;">PCT's largest open gap. Strong coupling constant αs. Quark confinement may be geometrically seated here. Fourth recursion of σ in nuclear domain.</div>
+        <div class="card-badge badge-gap">GAP — STRONG FORCE</div>
+      </div></td>
+      <!-- GRAV -->
+      <td class="cell"><div class="empty-cell">·</div></td>
+      <!-- COS -->
+      <td class="cell"><div class="empty-cell">·</div></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<div class="footer">
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-box" style="border:1.5px solid #4a9eda; background:#fff;"></div>
+      DERIVED — PCT has derived from σ axiom
+    </div>
+    <div class="legend-item">
+      <div class="legend-box" style="border:1.5px dashed #d4a76a; background:#fff;"></div>
+      PREDICTED — structural prediction, awaiting confirmation
+    </div>
+    <div class="legend-item">
+      <div class="legend-box" style="border:1.5px dashed #aaa; background:#ede9e0; opacity:0.7;"></div>
+      GAP — geometry demands occupancy; constant unnamed or unknown
+    </div>
+    <div class="legend-item">● ●● ●●● = Eigenvalue Order (z-axis)</div>
+    <div class="legend-item">· = No eigenvalue at this coordinate</div>
+  </div>
+  <div class="footer-note">
+    σ = 1/(1+σ) &nbsp;·&nbsp; φ = (1+√5)/2 &nbsp;·&nbsp; R_Λ − R_G = 1/φ &nbsp;·&nbsp; 4-way partition: φ⁻¹ + φ⁻³ + φ⁻⁵ + φ⁻⁶ = 1<br>
+    Pentagon Cosmology Theory &nbsp;·&nbsp; TCEL &nbsp;·&nbsp; Eric McLean &nbsp;·&nbsp; First Draft March 2026
+  </div>
+</div>
+
+</body>
+</html>

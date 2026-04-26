@@ -1,0 +1,60 @@
+<svg viewBox="0 0 520 350" xmlns="http://www.w3.org/2000/svg" font-family="Cambria, serif">
+  <rect width="520" height="350" fill="#ffffff"/>
+  
+  <text x="260" y="25" text-anchor="middle" fill="#000000" font-size="14" font-weight="bold">Figure 3. The 60/60 Cross-Classification</text>
+  <text x="260" y="42" text-anchor="middle" fill="#666666" font-size="10">Galois activity × Spin type in the regular representation of 2I</text>
+  
+  <!-- Axes -->
+  <text x="260" y="72" text-anchor="middle" fill="#000000" font-size="12" font-weight="bold">SPIN</text>
+  <text x="48" y="180" text-anchor="middle" fill="#000000" font-size="11" font-weight="bold" transform="rotate(-90,48,180)">GALOIS</text>
+  
+  <!-- Column headers -->
+  <text x="200" y="92" text-anchor="middle" fill="#000000" font-size="12" font-weight="bold">Fermionic</text>
+  <text x="200" y="106" text-anchor="middle" fill="#666666" font-size="9">χ(−1) &lt; 0</text>
+  <text x="390" y="92" text-anchor="middle" fill="#000000" font-size="12" font-weight="bold">Bosonic</text>
+  <text x="390" y="106" text-anchor="middle" fill="#666666" font-size="9">χ(−1) > 0</text>
+  
+  <!-- Row headers -->
+  <text x="80" y="165" text-anchor="middle" fill="#000000" font-size="11" font-weight="bold">Active</text>
+  <text x="80" y="180" text-anchor="middle" fill="#888888" font-size="9">(φ-carrying)</text>
+  <text x="80" y="255" text-anchor="middle" fill="#000000" font-size="11" font-weight="bold">Invariant</text>
+  <text x="80" y="270" text-anchor="middle" fill="#888888" font-size="9">(integer)</text>
+  
+  <!-- Grid -->
+  <g stroke="#000000" stroke-width="1.5">
+    <line x1="115" y1="115" x2="480" y2="115"/>
+    <line x1="115" y1="210" x2="480" y2="210"/>
+    <line x1="115" y1="305" x2="480" y2="305"/>
+    <line x1="115" y1="115" x2="115" y2="305"/>
+    <line x1="295" y1="115" x2="295" y2="305"/>
+    <line x1="480" y1="115" x2="480" y2="305"/>
+  </g>
+  
+  <!-- Top-left: active + fermionic -->
+  <text x="205" y="145" text-anchor="middle" fill="#000000" font-size="11">ρ₂(2), ρ₃(2')</text>
+  <text x="205" y="172" text-anchor="middle" fill="#000000" font-size="26" font-weight="bold">8</text>
+  <text x="205" y="195" text-anchor="middle" fill="#666666" font-size="10">boundary fermions</text>
+  
+  <!-- Top-right: active + bosonic (hatched) -->
+  <defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="#cccccc" stroke-width="1"/></pattern></defs>
+  <rect x="296" y="116" width="183" height="93" fill="url(#hatch)"/>
+  <text x="387" y="145" text-anchor="middle" fill="#000000" font-size="11">ρ₄(3), ρ₅(3')</text>
+  <text x="387" y="172" text-anchor="middle" fill="#000000" font-size="26" font-weight="bold">18</text>
+  <text x="387" y="195" text-anchor="middle" fill="#666666" font-size="10">colour cage</text>
+  
+  <!-- Bottom-left: invariant + fermionic -->
+  <text x="205" y="237" text-anchor="middle" fill="#000000" font-size="11">ρ₆(4), ρ₉(6)</text>
+  <text x="205" y="265" text-anchor="middle" fill="#000000" font-size="26" font-weight="bold">52</text>
+  <text x="205" y="290" text-anchor="middle" fill="#666666" font-size="10">bulk fermions</text>
+  
+  <!-- Bottom-right: invariant + bosonic -->
+  <text x="387" y="237" text-anchor="middle" fill="#000000" font-size="11">ρ₁, ρ₇(4'), ρ₈(5)</text>
+  <text x="387" y="265" text-anchor="middle" fill="#000000" font-size="26" font-weight="bold">42</text>
+  <text x="387" y="290" text-anchor="middle" fill="#666666" font-size="10">vacuum + EW + Higgs</text>
+  
+  <!-- Totals -->
+  <text x="200" y="332" text-anchor="middle" fill="#000000" font-size="18" font-weight="bold">60</text>
+  <text x="390" y="332" text-anchor="middle" fill="#000000" font-size="18" font-weight="bold">60</text>
+  <text x="295" y="348" text-anchor="middle" fill="#000000" font-size="11">fermions = bosons, exactly</text>
+</svg>
