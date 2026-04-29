@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The σ² Theorem · Pentagon Physics</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg-card: #14141c;
+  --bg-card-hover: #1c1c28;
+  --border: #2a2a3a;
+  --text: #f0f0f4;
+  --text-dim: #c0c0cc;
+  --text-mute: #9898a8;
+  --accent: #e8c14a;
+  --accent-dim: #b89d3e;
+
+  --tier-i: #e63946;
+  --tier-ii: #d4af37;
+  --tier-iii: #4cb5ae;
+
+  --meta-foundational: #6b8cff;
+  --meta-quantum: #b572d6;
+  --meta-cosmological: #d4af37;
+  --meta-thermal: #e07a5f;
+
+  --font-serif: 'Cambria', 'Georgia', serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  --font-mono: 'SF Mono', 'Menlo', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.6; }
+body { padding: 0 0 6rem 0; }
+
+/* ============ HERO ============ */
+.hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 2rem 3rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+.hero h1 .sigma {
+  color: var(--accent);
+  font-style: italic;
+}
+.hero-subtitle {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-style: italic;
+  color: var(--text-dim);
+  max-width: 700px;
+  margin: 0 auto 2rem;
+}
+.hero-meta {
+  font-size: 0.85rem;
+  color: var(--text-mute);
+  font-family: var(--font-mono);
+}
+
+/* ============ ABSTRACT BAND ============ */
+.abstract {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text-dim);
+}
+.abstract p { margin-bottom: 1.25rem; }
+.abstract .lead { color: var(--text); font-size: 1.15rem; }
+.abstract em { color: var(--accent); font-style: italic; }
+
+/* ============ KEY EQUATION CARD ============ */
+.equation-card {
+  max-width: 680px;
+  margin: 2rem auto 4rem;
+  padding: 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-align: center;
+}
+.equation-card .label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--text-mute);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.equation-card .eq {
+  font-family: 'Cambria Math', 'Cambria', serif;
+  font-size: 1.75rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+.equation-card .eq .arrow { color: var(--text-mute); margin: 0 0.5rem; }
+.equation-card .eq .result { color: var(--accent); }
+.equation-card .caption {
+  font-size: 0.85rem;
+  color: var(--text-mute);
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+/* ============ FILTERS ============ */
+.controls {
+  max-width: 1200px;
+  margin: 3rem auto 1rem;
+  padding: 0 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+.controls h2 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text);
+}
+.filter-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 0.4rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+.filter-btn:hover {
+  border-color: var(--accent-dim);
+  color: var(--text);
+}
+.filter-btn.active {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+.search-wrap {
+  position: relative;
+  flex: 1 1 280px;
+  max-width: 360px;
+  margin-left: auto;
+}
+.search-input {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.5rem 2.2rem 0.5rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  border-radius: 2px;
+  transition: border-color 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.search-input::placeholder {
+  color: var(--text-mute);
+}
+.search-clear {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--text-mute);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.2rem 0.3rem;
+  border-radius: 2px;
+  display: none;
+}
+.search-clear:hover { color: var(--text); }
+.search-clear.visible { display: block; }
+
+.search-status {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.75rem 2rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-mute);
+  letter-spacing: 0.05em;
+  min-height: 1.2rem;
+}
+.search-status .hit { color: var(--accent); }
+
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 3rem 2rem;
+  text-align: center;
+  color: var(--text-mute);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1rem;
+}
+.empty-state .hint {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  font-style: normal;
+}
+
+mark.hl {
+  background: rgba(232, 193, 74, 0.28);
+  color: var(--accent);
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* ============ CATALOGUE GRID ============ */
+.catalogue {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+}
+.entry {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.25rem 1.25rem 1rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+.entry:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent-dim);
+  transform: translateY(-1px);
+}
+.entry.placeholder {
+  opacity: 0.5;
+  border-style: dashed;
+}
+.entry-id {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--bg);
+  background: var(--text-mute);
+  padding: 0.2rem 0.5rem;
+  border-radius: 0 4px 0 4px;
+}
+.entry.tier-i .entry-id { background: var(--tier-i); }
+.entry.tier-ii .entry-id { background: var(--tier-ii); color: var(--bg); }
+.entry.tier-iii .entry-id { background: var(--tier-iii); color: var(--bg); }
+
+.entry-name {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+  margin-right: 2.5rem;
+  line-height: 1.3;
+}
+.entry-sector {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  margin-bottom: 0.75rem;
+}
+.entry-statement {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+  margin-bottom: 0.75rem;
+}
+.entry-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border);
+  padding-top: 0.6rem;
+  margin-top: 0.6rem;
+}
+.entry-match {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+}
+.entry-match.exact { color: var(--tier-iii); }
+.entry-tier-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-mute);
+  letter-spacing: 0.1em;
+}
+
+/* ============ CATEGORY HEADER (full-width band inside grid) ============ */
+.cat-band {
+  grid-column: 1 / -1;
+  padding: 1.5rem 0 0.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-top: 1rem;
+}
+.cat-band:first-child { margin-top: 0; }
+.cat-letter {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  color: var(--accent-dim);
+  font-weight: 300;
+  display: inline-block;
+  margin-right: 0.75rem;
+}
+.cat-title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--text);
+  display: inline-block;
+}
+.cat-desc {
+  font-size: 0.85rem;
+  color: var(--text-mute);
+  margin-top: 0.4rem;
+  font-style: italic;
+}
+
+/* ============ CASCADE FEATURE BANNER ============ */
+.cascade-feature {
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  padding: 0 2rem;
+}
+.cascade-card {
+  background: linear-gradient(135deg, var(--bg-card) 0%, #1f1a14 100%);
+  border: 1px solid var(--accent-dim);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 2rem;
+  position: relative;
+}
+.cascade-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.cascade-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+.cascade-body {
+  color: var(--text-dim);
+  line-height: 1.7;
+  font-size: 0.95rem;
+  max-width: 800px;
+}
+.cascade-eq {
+  font-family: 'Cambria Math', serif;
+  font-size: 1.15rem;
+  color: var(--accent);
+  margin: 1rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent-dim);
+}
+.cascade-sources {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+.cascade-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-mute);
+  text-decoration: none;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.15s;
+  background: rgba(20, 20, 28, 0.4);
+}
+.cascade-source:hover {
+  border-color: var(--accent-dim);
+  color: var(--text);
+  background: var(--bg-card);
+}
+.cascade-source-tag {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ============ MODAL ============ */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 2rem;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  max-width: 700px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 2.5rem;
+  position: relative;
+}
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+.modal h3 {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+  margin-right: 3rem;
+}
+.modal-meta {
+  display: flex;
+  gap: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-mute);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.modal-field {
+  margin-bottom: 1.25rem;
+}
+.modal-field-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.modal-field-body {
+  color: var(--text-dim);
+  line-height: 1.65;
+  font-size: 0.95rem;
+}
+.modal-doi {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+.modal-doi:hover { text-decoration: underline; }
+
+/* ============ FOOTER ============ */
+.footer {
+  max-width: 1200px;
+  margin: 5rem auto 0;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: var(--text-mute);
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+}
+.footer a { color: var(--accent-dim); text-decoration: none; }
+.footer a:hover { color: var(--accent); }
+
+@media (max-width: 600px) {
+  .hero { padding: 3rem 1.5rem 2rem; }
+  .controls { flex-direction: column; align-items: flex-start; }
+  .modal { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Pentagon Physics · Landmark Paper</div>
+  <h1>The <span class="sigma">σ²</span> Theorem</h1>
+  <p class="hero-subtitle">The universal operator of self-reference, illustrated across five categories of physical action.</p>
+  <div class="hero-meta">Eric McLean · Scotland · April 2026 · ORCID 0009-0009-6175-4408</div>
+</section>
+
+<!-- ABSTRACT -->
+<section class="abstract">
+  <p class="lead">The axiom σ = 1/(1+σ) has one positive solution. Rearranged, it gives σ² = 1 − σ = 0.381966…</p>
+  <p>That second number appears throughout the Standard Model and cosmology — as a relaxation rate, a confinement fraction, a Koide ratio, a Lyapunov exponent, a Carnot efficiency, a coupling intercept, a curvature, an attractor, a viscosity bound, a Galois involution. Twenty-eight worked examples, in five categories, are catalogued below. The Pentagon Physics corpus comprises 105 open-access papers as of April 2026; many further σ² appearances exist beyond those catalogued here.</p>
+  <p>Two independent QCD cascade derivations — proton spin and spin-orbit — reach σ² <em>without</em> assuming the axiom, by self-similarity conditions on a non-Abelian gauge field. A third independent variational derivation reaches the same root from the simplest Z₃-invariant cubic potential. Pentagon Physics inherits the axiom; it does not impose it.</p>
+  <p>The thesis: <em>σ is the answer. σ² is what the answer costs. σ·σ is the answer applied to itself. These are the same number because the axiom requires them to be — and that they are the same number is what makes σ an operator rather than a value.</em> The Standard Model is the representation theory of σ.</p>
+</section>
+
+<!-- THE NUMBER -->
+<div class="equation-card">
+  <div class="label">The Number</div>
+  <div class="eq">σ = 1/(1+σ)<span class="arrow">→</span><span class="result">σ² = 0.382</span></div>
+  <div class="caption">One axiom. One number. Twenty-eight representations.</div>
+</div>
+
+<!-- CASCADE FEATURE -->
+<section class="cascade-feature">
+  <div class="cascade-card">
+    <div class="cascade-label">§1.5 · The Decisive Result</div>
+    <div class="cascade-title">σ² is reached without being assumed.</div>
+    <div class="cascade-body">
+      The proton's angular momentum distributes through a two-level non-Abelian cascade. Imposing self-similarity — that the ratio of resolutions match across levels — produces:
+      <div class="cascade-eq">f² − 3f + 1 = 0  →  f = (3 − √5)/2 = σ²</div>
+      The spin-orbit decomposition closes via the same cascade in a different sector. An independent variational derivation, using the simplest Z₃-invariant cubic potential permitted by SU(3) centre symmetry, gives V′(σ) = 0  →  σ² + σ − 1 = 0. Three independent routes from QCD self-interaction to the axiom. The axiom is forced, not chosen.
+    </div>
+    <div class="cascade-sources">
+      <a class="cascade-source" href="https://doi.org/10.5281/zenodo.18717070" target="_blank" rel="noopener">
+        <span class="cascade-source-tag">Route 1</span>
+        <span>Proton Spin Cascade · doi:18717070</span>
+      </a>
+      <a class="cascade-source" href="https://doi.org/10.5281/zenodo.19571686" target="_blank" rel="noopener">
+        <span class="cascade-source-tag">Route 2</span>
+        <span>Spin-Orbit Derived and Explained · doi:19571686</span>
+      </a>
+      <a class="cascade-source" href="https://doi.org/10.5281/zenodo.18717070" target="_blank" rel="noopener">
+        <span class="cascade-source-tag">Route 3</span>
+        <span>Variational principle (§3.4) · doi:18717070</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<div class="controls">
+  <h2>The Catalogue · Twenty-Eight Worked Examples</h2>
+  <div class="filter-group" id="filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="A">Dynamical</button>
+    <button class="filter-btn" data-filter="B">Independent</button>
+    <button class="filter-btn" data-filter="C">Spectral</button>
+    <button class="filter-btn" data-filter="D">Structural</button>
+    <button class="filter-btn" data-filter="E">σ·σ</button>
+  </div>
+  <div class="search-wrap">
+    <input type="text" id="search" class="search-input" placeholder="Search · try galois, spin-orbit, koide, carnot…" autocomplete="off" spellcheck="false">
+    <button class="search-clear" id="search-clear" title="Clear search (Esc)">×</button>
+  </div>
+</div>
+
+<div class="search-status" id="search-status"></div>
+
+<!-- CATALOGUE -->
+<div class="catalogue" id="catalogue"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal-content"></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>Pentagon Physics · <a href="https://pentagonphysics.com">pentagonphysics.com</a> · 105 open-access papers on Zenodo</p>
+  <p style="margin-top: 0.5rem;">eric@tcel.com · ORCID 0009-0009-6175-4408</p>
+</div>
+
+<script>
+// ============ DATA SCHEMA ============
+// Each entry: id, name, sector, tier, statement, derivation, doi, match, why
+// Entries are draft placeholders for §A1-A2; B6, B8 only.
+// Part II drafting will populate the full catalogue.
+
+const entries = [
+  // ===== CATEGORY A · Direct dynamical readings =====
+  { cat: 'A', id: 'A1', name: 'Lyapunov exponent of the axiom',
+    sector: 'Pure mathematics', tier: 'ii',
+    statement: 'The contraction rate of f(x) = 1/(1+x) at its attractor σ is exactly σ².',
+    derivation: 'Direct from the axiom: f′(σ) = −1/(1+σ)² = −σ². One line of calculus.',
+    doi: '10.5281/zenodo.18679529', match: 'Exact',
+    why: 'The algebraic foundation. Every other dynamical reading of σ² in the corpus is a representation of this rate at a particular sector.' },
+
+  { cat: 'A', id: 'A2', name: 'Möbius cross-ratio decay per step',
+    sector: 'Pure mathematics', tier: 'ii',
+    statement: 'The orbit cross-ratio of the σ-iteration shrinks by σ² per step.',
+    derivation: 'Spiral Engine §3.5. Cumulative decay σ²ⁿ; closure at n = 137 gives σ²·¹³⁷ ≈ 10⁻⁵⁸.',
+    doi: '10.5281/zenodo.18679529', match: 'Exact',
+    why: 'Connects the per-step rate to the winding count: 137 turns at σ² each is one full cycle of EM coupling.' },
+
+  { cat: 'A', id: 'A3', name: 'Cosmological convergence rate',
+    sector: 'Cosmology', tier: 'ii',
+    statement: 'The Friedmann eigenvalue at the φ-partition attractor has decay rate proportional to σ².',
+    derivation: 'Spiral Engine §12. Linearised partition flow: λ = −φ⁻¹ω₀ ± iφ⁻⁵ω₀; decay² + freq² = ω₀² closes via σ + σ² = 1.',
+    doi: '10.5281/zenodo.18679529', match: 'DESI w(z) consistent',
+    why: 'Connects the abstract rate to a measurable cosmological observable. DESI is watching the universe relax at this rate now.' },
+
+  { cat: 'A', id: 'A4', name: 'Persistence of matter relaxation rate',
+    sector: 'Foundational', tier: 'ii',
+    statement: 'Matter persists because σ² is small enough to be stable but non-zero enough to define an attractor.',
+    derivation: 'Why Matter Persists. V″(φ⁻¹) = √5 at the axiom\'s stable fixed point; relaxation rate = σ².',
+    doi: '10.5281/zenodo.19151933', match: 'Exact',
+    why: 'Explains why anything persists at all. Without σ², matter would either drift or freeze.' },
+
+  { cat: 'A', id: 'A5', name: 'QM contraction rate from the 600-cell',
+    sector: 'Quantum foundations', tier: 'ii',
+    statement: 'The contraction rate of the 600-cell\'s spectral structure is σ².',
+    derivation: 'QM from 600-Cell. The discrete Hilbert structure of 2I contracts at σ² per step.',
+    doi: '10.5281/zenodo.18912388', match: 'Exact',
+    why: 'σ² appears in quantum foundations independently — not via the SM, but via the discrete geometry that underlies QM in the framework.' },
+
+  { cat: 'A', id: 'A6', name: 'Stellar fixed-point Lyapunov rate',
+    sector: 'Astrophysics', tier: 'ii',
+    statement: 'Stars sit at a fixed point of the σ-iteration; the Lyapunov rate at that fixed point is σ².',
+    derivation: 'The Stellar Fixed Point. Hydrostatic equilibrium reads as the axiom\'s attractor at stellar scale.',
+    doi: '10.5281/zenodo.19277828', match: 'Structural',
+    why: 'σ² appears in stellar physics — a sector with no a priori connection to the SM or cosmology. Same operator, new scale.' },
+
+  // ===== CATEGORY B · Independent routes =====
+  { cat: 'B', id: 'B6', name: 'Proton quark spin fraction ΔΣ',
+    sector: 'Hadronic', tier: 'iii',
+    statement: 'The quark contribution to proton spin is exactly 1/φ² = σ².',
+    derivation: 'A Cascade Model for the Proton Spin Decomposition. Cascade prediction: ΔΣ = σ² = 0.382.',
+    doi: '10.5281/zenodo.18717070', match: 'Lattice: 0.39 ± 0.05',
+    why: 'Resolves the proton spin crisis (open since EMC 1988) with zero free parameters.' },
+
+  { cat: 'B', id: 'B7', name: 'Proton gluon spin fraction ΔG',
+    sector: 'Hadronic', tier: 'iii',
+    statement: 'The gluon spin contribution equals the quark spin, both = σ²/2.',
+    derivation: 'A Cascade Model for the Proton Spin Decomposition §2.2. Field-mode equality from cascade self-similarity.',
+    doi: '10.5281/zenodo.18717070', match: 'PHENIX: 0.2-0.3',
+    why: 'Predicts a specific relation ΔΣ = 2ΔG that the EIC (operating now) can test directly.' },
+
+  { cat: 'B', id: 'B8', name: 'Carnot efficiency of self-reference',
+    sector: 'Thermodynamics', tier: 'ii',
+    statement: 'A self-referential Carnot engine with reservoirs at 1 and φ⁻¹ has efficiency exactly σ² = 38.2%.',
+    derivation: 'Spiral Engine §12.4. η = 1 − T_cold/T_hot = 1 − φ⁻¹ = σ². The universe extracts the maximum thermodynamic work available from self-reference.',
+    doi: '10.5281/zenodo.18679529', match: 'Exact',
+    why: 'Reaches σ² from undergraduate thermodynamics, with no PP machinery. An entirely independent route.' },
+
+  { cat: 'B', id: 'B9', name: 'Spin-orbit cascade derivation',
+    sector: 'Hadronic', tier: 'ii',
+    statement: 'The spin-orbit decomposition closes via the same f² − 3f + 1 = 0 cascade as proton spin, in a different sector of QCD.',
+    derivation: 'Spin-Orbit Derived and Explained. Independent cascade construction reaching σ² without assuming the axiom.',
+    doi: '10.5281/zenodo.19571686', match: 'Exact',
+    why: 'A second independent QCD cascade derivation. Two sectors, same root: the axiom is forced twice over by gauge-theoretic self-consistency.' },
+
+  // ===== CATEGORY C · Spectral / geometric =====
+  { cat: 'C', id: 'C9', name: 'Pentagon interior angle',
+    sector: 'Geometry', tier: 'ii',
+    statement: '1 + 2cos(108°) = σ². The pentagon\'s interior angle generates σ² geometrically.',
+    derivation: 'Gravity from Confinement. cos(108°) = −σ/2; the radial mode of three vectors at 108° has eigenvalue σ².',
+    doi: '10.5281/zenodo.19100930', match: 'Exact',
+    why: 'The geometric origin of every other entry in this category. Three sectors of physics — gravity, nuclear, electroweak — read the same angle.' },
+
+  { cat: 'C', id: 'C10', name: 'Gravity antenna radial eigenvalue',
+    sector: 'Gravity', tier: 'ii',
+    statement: 'The coupling tensor for three bridge directions at 108° has radial eigenvalue σ² and tangential eigenvalues φ²/2.',
+    derivation: 'Gravity from Confinement. Trace closes via φ² + σ² = 3.',
+    doi: '10.5281/zenodo.19100930', match: 'Exact',
+    why: 'Gravity couples tangentially, not radially. The σ² mode is what holds gravity at the strength it has.' },
+
+  { cat: 'C', id: 'C11', name: 'Nuclear meson formula',
+    sector: 'Hadronic', tier: 'iii',
+    statement: 'Meson masses obey m² = (n + σ²)·m_π², with σ² as the universal offset from integer shells.',
+    derivation: 'Inside the Resonant Cavity. 24 of 25 mesons sub-1%; median 0.13%.',
+    doi: '10.5281/zenodo.19605364', match: '0.13% median',
+    why: 'Spans three orders of magnitude in mass. Most precise structural data-match in the catalogue.' },
+
+  { cat: 'C', id: 'C12', name: 'Neutrino Koide ratio',
+    sector: 'Neutrino', tier: 'ii',
+    statement: 'Q(ν) = (m₁+m₂+m₃)/(√m₁+√m₂+√m₃)² = σ².',
+    derivation: 'Majorana Neutrino paper. Direct closed-form result.',
+    doi: '10.5281/zenodo.19135102', match: 'Direct',
+    why: 'A clean structural prediction in the most experimentally sparse sector of the SM.' },
+
+  { cat: 'C', id: 'C13', name: 'Atmospheric neutrino mass',
+    sector: 'Neutrino', tier: 'ii',
+    statement: 'The atmospheric mass-squared splitting is set by σ² acting on the seesaw scale structure.',
+    derivation: 'Atmospheric Neutrino Mass paper. m_atm derived through σ²-organised seesaw.',
+    doi: '10.5281/zenodo.18940370', match: 'Derived',
+    why: 'Second independent neutrino reading. Alongside Koide, gives two structural derivations in one sector.' },
+
+  { cat: 'C', id: 'C14', name: 'Higgs sombrero curvature ratio',
+    sector: 'Electroweak', tier: 'iii',
+    statement: 'V″(φ⁻¹)/|V″(0)| = √5/2 inherits the σ²-structure, giving λ = 2φ/25.',
+    derivation: 'Higgs Quartic Not Free. The shape of the sombrero is set by the curvature of self-reference.',
+    doi: '10.5281/zenodo.18756247', match: '0.045%',
+    why: 'Eliminates a free parameter of the SM (λ) and predicts m_H to 0.17σ.' },
+
+  { cat: 'C', id: 'C15', name: '600-cell Laplacian eigenvalue',
+    sector: 'Gravity', tier: 'ii',
+    statement: 'The 600-cell\'s graph Laplacian has σ² as one of its structural eigenvalues, supplying the geometric content of the gravity sector.',
+    derivation: 'The Other Side of Gravity from the 600-Cell Laplacian. Spectral derivation extending the antenna result.',
+    doi: '10.5281/zenodo.19766664', match: 'Exact',
+    why: 'A second gravity entry, derived from spectral graph theory rather than the antenna construction. Two independent geometric routes to gravity through σ².' },
+
+  // ===== CATEGORY D · Structural =====
+  { cat: 'D', id: 'D15', name: 'Bridge calibration intercept',
+    sector: 'Framework', tier: 'ii',
+    statement: 'depth(0) = σ². The vacuum floor at the bottom of the upper bridge.',
+    derivation: 'The Bridge Lines — Architecture and Calibration of the Pentagon Physics Geometric Framework. The additive intercept in depth(h) = α⁻¹·R + σ².',
+    doi: '10.5281/zenodo.19787763', match: 'Exact',
+    why: 'σ² as the bridge\'s structural anchor — the same number now playing an architectural role.' },
+
+  { cat: 'D', id: 'D16', name: 'Edinburgh constant β_σ',
+    sector: 'Framework', tier: 'ii',
+    statement: 'β_σ = 10^(−σ²) = 0.4150 is the universal multiplicative prefactor of every upper-bridge coupling.',
+    derivation: 'The Edinburgh Constant and the Phyllotactic Universe. β_σ is the spiral\'s centre — the inner anchor from which Λ, G, H₀ unfold. Connects the bridge calibration to the golden-angle (137.508°) packing geometry seen in phyllotaxis.',
+    doi: '10.5281/zenodo.19795164', match: 'Universal',
+    why: 'Gives the σ² intercept its multiplicative role. β_σ is what physics costs to begin. Same number that organises sunflower seed packing organises the calibration of physical constants.' },
+
+  { cat: 'D', id: 'D17', name: 'α formula leading term',
+    sector: 'QED', tier: 'iii',
+    statement: 'α⁻¹ = 360σ² − 2σ³ + ... The fine structure constant\'s leading term is 360 times σ².',
+    derivation: 'Solving Alpha. Master coefficient of the entire correction series; matches Morel 2020 to 0.05σ.',
+    doi: '10.5281/zenodo.19681273', match: '0.05σ',
+    why: 'Lands on the most-measured number in physics. σ² is the geometric heart of the fine structure constant.' },
+
+  { cat: 'D', id: 'D18', name: 'Cosmic two-term partition',
+    sector: 'Cosmology', tier: 'ii',
+    statement: '1 = σ + σ². The total cosmic energy partition into matter (σ²) and dark energy (σ).',
+    derivation: 'Spiral Engine §7. Refined to four-term 1 = φ⁻¹ + φ⁻³ + φ⁻⁵ + φ⁻⁶.',
+    doi: '10.5281/zenodo.18679529', match: 'Exact (attractor)',
+    why: 'Predicts the cosmic energy budget without inputs. Planck values are mid-convergence; attractor is σ-partition.' },
+
+  { cat: 'D', id: 'D19', name: 'Baryon asymmetry η',
+    sector: 'Baryogenesis', tier: 'iii',
+    statement: 'The matter-antimatter asymmetry is set by the Galois-σ² asymmetry between dim(3) and dim(3′) at Big Bang energy density.',
+    derivation: 'The Baryon Asymmetry from Self-Reference. Net baryon density derived from σ²-organised representation theory.',
+    doi: '10.5281/zenodo.18936715', match: 'Derivation',
+    why: 'Answers why anything exists rather than nothing. σ² is the rate at which net matter accumulates from a symmetric vacuum.' },
+
+  { cat: 'D', id: 'D20', name: 'KSS viscosity-entropy ratio',
+    sector: 'Hydrodynamics', tier: 'iii',
+    statement: 'η/s = 3/17 for spacetime, with the 17 = 102/6 partition organised by σ²-bridge structure.',
+    derivation: 'The KSS Ratio for Spacetime Is 12π/17. Bridge-mediated viscosity-to-entropy ratio.',
+    doi: '10.5281/zenodo.19828781', match: 'Derivation',
+    why: 'σ² appears in the deepest known hydrodynamic bound. Connects PP to AdS/CFT and the Kovtun-Son-Starinets conjecture.' },
+
+  { cat: 'D', id: 'D21', name: 'The Galois boundary itself',
+    sector: 'Foundational', tier: 'ii',
+    statement: 'The free/confined sector split that organises the entire framework is the σ vs σ² boundary under the Galois automorphism τ: φ ↦ −1/φ.',
+    derivation: 'The Galois Boundary — From Geometric Partition to Gravitational Thermodynamics. Categorical statement of σ² as boundary marker.',
+    doi: '10.5281/zenodo.19816713', match: 'Structural',
+    why: 'σ² is not just an entry in the catalogue — it is the boundary that defines the catalogue. The most categorical of all appearances.' },
+
+  // ===== CATEGORY E · σ·σ — the operator applied to itself =====
+  { cat: 'E', id: 'E22', name: 'The Galois involution τ² = 1',
+    sector: 'Foundational', tier: 'ii',
+    statement: 'The Galois automorphism τ: φ ↦ −1/φ is an involution: applying σ to itself once returns to identity. τ·τ = 1 is the most direct statement that σ·σ collapses back to closure.',
+    derivation: 'The Galois Boundary; Standard Model Lives in a Single Character Table. Order-2 group structure of the Galois action on ℚ(√5).',
+    doi: '10.5281/zenodo.19816713', match: 'Exact',
+    why: 'σ·σ as group composition. The boundary is its own inverse — a fact that makes the free/confined sector partition stable rather than recursive. The shortest possible statement of σ as an operator.',
+    aliases: 'sigma sigma sigma·sigma self-application self application tau squared galois involution order 2 group composition' },
+
+  { cat: 'E', id: 'E23', name: 'The cascade\'s second level',
+    sector: 'Hadronic', tier: 'ii',
+    statement: 'In the proton spin cascade, the field-mode partition at level two gives ΔG/ΔΣ = σ. The gluon-spin fraction is σ acting on the quark-spin fraction — σ·σ in cascade form.',
+    derivation: 'A Cascade Model for the Proton Spin Decomposition §2.2. Level-one fraction f = σ²; level-two fraction f·(1−f) = σ²·σ = σ³, with the gluon-to-quark ratio reading σ.',
+    doi: '10.5281/zenodo.18717070', match: 'Exact',
+    why: 'Where the cascade derivation reaches σ² at level one, applying the same self-similarity at level two reaches σ·σ. The hadronic sector contains the operator and its second application in the same structure.',
+    aliases: 'sigma sigma sigma·sigma cascade second iteration gluon quark ratio QCD non-abelian self-application' },
+
+  { cat: 'E', id: 'E24', name: 'The bridge\'s second rung',
+    sector: 'Framework', tier: 'ii',
+    statement: 'The upper bridge climbs at golden-angle pitch per rung. Two rungs of climb is σ·σ in the bridge\'s exponential parametrisation, giving the depth contribution from the second application of the calibration operator.',
+    derivation: 'The Bridge Lines — Architecture and Calibration. Bridge depth(h) = α⁻¹·R + σ²; the per-rung calibration costs σ, and the second rung costs σ·σ.',
+    doi: '10.5281/zenodo.19787763', match: 'Exact',
+    why: 'σ·σ is the structural cost of climbing two bridge positions. Distinct from σ² as intercept (D15) — this is σ as composition acting on the bridge geometry.',
+    aliases: 'sigma sigma sigma·sigma bridge rung two-step composition calibration golden angle' },
+
+  { cat: 'E', id: 'E25', name: 'Schröder linearisation: f²(x) − σ ≈ σ²·(x−σ)',
+    sector: 'Pure mathematics', tier: 'ii',
+    statement: 'The second iterate of f near its fixed point linearises to (σ·σ)·(x−σ) plus higher-order terms. σ·σ is the eigenvalue of the squared map, equal to σ² because composition of linearisations multiplies eigenvalues.',
+    derivation: 'Standard dynamical systems result for f(x) = 1/(1+x): f′(σ) = −σ², so (f∘f)′(σ) = (−σ²)(−σ²) = σ⁴. The signed root σ² is the relevant operator eigenvalue.',
+    doi: '10.5281/zenodo.18679529', match: 'Exact',
+    why: 'σ·σ as endomorphism composition. Two iterations of the axiom multiply their linearisations — exactly what makes σ² an operator rather than a number. The mathematical statement of why σ acts when applied twice.',
+    aliases: 'sigma sigma sigma·sigma schroder schroeder schröder koenigs linearization linearisation second iterate composition endomorphism dynamical systems' },
+];
+
+const categories = {
+  A: { letter: 'A', title: 'Direct dynamical readings — σ² as a rate',
+       desc: 'σ² appearing as a relaxation rate, contraction rate, or Lyapunov exponent. Six worked examples from sectors as different as pure mathematics, cosmology, quantum foundations, and stellar physics.' },
+  B: { letter: 'B', title: 'Independent routes to σ² — without assuming the axiom',
+       desc: 'Four worked examples that reach σ² from outside the framework. Two independent QCD cascade derivations (proton spin and spin-orbit), one variational derivation, plus the Carnot route from undergraduate thermodynamics. Multiple independent routes are the strongest defence against the circularity objection.' },
+  C: { letter: 'C', title: 'Spectral and geometric readings — σ² as an eigenvalue',
+       desc: 'σ² appearing as the eigenvalue of a coupling tensor, the offset in a mass formula, a curvature ratio, or a graph Laplacian eigenvalue. Seven worked examples spanning gravity, hadronic, neutrino, and electroweak physics.' },
+  D: { letter: 'D', title: 'Structural and cosmological roles — σ² as anchor and asymmetry',
+       desc: 'σ² acting architecturally — as a calibration intercept, a universal prefactor, the leading term in a series, the source of a cosmic asymmetry, the Galois boundary itself. Seven worked examples including the recent KSS viscosity-entropy ratio and the categorical Galois boundary statement.' },
+  E: { letter: 'E', title: 'σ·σ — the operator applied to itself',
+       desc: 'Compositional readings — σ as self-application. The cases where σ² appears not as a value or a rate but as σ acting on σ. Four worked examples that distinguish the operator from the number: the Galois involution, the cascade\'s second level, the bridge\'s second rung, and the Schröder linearisation. Where σ² says what the answer costs, σ·σ says how the operator composes.' },
+};
+
+// ============ RENDER ============
+
+let currentFilter = 'all';
+let currentQuery  = '';
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function highlight(text, query) {
+  if (!query) return escapeHtml(text);
+  const escaped = escapeHtml(text);
+  // Escape regex special chars in query
+  const q = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const re = new RegExp('(' + q + ')', 'gi');
+  return escaped.replace(re, '<mark class="hl">$1</mark>');
+}
+
+function entryMatchesQuery(e, q) {
+  if (!q) return true;
+  // Normalise: lowercase + strip diacritics + collapse hyphens/punctuation/multi-space to single space
+  const normalise = s => s
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')   // strip accents (Schröder -> schroder)
+    .replace(/·/g, ' ')                                  // middle dot becomes space
+    .replace(/[-_.,;:/]/g, ' ')
+    .replace(/\s+/g, ' ').trim();
+  const fields = [e.id, e.name, e.sector, e.statement, e.derivation, e.match, e.why, e.doi];
+  if (e.aliases) fields.push(e.aliases);
+  const hay = normalise(fields.join(' '));
+  return hay.includes(normalise(q));
+}
+
+function renderCatalogue() {
+  const cat = document.getElementById('catalogue');
+  cat.innerHTML = '';
+  const cats = currentFilter === 'all' ? ['A','B','C','D','E'] : [currentFilter];
+  const q = currentQuery.trim();
+
+  let totalShown = 0;
+
+  for (const c of cats) {
+    const matched = entries.filter(e => e.cat === c && entryMatchesQuery(e, q));
+    if (matched.length === 0) continue;
+
+    const band = document.createElement('div');
+    band.className = 'cat-band';
+    band.innerHTML = `
+      <span class="cat-letter">${categories[c].letter}</span>
+      <span class="cat-title">${categories[c].title}</span>
+      <div class="cat-desc">${categories[c].desc}</div>`;
+    cat.appendChild(band);
+
+    matched.forEach(e => {
+      const card = document.createElement('div');
+      card.className = `entry tier-${e.tier}`;
+      card.dataset.id = e.id;
+      const matchClass = (e.match === 'Exact' || e.match.includes('Exact')) ? 'exact' : '';
+      card.innerHTML = `
+        <span class="entry-id">${e.id}</span>
+        <div class="entry-name">${highlight(e.name, q)}</div>
+        <div class="entry-sector">${highlight(e.sector, q)}</div>
+        <div class="entry-statement">${highlight(e.statement, q)}</div>
+        <div class="entry-footer">
+          <span class="entry-match ${matchClass}">${highlight(e.match, q)}</span>
+          <span class="entry-tier-label">tier ${e.tier}</span>
+        </div>`;
+      card.addEventListener('click', () => openModal(e));
+      cat.appendChild(card);
+      totalShown++;
+    });
+  }
+
+  // Empty state
+  if (totalShown === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.innerHTML = q
+      ? `No entries match &ldquo;${escapeHtml(q)}&rdquo; in the current filter.<span class="hint">Try a broader term, or clear the filter.</span>`
+      : `No entries in this category.`;
+    cat.appendChild(empty);
+  }
+
+  // Status line
+  const status = document.getElementById('search-status');
+  if (q) {
+    status.innerHTML = `<span class="hit">${totalShown}</span> of ${entries.length} entries match &ldquo;${escapeHtml(q)}&rdquo;`;
+  } else if (currentFilter !== 'all') {
+    status.innerHTML = `Showing ${totalShown} entries in category ${currentFilter}`;
+  } else {
+    status.innerHTML = '';
+  }
+}
+
+function openModal(e) {
+  const overlay = document.getElementById('modal-overlay');
+  const content = document.getElementById('modal-content');
+  const q = currentQuery.trim();
+  content.innerHTML = `
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>${highlight(e.name, q)}</h3>
+    <div class="modal-meta">
+      <span>${e.id}</span><span>${highlight(e.sector, q)}</span><span>Tier ${e.tier}</span>
+    </div>
+    <div class="modal-field">
+      <div class="modal-field-label">Statement</div>
+      <div class="modal-field-body">${highlight(e.statement, q)}</div>
+    </div>
+    <div class="modal-field">
+      <div class="modal-field-label">Derivation</div>
+      <div class="modal-field-body">${highlight(e.derivation, q)}</div>
+    </div>
+    <div class="modal-field">
+      <div class="modal-field-label">Match</div>
+      <div class="modal-field-body">${highlight(e.match, q)}</div>
+    </div>
+    <div class="modal-field">
+      <div class="modal-field-label">Why it matters</div>
+      <div class="modal-field-body">${highlight(e.why, q)}</div>
+    </div>
+    <div class="modal-field">
+      <div class="modal-field-label">Source</div>
+      <div class="modal-field-body">
+        <a class="modal-doi" href="https://doi.org/${e.doi}" target="_blank">doi:${e.doi}</a>
+      </div>
+    </div>`;
+  overlay.classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('active');
+}
+
+document.getElementById('modal-overlay').addEventListener('click', (e) => {
+  if (e.target.id === 'modal-overlay') closeModal();
+});
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    renderCatalogue();
+  });
+});
+
+// Search input
+const searchInput = document.getElementById('search');
+const searchClear = document.getElementById('search-clear');
+
+let searchDebounce;
+searchInput.addEventListener('input', () => {
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(() => {
+    currentQuery = searchInput.value;
+    searchClear.classList.toggle('visible', currentQuery.length > 0);
+    renderCatalogue();
+  }, 80);
+});
+
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  currentQuery = '';
+  searchClear.classList.remove('visible');
+  searchInput.focus();
+  renderCatalogue();
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+  // Escape: close modal first, then clear search if open
+  if (e.key === 'Escape') {
+    const overlay = document.getElementById('modal-overlay');
+    if (overlay.classList.contains('active')) {
+      closeModal();
+    } else if (currentQuery) {
+      searchInput.value = '';
+      currentQuery = '';
+      searchClear.classList.remove('visible');
+      renderCatalogue();
+    }
+  }
+  // "/" focuses search (when not already in an input)
+  if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+    e.preventDefault();
+    searchInput.focus();
+    searchInput.select();
+  }
+});
+
+renderCatalogue();
+</script>
+
+</body>
+</html>
