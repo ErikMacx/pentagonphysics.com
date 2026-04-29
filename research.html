@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pentagon Physics — confidential research access.">
+<meta name="author" content="Eric McLean">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Research — Pentagon Physics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #D4A843;
+  --gold-bright: #F0C860;
+  --gold-dim: #8A6E2A;
+  --bg: #0A0A0B;
+  --bg2: #111113;
+  --bg3: #181820;
+  --border: #2A2A35;
+  --border-bright: #3A3A48;
+  --text: #E8E4DC;
+  --text-mid: #B8B4AC;
+  --text-dim: #787470;
+  --accent: #5B9BC4;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 18px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* ── HEADER NAV ── */
+header{background:rgba(10,10,11,0.94);border-bottom:1px solid var(--border);padding:0 10vw;display:flex;gap:2.5rem;align-items:center;height:52px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+header a{font-family:var(--sans);font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header a.active{color:var(--gold);}
+header .logo{font-family:var(--serif);font-size:1rem;font-weight:600;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;display:flex;align-items:center;gap:8px;}
+
+/* ── PAGE HEADER ── */
+.header {
+  padding: 6rem 10vw 3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.header-tag {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: rise 0.9s 0.1s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.header-title {
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: rise 0.9s 0.25s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.header-sub {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text-mid);
+  max-width: 640px;
+  opacity: 0;
+  animation: rise 0.9s 0.4s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+/* ── PASSWORD FORM ── */
+.lock-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 10vw;
+  min-height: 40vh;
+  opacity: 0;
+  animation: rise 0.9s 0.55s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.lock-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 2rem;
+  color: var(--gold-dim);
+}
+
+.lock-text {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--text-mid);
+  text-align: center;
+  max-width: 440px;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.lock-form {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.lock-input {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 0.65rem 1.2rem;
+  width: 280px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.lock-input:focus {
+  border-color: var(--gold-dim);
+}
+
+.lock-input::placeholder {
+  color: var(--text-dim);
+}
+
+.lock-btn {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.7rem 2rem;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.lock-btn:hover {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+.lock-error {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: #C45B5B;
+  margin-top: 1rem;
+  min-height: 1.2em;
+  text-align: center;
+}
+
+/* ── DECRYPTED CONTENT ── */
+.content-area {
+  display: none;
+  padding: 4rem 10vw 6rem;
+}
+
+.content-area .sec {
+  max-width: 720px;
+  margin-bottom: 3rem;
+}
+
+.content-area .sec-tag {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.content-area h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 1.2rem;
+}
+
+.content-area .body {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-mid);
+  margin-bottom: 1rem;
+}
+
+/* ── FOOTER ── */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 10vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;font-family:var(--sans);}
+footer p{font-size:0.85rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;font-size:0.85rem;}
+footer a:hover{color:var(--gold);}
+
+/* ── ANIMATION ── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .header, .lock-container, .content-area, footer { padding-left: 6vw; padding-right: 6vw; }
+  header { padding: 0 6vw; gap: 1.5rem; }
+  .lock-input { width: 100%; }
+  .lock-form { flex-direction: column; width: 100%; max-width: 320px; }
+  .lock-btn { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="28" height="28" style="flex-shrink:0;">
+      <defs><mask id="mn"><path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/><path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/><path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/><path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/><path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/><path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/><path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/><path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/><path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/><path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/><circle cx="0" cy="0" r="71.19" fill="black"/><polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/></mask></defs>
+      <rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mn)"/>
+    </svg>
+    Pentagon Physics
+  </a>
+  <a href="sigma2.html" style="color:#fff;background:rgba(93,168,208,0.15);border-bottom:2px solid #5DA8D0;font-weight:600;text-transform:none;padding:0.3em 0.7em;border-radius:2px 2px 0 0;">σ² Theorem</a>
+  <a href="index.html#programme">Programme</a>
+  <a href="index.html#results">Results</a>
+  <a href="index.html#papers">Papers</a>
+  <a href="solved.html">Solved</a>
+  <a href="tools.html">Tools</a>
+  <a href="essays.html">Essays</a>
+  <a href="pipeline.html">Pipeline</a>
+  <a href="media.html">Media</a>
+  <a href="news.html">News</a>
+  <a href="faqs.html">137 FAQs</a>
+</header>
+
+<div class="header">
+  <div class="header-tag">Pentagon Physics</div>
+  <h1 class="header-title">Research.</h1>
+  <p class="header-sub">Restricted access. Ongoing research notes, draft derivations, and pre-publication work.</p>
+</div>
+
+<!-- ── LOCKED STATE ── -->
+<div class="lock-container" id="lockScreen">
+  <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    <circle cx="12" cy="16.5" r="1.5"/>
+  </svg>
+  <p class="lock-text">This page contains confidential research. Enter your access password to continue.</p>
+  <div class="lock-form">
+    <input type="password" class="lock-input" id="passwordInput" placeholder="Access password" autocomplete="off">
+    <button class="lock-btn" id="unlockBtn">Enter</button>
+  </div>
+  <div class="lock-error" id="errorMsg"></div>
+</div>
+
+<!-- ── UNLOCKED STATE ── -->
+<div class="content-area" id="contentArea"></div>
+
+<footer>
+  <p>Pentagon Physics · Eric McLean · Independent Researcher, Edinburgh · 2026</p>
+  <a href="index.html">&larr; Back to main site</a>
+</footer>
+
+<script>
+// AES-GCM encrypted content (salt 16B + iv 12B + authTag 16B + ciphertext)
+const ENCRYPTED_DATA = "Nh/m919BBs6b0QMuNxQg5fQ6tBwyjny2P/00N+lMa25nzNFWxMfC23kEEGZfsiWIHFW1Vy9JJgx3uaf/2q+DdYPAlKZ7T/o5Xl1yE/4YAJC1i8cu66g7BI/Gqq+AdQ6iXJBd3YX1cb/O40HHe93o62mv4t4xlRmBKlPZ0QP/F5HQm6h57oekOFBMwgHnEoTqT81lOWEww+oZQhwOO7Mzew/AiIeVwmsHOBk4PfI1Khe2wBbVVYXo0HyUWyVEiC4Qh55Dx1PTGvVX4a0HK2b6wRWpWYZ9y8utIEoZRWfJ8RLPX7wODLHcKQy00nnBeHxDfCHvXEJXFZgtMeIOomh9uXtosxkYZ+8d2xAM2hq0VcVGtK8ZMfVBD8mOEIhBUoB1zEXhi3yFVIkoCYM6CUU46aQ3yIoqBx5rvX5H4v+q2yVz5jxmWClUWC7pcIoxzT5l/cuoezyVhGPwtQuBh4sFrNhyHaW6D6w6wQwtanynnXmU37H4iXJnXP30mcRArhcDVFVFHXmMtnl/jVzpCpqrHpPC+GAiMnE40gFaeQlG2AHegtVz5xajETwrEeZ/pAtbHMNEP8YfHVkM43kqrKvd+ds9YKo=";
+
+const PBKDF2_ITERATIONS = 100000;
+
+async function deriveKey(password, salt) {
+  const enc = new TextEncoder();
+  const keyMaterial = await crypto.subtle.importKey(
+    'raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']
+  );
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt: salt, iterations: PBKDF2_ITERATIONS, hash: 'SHA-256' },
+    keyMaterial,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['decrypt', 'encrypt']
+  );
+}
+
+function base64ToBytes(b64) {
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return bytes;
+}
+
+function bytesToBase64(bytes) {
+  let bin = '';
+  for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin);
+}
+
+async function decryptContent(password, encryptedB64) {
+  const data = base64ToBytes(encryptedB64);
+  const salt = data.slice(0, 16);
+  const iv = data.slice(16, 28);
+  const authTag = data.slice(28, 44);
+  const ciphertext = data.slice(44);
+
+  // AES-GCM in WebCrypto expects authTag appended to ciphertext
+  const combined = new Uint8Array(ciphertext.length + authTag.length);
+  combined.set(ciphertext);
+  combined.set(authTag, ciphertext.length);
+
+  const key = await deriveKey(password, salt);
+  const decrypted = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: iv },
+    key,
+    combined
+  );
+  return new TextDecoder().decode(decrypted);
+}
+
+// ── Encrypt helper (for use in browser console) ──
+async function encryptContent(password, plaintext) {
+  const enc = new TextEncoder();
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const key = await deriveKey(password, salt);
+  const encrypted = await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv: iv },
+    key,
+    enc.encode(plaintext)
+  );
+  const encBytes = new Uint8Array(encrypted);
+  // WebCrypto appends 16-byte auth tag at end of ciphertext
+  const ciphertext = encBytes.slice(0, encBytes.length - 16);
+  const authTag = encBytes.slice(encBytes.length - 16);
+  // Pack: salt(16) + iv(12) + authTag(16) + ciphertext
+  const result = new Uint8Array(salt.length + iv.length + authTag.length + ciphertext.length);
+  result.set(salt, 0);
+  result.set(iv, 16);
+  result.set(authTag, 28);
+  result.set(ciphertext, 44);
+  const b64 = bytesToBase64(result);
+  console.log('Encrypted base64 (' + b64.length + ' chars):');
+  console.log(b64);
+  return b64;
+}
+
+// ── UI ──
+const lockScreen = document.getElementById('lockScreen');
+const contentArea = document.getElementById('contentArea');
+const passwordInput = document.getElementById('passwordInput');
+const unlockBtn = document.getElementById('unlockBtn');
+const errorMsg = document.getElementById('errorMsg');
+
+async function unlock() {
+  const pw = passwordInput.value;
+  if (!pw) { errorMsg.textContent = 'Please enter a password.'; return; }
+  errorMsg.textContent = '';
+  unlockBtn.textContent = 'Decrypting...';
+  unlockBtn.disabled = true;
+  try {
+    const html = await decryptContent(pw, ENCRYPTED_DATA);
+    contentArea.innerHTML = html;
+    contentArea.style.display = 'block';
+    lockScreen.style.display = 'none';
+  } catch (e) {
+    errorMsg.textContent = 'Incorrect password. Access denied.';
+    unlockBtn.textContent = 'Enter';
+    unlockBtn.disabled = false;
+    passwordInput.value = '';
+    passwordInput.focus();
+  }
+}
+
+unlockBtn.addEventListener('click', unlock);
+passwordInput.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') unlock();
+});
+</script>
+
+<!-- To update encrypted content:
+     1. Edit the PLAINTEXT_HTML variable in the encrypt helper below
+     2. Open this page in browser, open console
+     3. Run: encryptContent('your-password', PLAINTEXT_HTML)
+     4. Copy the output and paste into ENCRYPTED_DATA
+-->
+
+</body>
+</html>

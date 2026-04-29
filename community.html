@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pentagon Physics — join the conversation, subscribe for updates, and discuss the papers.">
+<meta name="author" content="Eric McLean">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Community — Pentagon Physics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #D4A843;
+  --gold-bright: #F0C860;
+  --gold-dim: #8A6E2A;
+  --bg: #0A0A0B;
+  --bg2: #111113;
+  --bg3: #181820;
+  --border: #2A2A35;
+  --border-bright: #3A3A48;
+  --text: #E8E4DC;
+  --text-mid: #B8B4AC;
+  --text-dim: #787470;
+  --accent: #5B9BC4;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 18px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* ── HEADER NAV ── */
+header{background:rgba(10,10,11,0.94);border-bottom:1px solid var(--border);padding:0 10vw;display:flex;gap:2.5rem;align-items:center;height:52px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+header a{font-family:var(--sans);font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color 0.2s;}
+header a:hover{color:var(--gold);}
+header a.active{color:var(--gold);}
+header .logo{font-family:var(--serif);font-size:1rem;font-weight:600;color:var(--text);margin-right:auto;text-transform:none;letter-spacing:normal;display:flex;align-items:center;gap:8px;}
+
+/* ── HERO ── */
+.header {
+  padding: 6rem 10vw 3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.header-tag {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: rise 0.9s 0.1s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.header-title {
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: rise 0.9s 0.25s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.header-sub {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text-mid);
+  max-width: 640px;
+  opacity: 0;
+  animation: rise 0.9s 0.4s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+/* ── SECTIONS ── */
+.section {
+  padding: 4rem 10vw;
+  border-bottom: 1px solid var(--border);
+}
+
+.section:last-of-type {
+  border-bottom: none;
+  padding-bottom: 6rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: rise 0.9s 0.55s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.section-text {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--text-mid);
+  max-width: 640px;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: rise 0.9s 0.65s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+/* ── FORM ── */
+.subscribe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 480px;
+  opacity: 0;
+  animation: rise 0.9s 0.75s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.subscribe-form input {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 0.75rem 1rem;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.subscribe-form input::placeholder {
+  color: var(--text-dim);
+}
+
+.subscribe-form input:focus {
+  border-color: var(--gold-dim);
+}
+
+.subscribe-form button {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.8rem 2rem;
+  background: var(--gold-dim);
+  color: var(--text);
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s;
+  align-self: flex-start;
+}
+
+.subscribe-form button:hover {
+  background: var(--gold);
+  border-color: var(--gold-bright);
+  color: var(--bg);
+}
+
+/* ── GISCUS ── */
+.giscus-wrapper {
+  max-width: 800px;
+  opacity: 0;
+  animation: rise 0.9s 0.75s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+/* ── FOOTER ── */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 10vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;font-family:var(--sans);}
+footer p{font-size:0.85rem;color:var(--text-dim);}
+footer a{color:var(--accent);text-decoration:none;font-size:0.85rem;}
+footer a:hover{color:var(--gold);}
+
+/* ── ANIMATION ── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .header, .section, footer { padding-left: 6vw; padding-right: 6vw; }
+  header { padding: 0 6vw; gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="28" height="28" style="flex-shrink:0;">
+      <defs><mask id="mn"><path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/><path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/><path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/><path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/><path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/><path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/><path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/><path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/><path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/><path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/><circle cx="0" cy="0" r="71.19" fill="black"/><polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/></mask></defs>
+      <rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mn)"/>
+    </svg>
+    Pentagon Physics
+  </a>
+  <a href="sigma2.html" style="color:#fff;background:rgba(93,168,208,0.15);border-bottom:2px solid #5DA8D0;font-weight:600;text-transform:none;padding:0.3em 0.7em;border-radius:2px 2px 0 0;">σ² Theorem</a>
+  <a href="index.html#programme">Programme</a>
+  <a href="index.html#results">Results</a>
+  <a href="index.html#papers">Papers</a>
+  <a href="solved.html">Solved</a>
+  <a href="tools.html">Tools</a>
+  <a href="essays.html">Essays</a>
+  <a href="pipeline.html">Pipeline</a>
+  <a href="media.html">Media</a>
+  <a href="news.html">News</a>
+  <a href="faqs.html">137 FAQs</a>
+  <a href="community.html" class="active">Community</a>
+</header>
+
+<div class="header">
+  <div class="header-tag">Community</div>
+  <h1 class="header-title">Join the Conversation</h1>
+  <p class="header-sub">Follow the Pentagon Physics programme, discuss the papers, and receive updates on new publications.</p>
+</div>
+
+<div class="section">
+  <h2 class="section-title">Stay Updated</h2>
+  <p class="section-text">Receive notifications when new papers are published. No spam. Unsubscribe any time.</p>
+  <form class="subscribe-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <input type="email" name="email" placeholder="Email address" required>
+    <input type="text" name="name" placeholder="Name (optional)">
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+
+<div class="section">
+  <h2 class="section-title">Discussion</h2>
+  <p class="section-text">Comment on papers, ask questions, or share insights. Powered by GitHub Discussions.</p>
+  <div class="giscus-wrapper">
+    <div class="giscus"></div>
+  </div>
+  <script src="https://giscus.app/client.js"
+    data-repo="ErikMacx/pentagonphysics.com"
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="dark_dimmed"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+  </script>
+</div>
+
+<footer>
+  <p>Pentagon Physics · Eric McLean · Independent Researcher, Edinburgh · 2026</p>
+  <a href="index.html">← Back to main site</a>
+</footer>
+
+</body>
+</html>
