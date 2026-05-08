@@ -4,16 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Google Scholar Meta Tags -->
-<meta name="citation_title" content="All Fundamental Constants Lie on Two Bridge Lines">
+<meta name="citation_title" content="The σ² Theorem">
 <meta name="citation_author" content="McLean, Eric">
-<meta name="citation_doi" content="10.5281/zenodo.19402611">
-<meta name="citation_publication_date" content="2026-04-03">
-<meta name="citation_pdf_url" content="https://zenodo.org/records/19402611/files/Fundamental_Constant_Collinearity.pdf">
+<meta name="citation_doi" content="10.5281/zenodo.19917820">
+<meta name="citation_publication_date" content="2026-04-30">
+<meta name="citation_pdf_url" content="https://zenodo.org/records/19917820/files/sigma2_theorem_FINAL%20McLean.pdf">
 <meta name="citation_journal_title" content="Zenodo">
-<meta name="description" content="All Fundamental Constants Lie on Two Bridge Lines — upper bridge (G, H₀, Λ) and lower bridge (electroweak) are parallel lines with slope α⁻¹. Bridge duality proved. Eric McLean, Pentagon Physics.">
+<meta name="description" content="σ² = 0.381966… is the universal eigenvalue of self-reference in physics. Standard Model parameters are addresses in a finite directory of σ representations, not independent values.">
 <meta name="author" content="Eric McLean">
+<meta name="keywords" content="sigma, pentagon physics, 600-cell, Lyapunov, eigenvalues, E8, Fuzzy Dark Matter, Koide, Nanograv, katrin, DESI, QCD">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-<title>All Fundamental Constants Lie on Two Bridge Lines — Pentagon Physics</title>
+<title>The σ² Theorem — Pentagon Physics</title>
 <script>
 MathJax = {
   tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
@@ -60,15 +61,6 @@ h1{font-family:var(--serif);font-size:clamp(2.2rem,5vw,4.2rem);font-weight:700;c
 .sec-tag{font-size:0.7rem;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.9rem;}
 h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--text);margin-bottom:1.5rem;line-height:1.1;}
 .body{font-size:1rem;color:var(--text-mid);margin-bottom:1.2rem;max-width:72ch;line-height:1.85;}
-.claims{display:flex;flex-direction:column;gap:1px;background:var(--border-hi);border:1px solid var(--border-hi);margin:2rem 0;max-width:760px;}
-.claim{background:var(--bg2);padding:1.2rem 1.5rem;display:flex;gap:1rem;align-items:baseline;}
-.claim:hover{background:var(--bg3);}
-.claim-n{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--gold);min-width:2rem;line-height:1;}
-.claim-body{font-size:0.95rem;color:var(--text-mid);line-height:1.6;}
-.claim-body mjx-container{color:var(--text)!important;}
-.kill-box{border:1px solid var(--border-hi);border-left:3px solid var(--gold-dim);background:var(--bg2);padding:1.5rem 2rem;margin:2rem 0;max-width:760px;}
-.kill-tag{font-size:0.65rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:0.8rem;}
-.kill-item{font-size:0.9rem;color:var(--text-dim);padding:0.2rem 0;line-height:1.6;}
 .zenodo-cta{margin:3rem 0;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
 .btn-zenodo{display:inline-flex;align-items:center;gap:0.6rem;background:var(--gold);color:#000;font-weight:700;font-size:0.85rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.9rem 2rem;text-decoration:none;transition:all 0.2s;}
 .btn-zenodo:hover{background:var(--gold-pale);}
@@ -83,7 +75,7 @@ footer a:hover{color:var(--gold);}
 <body>
 <header>
   <a class="logo" href="../index.html">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="26" height="26" style="flex-shrink:0;"><defs><mask id="mn"><path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/><path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/><path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/><path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/><path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/><path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/><path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/><path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/><path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/><path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/><circle cx="0" cy="0" r="71.19" fill="black"/><polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/></mask></defs><rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mn)"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-95 -95 190 190" width="26" height="26" style="flex-shrink:0;"><defs><mask id="mn1"><path d="M 0,-88 A 88,88 0 0,1 83.70,-27.19 Z" fill="white"/><path d="M 83.70,-27.19 A 88,88 0 0,1 51.76,71.27 Z" fill="white"/><path d="M 51.76,71.27 A 88,88 0 0,1 -51.76,71.27 Z" fill="white"/><path d="M -51.76,71.27 A 88,88 0 0,1 -83.70,-27.19 Z" fill="white"/><path d="M -83.70,-27.19 A 88,88 0 0,1 0,-88 Z" fill="white"/><path d="M 0,0 L 0,-88 L 83.70,-27.19 Z" fill="white"/><path d="M 0,0 L 83.70,-27.19 L 51.76,71.27 Z" fill="white"/><path d="M 0,0 L 51.76,71.27 L -51.76,71.27 Z" fill="white"/><path d="M 0,0 L -51.76,71.27 L -83.70,-27.19 Z" fill="white"/><path d="M 0,0 L -83.70,-27.19 L 0,-88 Z" fill="white"/><circle cx="0" cy="0" r="71.19" fill="black"/><polygon points="0,-88 83.70,-27.19 51.76,71.27 -51.76,71.27 -83.70,-27.19" fill="none" stroke="black" stroke-width="10" stroke-linejoin="round"/></mask></defs><rect x="-95" y="-95" width="190" height="190" fill="#5DA8D0" mask="url(#mn1)"/></svg>
     Pentagon Physics
   </a>
   <a href="../index.html#programme">Programme</a>
@@ -99,47 +91,34 @@ footer a:hover{color:var(--gold);}
 
 <div class="hero">
   <div class="pent-bg"><svg viewBox="0 0 600 680" xmlns="http://www.w3.org/2000/svg"><polygon points="300,30 560,210 465,560 135,560 40,210" fill="none" stroke="white" stroke-width="1.5"/><line x1="300" y1="30" x2="465" y2="560" stroke="white" stroke-width="0.5"/><line x1="300" y1="30" x2="135" y2="560" stroke="white" stroke-width="0.5"/><line x1="560" y1="210" x2="135" y2="560" stroke="white" stroke-width="0.5"/><line x1="40" y1="210" x2="465" y2="560" stroke="white" stroke-width="0.5"/><line x1="560" y1="210" x2="40" y2="210" stroke="white" stroke-width="0.5"/></svg></div>
-  <div class="hero-tag">Bridge Structure · April 2026</div>
-  <h1>All Fundamental Constants Lie on Two Bridge Lines</h1>
-  <p class="hero-sub">G, H₀, and Λ lie on a straight line in log-coupling space with slope α⁻¹. A second parallel line governs the electroweak constants with coupling formula φ^(−(φ(p−1)+4)) — no α anywhere. The two lines are dual: physics on one is a structural gap on the other.</p>
+  <div class="hero-tag">April 2026</div>
+  <h1>The σ² Theorem</h1>
+  <p class="hero-sub">σ² = 0.381966… is the universal eigenvalue of self-reference in physics. Standard Model parameters are addresses in a finite directory of σ representations, not independent values. Nine worked examples across fifteen physical sectors, with four experimental falsification thresholds.</p>
   <div class="hero-meta">
-    Eric McLean <span class="dot">·</span> Independent Researcher, Edinburgh <span class="dot">·</span> Pentagon Physics <span class="dot">·</span> 3 April 2026 <span class="dot">·</span> <a href="https://doi.org/10.5281/zenodo.19402611" target="_blank">10.5281/zenodo.19402611</a>
+    Eric McLean <span class="dot">&middot;</span> Independent Researcher, Edinburgh <span class="dot">&middot;</span> Pentagon Physics <span class="dot">&middot;</span> 30 April 2026 <span class="dot">&middot;</span> <a href="https://doi.org/10.5281/zenodo.19917820" target="_blank">DOI</a>
   </div>
 </div>
 
 <div class="stats-strip">
-  <div class="stat"><span class="n">2</span><span class="l">Bridge lines</span></div>
-  <div class="stat"><span class="n">137.036</span><span class="l">Common slope α⁻¹</span></div>
-  <div class="stat"><span class="n">0.00085</span><span class="l">Geometric separation</span></div>
-  <div class="stat"><span class="n">6</span><span class="l">Kill conditions</span></div>
+  <div class="stat"><span class="n">9</span><span class="l">Worked examples</span></div>
+  <div class="stat"><span class="n">15</span><span class="l">Physical sectors</span></div>
+  <div class="stat"><span class="n">4</span><span class="l">Falsification thresholds</span></div>
+  <div class="stat"><span class="n">0</span><span class="l">Free parameters</span></div>
 </div>
 
 <div class="sec">
   <div class="sec-tag">Key Results</div>
-  <h2>Two registers of one structure</h2>
-  <p class="body">The upper bridge (depths 23.8–123) and lower bridge (depths 0.55–1.17) are exactly parallel lines in (R, depth) space. Same slope α⁻¹ = 137.036. The perpendicular distance between them is 0.00085 — geometrically they are almost on top of each other. The sixty-decade apparent separation is an artefact of reading nearly-vertical lines in the vertical direction.</p>
-  <div class="claims">
-    <div class="claim"><div class="claim-n">1</div><div class="claim-body">Upper bridge: depth = α⁻¹ × R + φ⁻². Positions {φ⁻², φ⁻¹, 1, φ, 2}/√5 give G, H₀, Λ, FDM, and floor. Slope and intercept both derived.</div></div>
-    <div class="claim"><div class="claim-n">2</div><div class="claim-body">Lower bridge coupling: φ^(−(φ(p−1)+4)). No α in the formula. Three positions algebraically proved: p=φ⁻² gives sin²θ_W = φ⁻³ exactly.</div></div>
-    <div class="claim"><div class="claim-n">3</div><div class="claim-body">Bridge duality: every physics position on the upper bridge is a structural gap on the lower, and vice versa. Exact across all five positions.</div></div>
-    <div class="claim"><div class="claim-n">4</div><div class="claim-body">The "4" in the lower bridge formula encodes D=4 spacetime dimensions. In D=3: floor coupling φ⁻². In D=4: φ⁻³ = sin²θ_W. In D=5: φ⁻⁴.</div></div>
-  </div>
-  <div class="kill-box"><div class="kill-tag">Kill Conditions</div>
-    <div class="kill-item">K1: G consensus above 6.674×10⁻¹¹ at 200 ppm → eigenmode derivation fails</div>
-    <div class="kill-item">K2: R(Λ) − R(G) ≠ φ⁻¹ at 100 ppm independently → bridge geometry fails</div>
-    <div class="kill-item">K3: Weinberg angle deviates from φ⁻³ by &gt;2% after scale matching → lower bridge floor fails</div>
-    <div class="kill-item">K4: Constants identified at p=φ⁻¹ (0.1964) or p=2 (0.0670) deviate &gt;5% from prediction → lower bridge fails</div>
-    <div class="kill-item">K5: Fifth position coupling inconsistent with gravity-expansion coupling → fifth position fails</div>
-    <div class="kill-item">K6: Any confirmed constant deeper than Λ → no-go theorem broken</div></div>
+  <h2>One eigenvalue across fifteen sectors</h2>
+  <p class="body">This paper proposes σ² = 0.381966… as the universal eigenvalue of self-reference in physics. It argues that Standard Model parameters represent addresses in a finite directory of σ representations rather than independent values. The work presents a theorem claiming that in self-referential systems, relaxation rates, partition coefficients, and consistency operator eigenvalues equal σ². Nine worked examples across fifteen physical sectors are provided, and four experimental thresholds are identified that could falsify the framework within three to ten years.</p>
   <div class="zenodo-cta">
-    <a class="btn-zenodo" href="https://doi.org/10.5281/zenodo.19402611" target="_blank">↗ Read on Zenodo</a>
-    <a class="btn-doi" href="https://doi.org/10.5281/zenodo.19402611" target="_blank">doi:10.5281/zenodo.19402611</a>
+    <a class="btn-zenodo" href="https://doi.org/10.5281/zenodo.19917820" target="_blank">&nearr; Read on Zenodo</a>
+    <a class="btn-doi" href="https://doi.org/10.5281/zenodo.19917820" target="_blank">doi:10.5281/zenodo.19917820</a>
   </div>
 </div>
 
 <footer>
   <p>Pentagon Physics &middot; Eric McLean &middot; Independent Researcher, Edinburgh &middot; 108 papers on <a href="https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22McLean%2C+Eric%22" target="_blank">Zenodo</a></p>
-  <a href="../index.html#papers">← All papers</a>
+  <a href="../index.html#papers">&larr; All papers</a>
 </footer>
 </body>
 </html>
