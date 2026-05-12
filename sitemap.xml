@@ -67,6 +67,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.pentagonphysics.com/essays/has-physics-been-reading-shadows.html</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.pentagonphysics.com/essays/spacetime-does-not-exist-in-advance.html</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>monthly</changefreq>
@@ -463,6 +469,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.pentagonphysics.com/papers/the-four-forces-and-the-nucleons.html</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.pentagonphysics.com/papers/the-free-parameters-of-dynamics.html</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>monthly</changefreq>
@@ -511,6 +523,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.pentagonphysics.com/papers/the-lattice-between.html</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.pentagonphysics.com/papers/the-machine-that-builds-itself.html</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>monthly</changefreq>
@@ -519,6 +537,12 @@
   <url>
     <loc>https://www.pentagonphysics.com/papers/the-mother-of-time.html</loc>
     <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.pentagonphysics.com/papers/the-pion-decay-constant-is-derived.html</loc>
+    <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -543,6 +567,12 @@
   <url>
     <loc>https://www.pentagonphysics.com/papers/the-rung-theorem.html</loc>
     <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.pentagonphysics.com/papers/the-shadows-of-emc2-deconstructed.html</loc>
+    <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -603,6 +633,12 @@
   <url>
     <loc>https://www.pentagonphysics.com/papers/two-frameworks-one-metric-one-equation.html</loc>
     <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.pentagonphysics.com/papers/what-will-muse-and-prad-ii-measure.html</loc>
+    <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
