@@ -149,6 +149,56 @@ body {
   font-weight: 500;
 }
 
+.hero-cta {
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: rise 0.9s 0.65s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.start-btn {
+  display: inline-flex; align-items: center; gap: 1rem;
+  background: var(--bg2);
+  border: 1px solid var(--gold-dim);
+  padding: 1.1rem 2.2rem;
+  text-decoration: none;
+  transition: all 0.3s;
+  position: relative;
+}
+.start-btn:hover {
+  border-color: var(--gold);
+  background: rgba(212,168,67,0.08);
+  transform: translateY(-2px);
+}
+
+.start-arrow {
+  font-size: 1.4rem;
+  color: var(--gold-bright);
+  animation: pulse-arrow 2s ease-in-out infinite;
+}
+
+.start-btn span:nth-child(2) {
+  font-family: var(--sans);
+  font-size: 0.95rem; font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--text);
+}
+
+.start-label {
+  font-family: var(--sans) !important;
+  font-size: 0.6rem !important; font-weight: 600 !important;
+  letter-spacing: 0.3em !important;
+  text-transform: uppercase;
+  color: var(--gold) !important;
+  background: rgba(212,168,67,0.12);
+  padding: 0.25em 0.7em;
+  border-radius: 2px;
+}
+
+@keyframes pulse-arrow {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  50% { transform: translateX(6px); opacity: 0.7; }
+}
+
 .hero-meta {
   font-family: var(--sans);
   font-size: 0.8rem;
@@ -157,7 +207,7 @@ body {
   text-transform: uppercase;
   color: var(--text-dim);
   opacity: 0;
-  animation: rise 0.9s 0.7s cubic-bezier(.22,1,.36,1) forwards;
+  animation: rise 0.9s 0.8s cubic-bezier(.22,1,.36,1) forwards;
   display: flex; gap: 2rem; flex-wrap: wrap; align-items: center;
 }
 
@@ -438,6 +488,14 @@ footer {
         → α⁻¹ = 137.036 → c → <strong>E = mc²</strong>
       </div>
     </div>
+  </div>
+
+  <div class="hero-cta">
+    <a href="what-is-pentagon-physics.html" class="start-btn">
+      <span class="start-arrow">&#10140;</span>
+      <span>What Is Pentagon Physics?</span>
+      <span class="start-label">START HERE</span>
+    </a>
   </div>
 
   <div class="hero-meta">

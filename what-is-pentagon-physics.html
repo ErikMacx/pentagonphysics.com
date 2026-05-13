@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="What is Pentagon Physics? A deep explanation of the single-axiom framework that derives all Standard Model parameters from σ = 1/(1+σ).">
+<meta name="keywords" content="Pentagon Physics, what is Pentagon Physics, Eric McLean, fine structure constant, 600-cell, Standard Model, self-reference, physics axiom, golden ratio">
+<meta name="author" content="Eric McLean">
+<meta property="og:title" content="What Is Pentagon Physics?">
+<meta property="og:description" content="A calculational discipline with one axiom, one geometry, one alphabet — and zero free parameters.">
+<meta property="og:type" content="article">
+<title>What Is Pentagon Physics? — Pentagon Physics</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #D4A843;
+  --gold-bright: #F0C860;
+  --gold-dim: #8A6E2A;
+  --bg: #0A0A0B;
+  --bg2: #111113;
+  --bg3: #181820;
+  --border: #2A2A35;
+  --border-bright: #3A3A48;
+  --text: #E8E4DC;
+  --text-mid: #B8B4AC;
+  --text-dim: #787470;
+  --accent: #5B9BC4;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 18px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* ── PENTAGON BG ── */
+.pent-bg {
+  position: fixed; top: 0; right: 0;
+  width: 55vw; height: 100vh;
+  opacity: 0.04; pointer-events: none; z-index: 0;
+}
+
+/* ── BACK BAR ── */
+.back-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,11,0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 10vw;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+
+.back-btn {
+  font-family: var(--sans);
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); text-decoration: none;
+  display: flex; align-items: center; gap: 0.5rem;
+  transition: color 0.2s;
+  padding: 0.4em 0;
+}
+.back-btn:hover { color: var(--gold-bright); }
+.back-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+.back-bar-title {
+  font-family: var(--sans);
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative; z-index: 1;
+  padding: 6rem 10vw 5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 15% 55%, rgba(212,168,67,0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 60% at 85% 30%, rgba(91,155,196,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-tag {
+  font-family: var(--sans);
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 2rem;
+  position: relative; z-index: 1;
+  opacity: 0; animation: rise 0.9s 0.1s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.hero-title {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 600; line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text); margin-bottom: 1.5rem;
+  position: relative; z-index: 1;
+  opacity: 0; animation: rise 0.9s 0.25s cubic-bezier(.22,1,.36,1) forwards;
+}
+.hero-title .accent { color: var(--gold); }
+
+.hero-subtitle {
+  font-family: var(--sans);
+  font-size: 1.05rem; font-weight: 300;
+  color: var(--text-mid); max-width: 65ch;
+  line-height: 1.8;
+  position: relative; z-index: 1;
+  opacity: 0; animation: rise 0.9s 0.4s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+/* ── SECTIONS ── */
+.section {
+  position: relative; z-index: 1;
+  padding: 5rem 10vw;
+  border-bottom: 1px solid var(--border);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.section-tag {
+  font-family: var(--sans);
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.2rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 500; color: var(--text);
+  margin-bottom: 1.8rem; line-height: 1.15;
+}
+
+.body-text {
+  font-size: 1.05rem;
+  color: var(--text-mid);
+  margin-bottom: 1.4rem;
+  max-width: 70ch;
+  line-height: 1.85;
+}
+
+.body-text strong { color: var(--text); font-weight: 500; }
+
+/* ── AXIOM DISPLAY ── */
+.axiom-display {
+  display: flex; align-items: stretch; gap: 0;
+  max-width: 700px; margin: 2.5rem 0;
+  border: 1px solid var(--border-bright);
+}
+
+.axiom-display-left {
+  background: var(--bg3);
+  border-right: 3px solid var(--gold);
+  padding: 1.6rem 2rem;
+  display: flex; align-items: center; justify-content: center;
+  min-width: 160px;
+}
+
+.axiom-eq {
+  font-size: 1.8rem; font-style: italic;
+  color: var(--gold-bright); white-space: nowrap;
+}
+
+.axiom-display-right {
+  background: var(--bg2);
+  padding: 1.4rem 1.8rem;
+  display: flex; align-items: center;
+}
+
+.axiom-gloss {
+  font-family: var(--sans);
+  font-size: 0.88rem; font-weight: 300;
+  line-height: 1.9; color: var(--text-mid);
+}
+.axiom-gloss strong { color: var(--text); font-weight: 500; }
+
+/* ── THREE PILLARS ── */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem; margin: 2.5rem 0;
+}
+
+.pillar {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--gold-dim);
+  padding: 2rem;
+  transition: transform 0.2s, border-top-color 0.2s;
+}
+.pillar:hover { transform: translateY(-3px); border-top-color: var(--gold); }
+
+.pillar-num {
+  font-family: var(--sans);
+  font-size: 0.65rem; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.6rem;
+}
+
+.pillar h3 {
+  font-size: 1.3rem; font-weight: 500;
+  color: var(--text); margin-bottom: 0.8rem;
+}
+
+.pillar .formula {
+  font-size: 1.15rem; font-style: italic;
+  color: var(--gold-bright); margin-bottom: 0.7rem;
+}
+
+.pillar p {
+  font-family: var(--sans);
+  font-size: 0.88rem; color: var(--text-mid);
+  line-height: 1.7;
+}
+
+/* ── CHAIN ── */
+.chain {
+  display: flex; flex-wrap: wrap;
+  align-items: center; gap: 0;
+  margin: 2.5rem 0;
+  padding: 1.6rem 2rem;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  overflow-x: auto;
+}
+
+.c-node {
+  font-family: var(--sans);
+  font-size: 0.78rem; font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--text-mid);
+  padding: 0.55rem 1rem;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.c-node:hover { color: var(--text); border-color: var(--border-bright); }
+.c-node.key { color: var(--gold-bright); border-color: var(--gold-dim); font-weight: 500; }
+.c-arrow { color: var(--gold); padding: 0 0.4rem; font-size: 0.9rem; opacity: 0.7; }
+
+/* ── CRITERIA LIST ── */
+.criteria-list {
+  list-style: none; padding: 0;
+  margin: 2rem 0; max-width: 70ch;
+}
+
+.criteria-list li {
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  color: var(--text-mid);
+  line-height: 1.7;
+  padding: 1rem 0 1rem 2.5rem;
+  border-bottom: 1px solid rgba(42,42,53,0.6);
+  position: relative;
+}
+
+.criteria-list li::before {
+  content: attr(data-n);
+  position: absolute; left: 0; top: 1rem;
+  font-family: var(--serif);
+  font-size: 1.1rem; font-weight: 600;
+  color: var(--gold);
+}
+
+.criteria-list li strong { color: var(--text); font-weight: 500; }
+
+/* ── RESULTS GRID ── */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem; margin-top: 2.5rem;
+}
+
+.r-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--gold-dim);
+  padding: 1.8rem;
+  transition: transform 0.2s, border-top-color 0.2s;
+}
+.r-card:hover { transform: translateY(-3px); border-top-color: var(--gold); }
+
+.r-card h3 {
+  font-family: var(--sans);
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.7rem;
+}
+
+.r-card .formula {
+  font-size: 1.15rem; font-style: italic;
+  color: var(--gold-bright); margin-bottom: 0.7rem;
+  line-height: 1.4;
+}
+
+.r-card .desc {
+  font-size: 0.9rem; color: var(--text-mid);
+  line-height: 1.6; margin-bottom: 0.6rem;
+}
+
+.r-card .prec {
+  font-family: var(--sans);
+  font-size: 0.68rem; letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+/* ── STATS ── */
+.stats {
+  display: flex; gap: 3.5rem; flex-wrap: wrap;
+  margin: 2.5rem 0 1.5rem;
+}
+.stat .n {
+  font-size: 3.5rem; font-weight: 300;
+  color: var(--gold); line-height: 1;
+  font-family: var(--serif);
+}
+.stat .l {
+  font-family: var(--sans);
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-dim); margin-top: 0.4rem;
+}
+
+/* ── NOT LIST ── */
+.not-list {
+  list-style: none; padding: 0;
+  margin: 2rem 0; max-width: 70ch;
+}
+
+.not-list li {
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  color: var(--text-mid);
+  line-height: 1.7;
+  padding: 1rem 0 1rem 2.2rem;
+  border-bottom: 1px solid rgba(42,42,53,0.6);
+  position: relative;
+}
+
+.not-list li::before {
+  content: '';
+  position: absolute; left: 0; top: 1.35rem;
+  width: 10px; height: 2px;
+  background: var(--gold-dim);
+}
+
+.not-list li strong { color: var(--text); font-weight: 500; }
+
+/* ── FALSIFICATION CARDS ── */
+.falsification-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem; margin: 2.5rem 0;
+}
+
+.f-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  padding: 1.8rem;
+}
+
+.f-card h3 {
+  font-family: var(--sans);
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 0.6rem;
+}
+
+.f-card p {
+  font-family: var(--sans);
+  font-size: 0.88rem; color: var(--text-mid);
+  line-height: 1.7;
+}
+
+.f-card .timeline {
+  font-family: var(--sans);
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold); margin-top: 0.8rem;
+}
+
+/* ── CTA BOTTOM ── */
+.cta-bottom {
+  text-align: center;
+  padding: 4rem 10vw;
+  border-bottom: 1px solid var(--border);
+}
+
+.cta-bottom-btn {
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  font-family: var(--sans);
+  font-size: 0.8rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--bg); background: var(--gold);
+  text-decoration: none;
+  padding: 1rem 2.2rem;
+  transition: background 0.2s, transform 0.2s;
+}
+.cta-bottom-btn:hover { background: var(--gold-bright); transform: translateY(-2px); }
+.cta-bottom-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 3rem 10vw;
+  text-align: center;
+}
+footer p {
+  font-family: var(--sans);
+  font-size: 0.72rem; letter-spacing: 0.1em;
+  color: var(--text-dim);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 700px) {
+  .hero { padding: 4rem 6vw 3rem; }
+  .section { padding: 3.5rem 6vw; }
+  .back-bar { padding: 0 6vw; }
+  .axiom-display { flex-direction: column; }
+  .axiom-display-left { min-width: unset; border-right: none; border-bottom: 3px solid var(--gold); }
+  .pillars { grid-template-columns: 1fr; }
+  .stats { gap: 2rem; }
+  .results-grid { grid-template-columns: 1fr; }
+  .falsification-grid { grid-template-columns: 1fr; }
+  .cta-bottom { padding: 3rem 6vw; }
+}
+</style>
+</head>
+<body>
+
+<svg class="pent-bg" viewBox="0 0 700 800" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="350,40 660,250 545,630 155,630 40,250" fill="none" stroke="white" stroke-width="1.2"/>
+  <polygon points="350,110 590,280 490,570 210,570 110,280" fill="none" stroke="white" stroke-width="0.6"/>
+  <polygon points="350,180 520,315 440,510 260,510 180,315" fill="none" stroke="white" stroke-width="0.3"/>
+  <line x1="350" y1="40" x2="545" y2="630" stroke="white" stroke-width="0.4" opacity="0.6"/>
+  <line x1="350" y1="40" x2="155" y2="630" stroke="white" stroke-width="0.4" opacity="0.6"/>
+  <line x1="660" y1="250" x2="155" y2="630" stroke="white" stroke-width="0.4" opacity="0.6"/>
+  <line x1="40" y1="250" x2="545" y2="630" stroke="white" stroke-width="0.4" opacity="0.6"/>
+  <line x1="660" y1="250" x2="40" y2="250" stroke="white" stroke-width="0.4" opacity="0.6"/>
+</svg>
+
+<!-- BACK BAR -->
+<div class="back-bar">
+  <a href="index.html" class="back-btn">
+    <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+    Return to Main
+  </a>
+  <div class="back-bar-title">Pentagon Physics</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Start here</div>
+  <h1 class="hero-title">What Is <span class="accent">Pentagon Physics?</span></h1>
+  <p class="hero-subtitle">Pentagon Physics is not a theory in the usual sense, with parameters fitted to data. It is a <strong>calculational discipline</strong> with one alphabet, no numerical parameters, and structural selection rules that produce values for physical constants across every sector of the Standard Model.</p>
+</div>
+
+<!-- THE QUESTION -->
+<div class="section">
+  <div class="section-tag">The Problem</div>
+  <h2 class="section-title">What would a true foundation of physics look like?</h2>
+
+  <p class="body-text">Before naming any framework, it is worth asking what a competent geometric foundation of physics would have to deliver. The Standard Model has known limitations, and the question is not rhetorical. If a candidate framework meets these criteria, it is doing what physics has been trying to do.</p>
+
+  <ol class="criteria-list">
+    <li data-n="1"><strong>No free parameters.</strong> The Standard Model has nineteen free parameters. A competent foundation derives every one.</li>
+    <li data-n="2"><strong>The Lagrangian as derived consequence.</strong> A foundation that starts from a Lagrangian is assuming the answer. The Lagrangian should emerge, not be written down.</li>
+    <li data-n="3"><strong>Discreteness at the fundamental level.</strong> The Bekenstein-Hawking bound, Planck-scale arguments, and information-theoretic constraints all point to a discrete substrate.</li>
+    <li data-n="4"><strong>Finite-dimensional state space.</strong> Infinite-dimensional state spaces produce ultraviolet divergences that can only be removed by imposed cutoffs.</li>
+    <li data-n="5"><strong>No fine-tuning of hierarchies.</strong> The 10<sup>123</sup> cosmological constant problem and the 10<sup>17</sup> hierarchy problem should be explained, not adjusted away.</li>
+    <li data-n="6"><strong>Categorical unification of gravity with quantum mechanics.</strong> Not two theories stitched together, but one structure that produces both.</li>
+    <li data-n="7"><strong>Explanation of the gauge structure.</strong> Why SU(3) &times; SU(2) &times; U(1)? Why these specific representations for quarks and leptons?</li>
+    <li data-n="8"><strong>Explanation of three generations.</strong> Three generations of quarks and leptons exist. The Standard Model has no derivation of this number.</li>
+    <li data-n="9"><strong>Explanation of dark matter and dark energy.</strong> The Standard Model accounts for roughly 5% of the energy density of the universe.</li>
+    <li data-n="10"><strong>Empirical falsifiability through specific numerical predictions.</strong> A foundation that produces only qualitative claims cannot be tested.</li>
+  </ol>
+
+  <p class="body-text">No existing programme simultaneously addresses all ten. Pentagon Physics claims to address all ten from a single source.</p>
+</div>
+
+<!-- THE METHOD -->
+<div class="section">
+  <div class="section-tag">The Method</div>
+  <h2 class="section-title">Three elements. One order. No choices.</h2>
+
+  <p class="body-text">The framework rests on three elements, in a specific order. The order matters because each element flows from the previous one without choice.</p>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-num">Element 1</div>
+      <h3>The Axiom</h3>
+      <div class="formula">&sigma; = 1/(1+&sigma;)</div>
+      <p>A self-referential fixed-point equation. Its positive solution is <strong>&phi; = (1+&radic;5)/2</strong>, the golden ratio. This is the simplest non-trivial fixed-point equation on the real line. The framework's claim is that every physical constant is a theorem of this equation.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">Element 2</div>
+      <h3>The Geometric Substrate</h3>
+      <div class="formula">The 600-cell</div>
+      <p>The axiom forces &phi; throughout the framework. The unique four-dimensional regular polytope whose symmetry group has &phi; as a fundamental ratio is the <strong>600-cell</strong>: 120 vertices on the unit 3-sphere, with the binary icosahedral group 2I as its symmetry group.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">Element 3</div>
+      <h3>The Character-Table Alphabet</h3>
+      <div class="formula">2I &rarr; 9 irreps &rarr; 15 values</div>
+      <p>The binary icosahedral group 2I has nine irreducible representations. Their character values lie in the quadratic field &Qopf;(&radic;5). The character table has 81 entries with <strong>15 distinct values</strong>, all expressible as integer combinations of 1 and &phi;. This is the entire alphabet.</p>
+    </div>
+  </div>
+
+  <div class="chain">
+    <div class="c-node key">&sigma; = 1/(1+&sigma;)</div><div class="c-arrow">&rarr;</div>
+    <div class="c-node">&phi; = (1+&radic;5)/2</div><div class="c-arrow">&rarr;</div>
+    <div class="c-node">&Qopf;(&radic;5)</div><div class="c-arrow">&rarr;</div>
+    <div class="c-node">600-cell</div><div class="c-arrow">&rarr;</div>
+    <div class="c-node">2I character table</div><div class="c-arrow">&rarr;</div>
+    <div class="c-node key">15 values &middot; 0 parameters</div><div class="c-arrow">&rarr;</div>
+    <div class="c-node key">All of physics</div>
+  </div>
+
+  <p class="body-text"><strong>Parameter-free, but not choice-free.</strong> There are no tuneable numbers in Pentagon Physics. The axiom is fixed. The geometry is forced. The character table is computed by Burnside's algorithm. What remains are structural choices: which character-table combination maps to which physical quantity. The framework's credibility depends on whether these selections are structurally constrained rather than target-selected &mdash; and they are documented with explicit selection rules in every paper.</p>
+</div>
+
+<!-- WHY THIS CHARACTER TABLE -->
+<div class="section">
+  <div class="section-tag">Uniqueness</div>
+  <h2 class="section-title">Why this character table and no other?</h2>
+
+  <p class="body-text">Many finite groups have character tables. The natural objection is: why 2I rather than another group?</p>
+
+  <p class="body-text">The character table of 2I works because it is the <strong>only finite alphabet</strong> whose internal arithmetic produces all eight of the non-trivial structural objects that physics demands simultaneously:</p>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-num">Structural object</div>
+      <h3>Galois Pair</h3>
+      <p>The automorphism &radic;5 &rarr; &minus;&radic;5 provides a natural two-valuedness: the split between propagating and confined modes.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">Structural object</div>
+      <h3>Discriminant Filter</h3>
+      <p>Exactly two eigenvalues of the 600-cell adjacency matrix produce propagating modes &mdash; giving gravity and electromagnetism. The rest are confined.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">Structural object</div>
+      <h3>Three Generations</h3>
+      <p>Three copies of the fundamental representation appear in the character table decomposition, forcing exactly three families of fermions.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">Structural object</div>
+      <h3>Gauge Structure</h3>
+      <p>The representation dimensions and their tensor products reproduce the gauge group structure of the Standard Model.</p>
+    </div>
+  </div>
+
+  <p class="body-text">No other finite group character table delivers all of these simultaneously. The selection is not aesthetic &mdash; it is forced by the requirement that the alphabet be sufficient.</p>
+</div>
+
+<!-- EMPIRICAL PATTERN -->
+<div class="section">
+  <div class="section-tag">The Evidence</div>
+  <h2 class="section-title">25 quantities. One method. Zero parameters.</h2>
+
+  <p class="body-text">In every quantity where the Standard Model produces a consensus value that differs from the most precise direct measurement, Pentagon Physics aligns with the direct measurement more closely than the SM consensus does.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="n">25</div><div class="l">Independent quantities derived</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Free parameters</div></div>
+    <div class="stat"><div class="n">51</div><div class="l">Nuclear masses matched</div></div>
+    <div class="stat"><div class="n">8</div><div class="l">RIKEN forward predictions</div></div>
+  </div>
+
+  <div class="results-grid">
+    <div class="r-card">
+      <h3>Fine Structure Constant</h3>
+      <div class="formula">&alpha;<sup>&minus;1</sup> = 360/&phi;<sup>2</sup> &minus; 2/&phi;<sup>3</sup> + 3<sup>&minus;5</sup>/&phi;<sup>5</sup> + 7<sup>&minus;7</sup>/&phi;<sup>7</sup></div>
+      <div class="desc">Matches the most precise direct measurement (Morel 2020, Rb-recoil) to 10 decimal places.</div>
+      <div class="prec">137.035999207 &middot; 0.05&sigma; from experiment</div>
+    </div>
+    <div class="r-card">
+      <h3>Gravitational Constant</h3>
+      <div class="formula">&alpha;<sub>G</sub> = &alpha;<sup>18</sup> &times; 12/7</div>
+      <div class="desc">Gravity as confinement leakage through 102 unused 600-cell vertices across 18 eigenmode layers.</div>
+      <div class="prec">Agreement to 0.05%</div>
+    </div>
+    <div class="r-card">
+      <h3>Cosmological Constant</h3>
+      <div class="formula">log<sub>10</sub>(&rho;<sub>&Lambda;</sub>) = &minus;(&alpha;<sup>&minus;1</sup> &times; 2/&radic;5 + &phi;<sup>&minus;2</sup>)</div>
+      <div class="desc">The 10<sup>123</sup> hierarchy is a theorem of the same geometry as &alpha;. One line, no tuning.</div>
+      <div class="prec">&minus;122.951 &middot; observed &minus;122.945</div>
+    </div>
+    <div class="r-card">
+      <h3>Proton&ndash;Electron Mass Ratio</h3>
+      <div class="formula">m<sub>p</sub>/m<sub>e</sub> = 6&pi;<sup>5</sup> + &pi;<sup>5</sup>/[&phi;<sup>7</sup>(&pi;<sup>5</sup>&minus;1)]</div>
+      <div class="desc">&phi; = 2cos(&pi;/5) connects &phi; to &pi; through pentagon geometry &mdash; forced, not chosen.</div>
+      <div class="prec">Agreement to 0.005 ppm</div>
+    </div>
+    <div class="r-card">
+      <h3>Nuclear Binding Energy</h3>
+      <div class="formula">b<sup>2</sup> + b = &Sigma;&lambda;<sup>+</sup>(A)/A</div>
+      <div class="desc">One parameter-free formula replaces the five fitted terms of the Bethe-Weizs&auml;cker model. Iron-56 is the fixed point where b &asymp; &sigma;.</div>
+      <div class="prec">51 isotopes at 0.11% RMS</div>
+    </div>
+    <div class="r-card">
+      <h3>Neutrino Sector</h3>
+      <div class="formula">Q(&nu;) = &sigma;<sup>2</sup> = 1/&phi;<sup>2</sup> &middot; &Sigma;m = 74.65 meV</div>
+      <div class="desc">All seven neutrino parameters derived. Majorana character proved from the character table of 2I. Atmospheric octant predicted.</div>
+      <div class="prec">Forward predictions awaiting JUNO, DUNE, Hyper-K</div>
+    </div>
+    <div class="r-card">
+      <h3>Proton Charge Radius</h3>
+      <div class="formula">r<sub>p</sub> = &phi;<sup>3</sup>/(&pi;&phi; + 2) fm</div>
+      <div class="desc">Derived from 600-cell geometry. Agrees with the muonic hydrogen measurement that resolved the proton radius puzzle.</div>
+      <div class="prec">Matches muonic hydrogen result</div>
+    </div>
+    <div class="r-card">
+      <h3>Exotic Nuclear Masses</h3>
+      <div class="formula">30 predictions &middot; 8 confirmed by RIKEN</div>
+      <div class="desc">The nuclear mass formula was applied to 30 unmeasured isotopes. Eight were subsequently measured by RIKEN &mdash; all within predicted range.</div>
+      <div class="prec">Genuine forward predictions with Zenodo timestamps</div>
+    </div>
+  </div>
+</div>
+
+<!-- SM COMPARISON -->
+<div class="section">
+  <div class="section-tag">The Comparison</div>
+  <h2 class="section-title">One method vs. a portfolio of methods</h2>
+
+  <p class="body-text">The Standard Model is not a single calculational method. It is a <strong>portfolio of techniques</strong>: lattice QCD with multiple discretisation schemes, CKM extraction with inclusive and exclusive routes that disagree, CODATA global least-squares fits combining measurements that pull against each other, nuclear models from liquid-drop to shell-model with five or more fitted terms each.</p>
+
+  <p class="body-text">Each technique has its own adjustable inputs. The methods sometimes disagree. The Standard Model arrives at a consensus value by weighting, averaging, and sometimes discarding outliers.</p>
+
+  <p class="body-text">Pentagon Physics applies <strong>one consistent calculational discipline</strong> across all quantities. The same 15 character-table values. The same structural selection rules. No sector-specific adjustments, no weighting, no consensus averaging.</p>
+
+  <p class="body-text">The structural observation is that a parameter-free single method, in a fair comparison across many observables, beats a parameter-rich portfolio of methods at the criterion the portfolio is designed to optimise: <strong>agreement with the cleanest measurement available</strong>.</p>
+</div>
+
+<!-- PREDICTION vs POSTDICTION -->
+<div class="section">
+  <div class="section-tag">Honest Chronology</div>
+  <h2 class="section-title">Prediction vs. postdiction</h2>
+
+  <p class="body-text">Most of the 25 quantities are <strong>postdictions</strong> &mdash; derived with knowledge of the experimental targets. The framework's structural ingredients were selected in 2025 and 2026 with knowledge of the target values. Intellectual honesty requires stating this plainly.</p>
+
+  <p class="body-text">However, a genuine subset are <strong>forward predictions</strong>:</p>
+
+  <ul class="not-list">
+    <li><strong>8 RIKEN exotic isotope masses</strong> &mdash; the formula was published on Zenodo on 7 April 2026, before RIKEN announced measurements of Cr-72, Mn-74, Mn-75, Fe-77, Co-79, Co-80, Cu-85, and Ga-90. All eight landed within the predicted range.</li>
+    <li><strong>Atmospheric neutrino octant</strong> &mdash; PP predicts the upper octant definitively. Currently contested experimentally. Testable by DUNE and Hyper-Kamiokande within 5 years.</li>
+    <li><strong>Dirac CP phase</strong> &mdash; PP predicts &delta; = 222&deg; from a structural relation. Presently consistent with data; will sharpen as DUNE accumulates statistics.</li>
+    <li><strong>Neutrino mass sum</strong> &mdash; PP predicts &Sigma;m = 74.65 meV. Current cosmological limits are weaker; CMB-S4 and next-generation surveys will reach this range.</li>
+    <li><strong>Solar mass splitting</strong> &mdash; PP predicts a specific value currently at 0.6&sigma; from measured. JUNO's sub-percent determination will test this directly.</li>
+  </ul>
+
+  <p class="body-text">All forward bets have <strong>Zenodo timestamps</strong> that predate any future adjudication, and all will be resolved within the next decade.</p>
+</div>
+
+<!-- WHAT THIS IS NOT -->
+<div class="section">
+  <div class="section-tag">Boundaries</div>
+  <h2 class="section-title">What this is not</h2>
+
+  <ul class="not-list">
+    <li><strong>Not a proof that Pentagon Physics is the correct underlying theory.</strong> Numerical agreement of a parameter-free method with direct measurements does not establish that the method captures the underlying physics. It establishes that the method is empirically competitive.</li>
+    <li><strong>Not a claim that the Standard Model is incorrect.</strong> The Standard Model produces values accurate to the level of its experimental tests where its consensus procedures are internally consistent.</li>
+    <li><strong>Not a claim that no other parameter-free method could match it.</strong> If such a method existed, the comparison would be between two parameter-free methods &mdash; which would be a welcome development.</li>
+    <li><strong>Not a uniform claim about prediction vs. postdiction.</strong> Most quantities were derived with knowledge of the experimental targets. Only the forward predictions carry predictive weight.</li>
+  </ul>
+
+  <p class="body-text">Pentagon Physics is not a competitor to the Standard Model at the level of result. It is a competitor <strong>at the level of method</strong>.</p>
+</div>
+
+<!-- FALSIFICATION -->
+<div class="section">
+  <div class="section-tag">Falsification</div>
+  <h2 class="section-title">How to break it</h2>
+
+  <p class="body-text">The framework is falsifiable in three ways, on three timescales. It is not protected by any "future work" deferral.</p>
+
+  <div class="falsification-grid">
+    <div class="f-card">
+      <h3>Near-term: precision metrology</h3>
+      <p>PP predicts &alpha;<sup>&minus;1</sup> = 137.035999207 exactly. The most precise direct measurement agrees to the last published digit. If a next-generation measurement of &alpha; moves away from this value by more than experimental uncertainty, PP is refuted at the most basic level.</p>
+      <div class="timeline">2&ndash;5 years</div>
+    </div>
+    <div class="f-card">
+      <h3>Medium-term: neutrino experiments</h3>
+      <p>The neutrino sector's four pending bets &mdash; atmospheric octant, Dirac phase, mass sum, solar splitting &mdash; will be tested by JUNO, DUNE, Hyper-Kamiokande, and CMB-S4. Any single bet failing outside uncertainty kills the neutrino sector derivation.</p>
+      <div class="timeline">5&ndash;10 years</div>
+    </div>
+    <div class="f-card">
+      <h3>Immediate: methodological audit</h3>
+      <p>The claim of parameter-free single-method behaviour depends on the structural selection rules being applied consistently across the corpus. If a structural audit finds that expressions were chosen ad hoc to match targets, the framework collapses to numerology.</p>
+      <div class="timeline">Available now</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA BOTTOM -->
+<div class="cta-bottom">
+  <a href="index.html" class="cta-bottom-btn">
+    <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+    Return to Main Menu
+  </a>
+</div>
+
+<footer>
+  <p>Pentagon Physics &middot; Eric McLean &middot; Edinburgh, Scotland &middot; All open access &middot; CC BY 4.0</p>
+</footer>
+
+</body>
+</html>
